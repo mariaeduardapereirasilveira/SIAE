@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - SIAE</title>
+    <link rel="stylesheet" href="../assets/app/styles/app.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon"><svg viewBox="0 0 48 48" class="owl-logo"><circle cx="24" cy="24" r="22" fill="#5C6BC0"/><ellipse cx="16" cy="20" rx="6" ry="7" fill="#F5F5F5"/><ellipse cx="32" cy="20" rx="6" ry="7" fill="#F5F5F5"/><circle cx="16" cy="20" r="4" fill="#1A1A2E"/><circle cx="32" cy="20" r="4" fill="#1A1A2E"/><circle cx="17" cy="19" r="1.5" fill="#FFF"/><circle cx="33" cy="19" r="1.5" fill="#FFF"/><path d="M20 28 L24 32 L28 28" stroke="#FFA726" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M22 34 Q24 36 26 34" stroke="#7C4DFF" stroke-width="2" fill="none"/></svg></div>
+                <div class="sidebar-logo-text"><h1>SIAE</h1><p>Conexoes entre Setores</p></div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Principal</div>
+                <a href="dashboard.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span>Dashboard</span></a>
+                <a href="search.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Busca</span></a>
+                <a href="charts.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><span>Graficos</span></a>
+                <a href="reports.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span>Relatorios</span></a>
+                <a href="notifications.html" class="sidebar-item professional-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><span>Notificacoes</span><span class="sidebar-badge">3</span></a>
+                <a href="faq.html" class="sidebar-item active"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><span>FAQ</span></a>
+                <a href="occurrences.html" class="sidebar-item professional-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><span>Minhas Ocorrencias</span></a>
+                <div class="sidebar-section-label admin-only">Administracao</div>
+                <a href="../admin/students.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span>Alunos</span></a>
+                <a href="../admin/professionals.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="7" r="4"/></svg></div><span>Profissionais</span></a>
+                <a href="../admin/sectors.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><span>Setores</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="profile.html" class="sidebar-user"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Usuario</h4><p id="userRole">Cargo</p></div></a>
+                <button onclick="handleLogout()" style="width: 100%; padding: 8px 12px; margin-top: 8px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: rgba(255,255,255,0.7); font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: inherit;">Sair</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="app-header">
+                <div class="header-breadcrumb"><h2>Perguntas Frequentes</h2><p>Central de ajuda e suporte</p></div>
+                <div class="header-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Buscar na FAQ..."></div>
+                <a href="notifications.html" class="header-icon-btn professional-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg><span class="dot"></span></a>
+                <button class="header-icon-btn admin-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0"/></svg></button>
+                <a href="profile.html" class="header-user-chip"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></a>
+            </header>
+
+            <div class="page-content animate-fade-in">
+                <div class="page-header">
+                    <div class="page-header-title"><h1>Perguntas Frequentes</h1><p>Encontre respostas para as duvidas mais comuns</p></div>
+                    <button class="btn btn-primary btn-sm admin-only" id="addFaqBtn" onclick="openAddFAQModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Adicionar Pergunta
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div><div class="card-title">Central de Ajuda</div><div class="card-subtitle">Clique na pergunta para visualizar a resposta</div></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="faqContainer">
+                            <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)"><span>Como registrar um novo atendimento?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="accordion-content"><p>Acesse a pagina "Minhas Ocorrencias" e clique no botao "Nova Ocorrencia". Preencha os campos obrigatórios como aluno, tipo de atendimento e descricao. Ao finalizar, clique em "Salvar".</p></div></div>
+                            <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)"><span>Como compartilhar uma ocorrencia com outro profissional?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="accordion-content"><p>Na lista de ocorrencias, clique em "Compartilhar" na ocorrencia desejada. Selecione os profissionais com quem deseja compartilhar e confirme.</p></div></div>
+                            <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)"><span>Como buscar informacoes de um aluno?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="accordion-content"><p>Acesse a pagina "Busca" no menu lateral. Voce pode buscar por nome do aluno, turma ou matricula (RA). Use os filtros para refinar sua pesquisa.</p></div></div>
+                            <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)"><span>Quem pode ver as ocorrencias que eu criei?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="accordion-content"><p>Apenas voce e os profissionais com quem voce compartilhou a ocorrencia podem visualiza-la. Admins tambem tem acesso a todas as ocorrencias para fins de gestao.</p></div></div>
+                            <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)"><span>Como gerar relatorios?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="accordion-content"><p>Acesse a pagina "Relatorios" no menu lateral. La voce encontrara relatorios pre-configurados. Admins podem gerar relatorios personalizados.</p></div></div>
+                            <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)"><span>Como alterar minhas informacoes de perfil?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="accordion-content"><p>Clique no seu avatar no canto superior direito ou no menu lateral para acessar seu perfil. Clique em "Editar Perfil" para alterar suas informacoes.</p></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- FAQ Modal -->
+    <div class="modal-overlay" id="faqModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div><div class="card-title">Adicionar Nova Pergunta</div><div class="card-subtitle">Preencha os campos abaixo</div></div>
+                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('faqModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Pergunta</label><input type="text" class="form-control" id="questionInput" placeholder="Digite a pergunta..."></div>
+                <div class="form-group" style="margin-bottom: 0;"><label class="form-label">Resposta</label><textarea class="form-control" id="answerInput" rows="5" placeholder="Digite a resposta detalhada..."></textarea></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('faqModal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveFAQ()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkAuth() { if (localStorage.getItem('siae_is_logged_in') !== 'true') { window.location.href = 'login.html'; return false; } return true; }
+
+        function updateUIByRole() {
+            const role = localStorage.getItem('siae_user_role') || 'professional';
+            const isAdmin = role === 'admin';
+            document.getElementById('userName').textContent = isAdmin ? 'Admin SIAE' : 'Dra. Patricia Lima';
+            document.getElementById('userRole').textContent = isAdmin ? 'Administrador' : 'Psicologa';
+            document.getElementById('userAvatar').textContent = isAdmin ? 'AD' : 'PL';
+            document.getElementById('headerName').textContent = isAdmin ? 'Admin' : 'Patricia';
+            document.getElementById('headerAvatar').textContent = isAdmin ? 'AD' : 'PL';
+            document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? '' : 'none');
+            document.querySelectorAll('.professional-only').forEach(el => el.style.display = isAdmin ? 'none' : '');
+        }
+
+        function toggleAccordion(header) {
+
+    const item = header.parentElement;
+    const content = header.nextElementSibling;
+    const isOpen = item.classList.contains('active');
+
+    document.querySelectorAll('.accordion-item').forEach(el => {
+        el.classList.remove('active');
+        el.querySelector('.accordion-content').style.maxHeight = '0px';
+    });
+
+    if (!isOpen) {
+        item.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
+    }
+}
+
+        function openAddFAQModal() { document.getElementById('faqModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+
+        function saveFAQ() {
+            const question = document.getElementById('questionInput').value;
+            const answer = document.getElementById('answerInput').value;
+            if (question && answer) {
+                const container = document.getElementById('faqContainer');
+                const item = document.createElement('div');
+                item.className = 'accordion-item';
+               item.innerHTML = `
+<div class="accordion-header" onclick="toggleAccordion(this)">
+    <span>${question}</span>
+    <svg viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="2">
+        <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+</div>
+
+<div class="accordion-content">
+    <p>${answer}</p>
+</div>
+`;
+            }
+        }
+
+        function handleLogout() { localStorage.clear(); window.location.href = 'login.html'; }
+
+        if (checkAuth()) updateUIByRole();
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Relatórios — SIAE Admin</title>
+<link rel="stylesheet" href="../assets/_common/styles/global.css"/>
+<link rel="stylesheet" href="../assets/app/styles/app.css"/>
+<link rel="stylesheet" href="../assets/admin/styles/admin.css"/>
+
+<style>
+.admin-form-card{
+  margin-bottom:24px;
+}
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+.form-grid label{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  font-weight:600;
+  color:#374151;
+}
+.form-grid input,
+.form-grid select,
+.form-grid textarea{
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #d1d5db;
+  font-size:14px;
+  outline:none;
+}
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus{
+  border-color:#2563eb;
+}
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+  margin-top:20px;
+}
+</style>
+
+</head>
+<body class="app-shell">
+<aside class="sidebar sidebar-admin">
+  <header class="sidebar-brand"><figure class="brand-mark">S</figure><hgroup><p class="brand-name">SIAE Admin</p><p class="brand-tag">Painel de gestão</p></hgroup></header>
+  <nav>
+    <p class="sidebar-section-label">Gestão</p>
+    <ul class="sidebar-nav">
+      <li><a href="admin.html">Visão geral</a></li>
+      <li><a href="students.html">Alunos</a></li>
+      <li><a href="professionals.html">Profissionais</a></li>
+      <li><a href="sectors.html">Setores</a></li>
+      <li><a href="reports.html" class="is-active">Relatórios</a></li>
+      <li><a href="notifications.html">Notificações</a></li>
+    </ul>
+    <p class="sidebar-section-label" style="margin-top:24px">Conta</p>
+    <ul class="sidebar-nav"><li><a href="../public/login.html" data-logout>Sair</a></li></ul>
+  </nav>
+  <footer class="sidebar-footer"><figure class="avatar avatar-cream" data-user-initials>AD</figure><hgroup><p class="name" data-user-name>Antônio Diniz</p><p class="role">Administrador</p></hgroup></footer>
+</aside>
+<section class="main">
+<header class="topbar">
+  <button class="menu-toggle" data-menu-toggle aria-label="Abrir menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <form class="topbar-search" role="search" onsubmit="return false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input type="search" placeholder="Buscar…" aria-label="Buscar"/>
+  </form>
+  <nav class="topbar-actions">
+    <a href="#" class="topbar-user"><span class="topbar-user-name" data-user-name>Antônio Diniz</span><span class="avatar avatar-cream" data-user-initials>AD</span></a>
+  </nav>
+</header>
+<article class="page"><header class="page-header">
+  <hgroup><h1>Relatórios administrativos</h1><p class="subtitle">Visão consolidada da plataforma.</p></hgroup>
+  <button class="btn btn-primary">+ Novo relatório</button>
+</header>
+<section class="grid grid-stats">
+  <article class="stat-card"><p class="label">Alunos cadastrados</p><p class="value">842</p><p class="trend">↑ 14 este mês</p></article>
+  <article class="stat-card"><p class="label">Profissionais</p><p class="value">26</p><p class="trend">↑ 2 esta semana</p></article>
+  <article class="stat-card"><p class="label">Setores</p><p class="value">3</p><p class="trend">Ativos</p></article>
+  <article class="stat-card"><p class="label">Atendimentos no mês</p><p class="value">766</p><p class="trend">↑ 9%</p></article>
+</section>
+
+<section class="card admin-form-card">
+  <header class="card-header">
+    <h2 class="card-title">Novo relatório</h2>
+  </header>
+  <form>
+    
+<div class="form-grid">
+  <label><span>Título do relatório</span><input type="text" placeholder="Relatório mensal"/></label>
+  <label><span>Tipo</span><select><option>PDF</option><option>CSV</option><option>Dashboard</option></select></label>
+  <label><span>Período</span><input type="month"/></label>
+  <label><span>Responsável</span><input type="text" placeholder="Nome do responsável"/></label>
+</div>
+
+    <label style="display:flex;flex-direction:column;gap:8px;margin-top:16px;font-weight:600;color:#374151;">
+      <span>Observações</span>
+      <textarea rows="4" placeholder="Adicione informações complementares"></textarea>
+    </label>
+    <div class="form-actions">
+      <button type="reset" class="btn btn-ghost">Limpar</button>
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+  </form>
+</section>
+
+<section class="card"><header class="card-header"><h2 class="card-title">Relatórios disponíveis</h2></header>
+<ul class="occurrence-list">
+  <li><article class="occurrence-item" style="cursor:default"><figure class="avatar">📊</figure><hgroup><p class="student-name">Atendimentos por setor</p><p class="meta">Mensal · PDF/CSV</p></hgroup><a href="#" class="btn btn-ghost">Baixar</a><time></time></article></li>
+  <li><article class="occurrence-item" style="cursor:default"><figure class="avatar avatar-rose">👥</figure><hgroup><p class="student-name">Usuários ativos</p><p class="meta">Semanal · CSV</p></hgroup><a href="#" class="btn btn-ghost">Baixar</a><time></time></article></li>
+  <li><article class="occurrence-item" style="cursor:default"><figure class="avatar avatar-cream">🎯</figure><hgroup><p class="student-name">Casos de alta preocupação</p><p class="meta">Sob demanda</p></hgroup><a href="#" class="btn btn-ghost">Gerar</a><time></time></article></li>
+</ul></section></article></section>
+<script src="../assets/_common/script/global.js"></script>
+<script src="../assets/app/script/app.js"></script>
+<script src="../assets/admin/script/admin.js"></script>
+</body></html>

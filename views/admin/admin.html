@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel administrativo — SIAE</title>
+  <link rel="stylesheet" href="../assets/_common/styles/global.css" />
+  <link rel="stylesheet" href="../assets/app/styles/app.css" />
+  <link rel="stylesheet" href="../assets/admin/styles/admin.css" />
+</head>
+<body class="app-shell">
+  <aside class="sidebar sidebar-admin" aria-label="Menu administrativo">
+    <header class="sidebar-brand">
+      <figure class="brand-mark" aria-hidden="true">S</figure>
+      <hgroup>
+        <p class="brand-name">SIAE Admin</p>
+        <p class="brand-tag">Painel de gestão</p>
+      </hgroup>
+    </header>
+    <nav>
+      <p class="sidebar-section-label">Gestão</p>
+      <ul class="sidebar-nav">
+        <li><a href="admin.html" class="is-active">Visão geral</a></li>
+        <li><a href="students.html">Alunos</a></li>
+        <li><a href="professionals.html">Profissionais</a></li>
+        <li><a href="sectors.html">Setores</a></li>
+        <li><a href="reports.html">Relatórios</a></li>
+        <li><a href="notifications.html">Notificações</a></li>
+      </ul>
+      <p class="sidebar-section-label" style="margin-top:24px">Conta</p>
+      <ul class="sidebar-nav">
+        <li><a href="../public/login.html" data-logout><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 4h4v16h-4"/><path d="M10 17l-5-5 5-5"/><path d="M5 12h12"/></svg>Sair</a></li>
+      </ul>
+    </nav>
+    <footer class="sidebar-footer">
+      <figure class="avatar avatar-cream" data-user-initials aria-hidden="true">AD</figure>
+      <hgroup><p class="name" data-user-name>Antônio Diniz</p><p class="role">Administrador</p></hgroup>
+    </footer>
+  </aside>
+
+  <section class="main">
+    <header class="topbar">
+      <button class="menu-toggle" data-menu-toggle aria-label="Abrir menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <form class="topbar-search" role="search" onsubmit="return false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" placeholder="Buscar usuários, alunos, setores…" aria-label="Buscar" />
+      </form>
+      <nav class="topbar-actions">
+        <button class="btn btn-primary">+ Cadastrar</button>
+        
+        <a href="#" class="topbar-user"><span class="topbar-user-name" data-user-name>Antônio Diniz</span><span class="avatar avatar-cream" data-user-initials>AD</span></a>
+      </nav>
+    </header>
+
+    <article class="page">
+      <section class="admin-banner">
+        <hgroup>
+          <h2>Bem-vindo de volta, Antônio</h2>
+          <p>Você tem 3 solicitações de novos cadastros aguardando aprovação.</p>
+        </hgroup>
+        <button class="btn btn-secondary">Revisar solicitações</button>
+      </section>
+
+      <section class="grid grid-stats" aria-label="Indicadores administrativos">
+        <article class="stat-card"><p class="label">Alunos cadastrados</p><p class="value">842</p><p class="trend">↑ 14 este mês</p></article>
+        <article class="stat-card"><p class="label">Profissionais ativos</p><p class="value">26</p><p class="trend">↑ 2 esta semana</p></article>
+        <article class="stat-card"><p class="label">Setores</p><p class="value">3</p><p class="trend">Orientação · Psicologia · Enfermaria</p></article>
+        <article class="stat-card"><p class="label">Acessos hoje</p><p class="value">119</p><p class="trend">↑ 8%</p></article>
+      </section>
+
+      <section class="card">
+        <header class="card-header">
+          <h2 class="card-title">Gestão de cadastros</h2>
+          <nav class="admin-tabs" aria-label="Categorias">
+            <button class="is-active" data-admin-tab="students">Alunos</button>
+            <button data-admin-tab="professionals">Profissionais</button>
+            <button data-admin-tab="sectors">Setores</button>
+          </nav>
+        </header>
+
+        <!-- TODO: substituir por dados reais da API GET /api/admin/students -->
+        <section data-admin-panel="students">
+          <table class="data-table">
+            <thead>
+              <tr><th>Aluno</th><th>Matrícula</th><th>Turma</th><th>Ocorrências</th><th>Status</th><th>Ações</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="flex items-center gap-3"><span class="avatar avatar-sm">LA</span> Lucas Almeida</span></td>
+                <td>2024-0142</td><td>2º Info A</td><td>3</td>
+                <td><span class="badge badge-teal badge-dot">Ativo</span></td>
+                <td><span class="row-actions">
+                  <button class="icon-btn" aria-label="Editar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h4l10-10-4-4L4 16z"/></svg></button>
+                  <button class="icon-btn danger" aria-label="Remover"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+                </span></td>
+              </tr>
+              <tr>
+                <td><span class="flex items-center gap-3"><span class="avatar avatar-rose avatar-sm">MS</span> Mariana Santos</span></td>
+                <td>2025-0033</td><td>1º Info B</td><td>2</td>
+                <td><span class="badge badge-teal badge-dot">Ativo</span></td>
+                <td><span class="row-actions">
+                  <button class="icon-btn" aria-label="Editar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h4l10-10-4-4L4 16z"/></svg></button>
+                  <button class="icon-btn danger" aria-label="Remover"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+                </span></td>
+              </tr>
+              <tr>
+                <td><span class="flex items-center gap-3"><span class="avatar avatar-cream avatar-sm">PR</span> Pedro Rocha</span></td>
+                <td>2023-0210</td><td>3º Info A</td><td>1</td>
+                <td><span class="badge badge-cream">Pendente</span></td>
+                <td><span class="row-actions">
+                  <button class="icon-btn" aria-label="Editar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h4l10-10-4-4L4 16z"/></svg></button>
+                  <button class="icon-btn danger" aria-label="Remover"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+                </span></td>
+              </tr>
+              <tr>
+                <td><span class="flex items-center gap-3"><span class="avatar avatar-sm">CV</span> Clara Viana</span></td>
+                <td>2024-0177</td><td>2º Info B</td><td>4</td>
+                <td><span class="badge badge-teal badge-dot">Ativo</span></td>
+                <td><span class="row-actions">
+                  <button class="icon-btn" aria-label="Editar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h4l10-10-4-4L4 16z"/></svg></button>
+                  <button class="icon-btn danger" aria-label="Remover"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+                </span></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section data-admin-panel="professionals" hidden>
+          <table class="data-table">
+            <thead><tr><th>Profissional</th><th>E-mail</th><th>Setor</th><th>Permissão</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><span class="flex items-center gap-3"><span class="avatar avatar-rose avatar-sm">JC</span> Joana Carvalho</span></td>
+                <td>joana.carvalho@inst.edu.br</td><td>Orientação</td><td>Profissional</td>
+                <td><span class="badge badge-teal badge-dot">Ativo</span></td>
+                <td><span class="row-actions"><button class="icon-btn" aria-label="Editar">✎</button><button class="icon-btn danger" aria-label="Remover">×</button></span></td>
+              </tr>
+              <tr>
+                <td><span class="flex items-center gap-3"><span class="avatar avatar-sm">CL</span> Camila Lopes</span></td>
+                <td>camila.lopes@inst.edu.br</td><td>Psicologia</td><td>Profissional</td>
+                <td><span class="badge badge-teal badge-dot">Ativo</span></td>
+                <td><span class="row-actions"><button class="icon-btn" aria-label="Editar">✎</button><button class="icon-btn danger" aria-label="Remover">×</button></span></td>
+              </tr>
+              <tr>
+                <td><span class="flex items-center gap-3"><span class="avatar avatar-cream avatar-sm">BR</span> Bruno Ribeiro</span></td>
+                <td>bruno.ribeiro@inst.edu.br</td><td>Enfermaria</td><td>Profissional</td>
+                <td><span class="badge badge-cream">Pendente</span></td>
+                <td><span class="row-actions"><button class="icon-btn" aria-label="Editar">✎</button><button class="icon-btn danger" aria-label="Remover">×</button></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section data-admin-panel="sectors" hidden>
+          <section class="grid grid-3">
+            <article class="card">
+              <h3>Orientação Educacional</h3>
+              <p class="text-muted">8 profissionais · 312 atendimentos</p>
+              <footer class="flex gap-2"><span class="badge badge-teal badge-dot">Ativo</span></footer>
+            </article>
+            <article class="card">
+              <h3>Psicologia</h3>
+              <p class="text-muted">5 profissionais · 198 atendimentos</p>
+              <footer class="flex gap-2"><span class="badge badge-teal badge-dot">Ativo</span></footer>
+            </article>
+            <article class="card">
+              <h3>Enfermaria</h3>
+              <p class="text-muted">4 profissionais · 256 atendimentos</p>
+              <footer class="flex gap-2"><span class="badge badge-teal badge-dot">Ativo</span></footer>
+            </article>
+          </section>
+        </section>
+      </section>
+    </article>
+  </section>
+
+  <script src="../assets/_common/script/global.js"></script>
+  <script src="../assets/app/script/app.js"></script>
+  <script src="../assets/admin/script/admin.js"></script>
+</body>
+</html>

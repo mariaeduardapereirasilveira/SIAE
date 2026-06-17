@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graficos - SIAE</title>
+    <link rel="stylesheet" href="../assets/app/styles/app.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+    <style>
+        .chart-card { background: var(--surface); border-radius: var(--radius-lg); padding: 24px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .chart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        .chart-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+        .chart-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+        .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 180px; padding-top: 20px; }
+        .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .bar { width: 100%; background: linear-gradient(180deg, var(--primary), var(--secondary)); border-radius: 4px 4px 0 0; transition: var(--transition); min-height: 4px; }
+        .bar:hover { opacity: 0.8; }
+        .bar-label { font-size: 10px; color: var(--text-muted); font-weight: 500; }
+        .progress-ring { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .ring-container { position: relative; width: 100px; height: 100px; }
+        .ring-container svg { transform: rotate(-90deg); }
+        .ring-bg { fill: none; stroke: var(--border); stroke-width: 8; }
+        .ring-progress { fill: none; stroke-width: 8; stroke-linecap: round; }
+        .ring-value { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: var(--text-primary); }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><div class="sidebar-logo-icon"><svg viewBox="0 0 48 48" class="owl-logo"><circle cx="24" cy="24" r="22" fill="#5C6BC0"/><ellipse cx="16" cy="20" rx="6" ry="7" fill="#F5F5F5"/><ellipse cx="32" cy="20" rx="6" ry="7" fill="#F5F5F5"/><circle cx="16" cy="20" r="4" fill="#1A1A2E"/><circle cx="32" cy="20" r="4" fill="#1A1A2E"/><circle cx="17" cy="19" r="1.5" fill="#FFF"/><circle cx="33" cy="19" r="1.5" fill="#FFF"/><path d="M20 28 L24 32 L28 28" stroke="#FFA726" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M22 34 Q24 36 26 34" stroke="#7C4DFF" stroke-width="2" fill="none"/></svg></div><div class="sidebar-logo-text"><h1>SIAE</h1><p>Conexoes entre Setores</p></div></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Principal</div>
+                <a href="dashboard.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span>Dashboard</span></a>
+                <a href="search.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Busca</span></a>
+                <a href="charts.html" class="sidebar-item active"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><span>Graficos</span></a>
+                <a href="reports.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span>Relatorios</span></a>
+                <a href="notifications.html" class="sidebar-item professional-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><span>Notificacoes</span><span class="sidebar-badge">3</span></a>
+                <a href="faq.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><span>FAQ</span></a>
+                <a href="occurrences.html" class="sidebar-item professional-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><span>Minhas Ocorrencias</span></a>
+                <div class="sidebar-section-label admin-only">Administracao</div>
+                <a href="../admin/students.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span>Alunos</span></a>
+                <a href="../admin/professionals.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="7" r="4"/></svg></div><span>Profissionais</span></a>
+                <a href="../admin/sectors.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><span>Setores</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="profile.html" class="sidebar-user"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Usuario</h4><p id="userRole">Cargo</p></div></a>
+                <button onclick="handleLogout()" style="width: 100%; padding: 8px 12px; margin-top: 8px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: rgba(255,255,255,0.7); font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: inherit;">Sair</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="app-header">
+                <div class="header-breadcrumb"><h2>Graficos</h2><p>Visualizacao de indicadores</p></div>
+                <a href="notifications.html" class="header-icon-btn professional-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg><span class="dot"></span></a>
+                <button class="header-icon-btn admin-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0"/></svg></button>
+                <a href="profile.html" class="header-user-chip"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></a>
+            </header>
+
+            <div class="page-content animate-fade-in">
+                <div class="page-header"><div class="page-header-title"><h1>Graficos</h1><p>Visualizacao de indicadores e metricas</p></div></div>
+
+                <div class="grid-4" style="margin-bottom: 24px;">
+                    <div class="chart-card">
+                        <div class="progress-ring"><div class="ring-container"><svg width="100" height="100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-progress" cx="50" cy="50" r="40" stroke="#5C6BC0" stroke-dasharray="251.2" stroke-dashoffset="25.12"/></svg><div class="ring-value">90%</div></div><span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Alunos Atendidos</span></div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="progress-ring"><div class="ring-container"><svg width="100" height="100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-progress" cx="50" cy="50" r="40" stroke="#26A69A" stroke-dasharray="251.2" stroke-dashoffset="75.36"/></svg><div class="ring-value">70%</div></div><span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Taxa de Resolucao</span></div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="progress-ring"><div class="ring-container"><svg width="100" height="100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-progress" cx="50" cy="50" r="40" stroke="#7C4DFF" stroke-dasharray="251.2" stroke-dashoffset="50.24"/></svg><div class="ring-value">80%</div></div><span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Satisfacao</span></div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="progress-ring"><div class="ring-container"><svg width="100" height="100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-progress" cx="50" cy="50" r="40" stroke="#FFA726" stroke-dasharray="251.2" stroke-dashoffset="37.68"/></svg><div class="ring-value">85%</div></div><span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Encaminhamentos</span></div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header"><div><div class="chart-title">Atendimentos Mensais</div><div class="chart-subtitle">2026</div></div></div>
+                    <div class="bar-chart">
+                        <div class="bar-item"><div class="bar" style="height: 65%;"></div><span class="bar-label">Jan</span></div>
+                        <div class="bar-item"><div class="bar" style="height: 50%;"></div><span class="bar-label">Fev</span></div>
+                        <div class="bar-item"><div class="bar" style="height: 80%;"></div><span class="bar-label">Mar</span></div>
+                        <div class="bar-item"><div class="bar" style="height: 45%;"></div><span class="bar-label">Abr</span></div>
+                        <div class="bar-item"><div class="bar" style="height: 70%;"></div><span class="bar-label">Mai</span></div>
+                        <div class="bar-item"><div class="bar" style="height: 90%;"></div><span class="bar-label">Jun</span></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        function checkAuth() { if (localStorage.getItem('siae_is_logged_in') !== 'true') { window.location.href = 'login.html'; return false; } return true; }
+        function updateUIByRole() {
+            const role = localStorage.getItem('siae_user_role') || 'professional';
+            const isAdmin = role === 'admin';
+            document.getElementById('userName').textContent = isAdmin ? 'Admin SIAE' : 'Dra. Patricia Lima';
+            document.getElementById('userRole').textContent = isAdmin ? 'Administrador' : 'Psicologa';
+            document.getElementById('userAvatar').textContent = isAdmin ? 'AD' : 'PL';
+            document.getElementById('headerName').textContent = isAdmin ? 'Admin' : 'Patricia';
+            document.getElementById('headerAvatar').textContent = isAdmin ? 'AD' : 'PL';
+            document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? '' : 'none');
+            document.querySelectorAll('.professional-only').forEach(el => el.style.display = isAdmin ? 'none' : '');
+        }
+        function handleLogout() { localStorage.clear(); window.location.href = 'login.html'; }
+        if (checkAuth()) updateUIByRole();
+    </script>
+</body>
+</html>

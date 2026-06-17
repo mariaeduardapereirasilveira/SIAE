@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - SIAE</title>
+    <link rel="stylesheet" href="../assets/app/styles/app.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+    <style>
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            color: white;
+        }
+        .profile-avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 800;
+            border: 4px solid rgba(255,255,255,0.3);
+        }
+        .profile-info h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .profile-info p {
+            opacity: 0.85;
+            font-size: 14px;
+        }
+        .profile-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 16px;
+        }
+        .profile-stat {
+            text-align: center;
+        }
+        .profile-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .profile-stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .profile-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .profile-section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .profile-section-title svg {
+            color: var(--primary);
+        }
+        .profile-field {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .profile-field:last-child {
+            border-bottom: none;
+        }
+        .profile-field-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .profile-field-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .profile-activity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--surface-variant);
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+        }
+        .profile-activity-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-activity-info {
+            flex: 1;
+        }
+        .profile-activity-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .profile-activity-date {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon"><svg viewBox="0 0 48 48" class="owl-logo"><circle cx="24" cy="24" r="22" fill="#5C6BC0"/><ellipse cx="16" cy="20" rx="6" ry="7" fill="#F5F5F5"/><ellipse cx="32" cy="20" rx="6" ry="7" fill="#F5F5F5"/><circle cx="16" cy="20" r="4" fill="#1A1A2E"/><circle cx="32" cy="20" r="4" fill="#1A1A2E"/><circle cx="17" cy="19" r="1.5" fill="#FFF"/><circle cx="33" cy="19" r="1.5" fill="#FFF"/><path d="M20 28 L24 32 L28 28" stroke="#FFA726" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M22 34 Q24 36 26 34" stroke="#7C4DFF" stroke-width="2" fill="none"/></svg></div>
+                <div class="sidebar-logo-text"><h1>SIAE</h1><p>Conexoes entre Setores</p></div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Principal</div>
+                <a href="dashboard.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span>Dashboard</span></a>
+                <a href="search.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Busca</span></a>
+                <a href="charts.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><span>Graficos</span></a>
+                <a href="reports.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span>Relatorios</span></a>
+                <a href="notifications.html" class="sidebar-item professional-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><span>Notificacoes</span></a>
+                <a href="faq.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><span>FAQ</span></a>
+                <a href="occurrences.html" class="sidebar-item professional-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><span>Minhas Ocorrencias</span></a>
+                <div class="sidebar-section-label admin-only">Administracao</div>
+                <a href="../admin/students.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span>Alunos</span></a>
+                <a href="../admin/professionals.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="7" r="4"/></svg></div><span>Profissionais</span></a>
+                <a href="../admin/sectors.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><span>Setores</span></a>
+            </nav>
+            <div class="sidebar-footer"><div class="sidebar-user" onclick="handleLogout()"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Usuario</h4><p id="userRole">Cargo</p></div></div></div>
+        </aside>
+
+        <main class="main-content">
+            <header class="app-header">
+                <div class="header-breadcrumb"><h2>Meu Perfil</h2><p>Visualize e edite suas informacoes</p></div>
+                <a href="notifications.html" class="header-icon-btn professional-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg><span class="dot"></span></a>
+                <button class="header-icon-btn admin-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+                <div class="header-user-chip"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></div>
+            </header>
+
+            <div class="page-content animate-fade-in">
+                <!-- Profile Header -->
+                <div class="profile-header" id="profileHeader">
+                    <div class="profile-avatar-large" id="profileAvatarLarge">PL</div>
+                    <div class="profile-info">
+                        <h1 id="profileName">Dra. Patricia Lima</h1>
+                        <p id="profileRole">Psicologa - Setor de Psicologia</p>
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="statOcurrence">45</div>
+                                <div class="profile-stat-label">Ocorrencias</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="statShared">23</div>
+                                <div class="profile-stat-label">Compartilhados</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="statStudents">78</div>
+                                <div class="profile-stat-label">Alunos Atendidos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Personal Information -->
+                    <div class="profile-section">
+                        <div class="profile-section-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            Informacoes Pessoais
+                        </div>
+                        <div class="profile-field">
+                            <span class="profile-field-label">Nome Completo</span>
+                            <span class="profile-field-value" id="fieldName">Dra. Patricia Lima</span>
+                        </div>
+                        <div class="profile-field">
+                            <span class="profile-field-label">Email</span>
+                            <span class="profile-field-value" id="fieldEmail">patricia.lima@siae.edu.br</span>
+                        </div>
+                        <div class="profile-field">
+                            <span class="profile-field-label">Telefone</span>
+                            <span class="profile-field-value" id="fieldPhone">(11) 99999-9999</span>
+                        </div>
+                        <div class="profile-field">
+                            <span class="profile-field-label">Cargo</span>
+                            <span class="profile-field-value" id="fieldPosition">Psicologa</span>
+                        </div>
+                        <div class="profile-field">
+                            <span class="profile-field-label">Setor</span>
+                            <span class="profile-field-value" id="fieldSector">Psicologia</span>
+                        </div>
+                        <div class="profile-field admin-only">
+                            <span class="profile-field-label">CRP/Registro</span>
+                            <span class="profile-field-value">06/123456</span>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="profile-section">
+                        <div class="profile-section-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                            Atividade Recente
+                        </div>
+                        <div class="profile-activity">
+                            <div class="profile-activity-icon" style="background: var(--success-container); color: var(--success);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <div class="profile-activity-info">
+                                <div class="profile-activity-title">Atendimento registrado</div>
+                                <div class="profile-activity-date">Ha 2 horas</div>
+                            </div>
+                        </div>
+                        <div class="profile-activity">
+                            <div class="profile-activity-icon" style="background: var(--primary-container); color: var(--primary);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/></svg>
+                            </div>
+                            <div class="profile-activity-info">
+                                <div class="profile-activity-title">Ocorrencia compartilhada</div>
+                                <div class="profile-activity-date">Ha 5 horas</div>
+                            </div>
+                        </div>
+                        <div class="profile-activity">
+                            <div class="profile-activity-icon" style="background: var(--warning-container); color: var(--warning);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                            </div>
+                            <div class="profile-activity-info">
+                                <div class="profile-activity-title">Relatorio gerado</div>
+                                <div class="profile-activity-date">Ontem</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Specific Section -->
+                <div class="profile-section admin-only" id="adminSection">
+                    <div class="profile-section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0"/>
+                        </svg>
+                        Configuracoes de Administrador
+                    </div>
+                    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">Controle as preferencias de notificacao do sistema.</p>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <label style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--surface-variant); border-radius: var(--radius-md);">
+                            <span style="font-size: 13px; font-weight: 500;">Notificacoes para Profissionais</span>
+                            <input type="checkbox" checked style="width: 18px; accent-color: var(--primary);">
+                        </label>
+                        <label style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--surface-variant); border-radius: var(--radius-md);">
+                            <span style="font-size: 13px; font-weight: 500;">Alertas de Ocorrencias Criticas</span>
+                            <input type="checkbox" checked style="width: 18px; accent-color: var(--primary);">
+                        </label>
+                        <label style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--surface-variant); border-radius: var(--radius-md);">
+                            <span style="font-size: 13px; font-weight: 500;">Relatorios Automaticos</span>
+                            <input type="checkbox" style="width: 18px; accent-color: var(--primary);">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Edit Profile Button -->
+                <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+                    <button class="btn btn-outline" onclick="editProfile()" style="margin-right: 12px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                        Editar Perfil
+                    </button>
+                    <button class="btn btn-primary" onclick="saveProfile()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Salvar Alteracoes
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const userData = {
+            admin: {
+                name: 'Admin SIAE',
+                initials: 'AD',
+                role: 'Administrador do Sistema',
+                email: 'admin@siae.edu.br',
+                phone: '(11) 99999-0000',
+                position: 'Administrador',
+                sector: 'TI / Gestao',
+                stats: { occurrences: 'N/A', shared: 'N/A', students: '1.240' }
+            },
+            professional: {
+                name: 'Dra. Patricia Lima',
+                initials: 'PL',
+                role: 'Psicologa - Setor de Psicologia',
+                email: 'patricia.lima@siae.edu.br',
+                phone: '(11) 99999-9999',
+                position: 'Psicologa',
+                sector: 'Psicologia',
+                stats: { occurrences: '45', shared: '23', students: '78' }
+            }
+        };
+
+        function checkAuth() {
+            if (localStorage.getItem('siae_is_logged_in') !== 'true') {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        function updateUIByRole() {
+            const role = localStorage.getItem('siae_user_role') || 'professional';
+            const isAdmin = role === 'admin';
+            const data = userData[role];
+
+            // Sidebar
+            document.getElementById('userName').textContent = data.name;
+            document.getElementById('userRole').textContent = data.position;
+            document.getElementById('userAvatar').textContent = data.initials;
+
+            // Header
+            document.getElementById('headerName').textContent = data.name.split(' ')[0];
+            document.getElementById('headerAvatar').textContent = data.initials;
+
+            // Profile header
+            document.getElementById('profileAvatarLarge').textContent = data.initials;
+            document.getElementById('profileName').textContent = data.name;
+            document.getElementById('profileRole').textContent = data.role;
+
+            // Stats
+            document.getElementById('statOcurrence').textContent = data.stats.occurrences;
+            document.getElementById('statShared').textContent = data.stats.shared;
+            document.getElementById('statStudents').textContent = data.stats.students;
+
+            // Fields
+            document.getElementById('fieldName').textContent = data.name;
+            document.getElementById('fieldEmail').textContent = data.email;
+            document.getElementById('fieldPhone').textContent = data.phone;
+            document.getElementById('fieldPosition').textContent = data.position;
+            document.getElementById('fieldSector').textContent = data.sector;
+
+            // Role visibility
+            document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? '' : 'none');
+            document.querySelectorAll('.professional-only').forEach(el => el.style.display = isAdmin ? 'none' : '');
+        }
+
+        function editProfile() {
+            alert('Funcionalidade de edicao em desenvolvimento.');
+        }
+
+        function saveProfile() {
+            alert('Perfil salvo com sucesso!');
+        }
+
+        function handleLogout() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        // Initialize
+        if (checkAuth()) {
+            updateUIByRole();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+/* ============================================================
+   SIAE — Área administrativa
+   Estende app.css com refinamentos específicos do painel admin
+   ============================================================ */
+
+.sidebar.sidebar-admin {
+  background-color: var(--color-wine);
+}
+.sidebar-admin .brand-mark {
+  background: linear-gradient(135deg, var(--color-cream), var(--color-teal));
+  color: var(--color-deep-teal);
+}
+.sidebar-admin .sidebar-nav a.is-active {
+  background-color: rgba(242, 225, 195, 0.95);
+  color: var(--color-wine);
+}
+
+.admin-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-wine), #a3584a);
+  color: #fff;
+  flex-wrap: wrap;
+}
+.admin-banner h2 {
+  color: #fff;
+  margin: 0 0 4px;
+}
+.admin-banner p {
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+.admin-banner .btn-secondary {
+  background-color: var(--color-cream);
+  color: var(--color-wine);
+}
+
+/* Tabela semântica — usa <table> só para dados tabulares reais */
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+.data-table thead {
+  background-color: var(--color-surface-alt);
+}
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.data-table th {
+  font-weight: 600;
+  color: var(--color-deep-teal);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+.data-table tbody tr:hover {
+  background-color: var(--color-surface-alt);
+}
+.data-table .row-actions {
+  display: inline-flex;
+  gap: 8px;
+}
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background-color: var(--color-surface-alt);
+  color: var(--color-deep-teal);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+}
+.icon-btn:hover { background-color: var(--color-cream); }
+.icon-btn.danger { color: var(--color-wine); }
+
+.admin-tabs {
+  display: inline-flex;
+  background-color: var(--color-surface-alt);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: var(--space-4);
+}
+.admin-tabs button {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.84rem;
+  color: var(--color-text-soft);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.admin-tabs button.is-active {
+  background-color: var(--color-surface);
+  color: var(--color-wine);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .data-table { display: block; overflow-x: auto; }
+}
+
+
+/* Modal administrativo */
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.admin-modal-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.admin-modal {
+  width: min(100%, 820px);
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 24px;
+  transform: translateY(12px);
+  transition: transform 0.2s ease;
+}
+.admin-modal-overlay.is-open .admin-modal {
+  transform: translateY(0);
+}
+.admin-modal-close {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--color-surface-alt);
+  font-size: 24px;
+  line-height: 1;
+  color: var(--color-text);
+}
+.admin-modal-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:12px;
+}
+body.modal-open {
+  overflow: hidden;
+}
+
+
+/* Refinos visuais do painel */
+.sidebar-footer {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.sidebar-footer .name,
+.sidebar-footer .role {
+  color: rgba(255,255,255,0.95);
+}
+
+.sidebar-admin .sidebar-section-label {
+  color: rgba(255,255,255,0.72);
+}
+
+.sidebar-admin .sidebar-nav a {
+  color: rgba(255,255,255,0.88);
+}
+
+.sidebar-admin .sidebar-nav a:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.topbar {
+  backdrop-filter: blur(10px);
+}
+
+.card {
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}

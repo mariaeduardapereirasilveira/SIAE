@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SIAE</title>
+    <link rel="stylesheet" href="../assets/app/styles/app.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+    <style>
+        body {
+            background: var(--background);
+            min-height: 100vh;
+            display: flex;
+        }
+        .login-container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+        .login-aside {
+            width: 45%;
+            background: var(--dark-gradient);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+        .login-aside::before {
+            content: '';
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: rgba(92,107,192,0.12);
+            top: -120px;
+            right: -120px;
+        }
+        .login-aside::after {
+            content: '';
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(124,77,255,0.1);
+            bottom: -70px;
+            left: -70px;
+        }
+        .login-aside-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+        .login-logo {
+            width: 88px;
+            height: 88px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+        }
+        .login-logo svg {
+            width: 48px;
+            height: 48px;
+        }
+        .login-aside h2 {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 6px;
+        }
+        .login-aside .tagline {
+            font-size: 13px;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.5px;
+        }
+        .login-features {
+            margin-top: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: left;
+        }
+        .login-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .login-feature-icon {
+            width: 38px;
+            height: 38px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .login-feature-icon svg {
+            width: 18px;
+            height: 18px;
+            color: rgba(255,255,255,0.8);
+        }
+        .login-feature h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.88);
+        }
+        .login-feature p {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 1px;
+        }
+        .login-form-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px;
+        }
+        .login-form-container {
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-form-header {
+            margin-bottom: 32px;
+        }
+        .login-form-header h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .login-form-header p {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+        .login-tabs {
+            display: flex;
+            background: var(--surface-variant);
+            border-radius: var(--radius-md);
+            padding: 4px;
+            gap: 2px;
+            margin-bottom: 24px;
+        }
+        .login-tab {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        .login-tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .input-wrapper .form-control {
+            padding-left: 44px;
+        }
+        .input-wrapper .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+        .input-wrapper .input-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+        .input-action {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition);
+            padding: 4px;
+        }
+        .input-action:hover {
+            color: var(--primary);
+        }
+        .input-action svg {
+            width: 16px;
+            height: 16px;
+        }
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        .form-remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        .form-remember input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+        }
+        .form-forgot {
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 24px 0;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            border: 1.5px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            margin-bottom: 24px;
+        }
+        .google-btn:hover {
+            background: var(--primary-container);
+        }
+        .login-footer {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        @media (max-width: 900px) {
+            .login-aside {
+                display: none;
+            }
+            .login-form-side {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Left branding panel -->
+        <aside class="login-aside">
+            <div class="login-aside-inner">
+                <div class="login-logo">
+                    <svg viewBox="0 0 48 48" class="owl-logo">
+                        <circle cx="24" cy="24" r="22" fill="#5C6BC0"/>
+                        <ellipse cx="16" cy="20" rx="6" ry="7" fill="#F5F5F5"/>
+                        <ellipse cx="32" cy="20" rx="6" ry="7" fill="#F5F5F5"/>
+                        <circle cx="16" cy="20" r="4" fill="#1A1A2E"/>
+                        <circle cx="32" cy="20" r="4" fill="#1A1A2E"/>
+                        <circle cx="17" cy="19" r="1.5" fill="#FFF"/>
+                        <circle cx="33" cy="19" r="1.5" fill="#FFF"/>
+                        <path d="M20 28 L24 32 L28 28" stroke="#FFA726" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M22 34 Q24 36 26 34" stroke="#7C4DFF" stroke-width="2" fill="none"/>
+                        <path d="M10 14 Q14 8 24 6 Q34 8 38 14" stroke="#5C6BC0" stroke-width="3" fill="none"/>
+                    </svg>
+                </div>
+                <h2>SIAE</h2>
+                <p class="tagline">Conexoes entre Setores</p>
+
+                <div class="login-features">
+                    <div class="login-feature">
+                        <div class="login-feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Gestao Integrada</h4>
+                            <p>Alunos, profissionais e setores em um unico lugar</p>
+                        </div>
+                    </div>
+                    <div class="login-feature">
+                        <div class="login-feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10"/>
+                                <path d="M12 20V4"/>
+                                <path d="M6 20v-6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Analise de Dados</h4>
+                            <p>Relatorios e graficos em tempo real</p>
+                        </div>
+                    </div>
+                    <div class="login-feature">
+                        <div class="login-feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                <polyline points="9 22 9 12 15 12 15 22"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Multi-Setorial</h4>
+                            <p>Conecta setores e facilita atendimentos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right form panel -->
+        <div class="login-form-side">
+            <div class="login-form-container animate-fade-in">
+                <div class="login-form-header">
+                    <h2>Bem-vindo ao SIAE</h2>
+                    <p>Use sua conta para acessar o sistema</p>
+                </div>
+
+                <!-- Role Toggle -->
+                <div class="login-tabs">
+                    <button class="login-tab" id="tabProfessional" onclick="setRole('professional')">Profissional</button>
+                    <button class="login-tab active" id="tabAdmin" onclick="setRole('admin')">Administrador</button>
+                </div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </span>
+                            <input type="email" class="form-control" id="emailInput" placeholder="email@exemplo.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Senha</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </span>
+                            <input type="password" class="form-control" id="passwordInput" placeholder="••••••••" required>
+                            <button type="button" class="input-action" onclick="togglePassword()">
+                                <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="form-remember">
+                            <input type="checkbox" id="rememberCheck">
+                            <span>Lembre-se de mim</span>
+                        </label>
+                        <a href="#" class="form-forgot">Esqueceu a senha?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                        Entrar
+                    </button>
+                </form>
+
+                <div class="login-divider">ou</div>
+
+                <button class="google-btn" onclick="handleGoogleLogin()">
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Continuar com Google
+                </button>
+
+                <p class="login-footer">
+                    2026 SIAE - Sistema Integrado de Apoio Educacional
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentRole = 'admin';
+
+        function setRole(role) {
+            currentRole = role;
+            document.getElementById('tabProfessional').classList.toggle('active', role === 'professional');
+            document.getElementById('tabAdmin').classList.toggle('active', role === 'admin');
+        }
+
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            const icon = document.getElementById('eyeIcon');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.innerHTML = `
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                `;
+            } else {
+                input.type = 'password';
+                icon.innerHTML = `
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                `;
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+
+            // Save role to localStorage
+            localStorage.setItem('siae_user_role', currentRole);
+            localStorage.setItem('siae_is_logged_in', 'true');
+
+            // Redirect to dashboard
+            window.location.href = '../app/dashboard.html';
+        }
+
+        function handleGoogleLogin() {
+            localStorage.setItem('siae_user_role', currentRole);
+            localStorage.setItem('siae_is_logged_in', 'true');
+            window.location.href = '../app/dashboard.html';
+        }
+
+        // Check if already logged in
+        if (localStorage.getItem('siae_is_logged_in') === 'true') {
+            window.location.href = '../app/dashboard.html';
+        }
+    </script>
+</body>
+</html>

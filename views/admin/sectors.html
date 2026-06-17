@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setores - SIAE</title>
+    <link rel="stylesheet" href="../assets/app/styles/app.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><div class="sidebar-logo-icon"><svg viewBox="0 0 48 48" class="owl-logo"><circle cx="24" cy="24" r="22" fill="#5C6BC0"/><ellipse cx="16" cy="20" rx="6" ry="7" fill="#F5F5F5"/><ellipse cx="32" cy="20" rx="6" ry="7" fill="#F5F5F5"/><circle cx="16" cy="20" r="4" fill="#1A1A2E"/><circle cx="32" cy="20" r="4" fill="#1A1A2E"/><circle cx="17" cy="19" r="1.5" fill="#FFF"/><circle cx="33" cy="19" r="1.5" fill="#FFF"/><path d="M20 28 L24 32 L28 28" stroke="#FFA726" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M22 34 Q24 36 26 34" stroke="#7C4DFF" stroke-width="2" fill="none"/></svg></div><div class="sidebar-logo-text"><h1>SIAE</h1><p>Conexoes entre Setores</p></div></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Principal</div>
+                <a href="../app/dashboard.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span>Dashboard</span></a>
+                <a href="../app/search.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Busca</span></a>
+                <a href="../app/charts.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><span>Graficos</span></a>
+                <a href="../app/reports.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span>Relatorios</span></a>
+                <a href="../app/faq.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><span>FAQ</span></a>
+                <div class="sidebar-section-label">Administracao</div>
+                <a href="students.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span>Alunos</span></a>
+                <a href="professionals.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="7" r="4"/></svg></div><span>Profissionais</span></a>
+                <a href="sectors.html" class="sidebar-item active"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><span>Setores</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="profile.html" class="sidebar-user"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Admin</h4><p id="userRole">Administrador</p></div></a>
+                <button onclick="handleLogout()" style="width: 100%; padding: 8px 12px; margin-top: 8px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: rgba(255,255,255,0.7); font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: inherit;">Sair</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="app-header">
+                <div class="header-breadcrumb"><h2>Setores</h2><p>Areas de atuacao</p></div>
+                <button class="header-icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0"/></svg></button>
+                <a href="profile.html" class="header-user-chip"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></a>
+            </header>
+
+            <div class="page-content animate-fade-in">
+                <div class="page-header">
+                    <div class="page-header-title"><h1>Setores</h1><p>Areas de atuacao da instituicao</p></div>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('sectorModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo Setor</button>
+                </div>
+
+                <div class="grid-3" id="sectorsGrid">
+                    <div class="card" style="padding: 20px; cursor: pointer;" onclick="editSector('Enfermaria')">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(239,83,80,0.15); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" fill="none" stroke="#EF5350" stroke-width="2" width="22" height="22"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                            <div><div style="font-weight: 700; font-size: 15px;">Enfermaria</div><span class="badge badge-danger" style="font-size: 10px;">ENF</span></div>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Atendimento de saude basica e primeiros socorros.</p>
+                        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);"><span>3 profissionais</span><span>145 atendimentos/mes</span></div>
+                    </div>
+
+                    <div class="card" style="padding: 20px; cursor: pointer;" onclick="editSector('Psicologia')">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(124,77,255,0.15); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" fill="none" stroke="#7C4DFF" stroke-width="2" width="22" height="22"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></div>
+                            <div><div style="font-weight: 700; font-size: 15px;">Psicologia</div><span class="badge badge-info" style="font-size: 10px;">PSI</span></div>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Acompanhamento psicologico e triagem comportamental.</p>
+                        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);"><span>4 profissionais</span><span>178 atendimentos/mes</span></div>
+                    </div>
+
+                    <div class="card" style="padding: 20px; cursor: pointer;" onclick="editSector('Pedagogico')">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--primary-container); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" width="22" height="22"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 0 3-3h7z"/></svg></div>
+                            <div><div style="font-weight: 700; font-size: 15px;">Pedagogico</div><span class="badge badge-primary" style="font-size: 10px;">PED</span></div>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Suporte pedagogico e orientacao educacional.</p>
+                        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);"><span>5 profissionais</span><span>89 atendimentos/mes</span></div>
+                    </div>
+
+                    <div class="card" style="padding: 20px; cursor: pointer;" onclick="editSector('Social')">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(38,166,154,0.15); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" fill="none" stroke="#26A69A" stroke-width="2" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+                            <div><div style="font-weight: 700; font-size: 15px;">Social</div><span class="badge badge-success" style="font-size: 10px;">SOC</span></div>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Assistencia social e visitas domiciliares.</p>
+                        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);"><span>2 profissionais</span><span>44 atendimentos/mes</span></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Sector Modal -->
+    <div class="modal-overlay" id="sectorModal">
+        <div class="modal" style="max-width: 450px;">
+            <div class="modal-header">
+                <div><div class="card-title">Cadastrar Setor</div><div class="card-subtitle">Preencha os dados do setor</div></div>
+                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('sectorModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Nome do Setor</label><input type="text" class="form-control" id="sectorName" placeholder="Ex: Odontologia"></div>
+                <div class="grid-2">
+                    <div class="form-group"><label class="form-label">Sigla</label><input type="text" class="form-control" id="sectorAcronym" placeholder="Ex: ODO" style="text-transform: uppercase;"></div>
+                    <div class="form-group"><label class="form-label">Cor</label><select class="form-control" id="sectorColor"><option value="#EF5350">Vermelho</option><option value="#7C4DFF">Roxo</option><option value="#5C6BC0">Azul</option><option value="#26A69A">Verde</option><option value="#FFA726">Laranja</option><option value="#EC407A">Rosa</option></select></div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;"><label class="form-label">Descricao</label><textarea class="form-control" id="sectorDesc" rows="3" placeholder="Descreva as responsabilidades do setor..."></textarea></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('sectorModal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveSector()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkAuth() { if (localStorage.getItem('siae_is_logged_in') !== 'true') { window.location.href = 'login.html'; return false; } const role = localStorage.getItem('siae_user_role'); if (role !== 'admin') { window.location.href = 'dashboard.html'; return false; } return true; }
+        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+
+        function saveSector() {
+            const name = document.getElementById('sectorName').value;
+            const acronym = document.getElementById('sectorAcronym').value.toUpperCase();
+            const color = document.getElementById('sectorColor').value;
+            const desc = document.getElementById('sectorDesc').value;
+            if (name && acronym) {
+                const grid = document.getElementById('sectorsGrid');
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.cssText = 'padding: 20px; cursor: pointer;';
+                card.setAttribute('onclick', `editSector('${name}')`);
+                const badgeClass = color === '#EF5350' ? 'badge-danger' : (color === '#7C4DFF' ? 'badge-info' : (color === '#26A69A' ? 'badge-success' : 'badge-primary'));
+                card.innerHTML = `<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;"><div style="width: 44px; height: 44px; border-radius: 12px; background: ${color}20; display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" width="22" height="22"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div><div style="font-weight: 700; font-size: 15px;">${name}</div><span class="badge ${badgeClass}" style="font-size: 10px;">${acronym}</span></div></div><p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">${desc || 'Setor de atuacao.'}</p><div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);"><span>0 profissionais</span><span>0 atendimentos/mes</span></div>`;
+                grid.appendChild(card);
+                closeModal('sectorModal');
+                document.getElementById('sectorName').value = '';
+                document.getElementById('sectorAcronym').value = '';
+                document.getElementById('sectorDesc').value = '';
+            }
+        }
+
+        function editSector(name) { alert('Editar setor: ' + name); }
+        function handleLogout() { localStorage.clear(); window.location.href = 'login.html'; }
+        checkAuth();
+    </script>
+</body>
+</html>

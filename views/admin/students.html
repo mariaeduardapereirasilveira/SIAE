@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alunos - SIAE</title>
+    <link rel="stylesheet" href="../assets/app/styles/app.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><div class="sidebar-logo-icon"><svg viewBox="0 0 48 48" class="owl-logo"><circle cx="24" cy="24" r="22" fill="#5C6BC0"/><ellipse cx="16" cy="20" rx="6" ry="7" fill="#F5F5F5"/><ellipse cx="32" cy="20" rx="6" ry="7" fill="#F5F5F5"/><circle cx="16" cy="20" r="4" fill="#1A1A2E"/><circle cx="32" cy="20" r="4" fill="#1A1A2E"/><circle cx="17" cy="19" r="1.5" fill="#FFF"/><circle cx="33" cy="19" r="1.5" fill="#FFF"/><path d="M20 28 L24 32 L28 28" stroke="#FFA726" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M22 34 Q24 36 26 34" stroke="#7C4DFF" stroke-width="2" fill="none"/></svg></div><div class="sidebar-logo-text"><h1>SIAE</h1><p>Conexoes entre Setores</p></div></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Principal</div>
+                <a href="../app/dashboard.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span>Dashboard</span></a>
+                <a href="../app/search.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Busca</span></a>
+                <a href="../app/charts.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><span>Graficos</span></a>
+                <a href="../app/reports.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span>Relatorios</span></a>
+                <a href="../app/faq.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><span>FAQ</span></a>
+                <div class="sidebar-section-label">Administracao</div>
+                <a href="students.html" class="sidebar-item active"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span>Alunos</span></a>
+                <a href="professionals.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="7" r="4"/></svg></div><span>Profissionais</span></a>
+                <a href="sectors.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><span>Setores</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="profile.html" class="sidebar-user"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Admin</h4><p id="userRole">Administrador</p></div></a>
+                <button onclick="handleLogout()" style="width: 100%; padding: 8px 12px; margin-top: 8px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: rgba(255,255,255,0.7); font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: inherit;">Sair</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="app-header">
+                <div class="header-breadcrumb"><h2>Alunos</h2><p>Gerenciamento de alunos</p></div>
+                <button class="header-icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0"/></svg></button>
+                <a href="profile.html" class="header-user-chip"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></a>
+            </header>
+
+            <div class="page-content animate-fade-in">
+                <div class="page-header">
+                    <div class="page-header-title"><h1>Alunos</h1><p>Gerenciamento de alunos cadastrados</p></div>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('studentModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo Aluno</button>
+                </div>
+
+                <div class="card">
+                    <div class="table-container" style="border: none; border-radius: 0;">
+                        <table>
+                            <thead><tr><th>Nome</th><th>RA</th><th>Turma</th><th>Setor</th><th>Status</th><th>Acoes</th></tr></thead>
+                            <tbody id="studentsTable">
+                                <tr><td style="font-weight: 600;">Ana Paula Silva</td><td style="color: var(--text-muted);">2024001</td><td>1A - Administracao</td><td><span class="badge badge-primary">Pedagogico</span></td><td><span class="badge badge-success">Ativo</span></td><td><button class="btn btn-ghost btn-sm" onclick="editStudent('Ana Paula Silva')">Editar</button></td></tr>
+                                <tr><td style="font-weight: 600;">Bruno Santos</td><td style="color: var(--text-muted);">2024002</td><td>2B - Contabilidade</td><td><span class="badge badge-info">Psicologico</span></td><td><span class="badge badge-success">Ativo</span></td><td><button class="btn btn-ghost btn-sm" onclick="editStudent('Bruno Santos')">Editar</button></td></tr>
+                                <tr><td style="font-weight: 600;">Carla Mendes</td><td style="color: var(--text-muted);">2024003</td><td>1A - RH</td><td><span class="badge badge-primary">Pedagogico</span></td><td><span class="badge badge-neutral">Inativo</span></td><td><button class="btn btn-ghost btn-sm" onclick="editStudent('Carla Mendes')">Editar</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Student Modal -->
+    <div class="modal-overlay" id="studentModal">
+        <div class="modal" style="max-width: 500px;">
+            <div class="modal-header">
+                <div><div class="card-title">Cadastrar Aluno</div><div class="card-subtitle">Preencha os dados do aluno</div></div>
+                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('studentModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Nome Completo</label><input type="text" class="form-control" id="studentName" placeholder="Nome do aluno"></div>
+                <div class="grid-2">
+                    <div class="form-group"><label class="form-label">RA (Matricula)</label><input type="text" class="form-control" id="studentRA" placeholder="2024001"></div>
+                    <div class="form-group"><label class="form-label">Turma</label><select class="form-control" id="studentClass"><option>1A - Administracao</option><option>1B - Logistica</option><option>2A - Tecnologia</option><option>2B - Contabilidade</option><option>3A - Enfermagem</option><option>3C - Marketing</option></select></div>
+                </div>
+                <div class="form-group"><label class="form-label">Setor de Atendimento</label><select class="form-control" id="studentSector"><option>Pedagogico</option><option>Psicologico</option><option>Enfermaria</option><option>Social</option></select></div>
+                <div class="form-group" style="margin-bottom: 0;"><label class="form-label">Status</label><select class="form-control" id="studentStatus"><option value="active">Ativo</option><option value="inactive">Inativo</option></select></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('studentModal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveStudent()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkAuth() { if (localStorage.getItem('siae_is_logged_in') !== 'true') { window.location.href = 'login.html'; return false; } const role = localStorage.getItem('siae_user_role'); if (role !== 'admin') { window.location.href = 'dashboard.html'; return false; } return true; }
+        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+
+        function saveStudent() {
+            const name = document.getElementById('studentName').value;
+            const ra = document.getElementById('studentRA').value;
+            const studentClass = document.getElementById('studentClass').value;
+            const sector = document.getElementById('studentSector').value;
+            const status = document.getElementById('studentStatus').value;
+            if (name && ra) {
+                const table = document.getElementById('studentsTable');
+                const row = document.createElement('tr');
+                row.innerHTML = `<td style="font-weight: 600;">${name}</td><td style="color: var(--text-muted);">${ra}</td><td>${studentClass}</td><td><span class="badge badge-primary">${sector}</span></td><td><span class="badge ${status === 'active' ? 'badge-success' : 'badge-neutral'}">${status === 'active' ? 'Ativo' : 'Inativo'}</span></td><td><button class="btn btn-ghost btn-sm" onclick="editStudent('${name}')">Editar</button></td>`;
+                table.appendChild(row);
+                closeModal('studentModal');
+                document.getElementById('studentName').value = '';
+                document.getElementById('studentRA').value = '';
+            }
+        }
+
+        function editStudent(name) { alert('Editar aluno: ' + name); }
+        function handleLogout() { localStorage.clear(); window.location.href = 'login.html'; }
+        checkAuth();
+    </script>
+</body>
+</html>
