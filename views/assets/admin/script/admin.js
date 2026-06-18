@@ -1,8 +1,8 @@
 // ============================================================
-// SIAE — Área administrativa
+// SIAE Ã¢â‚¬â€ ÃƒÂrea administrativa
 // ============================================================
 
-// Alternância entre abas (Alunos / Profissionais / Setores)
+// AlternÃƒÂ¢ncia entre abas (Alunos / Profissionais / Setores)
 const adminTabs = document.querySelectorAll("[data-admin-tab]");
 const adminPanels = document.querySelectorAll("[data-admin-panel]");
 
@@ -19,7 +19,7 @@ adminTabs.forEach((tab) => {
 });
 
 
-// Modal para formulários administrativos
+// Modal para formulÃƒÂ¡rios administrativos
 const adminFormCard = document.querySelector('.admin-form-card');
 const adminNewButton = document.querySelector('.page-header .btn-primary');
 

@@ -122,6 +122,7 @@ a {
 .sidebar-logo-icon svg {
     width: 24px;
     height: 24px;
+    color: #fff;
 }
 
 .sidebar-logo-text h1 {
@@ -264,6 +265,112 @@ a {
 .sidebar-user-info p {
     font-size: 11px;
     color: rgba(255,255,255,0.4);
+}
+
+.sidebar-logout {
+    width: 100%;
+    padding: 8px 12px;
+    margin-top: 8px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 8px;
+    color: rgba(255,255,255,0.72);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.sidebar-logout:hover {
+    background: rgba(255,255,255,0.16);
+    color: white;
+}
+
+.sidebar-logout svg {
+    display: none;
+}
+
+.notification-admin-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.notification-toggle-row:last-child {
+    border-bottom: none;
+}
+
+.notification-toggle-info {
+    flex: 1;
+}
+
+.notification-toggle-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+}
+
+.notification-toggle-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.switch {
+    position: relative;
+    display: inline-flex;
+    width: 46px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: var(--border);
+    border-radius: 999px;
+    transition: var(--transition);
+}
+
+.switch .slider::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.switch input:checked + .slider {
+    background: var(--success);
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(20px);
 }
 
 /* ---- Main Content ---- */
@@ -805,9 +912,12 @@ tbody tr:hover {
     border-radius: var(--radius-xl);
     width: 100%;
     max-width: 500px;
+    max-height: calc(100vh - 32px);
     box-shadow: var(--shadow-lg);
     animation: slideUp 0.2s ease;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-header {
@@ -819,6 +929,7 @@ tbody tr:hover {
 
 .modal-body {
     padding: 20px 24px;
+    overflow-y: auto;
 }
 
 .modal-footer {
@@ -826,6 +937,76 @@ tbody tr:hover {
     display: flex;
     gap: 12px;
     justify-content: flex-end;
+}
+
+.modal-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 18px 0 10px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.info-item {
+    background: var(--surface-variant);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+}
+
+.info-label {
+    color: var(--text-muted);
+    font-size: 11px;
+    margin-bottom: 2px;
+}
+
+.info-value {
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.history-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    background: white;
+}
+
+.history-item-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.history-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.history-date {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.history-description {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.55;
 }
 
 /* ---- Form Elements ---- */
@@ -1088,6 +1269,15 @@ body.is-admin .accordion-actions {
     .header-search {
         display: none;
     }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .history-item-header {
+        flex-direction: column;
+        gap: 4px;
+    }
 }
 
 /* ==========================================
@@ -1154,6 +1344,17 @@ body.is-admin .accordion-actions {
     color: var(--text-secondary);
     line-height: 1.8;
     font-size: 14px;
+}
+
+.faq-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 0 20px 20px;
+}
+
+.faq-delete-btn {
+    color: var(--danger);
 }
 
 .page-header {

@@ -1,5 +1,5 @@
 /* ============================================================
-   SIAE — Área pública (login, recuperação de senha)
+   SIAE â€” Ãrea pÃºblica (login, recuperaÃ§Ã£o de senha)
    ============================================================ */
 
 .auth-shell {
@@ -8,7 +8,7 @@
   min-height: 100vh;
 }
 
-/* ---------- Painel artístico (esquerda) ---------- */
+/* ---------- Painel artÃ­stico (esquerda) ---------- */
 .auth-hero {
   position: relative;
   overflow: hidden;
@@ -134,7 +134,7 @@
   50% { transform: translate(20px, -30px) scale(1.08); }
 }
 
-/* ---------- Formulário (direita) ---------- */
+/* ---------- FormulÃ¡rio (direita) ---------- */
 .auth-form-wrapper {
   display: flex;
   align-items: center;

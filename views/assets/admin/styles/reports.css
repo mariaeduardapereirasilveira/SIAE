@@ -1,0 +1,36 @@
+.admin-form-card{
+  margin-bottom:24px;
+}
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+.form-grid label{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  font-weight:600;
+  color:#374151;
+}
+.form-grid input,
+.form-grid select,
+.form-grid textarea{
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #d1d5db;
+  font-size:14px;
+  outline:none;
+}
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus{
+  border-color:#2563eb;
+}
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+  margin-top:20px;
+}
+
