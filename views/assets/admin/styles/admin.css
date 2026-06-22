@@ -1,6 +1,6 @@
 /* ============================================================
-   SIAE — Área administrativa
-   Estende app.css com refinamentos específicos do painel admin
+   SIAE â€” Ãrea administrativa
+   Estende app.css com refinamentos especÃ­ficos do painel admin
    ============================================================ */
 
 .sidebar.sidebar-admin {
@@ -39,7 +39,7 @@
   color: var(--color-wine);
 }
 
-/* Tabela semântica — usa <table> só para dados tabulares reais */
+/* Tabela semÃ¢ntica â€” usa <table> sÃ³ para dados tabulares reais */
 .data-table {
   width: 100%;
   border-collapse: separate;

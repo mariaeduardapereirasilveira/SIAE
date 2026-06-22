@@ -1,13 +1,13 @@
 // ============================================================
-// SIAE — Script global compartilhado
+// SIAE â€” Script global compartilhado
 // ============================================================
 
-// ---------- Detecção de perfil (admin / profissional) ----------
+// ---------- DetecÃ§Ã£o de perfil (admin / profissional) ----------
 // Lemos o perfil salvo no login e aplicamos no <body> para que
-// o CSS e o JS das páginas possam reagir ao tipo de usuário.
+// o CSS e o JS das pÃ¡ginas possam reagir ao tipo de usuÃ¡rio.
 (function applyUserRole() {
   const role = localStorage.getItem("siae_role") || "professional";
-  const name = localStorage.getItem("siae_name") || (role === "admin" ? "Antônio Diniz" : "Joana Carvalho");
+  const name = localStorage.getItem("siae_name") || (role === "admin" ? "AntÃ´nio Diniz" : "Joana Carvalho");
   const initials = name
     .split(" ")
     .filter(Boolean)
@@ -72,7 +72,6 @@ if (menuToggle && sidebar) {
 // ---------- Logout ----------
 document.querySelectorAll("[data-logout]").forEach((link) => {
   link.addEventListener("click", () => {
-    localStorage.removeItem("siae_role");
-    localStorage.removeItem("siae_name");
+    localStorage.clear();
   });
 });

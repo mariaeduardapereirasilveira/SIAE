@@ -1,29 +1,29 @@
 <?php
 
 namespace Source\Models\Users;
-
+use Source\Core\JWTToken;
 use Source\Core\Model;
 use Source\Core\Connect;
 
 class User extends Model
 {
-    private ?int $id;
+     private ?int $id;
     private ?int $sectorId;
     private ?int $classId;
     private ?string $name;
     private ?string $email;
     private ?string $password;
     private ?string $photo;
-    private ?int $createdAt;
-    private ?int $updateAt;
+    private ?string $createdAt;
+    private ?string $updatedAt;
     private ?string $enrollment;
     private ?string $dateBirth;
     private ?int $active;
 
     public function __construct(?int $id = null, ?int $sectorId = null,
     ?int $classId = null, ?string $name = null, ?string $email = null,
-    ?string $password = null, ?string $photo = null, ?int $createdAt = null,
-     ?int $updateAt = null, ?string $enrollment = null, ?string $dateBirth = null, ?int $active = 1)
+    ?string $password = null, ?string $photo = null, ?string $createdAt = null,
+     ?string $updatedAt = null, ?string $enrollment = null, ?string $dateBirth = null, ?int $active = 1)
     {
         $this->id = $id;
         $this->sectorId = $sectorId;
@@ -33,14 +33,14 @@ class User extends Model
         $this->password = $password;
         $this->photo = $photo;
         $this->createdAt = $createdAt;
-        $this->updateAt = $updateAt;
+        $this->updatedAt = $updatedAt;
         $this->enrollment = $enrollment;
         $this->dateBirth = $dateBirth;
         $this->active = $active;
 
         $this->table = 'users';
         $this->primaryKey = 'id';
-        $this->fillable = ['sectorId', 'classId', 'name', 'email', 'password', 'photo', 'crteatedAt', 'updateAt', 'enrollment', 'dateBirth', 'active'];
+        $this->fillable = ['sectorId', 'classId', 'name', 'email', 'password', 'photo', 'createdAt', 'updatedAt', 'enrollment', 'dateBirth', 'active'];
     }
 
     public function getId(): ?int
@@ -58,7 +58,7 @@ class User extends Model
         return $this->sectorId;
     }
 
-    public function setSectorId(int $sectorId): void
+    public function setSectorId(?int $sectorId): void
     {
         $this->sectorId = $sectorId;
     }
@@ -68,7 +68,7 @@ class User extends Model
         return $this->classId;
     }
 
-    public function setClassId(int $classId): void
+    public function setClassId(?int $classId): void
     {
         $this->classId = $classId;
     }
@@ -108,20 +108,29 @@ class User extends Model
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): void
-    {
-        $this->photo = $photo;
-    }
+    public function setPhoto(?string $photo): void
+{
+    $this->photo = $photo;
+}
 
-    public function getCreatedAt(): ?int
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(int $createdAt): void
+    public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
+    public function getUpdatedAt(): ?string
+{
+    return $this->updatedAt;
+}
+
+    public function setUpdatedAt(?string $updatedAt): void
+{
+    $this->updatedAt = $updatedAt;
+}
     public function getEnrollment(): ?string
     {
         return $this->enrollment;
@@ -149,6 +158,94 @@ class User extends Model
     public function setActive(int $active): void
     {
         $this->active = $active;
+    }
+ public function getToken(): ?string
+    {        return $this->token;
+    }
+
+       public function insert (): bool
+    {
+        $query = "SELECT * FROM  {$this->table} WHERE email = :email";
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            $this->errorMessage = "Email já cadastrado";
+            return false;
+        }
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+
+        if(!parent::insert()){
+            $this->errorMessage = "Algo deu errado";
+            return false;
+        }
+        return true;
+    }
+
+    public function login (
+        string $email, 
+        string $password,
+        string $enrollment = null
+        ): bool
+        {
+        $query = "SELECT * FROM {$this->table}
+         WHERE email = :email";
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindParam(":email", $email);
+        $stmt->execute();
+
+        if($stmt->rowCount() == 0){
+            $this->errorMessage = "Email não cadastrado";
+            return false;
+        }
+        $user = $stmt->fetch();
+
+        // if(!password_verify($password, $user->password)){
+        //     $this->errorMessage = "Senha incorreta";
+        //     return false;
+        // }
+
+
+if(
+        $user->enrollment !== "administrador" &&
+        $user->enrollment !== "profissional"
+    ){
+        $this->errorMessage = "Este usuário não possui permissão para acessar o sistema";
+        return false;
+    }
+
+    if($user->active != 1){
+    $this->errorMessage = "Usuário desativado";
+    return false;
+}
+
+        $this->id = $user->id;
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->photo = $user->photo;
+        $this->enrollment = $user->enrollment;
+        $jwt = new JWTToken();
+        // definir quais informações irão par o payload do token
+        $this->token = $jwt->encode([
+            "id" => $user->id,
+            "name" => $user->name,
+            "email" => $user->email,
+            "enrollment" => $user->enrollment
+        ]);
+        return true;
+    }
+
+    public function permissionVerify (string $email, string $enrollment): bool
+    {
+        $query = "SELECT * FROM {$this->table} WHERE email = :email AND enrollment = :enrollment";
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindParam(":email", $email);
+            $stmt->bindParam(':enrollment', $enrollment);
+        $stmt->execute();
+        if($stmt->rowCount() == 0) {
+            return false;
+        }
+        return true;
     }
 
 }

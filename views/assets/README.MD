@@ -88,7 +88,7 @@ todas as áreas. Exemplos:
 <link rel="stylesheet" href="views/assets/public/styles/home.css">
 
 <!-- JavaScript da área pública -->
-<script src="views/assets/public/scripts/home.js"></script>
+<script src="views/assets/public/script/main.js"></script>
 ```
 
 ---

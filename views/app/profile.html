@@ -6,128 +6,18 @@
     <title>Meu Perfil - SIAE</title>
     <link rel="stylesheet" href="../assets/app/styles/app.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-    <style>
-        .profile-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: var(--radius-xl);
-            padding: 32px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            color: white;
-        }
-        .profile-avatar-large {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            font-weight: 800;
-            border: 4px solid rgba(255,255,255,0.3);
-        }
-        .profile-info h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .profile-info p {
-            opacity: 0.85;
-            font-size: 14px;
-        }
-        .profile-stats {
-            display: flex;
-            gap: 32px;
-            margin-top: 16px;
-        }
-        .profile-stat {
-            text-align: center;
-        }
-        .profile-stat-value {
-            font-size: 24px;
-            font-weight: 700;
-        }
-        .profile-stat-label {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-        .profile-section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            margin-bottom: 16px;
-        }
-        .profile-section-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .profile-section-title svg {
-            color: var(--primary);
-        }
-        .profile-field {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .profile-field:last-child {
-            border-bottom: none;
-        }
-        .profile-field-label {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        .profile-field-value {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-        .profile-activity {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: var(--surface-variant);
-            border-radius: var(--radius-md);
-            margin-bottom: 8px;
-        }
-        .profile-activity-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .profile-activity-info {
-            flex: 1;
-        }
-        .profile-activity-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .profile-activity-date {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/app/styles/profile.css">
 </head>
 <body>
     <div class="app-layout">
         <aside class="sidebar">
             <div class="sidebar-logo">
-                <div class="sidebar-logo-icon"><svg viewBox="0 0 48 48" class="owl-logo"><circle cx="24" cy="24" r="22" fill="#5C6BC0"/><ellipse cx="16" cy="20" rx="6" ry="7" fill="#F5F5F5"/><ellipse cx="32" cy="20" rx="6" ry="7" fill="#F5F5F5"/><circle cx="16" cy="20" r="4" fill="#1A1A2E"/><circle cx="32" cy="20" r="4" fill="#1A1A2E"/><circle cx="17" cy="19" r="1.5" fill="#FFF"/><circle cx="33" cy="19" r="1.5" fill="#FFF"/><path d="M20 28 L24 32 L28 28" stroke="#FFA726" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M22 34 Q24 36 26 34" stroke="#7C4DFF" stroke-width="2" fill="none"/></svg></div>
+                <div class="sidebar-logo-icon"><svg viewBox="0 0 48 48" class="owl-logo" aria-hidden="true">
+  <path fill="currentColor" d="M24 5 7.5 11.5 24 18l16.5-6.5L24 5Z"/>
+  <path fill="currentColor" d="M9.5 13.5 9 23.5l-2.1 3.2c-.4.7-.2 1.6.5 2l3.2 1.8 2.2-6.2-.9-9.8-2.4-1Z"/>
+  <path fill="currentColor" fill-rule="evenodd" d="M24 16.6c-8.6 0-15 5.8-15 13.2 0 5.9 4.1 10.7 10 12.1 2.3.6 3.8-1.1 5-2.7 1.2 1.6 2.7 3.3 5 2.7 5.9-1.4 10-6.2 10-12.1 0-7.4-6.4-13.2-15-13.2Zm-7.8 8.1c3.2.2 5.8 2.5 7.1 6.1-3.1 1.1-7.8.5-10-2.6.4-2.1 1.4-3.6 2.9-3.5Zm15.6 0c-3.2.2-5.8 2.5-7.1 6.1 3.1 1.1 7.8.5 10-2.6-.4-2.1-1.4-3.6-2.9-3.5ZM18.6 27a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Zm10.8 0a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Z" clip-rule="evenodd"/>
+  <path fill="currentColor" d="M18 43.2c-5.1-.7-9.4-1.5-13.5-2.7 4.9-.8 10.3-1 16.5.8l3 1.8 3-1.8c6.2-1.8 11.6-1.6 16.5-.8-4.1 1.2-8.4 2-13.5 2.7-2.3.3-4.3 1-6 2.4-1.7-1.4-3.7-2.1-6-2.4Z"/>
+</svg></div>
                 <div class="sidebar-logo-text"><h1>SIAE</h1><p>Conexoes entre Setores</p></div>
             </div>
             <nav class="sidebar-nav">
@@ -136,23 +26,25 @@
                 <a href="search.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Busca</span></a>
                 <a href="charts.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><span>Graficos</span></a>
                 <a href="reports.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span>Relatorios</span></a>
-                <a href="notifications.html" class="sidebar-item professional-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><span>Notificacoes</span></a>
+                <a href="notifications.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><span>Notificacoes</span></a>
                 <a href="faq.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><span>FAQ</span></a>
                 <a href="occurrences.html" class="sidebar-item professional-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><span>Minhas Ocorrencias</span></a>
                 <div class="sidebar-section-label admin-only">Administracao</div>
                 <a href="../admin/students.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span>Alunos</span></a>
-                <a href="../admin/professionals.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="7" r="4"/></svg></div><span>Profissionais</span></a>
+                <a href="../admin/professionals.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg></div><span>Profissionais</span></a>
                 <a href="../admin/sectors.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><span>Setores</span></a>
             </nav>
-            <div class="sidebar-footer"><div class="sidebar-user" onclick="handleLogout()"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Usuario</h4><p id="userRole">Cargo</p></div></div></div>
+            <div class="sidebar-footer">
+                <a href="profile.html" class="sidebar-user"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Usuario</h4><p id="userRole">Cargo</p></div></a>
+                <button class="sidebar-logout" onclick="handleLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sair</button>
+            </div>
         </aside>
 
         <main class="main-content">
             <header class="app-header">
                 <div class="header-breadcrumb"><h2>Meu Perfil</h2><p>Visualize e edite suas informacoes</p></div>
                 <a href="notifications.html" class="header-icon-btn professional-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg><span class="dot"></span></a>
-                <button class="header-icon-btn admin-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
-                <div class="header-user-chip"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></div>
+                <a href="profile.html" class="header-user-chip"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></a>
             </header>
 
             <div class="page-content animate-fade-in">
@@ -298,92 +190,6 @@
             </div>
         </main>
     </div>
-
-    <script>
-        const userData = {
-            admin: {
-                name: 'Admin SIAE',
-                initials: 'AD',
-                role: 'Administrador do Sistema',
-                email: 'admin@siae.edu.br',
-                phone: '(11) 99999-0000',
-                position: 'Administrador',
-                sector: 'TI / Gestao',
-                stats: { occurrences: 'N/A', shared: 'N/A', students: '1.240' }
-            },
-            professional: {
-                name: 'Dra. Patricia Lima',
-                initials: 'PL',
-                role: 'Psicologa - Setor de Psicologia',
-                email: 'patricia.lima@siae.edu.br',
-                phone: '(11) 99999-9999',
-                position: 'Psicologa',
-                sector: 'Psicologia',
-                stats: { occurrences: '45', shared: '23', students: '78' }
-            }
-        };
-
-        function checkAuth() {
-            if (localStorage.getItem('siae_is_logged_in') !== 'true') {
-                window.location.href = 'login.html';
-                return false;
-            }
-            return true;
-        }
-
-        function updateUIByRole() {
-            const role = localStorage.getItem('siae_user_role') || 'professional';
-            const isAdmin = role === 'admin';
-            const data = userData[role];
-
-            // Sidebar
-            document.getElementById('userName').textContent = data.name;
-            document.getElementById('userRole').textContent = data.position;
-            document.getElementById('userAvatar').textContent = data.initials;
-
-            // Header
-            document.getElementById('headerName').textContent = data.name.split(' ')[0];
-            document.getElementById('headerAvatar').textContent = data.initials;
-
-            // Profile header
-            document.getElementById('profileAvatarLarge').textContent = data.initials;
-            document.getElementById('profileName').textContent = data.name;
-            document.getElementById('profileRole').textContent = data.role;
-
-            // Stats
-            document.getElementById('statOcurrence').textContent = data.stats.occurrences;
-            document.getElementById('statShared').textContent = data.stats.shared;
-            document.getElementById('statStudents').textContent = data.stats.students;
-
-            // Fields
-            document.getElementById('fieldName').textContent = data.name;
-            document.getElementById('fieldEmail').textContent = data.email;
-            document.getElementById('fieldPhone').textContent = data.phone;
-            document.getElementById('fieldPosition').textContent = data.position;
-            document.getElementById('fieldSector').textContent = data.sector;
-
-            // Role visibility
-            document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? '' : 'none');
-            document.querySelectorAll('.professional-only').forEach(el => el.style.display = isAdmin ? 'none' : '');
-        }
-
-        function editProfile() {
-            alert('Funcionalidade de edicao em desenvolvimento.');
-        }
-
-        function saveProfile() {
-            alert('Perfil salvo com sucesso!');
-        }
-
-        function handleLogout() {
-            localStorage.clear();
-            window.location.href = 'login.html';
-        }
-
-        // Initialize
-        if (checkAuth()) {
-            updateUIByRole();
-        }
-    </script>
+    <script src="../assets/app/script/profile.js"></script>
 </body>
 </html>

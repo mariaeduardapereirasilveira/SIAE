@@ -72,33 +72,33 @@
     const faqData = [
         {
             id: 1,
-            question: 'Como faço para cadastrar um novo aluno no sistema?',
-            answer: 'Para cadastrar um novo aluno, acesse o menu "Alunos" na barra lateral e clique no botão "Novo Aluno". Preencha os dados solicitados como nome, RA (Registro do Aluno), curso, setor responsável e informações de contato. Após preencher todos os campos obrigatórios, clique em "Cadastrar" para salvar.'
+            question: 'Como faÃƒÂ§o para cadastrar um novo aluno no sistema?',
+            answer: 'Para cadastrar um novo aluno, acesse o menu "Alunos" na barra lateral e clique no botÃƒÂ£o "Novo Aluno". Preencha os dados solicitados como nome, RA (Registro do Aluno), curso, setor responsÃƒÂ¡vel e informaÃƒÂ§ÃƒÂµes de contato. ApÃƒÂ³s preencher todos os campos obrigatÃƒÂ³rios, clique em "Cadastrar" para salvar.'
         },
         {
             id: 2,
             question: 'Como registrar um atendimento de enfermagem?',
-            answer: 'Acesse o setor "Enfermaria" e selecione "Novo Atendimento". Busque o aluno pelo nome ou RA, preencha as informações do atendimento como tipo de ocorrência, descrição, medicamentos administrados (se houver) e encaminhamentos. O sistema salva automaticamente e notifica os setores relacionados.'
+            answer: 'Acesse o setor "Enfermaria" e selecione "Novo Atendimento". Busque o aluno pelo nome ou RA, preencha as informaÃƒÂ§ÃƒÂµes do atendimento como tipo de ocorrÃƒÂªncia, descriÃƒÂ§ÃƒÂ£o, medicamentos administrados (se houver) e encaminhamentos. O sistema salva automaticamente e notifica os setores relacionados.'
         },
         {
             id: 3,
-            question: 'Posso visualizar o histórico completo de um aluno?',
-            answer: 'Sim! O SIAE centraliza todas as informações do aluno. Acesse "Alunos", busque pelo nome ou RA, e clique no ícone de visualização. Você terá acesso a todo o histórico de atendimentos, encaminhamentos, ocorrências e acompanhamentos de todos os setores.'
+            question: 'Posso visualizar o histÃƒÂ³rico completo de um aluno?',
+            answer: 'Sim! O SIAE centraliza todas as informaÃƒÂ§ÃƒÂµes do aluno. Acesse "Alunos", busque pelo nome ou RA, e clique no ÃƒÂ­cone de visualizaÃƒÂ§ÃƒÂ£o. VocÃƒÂª terÃƒÂ¡ acesso a todo o histÃƒÂ³rico de atendimentos, encaminhamentos, ocorrÃƒÂªncias e acompanhamentos de todos os setores.'
         },
         {
             id: 4,
-            question: 'Como gerar relatórios de atendimentos?',
-            answer: 'No menu "Relatórios", você encontra várias opções de relatórios pré-configurados. Selecione o período desejado, os setores envolvidos e o tipo de relatório. O sistema gera automaticamente em PDF ou Excel. Administradores também podem criar relatórios personalizados.'
+            question: 'Como gerar relatÃƒÂ³rios de atendimentos?',
+            answer: 'No menu "RelatÃƒÂ³rios", vocÃƒÂª encontra vÃƒÂ¡rias opÃƒÂ§ÃƒÂµes de relatÃƒÂ³rios prÃƒÂ©-configurados. Selecione o perÃƒÂ­odo desejado, os setores envolvidos e o tipo de relatÃƒÂ³rio. O sistema gera automaticamente em PDF ou Excel. Administradores tambÃƒÂ©m podem criar relatÃƒÂ³rios personalizados.'
         },
         {
             id: 5,
-            question: 'O sistema permite integração entre setores?',
-            answer: 'Sim, essa é uma das principais funcionalidades do SIAE. Quando você registra um atendimento ou encaminhamento, o sistema notifica automaticamente os profissionais dos setores relacionados. Todo o histórico fica centralizado e acessível para toda a equipe multidisciplinar.'
+            question: 'O sistema permite integraÃƒÂ§ÃƒÂ£o entre setores?',
+            answer: 'Sim, essa ÃƒÂ© uma das principais funcionalidades do SIAE. Quando vocÃƒÂª registra um atendimento ou encaminhamento, o sistema notifica automaticamente os profissionais dos setores relacionados. Todo o histÃƒÂ³rico fica centralizado e acessÃƒÂ­vel para toda a equipe multidisciplinar.'
         },
         {
             id: 6,
-            question: 'Como funcionam as permissões de acesso?',
-            answer: 'O SIAE possui níveis de acesso configuráveis. Profissionais podem acessar apenas seus setores e alunos designados. Coordenadores têm acesso a todo o setor. Administradores têm acesso completo a todas as funcionalidades, incluindo configurações e gestão de usuários.'
+            question: 'Como funcionam as permissÃƒÂµes de acesso?',
+            answer: 'O SIAE possui nÃƒÂ­veis de acesso configurÃƒÂ¡veis. Profissionais podem acessar apenas seus setores e alunos designados. Coordenadores tÃƒÂªm acesso a todo o setor. Administradores tÃƒÂªm acesso completo a todas as funcionalidades, incluindo configuraÃƒÂ§ÃƒÂµes e gestÃƒÂ£o de usuÃƒÂ¡rios.'
         }
     ];
 
@@ -304,7 +304,7 @@
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
             <span>${message}</span>
-            <button onclick="this.parentElement.remove()">×</button>
+            <button onclick="this.parentElement.remove()">Ãƒâ€”</button>
         `;
 
         // Add notification styles if not exists

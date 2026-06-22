@@ -3,299 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busca - SIAE</title>
+    <title>Relatorios - SIAE</title>
     <link rel="stylesheet" href="../assets/app/styles/app.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-    <style>
-        .search-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .search-box {
-            position: relative;
-            margin-bottom: 24px;
-        }
-        .search-box input {
-            width: 100%;
-            padding: 16px 20px 16px 50px;
-            font-size: 16px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-lg);
-            background: var(--surface);
-            transition: var(--transition);
-        }
-        .search-box input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px var(--primary-container);
-            outline: none;
-        }
-        .search-box svg {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-        .search-filters {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-        .filter-btn {
-            padding: 8px 16px;
-            border-radius: 999px;
-            border: 1.5px solid var(--border);
-            background: var(--surface);
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .filter-btn:hover, .filter-btn.active {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: var(--primary-container);
-        }
-        .student-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .student-card:hover {
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary);
-        }
-        .student-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-        .student-info {
-            flex: 1;
-        }
-        .student-name {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-        .student-details {
-            display: flex;
-            gap: 16px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-        .student-detail-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .student-badges {
-            display: flex;
-            gap: 8px;
-        }
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-        }
-        .no-results svg {
-            width: 64px;
-            height: 64px;
-            opacity: 0.3;
-            margin-bottom: 16px;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/app/styles/reports.css">
 </head>
 <body>
     <div class="app-layout">
         <aside class="sidebar">
             <div class="sidebar-logo">
-                <div class="sidebar-logo-icon"><svg viewBox="0 0 48 48" class="owl-logo"><circle cx="24" cy="24" r="22" fill="#5C6BC0"/><ellipse cx="16" cy="20" rx="6" ry="7" fill="#F5F5F5"/><ellipse cx="32" cy="20" rx="6" ry="7" fill="#F5F5F5"/><circle cx="16" cy="20" r="4" fill="#1A1A2E"/><circle cx="32" cy="20" r="4" fill="#1A1A2E"/><circle cx="17" cy="19" r="1.5" fill="#FFF"/><circle cx="33" cy="19" r="1.5" fill="#FFF"/><path d="M20 28 L24 32 L28 28" stroke="#FFA726" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M22 34 Q24 36 26 34" stroke="#7C4DFF" stroke-width="2" fill="none"/></svg></div>
+                <div class="sidebar-logo-icon"><svg viewBox="0 0 48 48" class="owl-logo" aria-hidden="true">
+  <path fill="currentColor" d="M24 5 7.5 11.5 24 18l16.5-6.5L24 5Z"/>
+  <path fill="currentColor" d="M9.5 13.5 9 23.5l-2.1 3.2c-.4.7-.2 1.6.5 2l3.2 1.8 2.2-6.2-.9-9.8-2.4-1Z"/>
+  <path fill="currentColor" fill-rule="evenodd" d="M24 16.6c-8.6 0-15 5.8-15 13.2 0 5.9 4.1 10.7 10 12.1 2.3.6 3.8-1.1 5-2.7 1.2 1.6 2.7 3.3 5 2.7 5.9-1.4 10-6.2 10-12.1 0-7.4-6.4-13.2-15-13.2Zm-7.8 8.1c3.2.2 5.8 2.5 7.1 6.1-3.1 1.1-7.8.5-10-2.6.4-2.1 1.4-3.6 2.9-3.5Zm15.6 0c-3.2.2-5.8 2.5-7.1 6.1 3.1 1.1 7.8.5 10-2.6-.4-2.1-1.4-3.6-2.9-3.5ZM18.6 27a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Zm10.8 0a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Z" clip-rule="evenodd"/>
+  <path fill="currentColor" d="M18 43.2c-5.1-.7-9.4-1.5-13.5-2.7 4.9-.8 10.3-1 16.5.8l3 1.8 3-1.8c6.2-1.8 11.6-1.6 16.5-.8-4.1 1.2-8.4 2-13.5 2.7-2.3.3-4.3 1-6 2.4-1.7-1.4-3.7-2.1-6-2.4Z"/>
+</svg></div>
                 <div class="sidebar-logo-text"><h1>SIAE</h1><p>Conexoes entre Setores</p></div>
             </div>
             <nav class="sidebar-nav">
                 <div class="sidebar-section-label">Principal</div>
                 <a href="dashboard.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span>Dashboard</span></a>
-                <a href="search.html" class="sidebar-item active"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Busca</span></a>
+                <a href="search.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Busca</span></a>
                 <a href="charts.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><span>Graficos</span></a>
-                <a href="reports.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span>Relatorios</span></a>
-                <a href="notifications.html" class="sidebar-item professional-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><span>Notificacoes</span><span class="sidebar-badge">3</span></a>
+                <a href="reports.html" class="sidebar-item active"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span>Relatorios</span></a>
+                <a href="notifications.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><span>Notificacoes</span><span class="sidebar-badge professional-only">3</span></a>
                 <a href="faq.html" class="sidebar-item"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><span>FAQ</span></a>
                 <a href="occurrences.html" class="sidebar-item professional-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><span>Minhas Ocorrencias</span></a>
                 <div class="sidebar-section-label admin-only">Administracao</div>
                 <a href="../admin/students.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span>Alunos</span></a>
-                <a href="../admin/professionals.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="7" r="4"/></svg></div><span>Profissionais</span></a>
+                <a href="../admin/professionals.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg></div><span>Profissionais</span></a>
                 <a href="../admin/sectors.html" class="sidebar-item admin-only"><div class="sidebar-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><span>Setores</span></a>
             </nav>
-            <div class="sidebar-footer"><div class="sidebar-user" onclick="handleLogout()"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Usuario</h4><p id="userRole">Cargo</p></div></div></div>
+            <div class="sidebar-footer">
+                <a href="profile.html" class="sidebar-user"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Usuario</h4><p id="userRole">Cargo</p></div></a>
+                <button class="sidebar-logout" onclick="handleLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sair</button>
+            </div>
         </aside>
 
         <main class="main-content">
             <header class="app-header">
-                <div class="header-breadcrumb"><h2>Busca de Alunos</h2><p>Pesquise alunos por nome, turma ou matricula</p></div>
+                <div class="header-breadcrumb"><h2>Relatorios</h2><p id="reportsSubtitle">Visualize relatorios criados pela equipe</p></div>
                 <a href="notifications.html" class="header-icon-btn professional-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg><span class="dot"></span></a>
-                <button class="header-icon-btn admin-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
-                <div class="header-user-chip"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></div>
+                <a href="profile.html" class="header-user-chip"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></a>
             </header>
 
             <div class="page-content animate-fade-in">
                 <div class="page-header">
-                    <div class="page-header-title"><h1>Busca de Alunos</h1><p>Encontre alunos por nome, turma ou matricula</p></div>
+                    <div class="page-header-title"><h1>Relatorios</h1><p>Lista de relatorios por setor e profissional responsavel</p></div>
+                    <button class="btn btn-primary btn-sm professional-only" onclick="openReportModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Criar Relatorio
+                    </button>
                 </div>
 
-                <div class="search-container">
-                    <div class="search-box">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                            <circle cx="11" cy="11" r="8"/>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                        </svg>
-                        <input type="text" id="searchInput" placeholder="Buscar por nome, turma ou matricula..." onkeyup="filterStudents()">
-                    </div>
-
-                    <div class="search-filters">
-                        <button class="filter-btn active" onclick="setFilter('all')" id="filter-all">Todos</button>
-                        <button class="filter-btn" onclick="setFilter('name')" id="filter-name">Por Nome</button>
-                        <button class="filter-btn" onclick="setFilter('class')" id="filter-class">Por Turma</button>
-                        <button class="filter-btn" onclick="setFilter('ra')" id="filter-ra">Por Matricula</button>
-                    </div>
-
-                    <div id="resultsContainer">
-                        <!-- Students will be rendered here -->
-                    </div>
+                <div class="reports-layout">
+                    <section class="reports-card">
+                        <div class="reports-card-header">
+                            <div>
+                                <h2>Relatorios disponiveis</h2>
+                                <p>Organizados pelo setor e por quem criou cada registro</p>
+                            </div>
+                        </div>
+                        <div class="reports-list" id="reportsList">
+                            <!-- Reports will be rendered here -->
+                        </div>
+                    </section>
                 </div>
             </div>
         </main>
     </div>
 
-    <script>
-        const students = [
-            { id: 1, name: 'Ana Paula Silva', ra: '2024001', class: '1A - Administracao', sector: 'Pedagogico', status: 'active' },
-            { id: 2, name: 'Bruno Santos', ra: '2024002', class: '2B - Contabilidade', sector: 'Psicologico', status: 'active' },
-            { id: 3, name: 'Carla Mendes', ra: '2024003', class: '1A - Recursos Humanos', sector: 'Pedagogico', status: 'inactive' },
-            { id: 4, name: 'Diego Lima', ra: '2024004', class: '3C - Marketing', sector: 'Social', status: 'active' },
-            { id: 5, name: 'Elena Rocha', ra: '2024005', class: '2A - Tecnologia', sector: 'Enfermaria', status: 'active' },
-            { id: 6, name: 'Felipe Costa', ra: '2024006', class: '1B - Logistica', sector: 'Psicologico', status: 'active' },
-            { id: 7, name: 'Gabriela Nunes', ra: '2024007', class: '3A - Enfermagem', sector: 'Pedagogico', status: 'active' },
-            { id: 8, name: 'Henrique Alves', ra: '2024008', class: '2C - Pedagogia', sector: 'Social', status: 'active' },
-            { id: 9, name: 'Isabela Ferreira', ra: '2024009', class: '1A - Administracao', sector: 'Psicologico', status: 'active' },
-            { id: 10, name: 'Joao Pedro Martins', ra: '2024010', class: '3B - Contabilidade', sector: 'Enfermaria', status: 'inactive' },
-        ];
-
-        let currentFilter = 'all';
-
-        function checkAuth() {
-            if (localStorage.getItem('siae_is_logged_in') !== 'true') { window.location.href = 'login.html'; return false; }
-            return true;
-        }
-
-        function updateUIByRole() {
-            const role = localStorage.getItem('siae_user_role') || 'professional';
-            const isAdmin = role === 'admin';
-            document.getElementById('userName').textContent = isAdmin ? 'Admin SIAE' : 'Dra. Patricia Lima';
-            document.getElementById('userRole').textContent = isAdmin ? 'Administrador' : 'Psicologa';
-            document.getElementById('userAvatar').textContent = isAdmin ? 'AD' : 'PL';
-            document.getElementById('headerName').textContent = isAdmin ? 'Admin' : 'Patricia';
-            document.getElementById('headerAvatar').textContent = isAdmin ? 'AD' : 'PL';
-            document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? '' : 'none');
-            document.querySelectorAll('.professional-only').forEach(el => el.style.display = isAdmin ? 'none' : '');
-        }
-
-        function setFilter(filter) {
-            currentFilter = filter;
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('filter-' + filter).classList.add('active');
-            filterStudents();
-        }
-
-        function filterStudents() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            const container = document.getElementById('resultsContainer');
-
-            let filtered = students;
-
-            if (query) {
-                filtered = students.filter(student => {
-                    switch (currentFilter) {
-                        case 'name': return student.name.toLowerCase().includes(query);
-                        case 'class': return student.class.toLowerCase().includes(query);
-                        case 'ra': return student.ra.toLowerCase().includes(query);
-                        default: return student.name.toLowerCase().includes(query) ||
-                                       student.class.toLowerCase().includes(query) ||
-                                       student.ra.toLowerCase().includes(query);
-                    }
-                });
-            }
-
-            if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="11" cy="11" r="8"/>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                        </svg>
-                        <h3 style="color: var(--text-secondary); margin-bottom: 8px;">Nenhum aluno encontrado</h3>
-                        <p style="font-size: 14px;">Tente ajustar os filtros ou termos de busca</p>
+    <div class="modal-overlay" id="reportModal">
+        <div class="modal" style="max-width: 620px;">
+            <div class="modal-header">
+                <div>
+                    <div class="card-title" id="reportModalTitle">Criar relatorio</div>
+                    <div class="card-subtitle">Preencha as informacoes do relatorio</div>
+                </div>
+                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('reportModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Titulo</label>
+                    <input type="text" class="form-control" id="reportTitle" placeholder="Digite o titulo do relatorio">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Conteudo</label>
+                    <textarea class="form-control" id="reportContent" rows="6" placeholder="Digite o conteudo do relatorio"></textarea>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Quem criou</label>
+                        <input type="text" class="form-control" id="reportCreator" placeholder="Nome do profissional" readonly>
                     </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = filtered.map(student => `
-                <div class="student-card" onclick="viewStudent(${student.id})">
-                    <div class="student-avatar">${student.name.split(' ').map(n => n[0]).slice(0, 2).join('')}</div>
-                    <div class="student-info">
-                        <div class="student-name">${student.name}</div>
-                        <div class="student-details">
-                            <span class="student-detail-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                                Turma: ${student.class}
-                            </span>
-                            <span class="student-detail-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                                RA: ${student.ra}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="student-badges">
-                        <span class="badge badge-primary">${student.sector}</span>
-                        <span class="badge ${student.status === 'active' ? 'badge-success' : 'badge-neutral'}">${student.status === 'active' ? 'Ativo' : 'Inativo'}</span>
+                    <div class="form-group">
+                        <label class="form-label">Setor</label>
+                        <select class="form-control" id="reportSector">
+                            <option>Psicologia</option>
+                            <option>Pedagogico</option>
+                            <option>Enfermaria</option>
+                            <option>Social</option>
+                        </select>
                     </div>
                 </div>
-            `).join('');
-        }
-
-        function viewStudent(id) {
-            alert('Visualizar perfil do aluno ID: ' + id);
-        }
-
-        function handleLogout() {
-            localStorage.clear();
-            window.location.href = 'login.html';
-        }
-
-        // Initialize
-        if (checkAuth()) {
-            updateUIByRole();
-            filterStudents();
-        }
-    </script>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('reportModal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveReport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>Salvar</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="viewReportModal">
+        <div class="modal" style="max-width: 680px;">
+            <div class="modal-header">
+                <div>
+                    <div class="card-title" id="viewReportTitle">Relatorio</div>
+                    <div class="card-subtitle">Conteudo do relatorio selecionado</div>
+                </div>
+                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('viewReportModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+            <div class="modal-body">
+                <div class="info-grid" style="margin-bottom: 14px;">
+                    <div class="info-item"><div class="info-label">Quem criou</div><div class="info-value" id="viewReportCreator">-</div></div>
+                    <div class="info-item"><div class="info-label">Setor</div><div class="info-value" id="viewReportSector">-</div></div>
+                    <div class="info-item"><div class="info-label">Data</div><div class="info-value" id="viewReportDate">-</div></div>
+                </div>
+                <div class="modal-section-title">Conteudo</div>
+                <div class="report-view-content" id="viewReportContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('viewReportModal')">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/app/script/reports.js"></script>
 </body>
 </html>

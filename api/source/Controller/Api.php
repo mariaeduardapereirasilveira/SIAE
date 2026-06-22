@@ -2,15 +2,18 @@
 
 namespace Source\Controller;
 
-use Source\Models\User;
+use Source\Models\Users\User;
 use Source\Core\JWTToken;
 
 class Api
 {
     protected ?int $userAuthId = null;
     protected array $response = [];
-
-    public function authToken (int $typeId): bool
+ public function hello()
+    {
+        echo "Olá, mundo! Estamos com a API funcionando, graças a Deus!";
+    }
+    public function authToken (string $enrollment): bool
     {
 
         $header = getallheaders();
@@ -34,7 +37,7 @@ class Api
         }
 
         $user = new User();
-        if(!$user->permissionVerify($jwtToken->data->email, $typeId)){
+        if(!$user->permissionVerify($jwtToken->data->email, $enrollment)){
             return false;
         }
 

@@ -14,15 +14,15 @@ class Occurrence extends Model
     private ?string $title;
     private ?string $description;
     private ?string $status;
-    private ?int $createdAt;
-    private ?int $updateAt;
+    private ?string $createdAt;
+    private ?string $updateAt;
     private ?string $secrecyLevel;
     private ?string $classId;
     private ?int $active;
 
     public function __construct(?int $id = null, ?int $servicesId = null,
     ?int $sectorsId = null, ?string $title = null, ?string $description = null,
-    ?string $status = null, ?int $createdAt = null, ?int $updateAt = null,
+    ?string $status = null, ?string $createdAt = null, ?string $updateAt = null,
     ?string $secrecyLevel = null, ?string $classId = null, ?int $active = 1)
     {
         $this->id = $id;
@@ -32,7 +32,7 @@ class Occurrence extends Model
         $this->description = $description;
         $this->status = $status;
         $this->createdAt = $createdAt;
-        $this->updateAt = $updateAt;
+        $this->updatedAt = $updatedAt;
         $this->secrecyLevel = $secrecyLevel;
         $this->classId = $classId;
         $this->active = $active;
@@ -112,23 +112,23 @@ class Occurrence extends Model
         $this->secrecyLevel = $secrecyLevel;
     }
 
-    public function getCreatedAt(): ?int
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(int $createdAt): void
+    public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
-    public function getUpdatedAt(): ?int
+    public function getUpdatedAt(): ?string
     {
-        return $this->updateAt;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(int $updateAt): void
+    public function setUpdatedAt(string $updatedAt): void
     {
-        $this->updateAt = $updateAt;
+        $this->updatedAt = $updatedAt;
     }
 
     public function getActive(): ?int

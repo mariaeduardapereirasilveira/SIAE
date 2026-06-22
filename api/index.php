@@ -23,16 +23,13 @@ use CoffeeCode\Router\Router;
 // localhost/acme-3am/api
 $route = new Router(url("api"),":");
 
-$route->namespace("Source\Controller");
-// localhost/acme-3am/api/hello
+$route->namespace("Source\Controller");// localhost/acme-3am/api/hello
 $route->get("/hello", "Api:hello");
 $route->get("/products/list", "Products:productsList");
-$route->get("/users/list", "Users:usersList");
+//$route->get("/users/list", "Users:usersList");
 
-$route->dispatch();
-
-$route->group("/ocorrences");
-$route->get("/list/{ocorrences_id}","Ocorrences:listById"); // select by id
+$route->group("/ocurrences");
+$route->get("/list/{ocurrences_id}","Ocurrences:listById"); // select by id
 $route->get("/list","Ocurrences:listAll"); // select all
 // select all
 $route->get("/list/paginator/{page}/{per_page}","Ocurrences:listPaginator");
@@ -43,16 +40,20 @@ $route->group(null);
 
 
 $route->group("/users");
-$route->get("/list/{user_id}","Users:listById"); // select by id
-$route->get("/list","Users:listAll"); // select all
-// select all
-$route->get("/list/paginator/{page}/{per_page}","Users:listPaginator");
-$route->post("/","Users:insert"); // insert
-$route->put("/{users_id}","Users:update"); // update
-$route->delete("/{users_id}","Users:delete"); // update
+$route->namespace("Source\Controller");
+
+$route->get("/hello", "Users:hello");
+$route->get("/list", "Users:listAll");
+$route->get("/id/{user_id}", "Users:listById");
+$route->post("/", "Users:insert");
+$route->post("/login", "Users:auth"); // LOGIN NORMAL
+$route->post("/login/admin", "Users:authAdmin");
+$route->put("/id/{user_id}", "Users:update");
+$route->delete("/id/{user_id}", "Users:delete");
+
 $route->group(null);
 
-
+$route->dispatch();
 
 /** ERROR REDIRECT */
 if ($route->error()) {
