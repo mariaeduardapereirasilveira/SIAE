@@ -1,45 +1,70 @@
 <?php
 
-namespace Source\Models\Ocurrences;
+namespace Source\Models\Occurrences;
 
 use Source\Core\Model;
-use Source\Core\Connect;
 
 class Occurrence extends Model
 {
     private ?int $id;
     private ?int $servicesId;
     private ?int $sectorsId;
-    private ?string $userId;
+    private ?int $userId;
+    private ?int $studentsId;
     private ?string $title;
     private ?string $description;
     private ?string $status;
-    private ?string $createdAt;
-    private ?string $updateAt;
     private ?string $secrecyLevel;
-    private ?string $classId;
+    private ?string $createdAt;
+    private ?string $updatedAt;
     private ?int $active;
+    private ?string $class;
 
-    public function __construct(?int $id = null, ?int $servicesId = null,
-    ?int $sectorsId = null, ?string $title = null, ?string $description = null,
-    ?string $status = null, ?string $createdAt = null, ?string $updateAt = null,
-    ?string $secrecyLevel = null, ?string $classId = null, ?int $active = 1)
-    {
+    public function __construct(
+        ?int $id = null,
+        ?int $servicesId = null,
+        ?int $sectorsId = null,
+        ?int $userId = null,
+        ?int $studentsId = null,
+        ?string $title = null,
+        ?string $description = null,
+        ?string $status = null,
+        ?string $secrecyLevel = null,
+        ?string $createdAt = null,
+        ?string $updatedAt = null,
+        ?int $active = 1,
+        ?string $class = null
+    ) {
         $this->id = $id;
         $this->servicesId = $servicesId;
         $this->sectorsId = $sectorsId;
+        $this->userId = $userId;
+        $this->studentsId = $studentsId;
         $this->title = $title;
         $this->description = $description;
         $this->status = $status;
+        $this->secrecyLevel = $secrecyLevel;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
-        $this->secrecyLevel = $secrecyLevel;
-        $this->classId = $classId;
         $this->active = $active;
+        $this->class = $class;
 
-        $this->table = 'users';
+        $this->table = 'occurrences';
         $this->primaryKey = 'id';
-        $this->fillable = ['servicesId', 'sectorsId', 'title', 'description', 'status', 'createdAt', 'updateAt', 'secrecyLevel', 'classId', 'active'];
+        $this->fillable = [
+            'servicesId',
+            'sectorsId',
+            'userId',
+            'studentsId',
+            'title',
+            'description',
+            'status',
+            'secrecyLevel',
+            'createdAt',
+            'updatedAt',
+            'active',
+            'class'
+        ];
     }
 
     public function getId(): ?int
@@ -52,24 +77,44 @@ class Occurrence extends Model
         $this->id = $id;
     }
 
+    public function getServicesId(): ?int
+    {
+        return $this->servicesId;
+    }
+
+    public function setServicesId(int $servicesId): void
+    {
+        $this->servicesId = $servicesId;
+    }
+
     public function getSectorsId(): ?int
     {
         return $this->sectorsId;
     }
 
-    public function setsectorsId(int $sectorsId): void
+    public function setSectorsId(int $sectorsId): void
     {
         $this->sectorsId = $sectorsId;
     }
 
-    public function getClassId(): ?int
+    public function getUserId(): ?int
     {
-        return $this->classId;
+        return $this->userId;
     }
 
-    public function setClassId(int $classId): void
+    public function setUserId(int $userId): void
     {
-        $this->classId = $classId;
+        $this->userId = $userId;
+    }
+
+    public function getStudentsId(): ?int
+    {
+        return $this->studentsId;
+    }
+
+    public function setStudentsId(int $studentsId): void
+    {
+        $this->studentsId = $studentsId;
     }
 
     public function getTitle(): ?string
@@ -121,6 +166,7 @@ class Occurrence extends Model
     {
         $this->createdAt = $createdAt;
     }
+
     public function getUpdatedAt(): ?string
     {
         return $this->updatedAt;
@@ -141,4 +187,13 @@ class Occurrence extends Model
         $this->active = $active;
     }
 
+    public function getClass(): ?string
+    {
+        return $this->class;
+    }
+
+    public function setClass(string $class): void
+    {
+        $this->class = $class;
+    }
 }

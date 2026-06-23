@@ -28,15 +28,15 @@ $route->get("/hello", "Api:hello");
 $route->get("/products/list", "Products:productsList");
 //$route->get("/users/list", "Users:usersList");
 
-$route->group("/ocurrences");
-$route->get("/list/{ocurrences_id}","Ocurrences:listById"); // select by id
-$route->get("/list","Ocurrences:listAll"); // select all
-// select all
-$route->get("/list/paginator/{page}/{per_page}","Ocurrences:listPaginator");
-$route->post("/","Ocurrences:insert"); // insert
-$route->put("/{ocurrences_id}","Ocurrences:update"); // update
-$route->delete("/{ocurrences_id}","Ocurrences:delete"); // update
-$route->group(null);
+$route->group("/occurrences");
+$route->namespace("Source\Controller");
+
+$route->get("/hello", "Occurrences:hello");
+$route->get("/list", "Occurrences:listAll");
+$route->get("/id/{occurrence_id}", "Occurrences:listById");
+$route->post("/", "Occurrences:insert");
+$route->put("/id/{occurrence_id}", "Occurrences:update");
+$route->delete("/id/{occurrence_id}", "Occurrences:delete");
 
 
 $route->group("/users");
@@ -46,8 +46,7 @@ $route->get("/hello", "Users:hello");
 $route->get("/list", "Users:listAll");
 $route->get("/id/{user_id}", "Users:listById");
 $route->post("/", "Users:insert");
-$route->post("/login", "Users:auth"); // LOGIN NORMAL
-$route->post("/login/admin", "Users:authAdmin");
+$route->post("/login", "Users:login");
 $route->put("/id/{user_id}", "Users:update");
 $route->delete("/id/{user_id}", "Users:delete");
 
