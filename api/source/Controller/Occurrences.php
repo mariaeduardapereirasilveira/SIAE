@@ -70,7 +70,7 @@ class Occurrences extends Api
             "servicesId" => $occurrence->getServicesId(),
             "sectorsId" => $occurrence->getSectorsId(),
             "userId" => $occurrence->getUserId(),
-            "studentsId" => $occurrence->getStudentsId(),
+            "studentsId" => $occurrence->getStudentId(),
             "title" => $occurrence->getTitle(),
             "description" => $occurrence->getDescription(),
             "status" => $occurrence->getStatus(),
@@ -92,19 +92,18 @@ class Occurrences extends Api
     // INSERT - POST
     public function insert(array $data): void
     {
-        $json = json_decode(file_get_contents("php://input"), true);
-        $data = array_merge($data, $json ?? []);
+       
 
         $occurrence = new Occurrence(
             null,
-            $data["servicesId"] ?? null,
-            $data["sectorsId"] ?? null,
-            $data["userId"] ?? null,
-            $data["studentsId"] ?? null,
+            $data["services_id"] ?? null,
+            $data["sectors_id"] ?? null,
+            $data["user_id"] ?? null,
+            $data["student_id"] ?? null,
             $data["title"] ?? null,
             $data["description"] ?? null,
             $data["status"] ?? null,
-            $data["secrecyLevel"] ?? null,
+            $data["secrecy_level"] ?? null,
             date("Y-m-d H:i:s"),
             date("Y-m-d H:i:s"),
             1,
@@ -132,9 +131,7 @@ class Occurrences extends Api
     // UPDATE - PUT
     public function update(array $data): void
     {
-        $json = json_decode(file_get_contents("php://input"), true);
-        $data = array_merge($data, $json ?? []);
-
+      
         if (
             !isset($data["occurrence_id"]) ||
             empty($data["occurrence_id"]) ||

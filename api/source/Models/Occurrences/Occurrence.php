@@ -10,7 +10,7 @@ class Occurrence extends Model
     private ?int $servicesId;
     private ?int $sectorsId;
     private ?int $userId;
-    private ?int $studentsId;
+    private ?int $studentId;
     private ?string $title;
     private ?string $description;
     private ?string $status;
@@ -25,7 +25,7 @@ class Occurrence extends Model
         ?int $servicesId = null,
         ?int $sectorsId = null,
         ?int $userId = null,
-        ?int $studentsId = null,
+        ?int $studentId = null,
         ?string $title = null,
         ?string $description = null,
         ?string $status = null,
@@ -39,7 +39,7 @@ class Occurrence extends Model
         $this->servicesId = $servicesId;
         $this->sectorsId = $sectorsId;
         $this->userId = $userId;
-        $this->studentsId = $studentsId;
+        $this->studentId = $studentId;
         $this->title = $title;
         $this->description = $description;
         $this->status = $status;
@@ -55,7 +55,7 @@ class Occurrence extends Model
             'servicesId',
             'sectorsId',
             'userId',
-            'studentsId',
+            'studentId',
             'title',
             'description',
             'status',
@@ -107,14 +107,14 @@ class Occurrence extends Model
         $this->userId = $userId;
     }
 
-    public function getStudentsId(): ?int
+    public function getStudentId(): ?int
     {
-        return $this->studentsId;
+        return $this->studentId;
     }
 
-    public function setStudentsId(int $studentsId): void
+    public function setStudentId(int $studentId): void
     {
-        $this->studentsId = $studentsId;
+        $this->studentId = $studentId;
     }
 
     public function getTitle(): ?string
@@ -162,7 +162,7 @@ class Occurrence extends Model
         return $this->createdAt;
     }
 
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt(?string $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -172,7 +172,7 @@ class Occurrence extends Model
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(string $updatedAt): void
+    public function setUpdatedAt(?string $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }

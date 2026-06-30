@@ -92,17 +92,7 @@ class Users extends Api {
 
     //INSERT - POST
     public function insert(array $data): void
-    {
-        $json = json_decode(file_get_contents("php://input"), true);
-        $data = array_merge($data, $json ?? []);
-
-        //if(!$this->authToken(2)){
-        //    $this->call(401,
-        //        "unauthorized",
-        //        "Token de autenticação inválido ou expirado.",
-        //        "error")->back();
-        //    return;
-        //}
+    { 
         if(!$this->authToken('administrador')) {
     $this->call(
         401,
@@ -141,18 +131,6 @@ class Users extends Api {
     //UPDATE - PUT
     public function update(array $data): void
 {
-    $json = json_decode(file_get_contents("php://input"), true);
-    $data = array_merge($data, $json ?? []);
-
-    // if(!$this->authToken('administrador')) {
-    // $this->call(
-    //     401,
-    //     "unauthorized",
-    //     "Apenas administradores podem realizar esta ação.",
-    //     "error"
-    // )->back();
-    // return;
-    // }
     
     if (
         !isset($data["user_id"]) ||
@@ -186,11 +164,12 @@ if (isset($data["photo"])) {
     $user->setPhoto($data["photo"]);
 }
 
+
 if (
     !isset($data["name"]) &&
     !isset($data["email"]) &&
     !isset($data["password"]) &&
-    !isset($data["photo"])
+    !isset($data["photo"]) 
 ) {
     $this->call(
         400,
@@ -271,14 +250,9 @@ if (
 
 
 
-// * para funcionar no postMan
-//*$data = json_decode(file_get_contents("php://input"), true);
+
 public function auth (?array $data = null): void
 {
-    $data = json_decode(file_get_contents("php://input"), true);
-
-    // var_dump($data); // DEBUG
-    // exit;
 
     if(!isset($data['email'], $data['password']) ||
         empty($data['email']) || empty($data['password']) ||
@@ -320,7 +294,6 @@ public function auth (?array $data = null): void
 
     public function authAdmin (array $data): void
     {
-        $data = json_decode(file_get_contents("php://input"), true);
         
         if(!isset($data['email'], $data['password']) ||
             empty($data['email']) || empty($data['password']) ||
