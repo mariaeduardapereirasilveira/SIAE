@@ -40,7 +40,7 @@ class User extends Model
 
         $this->table = 'users';
         $this->primaryKey = 'id';
-        $this->fillable = ['sectorId', 'classId', 'name', 'email', 'password', 'photo', 'createdAt', 'updatedAt', 'enrollment', 'dateBirth', 'active'];
+        $this->fillable = ['sector_id', 'class_id', 'name', 'email', 'password', 'photo', 'created_at', 'updated_at', 'enrollment', 'dateBirth', 'active'];
     }
 
     public function getId(): ?int

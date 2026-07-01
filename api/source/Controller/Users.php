@@ -103,9 +103,10 @@ class Users extends Api {
     return;
 }
 
-        $user = new User(null,
-        $data["sectorId"],
-        $data["classId"],
+        $user = new User(
+        null,
+        $data["sector_id"],
+        $data["class_id"],
         $data["name"],
         $data["email"],
         $data["password"],
