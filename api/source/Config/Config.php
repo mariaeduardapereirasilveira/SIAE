@@ -1,7 +1,7 @@
 <?php
 
-const CONF_URL_BASE = "http://localhost/siaeLayout"; // URL base do site, geralmente localhost em desenvolvimento
-const CONF_URL_TEST = "http://localhost/siaeLayout"; // URL base do site, geralmente localhost em desenvolvimento
+const CONF_URL_BASE = "http://localhost/SIAE"; // URL base do site, geralmente localhost em desenvolvimento
+const CONF_URL_TEST = "http://localhost/SIAE"; // URL base do site, geralmente localhost em desenvolvimento
 
 const CONF_DB_HOST = "localhost";
 const CONF_DB_NAME = "db_siae";
