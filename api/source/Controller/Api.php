@@ -18,7 +18,10 @@ class Api
 
         $header = getallheaders();
 
-        $token = $header["token"] ?? $header['Authorization'] ?? $header['authorization'] ?? null;
+        $token = $header["token"] ??
+         $header['Authorization'] ??
+          $header['authorization'] 
+          ?? null;
 
         if(!$token){
         return false;
@@ -47,7 +50,11 @@ class Api
 
     }
 
-    protected function call (int $code, ?string $status = null, ?string $message = null, ?string $type = null): Api
+    protected function call (
+        int $code,
+         ?string $status = null, 
+         ?string $message = null, 
+         ?string $type = null): Api
     {
         http_response_code($code);
         if(!empty($status)){

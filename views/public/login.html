@@ -78,11 +78,11 @@
 
                 <!-- Role Toggle -->
                 <div class="login-tabs">
-                    <button class="login-tab" id="tabProfessional" onclick="setRole('professional')">Profissional</button>
-                    <button class="login-tab active" id="tabAdmin" onclick="setRole('admin')">Administrador</button>
+                    <button class="login-tab" id="tabProfessional" >Profissional</button>
+                    <button class="login-tab active" id="tabAdmin">Administrador</button>
                 </div>
 
-                <form id="loginForm" onsubmit="handleLogin(event)">
+                <form id="loginForm">
                     <div class="form-group">
                         <label class="form-label">Email</label>
                         <div class="input-wrapper">
@@ -92,7 +92,7 @@
                                     <polyline points="22,6 12,13 2,6"/>
                                 </svg>
                             </span>
-                            <input type="email" class="form-control" id="emailInput" placeholder="email@exemplo.com" required>
+                            <input type="text" class="form-control" name="email" id="emailInput" placeholder="email@exemplo.com" >
                         </div>
                     </div>
 
@@ -105,8 +105,8 @@
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                                 </svg>
                             </span>
-                            <input type="password" class="form-control" id="passwordInput" placeholder="digite sua senha" required>
-                            <button type="button" class="input-action" onclick="togglePassword()">
+                            <input type="password" name="password" class="form-control" id="passwordInput" placeholder="digite sua senha" >
+                            <button type="button" class="input-action" >
                                 <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                                     <circle cx="12" cy="12" r="3"/>
@@ -146,6 +146,6 @@
             </div>
         </div>
     </div>
-    <script src="../assets/public/script/login.js"></script>
+    <script type="module" src="../assets/public/script/login.js" defer></script>
 </body>
 </html>

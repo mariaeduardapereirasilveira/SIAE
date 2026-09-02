@@ -90,6 +90,8 @@ class Users extends Api {
 }
 
 
+
+
     //INSERT - POST
     public function insert(array $data): void
     { 
@@ -103,10 +105,53 @@ class Users extends Api {
     return;
 }
 
+
+    if (
+        !isset($data["sector_id"]) ||
+        empty($data["sector_id"]) ||
+        !isset($data["name"]) ||
+        empty($data["name"]) ||
+        !isset($data["email"]) ||
+        empty($data["email"]) ||
+        !isset($data["password"]) ||
+        empty($data["password"]) ||
+        !isset($data["enrollment"]) ||
+        empty($data["enrollment"]) ||
+        !isset($data["dateBirth"]) ||
+        empty($data["dateBirth"])
+    ) {
+        $this->call(
+            400,
+            "bad_request",
+            "Os campos obrigatórios não foram informados.",
+            "error"
+        )->back();
+        return;
+    }
+
+
+
+    // class_id pode ser NULL
+    $classId = $data["class_id"] ?? null;
+
+    // Trata "null" como null
+    if ($classId === null || $classId === "" || $classId === "null") {
+        $classId = null;
+    } else {
+        $classId = (int) $classId;
+    }
+
+    // photo pode ser NULL
+    $photo = $data["photo"] ?? null;
+
+    if ($photo === "null" || $photo === "") {
+        $photo = null;
+    }
+
         $user = new User(
         null,
         $data["sector_id"],
-        $data["class_id"],
+      $classId,
         $data["name"],
         $data["email"],
         $data["password"],

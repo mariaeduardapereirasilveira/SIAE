@@ -40,7 +40,7 @@ class User extends Model
 
         $this->table = 'users';
         $this->primaryKey = 'id';
-        $this->fillable = ['sector_id', 'class_id', 'name', 'email', 'password', 'photo', 'created_at', 'updated_at', 'enrollment', 'dateBirth', 'active'];
+        $this->fillable = ['sectorId', 'classId', 'name', 'email', 'password', 'photo', 'createdAt', 'updatedAt', 'enrollment', 'dateBirth', 'active'];
     }
 
     public function getId(): ?int
@@ -194,17 +194,24 @@ class User extends Model
         $stmt->bindParam(":email", $email);
         $stmt->execute();
 
-        if($stmt->rowCount() == 0){
-            $this->errorMessage = "Email não cadastrado";
-            return false;
-        }
-        $user = $stmt->fetch();
+      $user = $stmt->fetch();
 
-        // if(!password_verify($password, $user->password)){
-        //     $this->errorMessage = "Senha incorreta";
-        //     return false;
-        // }
+    if (!$user) {
+        $this->errorMessage = "Email não cadastrado";
+        return false;
+    }
 
+    if (!password_verify($password, $user->password)) {
+        $this->errorMessage = "Senha incorreta";
+        return false;
+    }
+//
+// var_dump("Senha recebida:", $password);
+// var_dump("Hash do banco:", $user->password);
+// var_dump("Resultado:", password_verify($password, $user->password));
+
+// exit;
+//
 
 if(
         $user->enrollment !== "administrador" &&
