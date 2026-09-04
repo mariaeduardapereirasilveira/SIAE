@@ -72,7 +72,7 @@ form.addEventListener("submit", async (event) => {
 
             console.log("TOKEN SALVO:", localStorage.getItem("token"));
 
-            window.location.href = "../app/dashboard.html";
+            // window.location.href = "../app/dashboard.html";
         }
 
     } catch (error) {

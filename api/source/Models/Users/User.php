@@ -205,7 +205,7 @@ class User extends Model
         $this->errorMessage = "Senha incorreta";
         return false;
     }
-//
+
 // var_dump("Senha recebida:", $password);
 // var_dump("Hash do banco:", $user->password);
 // var_dump("Resultado:", password_verify($password, $user->password));
