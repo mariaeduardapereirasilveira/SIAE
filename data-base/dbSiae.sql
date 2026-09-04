@@ -630,3 +630,8 @@ VALUES
     1
 );
 select * from faqs;
+
+select * from users;
+use db_siae;
+ALTER TABLE users
+MODIFY password VARCHAR(255) NOT NULL;

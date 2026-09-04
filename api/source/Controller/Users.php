@@ -329,6 +329,7 @@ public function auth (?array $data = null): void
             "name" => $user->getName(),
             "photo" => $user->getPhoto(),
             "token" => $user->getToken(),
+            "enrollment" => $user->getEnrollment(),
         ];
 
         $this->call(

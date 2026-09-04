@@ -1,58 +1,65 @@
-// Check if user is logged in
-        function checkAuth() {
-            const isLoggedIn = localStorage.getItem('siae_is_logged_in');
-            if (isLoggedIn !== 'true') {
-                window.location.href = '../public/login.html';
-                return false;
-            }
-            return true;
-        }
 
-        // Update UI based on user role
-        function updateUIByRole() {
-            const role = localStorage.getItem('siae_user_role') || 'professional';
-            const isAdmin = role === 'admin';
+function checkAuth() {
+    const token = localStorage.getItem('token');
 
-            // Update user info
-            const userName = document.getElementById('userName');
-            const userRole = document.getElementById('userRole');
-            const userAvatar = document.getElementById('userAvatar');
-            const headerName = document.getElementById('headerName');
-            const headerAvatar = document.getElementById('headerAvatar');
+    if (!token) {
+        window.location.href = '../public/login.html';
+        return false;
+    }
 
-            if (isAdmin) {
-                userName.textContent = 'Admin SIAE';
-                userRole.textContent = 'Administrador';
-                userAvatar.textContent = 'AD';
-                headerName.textContent = 'Admin';
-                headerAvatar.textContent = 'AD';
-            } else {
-                userName.textContent = 'Dra. Patricia Lima';
-                userRole.textContent = 'Psicologa';
-                userAvatar.textContent = 'PL';
-                headerName.textContent = 'Patricia';
-                headerAvatar.textContent = 'PL';
-            }
+    return true;
+}
 
-            // Show/hide admin-only elements
-            document.querySelectorAll('.admin-only').forEach(el => {
-                el.style.display = isAdmin ? '' : 'none';
-            });
 
-            // Show/hide professional-only elements
-            document.querySelectorAll('.professional-only').forEach(el => {
-                el.style.display = isAdmin ? 'none' : '';
-            });
-        }
+function updateUIByRole() {
+    const role = localStorage.getItem('siae_user_role') || 'professional';
+    const isAdmin = role === 'admin';
 
-        function handleLogout() {
-            localStorage.removeItem('siae_is_logged_in');
-            localStorage.removeItem('siae_user_role');
-            window.location.href = '../public/login.html';
-        }
+    const userName = document.getElementById('userName');
+    const userRole = document.getElementById('userRole');
+    const userAvatar = document.getElementById('userAvatar');
+    const headerName = document.getElementById('headerName');
+    const headerAvatar = document.getElementById('headerAvatar');
 
-        // Initialize
-        if (checkAuth()) {
-            updateUIByRole();
-        }
+    const name = localStorage.getItem('userName') || 'Usuário';
 
+    if (isAdmin) {
+        userName.textContent = name;
+        userRole.textContent = 'Administrador';
+
+        userAvatar.textContent = 'AD';
+        headerName.textContent = name;
+        headerAvatar.textContent = 'AD';
+
+    } else {
+        userName.textContent = name;
+        userRole.textContent = 'Profissional';
+
+        userAvatar.textContent = name.substring(0, 2).toUpperCase();
+        headerName.textContent = name;
+        headerAvatar.textContent = name.substring(0, 2).toUpperCase();
+    }
+
+    document.querySelectorAll('.admin-only').forEach(el => {
+        el.style.display = isAdmin ? '' : 'none';
+    });
+
+    document.querySelectorAll('.professional-only').forEach(el => {
+        el.style.display = isAdmin ? 'none' : '';
+    });
+}
+
+
+function handleLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('siae_user_role');
+
+    window.location.href = '../public/login.html';
+}
+
+
+if (checkAuth()) {
+    updateUIByRole();
+}

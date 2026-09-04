@@ -65,14 +65,15 @@ form.addEventListener("submit", async (event) => {
 
         if (response.code === 200) {
             console.log("LOGIN REALIZADO!");
-
+            console.log(response.data);
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("enrollment", response.data.enrollment);
             localStorage.setItem("userId", response.data.id);
             localStorage.setItem("userName", response.data.name);
 
             console.log("TOKEN SALVO:", localStorage.getItem("token"));
 
-            // window.location.href = "../app/dashboard.html";
+            window.location.href = "../app/dashboard.html";
         }
 
     } catch (error) {
