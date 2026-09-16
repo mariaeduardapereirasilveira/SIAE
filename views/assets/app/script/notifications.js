@@ -1,4 +1,19 @@
-function checkAuth() { if (localStorage.getItem('siae_is_logged_in') !== 'true') { window.location.href = '../public/login.html'; return false; } return true; }
+function checkAuth() {
+    const token= localStorage.getItem('token');
+    const enrollment= localStorage.getItem('enrollment');
+
+    if ( !token) {
+        window.location.href = '../public/login.html'; 
+        return false;
+    }
+
+
+    // if (enrollment !== 'admin') {
+    //     window.location.href = '../app/dashboard.html'; 
+    //     return false;
+    // } 
+    return true;
+}
         function updateUIByRole() {
             const role = localStorage.getItem('siae_user_role') || 'professional';
             const isAdmin = role === 'admin';

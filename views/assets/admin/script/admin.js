@@ -1,8 +1,8 @@
 // ============================================================
-// SIAE Ã¢â‚¬â€ ÃƒÂrea administrativa
+// SIAE area administrativa
 // ============================================================
 
-// AlternÃƒÂ¢ncia entre abas (Alunos / Profissionais / Setores)
+// Alternancia entre abas (Alunos / Profissionais / Setores)
 const adminTabs = document.querySelectorAll("[data-admin-tab]");
 const adminPanels = document.querySelectorAll("[data-admin-panel]");
 

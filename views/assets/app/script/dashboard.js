@@ -12,8 +12,8 @@ function checkAuth() {
 
 
 function updateUIByRole() {
-    const role = localStorage.getItem('siae_user_role') || 'professional';
-    const isAdmin = role === 'admin';
+    // const role = localStorage.getItem('siae_user_role') || 'professional';
+    // const isAdmin = role === 'admin';
 
     const userName = document.getElementById('userName');
     const userRole = document.getElementById('userRole');
@@ -23,30 +23,30 @@ function updateUIByRole() {
 
     const name = localStorage.getItem('userName') || 'Usuário';
 
-    if (isAdmin) {
-        userName.textContent = name;
-        userRole.textContent = 'Administrador';
+    // if (isAdmin) {
+    //     userName.textContent = name;
+    //     userRole.textContent = 'Administrador';
 
-        userAvatar.textContent = 'AD';
-        headerName.textContent = name;
-        headerAvatar.textContent = 'AD';
+    //     userAvatar.textContent = 'AD';
+    //     headerName.textContent = name;
+    //     headerAvatar.textContent = 'AD';
 
-    } else {
+    // } else {
         userName.textContent = name;
-        userRole.textContent = 'Profissional';
+        userRole.textContent = 'User';
 
         userAvatar.textContent = name.substring(0, 2).toUpperCase();
         headerName.textContent = name;
         headerAvatar.textContent = name.substring(0, 2).toUpperCase();
-    }
+    // }
 
-    document.querySelectorAll('.admin-only').forEach(el => {
-        el.style.display = isAdmin ? '' : 'none';
-    });
+    // document.querySelectorAll('.admin-only').forEach(el => {
+    //     el.style.display = isAdmin ? '' : 'none';
+    // });
 
-    document.querySelectorAll('.professional-only').forEach(el => {
-        el.style.display = isAdmin ? 'none' : '';
-    });
+    // document.querySelectorAll('.professional-only').forEach(el => {
+    //     el.style.display = isAdmin ? 'none' : '';
+    // });
 }
 
 

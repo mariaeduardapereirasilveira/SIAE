@@ -40,33 +40,41 @@ let reports = JSON.parse(localStorage.getItem('siae_reports') || 'null') || init
 let editingReportId = null;
 
 function checkAuth() {
-    if (localStorage.getItem('siae_is_logged_in') !== 'true') {
-        window.location.href = '../public/login.html';
+    const token= localStorage.getItem('token');
+    const enrollment= localStorage.getItem('enrollment');
+
+    if ( !token) {
+        window.location.href = '../public/login.html'; 
         return false;
     }
+
+
+    // if (enrollment !== 'admin') {
+    //     window.location.href = '../app/dashboard.html'; 
+    //     return false;
+    // } 
     return true;
 }
 
-function getCurrentRole() {
-    return localStorage.getItem('siae_user_role') || 'professional';
-}
+// function getCurrentRole() {
+//     return localStorage.getItem('siae_user_role') || 'professional';
+// }
+let enroll = true;
 
 function updateUIByRole() {
     const role = getCurrentRole();
     const isAdmin = role === 'admin';
 
-    document.getElementById('userName').textContent = isAdmin ? 'Admin SIAE' : currentProfessionalName;
-    document.getElementById('userRole').textContent = isAdmin ? 'Administrador' : 'Psicologa';
-    document.getElementById('userAvatar').textContent = isAdmin ? 'AD' : 'PL';
-    document.getElementById('headerName').textContent = isAdmin ? 'Admin' : 'Patricia';
-    document.getElementById('headerAvatar').textContent = isAdmin ? 'AD' : 'PL';
+    document.getElementById('userName').textContent = currentProfessionalName ;
+    document.getElementById('userRole').textContent = 'Administrador';
+    document.getElementById('userAvatar').textContent ='AD' ;
+    document.getElementById('headerName').textContent =  'Admin' ;
+    document.getElementById('headerAvatar').textContent = 'AD';
 
     document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? '' : 'none');
     document.querySelectorAll('.professional-only').forEach(el => el.style.display = isAdmin ? 'none' : '');
 
-    document.getElementById('reportsSubtitle').textContent = isAdmin
-        ? 'Visualize os relatorios criados por setor e profissional'
-        : 'Visualize seus relatorios e crie novos registros';
+    document.getElementById('reportsSubtitle').textContent =  'Visualize os relatorios criados por setor e profissional';
 }
 
 function saveReports() {
@@ -74,7 +82,7 @@ function saveReports() {
 }
 
 function getVisibleReports() {
-    if (getCurrentRole() === 'admin') return reports;
+    if (enroll=== true) return reports;
     return reports.filter(report => report.creator === currentProfessionalName);
 }
 

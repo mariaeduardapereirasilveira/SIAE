@@ -31,7 +31,7 @@
             </nav>
             <div class="sidebar-footer">
                 <a href="../app/profile.html" class="sidebar-user"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Admin</h4><p id="userRole">Administrador</p></div></a>
-                <button class="sidebar-logout" onclick="handleLogout()">Sair</button>
+                <button class="sidebar-logout">Sair</button>
             </div>
         </aside>
 
@@ -44,7 +44,13 @@
             <div class="page-content animate-fade-in">
                 <div class="page-header">
                     <div class="page-header-title"><h1>Profissionais</h1><p>Gerenciamento da equipe</p></div>
-                    <button class="btn btn-primary btn-sm" onclick="openModal('professionalModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo Profissional</button>
+                    <button 
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    id="openProfessionalModal"
+                     >
+                     
+                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo Profissional</button>
                 </div>
 
                 <div class="card">
@@ -64,28 +70,167 @@
     </div>
 
     <!-- Professional Modal -->
-    <div class="modal-overlay" id="professionalModal">
-        <div class="modal" style="max-width: 500px;">
-            <div class="modal-header">
-                <div><div class="card-title">Cadastrar Profissional</div><div class="card-subtitle">Preencha os dados do profissional</div></div>
-                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('professionalModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+   <div class="modal-overlay" id="professionalModal">
+    <div class="modal" style="max-width: 500px;">
+
+        <div class="modal-header">
+            <div>
+                <div class="card-title">Cadastrar Profissional</div>
+                <div class="card-subtitle">Preencha os dados do profissional</div>
             </div>
-            <div class="modal-body">
-                <div class="form-group"><label class="form-label">Nome Completo</label><input type="text" class="form-control" id="profName" placeholder="Nome do profissional"></div>
-                <div class="grid-2">
-                    <div class="form-group"><label class="form-label">Funcao</label><select class="form-control" id="profFunction"><option>Psicologo(a)</option><option>Pedagogo(a)</option><option>Enfermeiro(a)</option><option>Assistente Social</option><option>Coordenador(a)</option></select></div>
-                    <div class="form-group"><label class="form-label">Setor</label><select class="form-control" id="profSector"><option>Psicologico</option><option>Pedagogico</option><option>Enfermaria</option><option>Social</option></select></div>
-                </div>
-                <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-control" id="profEmail" placeholder="email@siae.edu.br"></div>
-                <div class="form-group"><label class="form-label">Telefone</label><input type="tel" class="form-control" id="profPhone" placeholder="(11) 99999-9999"></div>
-                <div class="form-group" style="margin-bottom: 0;"><label class="form-label">Registro Profissional (CRP/CRN/COSS)</label><input type="text" class="form-control" id="profRegister" placeholder="06/123456"></div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-ghost" onclick="closeModal('professionalModal')">Cancelar</button>
-                <button class="btn btn-primary" onclick="saveProfessional()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>Salvar</button>
-            </div>
+
+            <button
+                type="button"
+                class="btn btn-ghost btn-sm btn-icon"
+                id="closeProfessionalModal"
+                aria-label="Fechar"
+            >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" width="16" height="16">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
         </div>
+
+        <form id="professionalForm" >
+
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="form-label" for="profName">
+                        Nome Completo
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="profName"
+                        name="name"
+                        placeholder="Nome do profissional"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <div class="grid-2">
+
+                    <div class="form-group">
+                        <label class="form-label" for="profFunction">
+                            Função
+                        </label>
+
+                        <select
+                            class="form-control"
+                            id="profFunction"
+                            name="function"
+                            required
+                        >
+                            <option value="">Selecione</option>
+                            <option value="Psicologo(a)">Psicólogo(a)</option>
+                            <option value="Pedagogo(a)">Pedagogo(a)</option>
+                            <option value="Enfermeiro(a)">Enfermeiro(a)</option>
+                            <option value="Assistente Social">Assistente Social</option>
+                            <option value="Coordenador(a)">Coordenador(a)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="profSector">
+                            Setor
+                        </label>
+
+                        <select
+                            class="form-control"
+                            id="profSector"
+                            name="sector"
+                            required
+                        >
+                            <option value="">Selecione</option>
+                            <option value="Psicologico">Psicológico</option>
+                            <option value="Pedagogico">Pedagógico</option>
+                            <option value="Enfermaria">Enfermaria</option>
+                            <option value="Social">Social</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="profEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="profEmail"
+                        name="email"
+                        placeholder="email@siae.edu.br"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="profPhone">
+                        Telefone
+                    </label>
+
+                    <input
+                        type="tel"
+                        class="form-control"
+                        id="profPhone"
+                        name="phone"
+                        placeholder="(11) 99999-9999"
+                        autocomplete="tel"
+                        required
+                    >
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="profRegister">
+                        Registro Profissional (CRP/CRN/CRESS)
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="profRegister"
+                        name="register"
+                        placeholder="06/123456"
+                    >
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-ghost"
+                     id="cancelProfessionalModal"               >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" width="14" height="14">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+
+                    Salvar
+                </button>
+
+            </div>
+
+        </form>
     </div>
-    <script src="../assets/admin/script/professionals.js"></script>
+</div>
+
+    <script type= "module" src="../assets/admin/script/professionals.js" ></script>
 </body>
 </html>

@@ -69,7 +69,7 @@ $route->namespace("Source\Controller");
 $route->get("/hello", "Users:hello");
 $route->get("/list", "Users:listAll");
 $route->get("/id/{user_id}", "Users:listById");
-$route->post("/", "Users:insert");
+$route->post("/register", "Users:insert");
 $route->post("/login", "Users:auth");
 $route->post("/login/admin", "Users:authAdmin"); 
 $route->put("/id/{user_id}", "Users:update");

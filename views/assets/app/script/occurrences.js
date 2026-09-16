@@ -1,21 +1,19 @@
-// Check authentication and role
-        function checkAuth() {
-            const isLoggedIn = localStorage.getItem('siae_is_logged_in');
-            const role = localStorage.getItem('siae_user_role');
+function checkAuth() {
+    const token= localStorage.getItem('token');
+    const enrollment= localStorage.getItem('enrollment');
 
-            if (isLoggedIn !== 'true') {
-                window.location.href = '../public/login.html';
-                return false;
-            }
+    if ( !token) {
+        window.location.href = '../public/login.html'; 
+        return false;
+    }
 
-            // Only professionals can access this page
-            if (role === 'admin') {
-                window.location.href = 'dashboard.html';
-                return false;
-            }
 
-            return true;
-        }
+    // if (enrollment !== 'admin') {
+    //     window.location.href = '../app/dashboard.html'; 
+    //     return false;
+    // } 
+    return true;
+}
 
         function switchTab(tabName) {
             // Update tabs

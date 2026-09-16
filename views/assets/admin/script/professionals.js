@@ -1,24 +1,138 @@
-function checkAuth() { if (localStorage.getItem('siae_is_logged_in') !== 'true') { window.location.href = '../public/login.html'; return false; } const role = localStorage.getItem('siae_user_role'); if (role !== 'admin') { window.location.href = '../app/dashboard.html'; return false; } return true; }
-        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+import Users from "../../_common/classes/Users.js";
 
-        function saveProfessional() {
-            const name = document.getElementById('profName').value;
-            const func = document.getElementById('profFunction').value;
-            const sector = document.getElementById('profSector').value;
-            const email = document.getElementById('profEmail').value;
-            if (name && email) {
-                const table = document.getElementById('professionalsTable');
-                const row = document.createElement('tr');
-                const sectorBadge = sector === 'Psicologico' ? 'badge-info' : (sector === 'Pedagogico' ? 'badge-primary' : (sector === 'Enfermaria' ? 'badge-danger' : 'badge-success'));
-                row.innerHTML = `<td style="font-weight: 600;">${name}</td><td>${func}</td><td><span class="badge ${sectorBadge}">${sector}</span></td><td style="color: var(--text-muted);">${email}</td><td><span class="badge badge-success">Ativo</span></td><td><button class="btn btn-ghost btn-sm">Editar</button></td>`;
-                table.appendChild(row);
-                closeModal('professionalModal');
-                document.getElementById('profName').value = '';
-                document.getElementById('profEmail').value = '';
-            }
-        }
+const users = new Users();
 
-        function handleLogout() { localStorage.clear(); window.location.href = '../public/login.html'; }
-        checkAuth();
 
+// ==============================
+// ELEMENTOS
+// ==============================
+
+const modal = document.querySelector("#professionalModal");
+const form = document.querySelector("#professionalForm");
+
+const openModalButton = document.querySelector("#openProfessionalModal");
+const closeModalButton = document.querySelector("#closeProfessionalModal");
+const cancelModalButton = document.querySelector("#cancelProfessionalModal");
+
+const logoutButton = document.querySelector("#logoutButton");
+
+
+// ==============================
+// AUTENTICAÇÃO
+// ==============================
+
+function checkAuth() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        window.location.href = "../public/login.html";
+        return false;
+    }
+
+    return true;
+}
+
+
+// ==============================
+// MODAL
+// ==============================
+
+function openModal() {
+
+    modal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function closeModal() {
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+
+// ==============================
+// EVENTOS DO MODAL
+// ==============================
+
+openModalButton.addEventListener("click", () => {
+    openModal();
+});
+
+
+closeModalButton.addEventListener("click", () => {
+    closeModal();
+});
+
+
+cancelModalButton.addEventListener("click", () => {
+    closeModal();
+});
+
+
+// ==============================
+// CADASTRO DO PROFISSIONAL
+// ==============================
+
+form.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    const data = {
+        nome: formData.get("name"),
+        funcao: formData.get("function"),
+        setor: formData.get("sector"),
+        email: formData.get("email"),
+        telefone: formData.get("phone"),
+        registro: formData.get("register")
+    };
+
+    console.log("Enviando:", data);
+
+
+    try {
+
+        const response = await users.register(data);
+
+        console.log("Resposta da API:", response);
+
+        alert("Profissional cadastrado com sucesso!");
+
+        form.reset();
+
+        closeModal();
+
+    } catch (error) {
+
+        console.error("Erro ao cadastrar profissional:", error);
+
+        alert("Erro ao cadastrar profissional.");
+
+    }
+
+});
+
+
+// ==============================
+// LOGOUT
+// ==============================
+
+// logoutButton.addEventListener("click", () => {
+
+//     localStorage.clear();
+
+//     window.location.href = "../public/login.html";
+
+// });
+
+
+// ==============================
+// INICIALIZAÇÃO
+// ==============================
+
+checkAuth();
