@@ -99,7 +99,7 @@ class Users extends Api {
     $this->call(
         401,
         "unauthorized",
-        "Apenas administradores podem realizar esta ação.",
+        "Apenas administradores podem realizar esta ação (1).",
         "error"
     )->back();
     return;
@@ -253,7 +253,7 @@ if (
     $this->call(
         401,
         "unauthorized",
-        "Apenas administradores podem realizar esta ação.",
+        "Apenas administradores podem realizar esta ação (2).",
         "error"
     )->back();
     return;

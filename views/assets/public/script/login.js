@@ -70,12 +70,13 @@ form.addEventListener("submit", async (event) => {
             localStorage.setItem("enrollment", response.data.enrollment);
             localStorage.setItem("userId", response.data.id);
             localStorage.setItem("userName", response.data.name);
+            let token = localStorage.getItem("token");
+            users.setAuthToken(token);
 
             console.log("TOKEN SALVO:", localStorage.getItem("token"));
 
             window.location.href = "../app/dashboard.html";
         }
-
     } catch (error) {
         console.error("ERRO NO LOGIN:", error);
     }
