@@ -169,48 +169,65 @@ abstract class Model
         }
     }
 
-    public function updateById(int $id): bool
-    {
-        try {
-            $payload = $this->extractPayloadFromGetters();
+public function updateById(int $id): bool
+{
+    try {
 
-            if (empty($payload)) {
-                $this->errorMessage = 'Nenhum campo válido para atualização.';
-                return false;
-            }
+        // Primeiro verifica se o registro existe
+        $query = "SELECT {$this->primaryKey}
+                  FROM {$this->table}
+                  WHERE {$this->primaryKey} = :id
+                  LIMIT 1";
 
-            $setParts = [];
-            foreach (array_keys($payload) as $column) {
-                $setParts[] = "{$column} = :{$column}";
-            }
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
 
-            $sql = sprintf(
-                "UPDATE %s SET %s WHERE %s = :_id",
-                $this->table,
-                implode(', ', $setParts),
-                $this->primaryKey
-            );
-
-            $stmt = Connect::getInstance()->prepare($sql);
-
-            foreach ($payload as $column => $value) {
-                $stmt->bindValue(':' . $column, $value);
-            }
-            $stmt->bindValue(':_id', $id);
-
-            $stmt->execute();
-
-            if ($stmt->rowCount() < 1) {
-                $this->errorMessage = 'Registro não encontrado ou sem alterações.';
-                return false;
-            }
-
-            return true;
-        } catch (PDOException $e) {
-            $this->errorMessage = $e->getMessage();
+        if (!$stmt->fetch()) {
+            $this->errorMessage = 'Registro não encontrado.';
             return false;
         }
+
+        $payload = $this->extractPayloadFromGetters();
+
+        if (empty($payload)) {
+            $this->errorMessage = 'Nenhum campo válido para atualização.';
+            return false;
+        }
+
+        $setParts = [];
+
+        foreach (array_keys($payload) as $column) {
+            $setParts[] = "{$column} = :{$column}";
+        }
+
+        $sql = sprintf(
+            "UPDATE %s SET %s WHERE %s = :_id",
+            $this->table,
+            implode(', ', $setParts),
+            $this->primaryKey
+        );
+
+        $stmt = Connect::getInstance()->prepare($sql);
+
+        foreach ($payload as $column => $value) {
+            $stmt->bindValue(':' . $column, $value);
+        }
+
+        $stmt->bindValue(':_id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        // Se chegou até aqui, o registro existe
+        // e o UPDATE foi executado com sucesso.
+        return true;
+
+    } catch (PDOException $e) {
+
+        $this->errorMessage = $e->getMessage();
+        return false;
     }
+}
 
     public function deleteById(int $id): bool
     {

@@ -1,3 +1,62 @@
+import Occurrence from "../../_common/classes/Occurrence.js";
+import OccurrenceService from "../../_common/classes/OccurrenceService.js";
+import ToastPrototype from "../../_common/prototypes/Toast.js";
+import FormControllerPrototype from "../../_common/prototypes/FormControllerPrototype.js";
+
+const occurrenceService = new OccurrenceService();
+
+const toast = Object.create(ToastPrototype);
+
+const formController = Object.create(FormControllerPrototype);
+
+const occurrenceForm = document.getElementById("occurrenceForm");
+formController.inicializar(occurrenceForm);
+
+
+occurrenceForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    try {
+        const dados = formController.obterDados();
+
+        const occurrence = new Occurrence(dados);
+
+        const resposta = await occurrenceService.create(
+            occurrence.toJSON()
+        );
+
+        toast.mostrarResposta(resposta);
+
+        formController.limpar();
+        closeModal("newOccurrenceModal");
+
+    } catch (error) {
+        console.error("Erro ao salvar ocorrência:", error);
+        toast.mostrar(error.message, "error");
+    }
+}); 
+
+const btnNewOccurrence = document.getElementById("btnNewOccurrence");
+
+btnNewOccurrence.addEventListener("click", () => {
+    openModal("newOccurrenceModal");
+});
+
+
+const btnCancelOccurrence = document.getElementById("btnCancelOccurrence");
+
+btnCancelOccurrence.addEventListener("click", () => {
+    closeModal("newOccurrenceModal");
+});
+
+
+const btnCloseOccurrence = document.getElementById("btnCloseOccurrence");
+
+btnCloseOccurrence.addEventListener("click", () => {
+    closeModal("newOccurrenceModal");
+});
+
+
 function checkAuth() {
     const token= localStorage.getItem('token');
     const enrollment= localStorage.getItem('enrollment');
