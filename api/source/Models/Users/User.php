@@ -180,6 +180,7 @@ class User extends Model
             return false;
         }
         return true;
+
     }
 
     public function login (

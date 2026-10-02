@@ -230,26 +230,49 @@ abstract class Model
         }
     }
 
-    public function softDeleteById(int $id): bool
-    {
-        try {
-            $query = "UPDATE {$this->table} SET active = 0 WHERE {$this->primaryKey} = :id";
-            $stmt = Connect::getInstance()->prepare($query);
-            $stmt->bindValue(':id', $id);
-            $stmt->execute();
+   public function softDeleteById(int $id): bool
+{
+    try {
+        $query = "SELECT active
+                  FROM {$this->table}
+                  WHERE {$this->primaryKey} = :id
+                  LIMIT 1";
 
-            if ($stmt->rowCount() < 1) {
-                $this->errorMessage = "Registro não encontrado ou já inativo.";
-                return false;
-            }
-            return true;
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
 
-        } catch (PDOException $e) {
-            $this->errorMessage = $e->getMessage();
+        $result = $stmt->fetch();
+
+        if (!$result) {
+            $this->errorMessage = "Registro não encontrado.";
             return false;
         }
-    }
 
+        // Se já estiver inativo, consideramos a operação concluída.
+        if ((int)$result->active === 0) {
+            return true;
+        }
+
+        $query = "UPDATE {$this->table}
+                  SET active = 0
+                  WHERE {$this->primaryKey} = :id";
+
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        if (!$stmt->execute()) {
+            $this->errorMessage = "Não foi possível desativar o registro.";
+            return false;
+        }
+
+        return true;
+
+    } catch (PDOException $e) {
+        $this->errorMessage = $e->getMessage();
+        return false;
+    }
+}
     protected function extractPayloadFromGetters(): array
     {
         $payload = [];

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Setores - SIAE</title>
     <link rel="stylesheet" href="../assets/app/styles/app.css">
+    <link rel="stylesheet" href="../assets/_common/styles/toast.css">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
 </head>
 <body>
@@ -31,7 +33,7 @@
             </nav>
             <div class="sidebar-footer">
                 <a href="../app/profile.html" class="sidebar-user"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Admin</h4><p id="userRole">Administrador</p></div></a>
-                <button class="sidebar-logout" onclick="handleLogout()">Sair</button>
+                <button class="sidebar-logout"  id="btnLogout">Sair</button>
             </div>
         </aside>
 
@@ -44,7 +46,7 @@
             <div class="page-content animate-fade-in">
                 <div class="page-header">
                     <div class="page-header-title"><h1>Setores</h1><p>Areas de atuacao da instituicao</p></div>
-                    <button class="btn btn-primary btn-sm" onclick="openModal('sectorModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo Setor</button>
+                     <button class="btn btn-primary btn-sm" id="btnNovoSetor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo Setor</button>
                 </div>
 
                 <div class="grid-3" id="sectorsGrid">
@@ -88,27 +90,131 @@
         </main>
     </div>
 
-    <!-- Sector Modal -->
-    <div class="modal-overlay" id="sectorModal">
-        <div class="modal" style="max-width: 450px;">
-            <div class="modal-header">
-                <div><div class="card-title">Cadastrar Setor</div><div class="card-subtitle">Preencha os dados do setor</div></div>
-                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('sectorModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+   
+   <!-- Modal Novo Setor -->
+<div class="modal-overlay" id="sectorModal">
+    <div class="modal" style="max-width: 500px;">
+
+        <div class="modal-header">
+            <div>
+                <h3 class="modal-title">Novo Setor</h3>
+                <p class="modal-subtitle">Cadastre uma nova área de atuação</p>
             </div>
-            <div class="modal-body">
-                <div class="form-group"><label class="form-label">Nome do Setor</label><input type="text" class="form-control" id="sectorName" placeholder="Ex: Odontologia"></div>
-                <div class="grid-2">
-                    <div class="form-group"><label class="form-label">Sigla</label><input type="text" class="form-control" id="sectorAcronym" placeholder="Ex: ODO" style="text-transform: uppercase;"></div>
-                    <div class="form-group"><label class="form-label">Cor</label><select class="form-control" id="sectorColor"><option value="#EF5350">Vermelho</option><option value="#7C4DFF">Roxo</option><option value="#5C6BC0">Azul</option><option value="#26A69A">Verde</option><option value="#FFA726">Laranja</option><option value="#EC407A">Rosa</option></select></div>
-                </div>
-                <div class="form-group" style="margin-bottom: 0;"><label class="form-label">Descricao</label><textarea class="form-control" id="sectorDesc" rows="3" placeholder="Descreva as responsabilidades do setor..."></textarea></div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-ghost" onclick="closeModal('sectorModal')">Cancelar</button>
-                <button class="btn btn-primary" onclick="saveSector()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>Salvar</button>
-            </div>
+
+            <button
+                class="btn btn-ghost btn-sm btn-icon"
+                id="btnFecharModal"
+                type="button"
+            >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
         </div>
+
+        <form id="sectorForm">
+
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="form-label" for="sectorName">
+                        Nome do Setor
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="sectorName"
+                        name="name"
+                        placeholder="Ex: Odontologia"
+                        required
+                    >
+                </div>
+
+                <!-- <div class="grid-2">
+
+                    <div class="form-group">
+                        <label class="form-label" for="sectorAcronym">
+                            Sigla
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="sectorAcronym"
+                            name="acronym"
+                            placeholder="Ex: ODO"
+                            style="text-transform: uppercase;"
+                        >
+                    </div> -->
+
+                    <!-- <div class="form-group">
+                        <label class="form-label" for="sectorColor">
+                            Cor
+                        </label>
+
+                        <select
+                            class="form-control"
+                            id="sectorColor"
+                            name="color"
+                        >
+                            <option value="#EF5350">Vermelho</option>
+                            <option value="#7C4DFF">Roxo</option>
+                            <option value="#5C6BC0">Azul</option>
+                            <option value="#26A69A">Verde</option>
+                            <option value="#FFA726">Laranja</option>
+                            <option value="#EC407A">Rosa</option>
+                        </select>
+                    </div> -->
+
+                <!-- </div> -->
+
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="sectorDesc">
+                        Descrição
+                    </label>
+
+                    <textarea
+                        class="form-control"
+                        id="sectorDesc"
+                        name="description"
+                        rows="3"
+                        placeholder="Descreva as responsabilidades do setor..."
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-ghost"
+                    id="btnCancelar"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="btnSalvarSetor"
+                >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        <polyline points="17 21 17 13 7 13 7 21"/>
+                        <polyline points="7 3 7 8 15 8"/>
+                    </svg>
+                    Salvar
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
-    <script src="../assets/admin/script/sectors.js"></script>
+</div>
+    <script type="module" src="../assets/admin/script/sectors.js"></script>
 </body>
 </html>

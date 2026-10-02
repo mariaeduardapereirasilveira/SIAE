@@ -16,7 +16,7 @@ class Sectors extends Api
     public function listAll(): void
     {
         $sector = new Sector();
-        $sectors = $sector->selectAll();
+        $sectors = $sector->selectAll(["active = 1"]);
 
         if (empty($sectors)) {
             $this->call(
