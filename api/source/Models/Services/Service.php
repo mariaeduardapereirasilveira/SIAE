@@ -8,7 +8,7 @@ class Service extends Model
 {
     private ?int $id;
     private ?int $userId;
-    private ?int $studentsId;
+    private ?int $studentId;
     private ?string $observations;
     private ?string $createdAt;
     private ?string $updatedAt;
@@ -18,7 +18,7 @@ class Service extends Model
     public function __construct(
         ?int $id = null,
         ?int $userId = null,
-        ?int $studentsId = null,
+        ?int $studentId = null,
         ?string $observations = null,
         ?string $createdAt = null,
         ?string $updatedAt = null,
@@ -26,7 +26,7 @@ class Service extends Model
     ) {
         $this->id = $id;
         $this->userId = $userId;
-        $this->studentsId = $studentsId;
+        $this->studentId = $studentId;
         $this->observations = $observations;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
@@ -37,7 +37,7 @@ class Service extends Model
         $this->primaryKey = 'id';
         $this->fillable = [
             'userId',
-            'studentsId',
+            'studentId',
             'observations',
             'createdAt',
             'updatedAt',
@@ -67,14 +67,14 @@ class Service extends Model
         $this->userId = $userId;
     }
 
-    public function getStudentsId(): ?int
+    public function getStudentId(): ?int
     {
-        return $this->studentsId;
+        return $this->studentId;
     }
 
-    public function setStudentsId(int $studentsId): void
+    public function setStudentId(int $studentId): void
     {
-        $this->studentsId = $studentsId;
+        $this->studentId = $studentId;
     }
 
   

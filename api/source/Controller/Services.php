@@ -68,7 +68,7 @@ class Services extends Api
         $response = [
             "id" => $service->getId(),
             "userId" => $service->getUserId(),
-            "studentsId" => $service->getStudentsId(),
+            "studentId" => $service->getStudentId(),
             "observations" => $service->getObservations(),
             "createdAt" => $service->getCreatedAt(),
             "updatedAt" => $service->getUpdatedAt(),
@@ -92,7 +92,7 @@ class Services extends Api
         $service = new Service(
             null,
             $data["user_id"],
-            $data["students_id"],
+            $data["student_id"],
             $data["observations"] ?? null,
             date("Y-m-d H:i:s"),
             date("Y-m-d H:i:s"),
@@ -141,19 +141,22 @@ class Services extends Api
             $service->setUserId((int)$data["user_id"]);
         }
 
-        if (isset($data["students_id"])) {
-            $service->setStudentId($data["students_id"]);
+
+        if (isset($data["student_id"])) {
+            $service->setStudentId($data["student_id"]);
         }
 
         if (isset($data["observations"])) {
             $service->setObservations($data["observations"]);
         }
-
+        if (isset($data["active"])) {
+            $service->setActive((int)$data["active"]);
+        }
        
 
         $hasFieldsToUpdate =
             isset($data["user_id"]) ||
-            isset($data["students_id"]) ||
+            isset($data["student_id"]) ||
             isset($data["observations"])||
             isset($data["active"]);
 
