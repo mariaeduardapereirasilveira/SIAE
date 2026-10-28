@@ -156,7 +156,7 @@
                         <h1>Minhas Ocorrencias</h1>
                         <p>Visualize e gerencie todas as suas ocorrencias</p>
                     </div>
-                    <button class="btn btn-primary btn-sm" onclick="openNewOccurrenceModal()">
+                    <button class="btn btn-primary btn-sm" id="btnNewOccurrence">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
                             <line x1="12" y1="5" x2="12" y2="19"/>
                             <line x1="5" y1="12" x2="19" y2="12"/>
@@ -415,121 +415,105 @@
     </div>
 
     <!-- New Occurrence Modal -->
-    <div class="modal-overlay" id="newOccurrenceModal">
-        <div class="modal" style="max-width: 600px;">
-            <div class="modal-header">
-                <div>
-                    <div class="card-title">Nova Ocorrencia</div>
-                    <div class="card-subtitle">Registre uma nova ocorrencia</div>
-                </div>
-                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('newOccurrenceModal')">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                        <line x1="18" y1="6" x2="6" y2="18"/>
-                        <line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                </button>
-            </div>
+    <!-- Modal Nova Ocorrência -->
+<div class="modal-overlay" id="newOccurrenceModal">
+    <div class="modal">
+
+        <div class="modal-header">
+            <h2>Nova Ocorrência</h2>
+
+            <!-- X para fechar -->
+            <button
+                class="btn btn-ghost btn-sm btn-icon"
+                id="btnCloseOccurrence"
+                type="button"
+            >
+                ×
+            </button>
+        </div>
+
+        <form id="occurrenceForm">
+
             <div class="modal-body">
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label class="form-label">Aluno</label>
-                        <input type="text" class="form-control" placeholder="Buscar aluno...">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Tipo</label>
-                        <select class="form-control">
-                            <option>Atendimento</option>
-                            <option>Encaminhamento</option>
-                            <option>Triagem</option>
-                            <option>Relatorio</option>
-                        </select>
-                    </div>
-                </div>
+
                 <div class="form-group">
-                    <label class="form-label">Titulo</label>
-                    <input type="text" class="form-control" placeholder="Titulo da ocorrencia">
+                    <label for="student_id">Aluno</label>
+                    <input
+                        type="text"
+                        id="student_id"
+                        name="student_id"
+                        placeholder="Escreva o nome do aluno"
+                    >
                 </div>
+
                 <div class="form-group">
-                    <label class="form-label">Descricao</label>
-                    <textarea class="form-control" rows="4" placeholder="Descreva a ocorrencia..."></textarea>
+                    <label for="type">Tipo</label>
+                    <input
+                        type="text"
+                        id="type"
+                        name="type"
+                        placeholder="Insira o tipo de Ocorrência"
+                    >
                 </div>
+
                 <div class="form-group">
-                    <label class="form-label">Compartilhar com (opcional)</label>
-                    <select class="form-control">
-                        <option>Selecione um profissional...</option>
-                        <option>Enf. Lucia Barbosa - Enfermaria</option>
-                        <option>Prof. Ricardo Moura - Pedagogico</option>
-                        <option>Dra. Claudia Vieira - Social</option>
+                    <label for="title">Título</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="Insira o tituo da ocorrência"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="share_with">Compartilhar com</label>
+                    <select
+                        id="share_with"
+                        name="share_with"
+                        multiple
+                    >
+                        <option value="admin">psicoogia</option>
+                        <option value="teacher">oientação</option>
+                        <option value="parent">enfermaria</option>
                     </select>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-ghost" onclick="closeModal('newOccurrenceModal')">Cancelar</button>
-                <button class="btn btn-primary" onclick="saveOccurrence()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                    Salvar Ocorrencia
-                </button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Share Modal -->
-    <div class="modal-overlay" id="shareModal">
-        <div class="modal" style="max-width: 400px;">
-            <div class="modal-header">
-                <div>
-                    <div class="card-title">Compartilhar Ocorrencia</div>
-                    <div class="card-subtitle">Selecione os profissionais</div>
-                </div>
-                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('shareModal')">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                        <line x1="18" y1="6" x2="6" y2="18"/>
-                        <line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                </button>
             </div>
-            <div class="modal-body">
-                <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <label style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--surface-variant); border-radius: var(--radius-md); cursor: pointer;">
-                        <input type="checkbox" style="width: 18px; height: 18px; accent-color: var(--primary);">
-                        <div style="flex: 1;">
-                            <div style="font-size: 13px; font-weight: 600;">Enf. Lucia Barbosa</div>
-                            <div style="font-size: 11px; color: var(--text-muted);">Enfermaria</div>
-                        </div>
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--surface-variant); border-radius: var(--radius-md); cursor: pointer;">
-                        <input type="checkbox" style="width: 18px; height: 18px; accent-color: var(--primary);">
-                        <div style="flex: 1;">
-                            <div style="font-size: 13px; font-weight: 600;">Prof. Ricardo Moura</div>
-                            <div style="font-size: 11px; color: var(--text-muted);">Pedagogico</div>
-                        </div>
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--surface-variant); border-radius: var(--radius-md); cursor: pointer;">
-                        <input type="checkbox" style="width: 18px; height: 18px; accent-color: var(--primary);">
-                        <div style="flex: 1;">
-                            <div style="font-size: 13px; font-weight: 600;">Dra. Claudia Vieira</div>
-                            <div style="font-size: 11px; color: var(--text-muted);">Social</div>
-                        </div>
-                    </label>
-                </div>
-            </div>
+
             <div class="modal-footer">
-                <button class="btn btn-ghost" onclick="closeModal('shareModal')">Cancelar</button>
-                <button class="btn btn-primary" onclick="confirmShare()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-                        <circle cx="18" cy="5" r="3"/>
-                        <circle cx="6" cy="12" r="3"/>
-                        <circle cx="18" cy="19" r="3"/>
-                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.51"/>
-                    </svg>
-                    Compartilhar
+
+                <!-- Único botão cancelar -->
+                <button
+                    type="button"
+                    class="btn btn-ghost"
+                    id="btnCancelOccurrence"
+                >
+                    Cancelar
                 </button>
+
+                <!-- Único botão salvar -->
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Salvar Ocorrência
+                </button>
+
             </div>
-        </div>
+
+        </form>
+
     </div>
+</div>
     <script type="module" src="../assets/app/script/occurrences.js"></script>
 </body>
 </html>

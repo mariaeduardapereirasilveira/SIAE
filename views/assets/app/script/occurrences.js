@@ -1,34 +1,142 @@
+import Occurrence from "../../_common/classes/Occurrence.js";
+import OccurrenceService from "../../_common/classes/OccurrenceService.js";
+import ToastPrototype from "../../_common/prototypes/Toast.js";
+import FormControllerPrototype from "../../_common/prototypes/FormControllerPrototype.js";
 
-import ServiceService from "../../_common/classes/ServiceService.js";
+const occurrenceService = new OccurrenceService();
 
-const serviceService = new ServiceService();
+const toast = Object.create(ToastPrototype);
 
-async function testarServicosDoUsuario() {
+const formController = Object.create(FormControllerPrototype);
+
+const occurrenceForm = document.getElementById("occurrenceForm");
+formController.inicializar(occurrenceForm);
+
+
+occurrenceForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
     try {
-        const token = localStorage.getItem("token");
-        const userId = Number(localStorage.getItem("userId"));
+        const dados = formController.obterDados();
 
-        if (token) {
-            serviceService.setAuthToken(token);
-        }
+        const occurrence = new Occurrence(dados);
 
-        const resposta = await serviceService.list();
-
-        console.log("Resposta da API:", resposta);
-       console.log("Dados dos serviços:", resposta.data);
-
-        const servicos = Array.isArray(resposta.data)
-            ? resposta.data
-            : [];
-
-        const servicosDoUsuario = servicos.filter(servico =>
-            Number(servico.userId ?? servico.user_id) === userId
+        const resposta = await occurrenceService.create(
+            occurrence.toJSON()
         );
 
-        console.log("Serviços do usuário:", servicosDoUsuario);
-    } catch (erro) {
-        console.error("Erro ao consultar serviços:", erro);
+        toast.mostrarResposta(resposta);
+
+        formController.limpar();
+        closeModal("newOccurrenceModal");
+
+    } catch (error) {
+        console.error("Erro ao salvar ocorrência:", error);
+        toast.mostrar(error.message, "error");
     }
+}); 
+
+const btnNewOccurrence = document.getElementById("btnNewOccurrence");
+
+btnNewOccurrence.addEventListener("click", () => {
+    openModal("newOccurrenceModal");
+});
+
+
+const btnCancelOccurrence = document.getElementById("btnCancelOccurrence");
+
+btnCancelOccurrence.addEventListener("click", () => {
+    closeModal("newOccurrenceModal");
+});
+
+
+const btnCloseOccurrence = document.getElementById("btnCloseOccurrence");
+
+btnCloseOccurrence.addEventListener("click", () => {
+    closeModal("newOccurrenceModal");
+});
+
+
+function checkAuth() {
+    const token= localStorage.getItem('token');
+    const enrollment= localStorage.getItem('enrollment');
+
+    if ( !token) {
+        window.location.href = '../public/login.html'; 
+        return false;
+    }
+
+
+    // if (enrollment !== 'admin') {
+    //     window.location.href = '../app/dashboard.html'; 
+    //     return false;
+    // } 
+    return true;
 }
 
-testarServicosDoUsuario();
+        function switchTab(tabName) {
+            // Update tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.tab-btn').classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+
+        function openNewOccurrenceModal() {
+            openModal('newOccurrenceModal');
+        }
+
+        function openShareModal(occurrenceId) {
+            openModal('shareModal');
+        }
+
+        function saveOccurrence() {
+            closeModal('newOccurrenceModal');
+            showNotification('Ocorrencia salva com sucesso!', 'success');
+        }
+
+        function confirmShare() {
+            closeModal('shareModal');
+            showNotification('Ocorrencia compartilhada com sucesso!', 'success');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = 'notification notification-' + type;
+            notification.innerHTML = `<span>${message}</span><button onclick="this.parentElement.remove()">x</button>`;
+            notification.style.cssText = 'position: fixed; bottom: 24px; right: 24px; padding: 14px 20px; border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; z-index: 300; animation: slideUp 0.3s ease; border-left: 4px solid var(' + (type === 'success' ? '--success' : '--danger') + ');';
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('siae_is_logged_in');
+            localStorage.removeItem('siae_user_role');
+            window.location.href = '../public/login.html';
+        }
+
+        // Initialize
+        if (checkAuth()) {
+            // Check for action param to open new occurrence modal
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('action') === 'new') {
+                openNewOccurrenceModal();
+            }
+        }
+

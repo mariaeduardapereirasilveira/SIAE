@@ -1,15 +1,17 @@
 import Sector from '../../_common/classes/Sector.js';
 import SectorService from '../../_common/classes/SectorService.js';
 import Toast from '../../_common/prototypes/Toast.js';
+import FormControllerPrototype from '../../_common/prototypes/FormControllerPrototype.js';
 const sectorService = new SectorService();
 
 const toast = Object.create(Toast);
+const formController = Object.create(FormControllerPrototype);
 function checkAuth() {
-    const token= localStorage.getItem('token');
-    const enrollment= localStorage.getItem('enrollment');
+    const token = localStorage.getItem('token');
+    const enrollment = localStorage.getItem('enrollment');
 
-    if ( !token) {
-        window.location.href = '../public/login.html'; 
+    if (!token) {
+        window.location.href = '../public/login.html';
         return false;
     }
 
@@ -23,19 +25,23 @@ function checkAuth() {
 
 
 function configurarEventos() {
+    const sectorForm = document.getElementById("sectorForm");
+
+    formController.inicializar(sectorForm);
+
     document.getElementById('btnNovoSetor').addEventListener('click', () => {
-    const modal = document.getElementById('sectorModal');
+        const modal = document.getElementById('sectorModal');
 
-    modal.removeAttribute('data-id');
+        modal.removeAttribute('data-id');
 
-    document.querySelector('.modal-title').textContent = 'Novo Setor';
-    document.querySelector('.modal-subtitle').textContent =
-        'Cadastre uma nova área de atuação';
+        document.querySelector('.modal-title').textContent = 'Novo Setor';
+        document.querySelector('.modal-subtitle').textContent =
+            'Cadastre uma nova área de atuação';
 
-    document.getElementById('sectorForm').reset();
+      formController.limpar();
 
-    openModal('sectorModal');
-});
+        openModal('sectorModal');
+    });
 
     document.getElementById('btnFecharModal').addEventListener('click', () => {
         closeModal('sectorModal');
@@ -45,10 +51,10 @@ function configurarEventos() {
         closeModal('sectorModal');
     });
 
-   document.getElementById('sectorForm').addEventListener('submit', (event) => {
-    event.preventDefault();
-    saveSector();
-});
+    document.getElementById('sectorForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+        saveSector();
+    });
 
     document.getElementById('btnLogout').addEventListener('click', () => {
         handleLogout();
@@ -177,8 +183,8 @@ async function carregarSetores() {
 
         const setores = resposta.data ?? resposta;
 
-       console.log('Resposta da API:', resposta);
-console.table(setores);
+        console.log('Resposta da API:', resposta);
+        console.table(setores);
         const grid = document.getElementById('sectorsGrid');
         grid.innerHTML = '';
 
@@ -195,46 +201,39 @@ console.table(setores);
 
 
 async function saveSector() {
-    const form = document.getElementById('sectorForm');
-    const formData = new FormData(form);
-
     const id = document.getElementById('sectorModal').dataset.id;
-
+    const dados = formController.obterDados();
     const sector = new Sector({
         id: id || null,
-        name: formData.get('name'),
-        description: formData.get('description')
+        ...dados
     });
 
     try {
+        const resposta = id
+            ? await sectorService.update(id, sector.toJSON())
+            : await sectorService.create(sector.toJSON());
 
-        if (id) {
-            await sectorService.update(id, sector.toJSON());
-        } else {
-            await sectorService.create(sector.toJSON());
-        }
+        toast.mostrarResposta(resposta);
+
 
         closeModal('sectorModal');
 
-        form.reset();
+        formController.limpar();
 
         document.getElementById('sectorModal').removeAttribute('data-id');
 
         await carregarSetores();
-        // toast.mostrar("Setor salvo com sucesso!", "success");
-        toast.mostrar("Atenção: verifique os dados.", "warning");
-// toast.mostrar("Não foi possível realizar a operação.", "error");
 
     } catch (error) {
+        toast.mostrar(error.message, "error");
         console.error('Erro ao salvar setor:', error);
         alert('Não foi possível salvar o setor.');
     }
 }
-function editSector(name) { alert('Editar setor: ' + name); }
+// function editSector(name) { alert('Editar setor: ' + name); }
 function handleLogout() { localStorage.clear(); window.location.href = '../public/login.html'; }
 if (checkAuth()) {
     carregarSetores();
-     configurarEventos();
+    configurarEventos();
 }
 
- 
