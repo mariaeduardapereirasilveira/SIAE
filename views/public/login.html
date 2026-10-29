@@ -1,151 +1,146 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - SIAE</title>
-    <link rel="stylesheet" href="../assets/app/styles/app.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="../assets/public/styles/login.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Acessar o SIAE | Sistema Integrado de Apoio Educacional</title>
+<meta content="Acesse o SIAE para acompanhar e gerenciar atendimentos estudantis com segurança." name="description"/>
+<link href="../assets/app/styles/app.css" rel="stylesheet"/>
+<link href="../assets/public/styles/login.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="../assets/_common/styles/design-system.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v4.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v5.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v6.css" rel="stylesheet"/>  <link rel="stylesheet" href="../assets/_common/styles/product-polish-v6-1.css">
 </head>
-<body>
-    <div class="login-container">
-        <!-- Left branding panel -->
-        <aside class="login-aside">
-            <div class="login-aside-inner">
-                <div class="login-logo">
-                    <svg viewBox="0 0 48 48" class="owl-logo" aria-hidden="true">
-  <path fill="currentColor" d="M24 5 7.5 11.5 24 18l16.5-6.5L24 5Z"/>
-  <path fill="currentColor" d="M9.5 13.5 9 23.5l-2.1 3.2c-.4.7-.2 1.6.5 2l3.2 1.8 2.2-6.2-.9-9.8-2.4-1Z"/>
-  <path fill="currentColor" fill-rule="evenodd" d="M24 16.6c-8.6 0-15 5.8-15 13.2 0 5.9 4.1 10.7 10 12.1 2.3.6 3.8-1.1 5-2.7 1.2 1.6 2.7 3.3 5 2.7 5.9-1.4 10-6.2 10-12.1 0-7.4-6.4-13.2-15-13.2Zm-7.8 8.1c3.2.2 5.8 2.5 7.1 6.1-3.1 1.1-7.8.5-10-2.6.4-2.1 1.4-3.6 2.9-3.5Zm15.6 0c-3.2.2-5.8 2.5-7.1 6.1 3.1 1.1 7.8.5 10-2.6-.4-2.1-1.4-3.6-2.9-3.5ZM18.6 27a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Zm10.8 0a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Z" clip-rule="evenodd"/>
-  <path fill="currentColor" d="M18 43.2c-5.1-.7-9.4-1.5-13.5-2.7 4.9-.8 10.3-1 16.5.8l3 1.8 3-1.8c6.2-1.8 11.6-1.6 16.5-.8-4.1 1.2-8.4 2-13.5 2.7-2.3.3-4.3 1-6 2.4-1.7-1.4-3.7-2.1-6-2.4Z"/>
+<body class="login-page">
+<main aria-label="Acesso ao SIAE" class="login-container">
+<!-- Left branding panel -->
+<aside class="login-aside">
+<div class="login-aside-inner">
+<div class="login-logo">
+<img alt="Símbolo da coruja do SIAE" class="owl-logo" decoding="async" src="../assets/_common/images/siae-owl-black.png"/>
+</div>
+<h2>SIAE</h2>
+<p class="tagline">Conexões entre Setores</p>
+<div class="login-features">
+<div class="login-feature">
+<div class="login-feature-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
 </svg>
-                </div>
-                <h2>SIAE</h2>
-                <p class="tagline">Conexoes entre Setores</p>
-
-                <div class="login-features">
-                    <div class="login-feature">
-                        <div class="login-feature-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h4>Gestao Integrada</h4>
-                            <p>Alunos, profissionais e setores em um unico lugar</p>
-                        </div>
-                    </div>
-                    <div class="login-feature">
-                        <div class="login-feature-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 20V10"/>
-                                <path d="M12 20V4"/>
-                                <path d="M6 20v-6"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h4>Analise de Dados</h4>
-                            <p>Relatorios e graficos em tempo real</p>
-                        </div>
-                    </div>
-                    <div class="login-feature">
-                        <div class="login-feature-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                <polyline points="9 22 9 12 15 12 15 22"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h4>Multi-Setorial</h4>
-                            <p>Conecta setores e facilita atendimentos</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Right form panel -->
-        <div class="login-form-side">
-            <div class="login-form-container animate-fade-in">
-                <div class="login-form-header">
-                    <h2>Bem-vindo ao SIAE</h2>
-                    <p>Use sua conta para acessar o sistema</p>
-                </div>
-
-                <!-- Role Toggle -->
-                <div class="login-tabs">
-                    <button class="login-tab" id="tabProfessional" >Profissional</button>
-                    <button class="login-tab active" id="tabAdmin">Administrador</button>
-                </div>
-
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                    <polyline points="22,6 12,13 2,6"/>
-                                </svg>
-                            </span>
-                            <input type="text" class="form-control" name="email" id="emailInput" placeholder="email@exemplo.com" >
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Senha</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                                </svg>
-                            </span>
-                            <input type="password" name="password" class="form-control" id="passwordInput" placeholder="digite sua senha" >
-                            <button type="button" class="input-action" >
-                                <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                    <circle cx="12" cy="12" r="3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-options">
-                        <label class="form-remember">
-                            <input type="checkbox" id="rememberCheck">
-                            <span>Lembre-se de mim</span>
-                        </label>
-                        <a href="#" class="form-forgot">Esqueceu a senha?</a>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+</div>
+<div>
+<h4>Gestão Integrada</h4>
+<p>Alunos, profissionais e setores em um único lugar</p>
+</div>
+</div>
+<div class="login-feature">
+<div class="login-feature-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M18 20V10"></path>
+<path d="M12 20V4"></path>
+<path d="M6 20v-6"></path>
+</svg>
+</div>
+<div>
+<h4>Analise de Dados</h4>
+<p>Relatórios e gráficos em tempo real</p>
+</div>
+</div>
+<div class="login-feature">
+<div class="login-feature-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+</div>
+<div>
+<h4>Multi-Setorial</h4>
+<p>Conecta setores e facilita atendimentos</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right form panel -->
+<div class="login-form-side"><button aria-label="Ativar modo escuro" class="theme-toggle theme-toggle-floating" data-theme-toggle="" title="Ativar modo escuro" type="button">
+<svg aria-hidden="true" class="theme-icon theme-icon-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+<svg aria-hidden="true" class="theme-icon theme-icon-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"></path></svg>
+<span class="theme-toggle-label">Tema</span>
+</button>
+<div class="login-form-container animate-fade-in">
+<div class="login-form-header">
+<h2>Bem-vindo ao SIAE</h2>
+<p>Use sua conta para acessar o sistema</p>
+</div>
+<!-- Role Toggle -->
+<div class="login-tabs">
+<button class="login-tab" id="tabProfessional">Profissional</button>
+<button class="login-tab active" id="tabAdmin">Administrador</button>
+</div>
+<form id="loginForm">
+<div class="form-group">
+<label class="form-label">Email</label>
+<div class="input-wrapper">
+<span class="input-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+<polyline points="22,6 12,13 2,6"></polyline>
+</svg>
+</span>
+<input class="form-control" id="emailInput" name="email" placeholder="email@exemplo.com" type="text"/>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Senha</label>
+<div class="input-wrapper">
+<span class="input-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+</span>
+<input class="form-control" id="passwordInput" name="password" placeholder="digite sua senha" type="password"/>
+<button class="input-action" type="button">
+<svg fill="none" id="eyeIcon" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+</button>
+</div>
+</div>
+<div class="form-options">
+<label class="form-remember">
+<input id="rememberCheck" type="checkbox"/>
+<span>Lembre-se de mim</span>
+</label>
+<a class="form-forgot" href="#">Esqueceu a senha?</a>
+</div>
+<button class="btn btn-primary btn-lg" style="width: 100%;" type="submit">
                         Entrar
                     </button>
-                </form>
-
-                <div class="login-divider">ou</div>
-
-                <button class="google-btn" onclick="handleGoogleLogin()">
-                    <svg width="18" height="18" viewBox="0 0 24 24">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                    </svg>
+</form>
+<div class="login-divider">ou</div>
+<button class="google-btn" onclick="handleGoogleLogin()">
+<svg height="18" viewbox="0 0 24 24" width="18">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
                     Continuar com Google
                 </button>
-
-                <p class="login-footer">
+<p class="login-footer">
                     2026 SIAE - Sistema Integrado de Apoio Educacional
                 </p>
-            </div>
-        </div>
-    </div>
-    <script type="module" src="../assets/public/script/login.js" defer></script>
-</body>
+</div>
+</div>
+</main>
+<script defer="" src="../assets/public/script/login.js" type="module"></script>
+<script defer="True" src="../assets/_common/script/theme-toggle.js"></script></body>
 </html>

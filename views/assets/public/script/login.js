@@ -70,6 +70,7 @@ form.addEventListener("submit", async (event) => {
             localStorage.setItem("enrollment", response.data.enrollment);
             localStorage.setItem("userId", response.data.id);
             localStorage.setItem("userName", response.data.name);
+            localStorage.setItem("userPhoto", response.data.photoUrl || response.data.photo || "");
             let token = localStorage.getItem("token");
             users.setAuthToken(token);
 

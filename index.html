@@ -1,337 +1,208 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIAE - Sistema Integrado de Apoio Educacional</title>
-    <link rel="stylesheet" href="views/assets/public/styles/main.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SIAE — Sistema Integrado de Apoio Educacional. Uma plataforma para organizar o acompanhamento estudantil e aproximar os setores de atendimento.">
+  <meta name="theme-color" content="#08152B">
+  <title>SIAE — Conexões entre Educação e Cuidado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="views/assets/public/styles/main.css">
+  <link rel="stylesheet" href="views/assets/_common/styles/design-system.css">
+  <link rel="stylesheet" href="views/assets/_common/styles/product-redesign-v4.css">
+  <link rel="stylesheet" href="views/assets/_common/styles/product-redesign-v5.css">
+  <link rel="stylesheet" href="views/assets/_common/styles/product-redesign-v6.css">
+  <link rel="stylesheet" href="views/assets/_common/styles/product-polish-v6-1.css">
 </head>
+<body class="public-home">
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="nav-container">
+      <a class="nav-logo" href="index.html" aria-label="SIAE — Página inicial">
+        <span class="logo-icon" aria-hidden="true">
+          <img class="owl-logo" src="views/assets/_common/images/siae-owl-black.png" alt="" width="31" height="31">
+        </span>
+        <span class="logo-text">SIAE</span>
+      </a>
 
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 48 48" class="owl-logo" aria-hidden="true">
-  <path fill="currentColor" d="M24 5 7.5 11.5 24 18l16.5-6.5L24 5Z"/>
-  <path fill="currentColor" d="M9.5 13.5 9 23.5l-2.1 3.2c-.4.7-.2 1.6.5 2l3.2 1.8 2.2-6.2-.9-9.8-2.4-1Z"/>
-  <path fill="currentColor" fill-rule="evenodd" d="M24 16.6c-8.6 0-15 5.8-15 13.2 0 5.9 4.1 10.7 10 12.1 2.3.6 3.8-1.1 5-2.7 1.2 1.6 2.7 3.3 5 2.7 5.9-1.4 10-6.2 10-12.1 0-7.4-6.4-13.2-15-13.2Zm-7.8 8.1c3.2.2 5.8 2.5 7.1 6.1-3.1 1.1-7.8.5-10-2.6.4-2.1 1.4-3.6 2.9-3.5Zm15.6 0c-3.2.2-5.8 2.5-7.1 6.1 3.1 1.1 7.8.5 10-2.6-.4-2.1-1.4-3.6-2.9-3.5ZM18.6 27a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Zm10.8 0a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Z" clip-rule="evenodd"/>
-  <path fill="currentColor" d="M18 43.2c-5.1-.7-9.4-1.5-13.5-2.7 4.9-.8 10.3-1 16.5.8l3 1.8 3-1.8c6.2-1.8 11.6-1.6 16.5-.8-4.1 1.2-8.4 2-13.5 2.7-2.3.3-4.3 1-6 2.4-1.7-1.4-3.7-2.1-6-2.4Z"/>
-</svg>
-                </div>
-                <span class="logo-text">SIAE</span>
-            </a>
-            <div class="nav-menu" id="navMenu">
-                <a href="#features" class="nav-link">Recursos</a>
-                <a href="#about" class="nav-link">Sobre</a>
-                <a href="#contact" class="nav-link">Contato</a>
-                <a href="/views/public/login.html" class="nav-btn">Acessar Sistema</a>
-            </div>
-            <button class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+      <div class="nav-menu" id="navMenu">
+        <a class="nav-link" href="#features">Recursos</a>
+        <a class="nav-link" href="#about">Sobre o SIAE</a>
+        <a class="nav-link" href="#contact">Acesso</a>
+        <button class="theme-toggle theme-toggle-public" type="button" data-theme-toggle aria-label="Ativar modo escuro" title="Ativar modo escuro">
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"></path></svg>
+          <span class="theme-toggle-label">Tema</span>
+        </button>
+        <a class="nav-btn" href="views/public/login.html">Acessar sistema <span aria-hidden="true">↗</span></a>
+      </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg">
-            <div class="hero-shape shape-1"></div>
-            <div class="hero-shape shape-2"></div>
-            <div class="hero-shape shape-3"></div>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-controls="navMenu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="landing-main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-shape shape-1"></div>
+        <div class="hero-shape shape-2"></div>
+        <div class="hero-shape shape-3"></div>
+      </div>
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="hero-badge">Sistema Integrado de Apoio Educacional</div>
+          <h1 class="hero-title" id="hero-title">Mais conexão entre <span class="gradient-text">educação, cuidado e acompanhamento.</span></h1>
+          <p class="hero-description">O SIAE reúne profissionais, registros e informações de atendimento em um só ambiente, ajudando a tornar o acompanhamento do estudante mais organizado, contextualizado e integrado.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary btn-lg" href="views/public/login.html">Acessar o sistema <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+            <a class="btn btn-outline btn-lg" href="#features">Conhecer recursos <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-trust-row">
+            <span class="hero-trust-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 19 6v5c0 4.4-2.8 7.7-7 10-4.2-2.3-7-5.6-7-10V6l7-3Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+            <span>Informações organizadas, acesso por perfil e uma visão mais integrada do atendimento estudantil.</span>
+          </div>
         </div>
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span>Saude + Educacao</span>
-                </div>
-                <h1 class="hero-title">
-                    Centralize sua<br>
-                    <span class="gradient-text">Gestao Escolar</span>
-                </h1>
-                <p class="hero-description">
-                    Sistema integrado para profissionais de Enfermagem, Psicologia e Orientacao Educacional.
-                    Centralize historicos de alunos, gestao de ocorrencias e acompanhamento multidisciplinar em uma
-                    unica plataforma.
-                </p>
-                <div class="hero-actions">
-                    <a href="/views/public/login.html" class="btn btn-primary btn-lg">
-                        <span>Comecar Agora</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                    <a href="#features" class="btn btn-outline btn-lg">
-                        <span>Conhecer Recursos</span>
-                    </a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-value">500+</span>
-                        <span class="stat-label">Instituicoes</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <span class="stat-value">15.000+</span>
-                        <span class="stat-label">Alunos Atendidos</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <span class="stat-value">98%</span>
-                        <span class="stat-label">Satisfacao</span>
-                    </div>
-                </div>
+
+        <div class="hero-visual" aria-label="Prévia ilustrativa da interface do SIAE">
+          <div class="dashboard-preview">
+            <div class="preview-header">
+              <div class="preview-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+              <span class="preview-title">SIAE · Área de trabalho</span>
+              <span class="preview-label">Prévia ilustrativa</span>
             </div>
-            <div class="hero-visual">
-                <div class="dashboard-preview">
-                    <div class="preview-header">
-                        <div class="preview-dots">
-                            <span></span><span></span><span></span>
-                        </div>
-                        <span class="preview-title">Dashboard SIAE</span>
-                    </div>
-                    <div class="preview-content">
-                        <div class="preview-cards">
-                            <div class="preview-card card-1">
-                                <div class="mini-icon blue"></div>
-                                <div class="mini-bar"></div>
-                            </div>
-                            <div class="preview-card card-2">
-                                <div class="mini-icon green"></div>
-                                <div class="mini-circle"></div>
-                            </div>
-                            <div class="preview-card card-3">
-                                <div class="mini-icon purple"></div>
-                                <div class="mini-chart"></div>
-                            </div>
-                        </div>
-                        <div class="preview-list">
-                            <div class="list-item"></div>
-                            <div class="list-item"></div>
-                            <div class="list-item short"></div>
-                        </div>
-                    </div>
+            <div class="preview-content">
+              <div class="preview-heading-row">
+                <div><p class="preview-overline">Visão geral</p><h2>Acompanhamento estudantil</h2></div>
+                <span class="preview-status">Painel integrado</span>
+              </div>
+              <div class="preview-cards">
+                <div class="preview-card">
+                  <div class="mini-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M20 8v6M23 11h-6"></path></svg></div>
+                  <strong>Estudantes</strong><span>Cadastros organizados</span>
                 </div>
+                <div class="preview-card">
+                  <div class="mini-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M8 13h8M8 17h8"></path></svg></div>
+                  <strong>Atendimentos</strong><span>Registros por setor</span>
+                </div>
+                <div class="preview-card">
+                  <div class="mini-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h.01M15 10h.01M9 14h.01M15 14h.01"></path></svg></div>
+                  <strong>Equipe</strong><span>Setores conectados</span>
+                </div>
+              </div>
+              <div class="preview-divider"></div>
+              <div class="preview-list-heading">Atividade recente <span>Exemplos de registros</span></div>
+              <div class="preview-list">
+                <div class="list-item"><div class="list-copy"><strong>Registro de atendimento</strong><small>Enfermaria · exemplo de atividade</small></div><span class="list-pill">Atendimento</span></div>
+                <div class="list-item"><div class="list-copy"><strong>Acompanhamento educacional</strong><small>Orientação · exemplo de atividade</small></div><span class="list-pill">Acompanhamento</span></div>
+                <div class="list-item"><div class="list-copy"><strong>Histórico do estudante</strong><small>Consulta organizada por perfil</small></div><span class="list-pill">Histórico</span></div>
+              </div>
+              <p class="preview-caption">Representação visual ilustrativa — os dados acima não são informações reais do sistema.</p>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-badge">Recursos</span>
-                <h2 class="section-title">Tudo que voce precisa em um so lugar</h2>
-                <p class="section-description">
-                    Ferramentas integradas para uma gestao escolar completa e eficiente
-                </p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon nursing">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                        </svg>
-                    </div>
-                    <h3>Enfermaria</h3>
-                    <p>Registro de atendimentos de saude, controle de medicamentos e historico medico dos alunos.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon psychology">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-                            <line x1="9" y1="9" x2="9.01" y2="9" />
-                            <line x1="15" y1="9" x2="15.01" y2="9" />
-                        </svg>
-                    </div>
-                    <h3>Psicologia</h3>
-                    <p>Acompanhamento psicologico, triagem, encaminhamentos e registros de sessoes.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon education">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-                        </svg>
-                    </div>
-                    <h3>Orientacao Educacional</h3>
-                    <p>Suporte pedagogico, acompanhamento de desempenho e orientacao de estudos.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon history">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10" />
-                            <polyline points="12 6 12 12 16 14" />
-                        </svg>
-                    </div>
-                    <h3>Historico Centralizado</h3>
-                    <p>Todas as informacoes de um aluno em um unico lugar, acessivel para toda a equipe.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon reports">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                            <polyline points="14 2 14 8 20 8" />
-                            <line x1="16" y1="13" x2="8" y2="13" />
-                            <line x1="16" y1="17" x2="8" y2="17" />
-                        </svg>
-                    </div>
-                    <h3>Relatorios</h3>
-                    <p>Relatorios automatizados, estatisticas e indicadores para gestao eficiente.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon integration">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="3" />
-                            <path
-                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                        </svg>
-                    </div>
-                    <h3>Integracao</h3>
-                    <p>Conexao entre setores para um atendimento multidisciplinar coordenado.</p>
-                </div>
-            </div>
-        </div>
+    <section class="home-capabilities" aria-label="Pilares do SIAE">
+      <div class="capabilities-row">
+        <div class="capability-item"><span class="capability-number">01</span><div><strong>Informações centralizadas</strong><span>Registros reunidos em um único ambiente</span></div></div>
+        <div class="capability-item"><span class="capability-number">02</span><div><strong>Acesso por perfil</strong><span>Áreas adequadas às responsabilidades de cada usuário</span></div></div>
+        <div class="capability-item"><span class="capability-number">03</span><div><strong>Visão multidisciplinar</strong><span>Conexão entre os setores de atendimento</span></div></div>
+      </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="section-container">
-            <div class="about-content">
-                <div class="about-text">
-                    <span class="section-badge">Sobre o Sistema</span>
-                    <h2 class="section-title">Por que escolher o SIAE?</h2>
-                    <p class="about-description">
-                        O SIAE foi developed pensando nas necessidades reais de profissionais que atuam
-                        na interface entre saude e educacao. Nossa plataforma elimina a fragmentacao de informacoes,
-                        permitindo um acompanhamento holistic do aluno.
-                    </p>
-                    <ul class="about-list">
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>Comunicacao integrada entre setores</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>Historico completo do aluno sempre acessivel</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>Relatorios automatizados e personalizaveis</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>Seguranca e LGPD compliance</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="about-visual">
-                    <div class="about-card">
-                        <div class="about-card-header">
-                            <div class="sector-tag nursing-tag">Enfermaria</div>
-                            <div class="sector-tag psychology-tag">Psicologia</div>
-                            <div class="sector-tag education-tag">Orientacao</div>
-                        </div>
-                        <div class="about-card-body">
-                            <div class="connection-lines">
-                                <div class="line"></div>
-                                <div class="line"></div>
-                                <div class="line"></div>
-                            </div>
-                            <div class="central-student">
-                                <div class="student-avatar">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                        <circle cx="12" cy="7" r="4" />
-                                    </svg>
-                                </div>
-                                <span>Aluno</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="features" id="features" aria-labelledby="features-title">
+      <div class="section-container">
+        <header class="section-header">
+          <span class="section-badge">Recursos da plataforma</span>
+          <h2 class="section-title" id="features-title">O essencial para acompanhar cada estudante com mais contexto.</h2>
+          <p class="section-description">Uma estrutura feita para organizar as atividades do dia a dia e facilitar o acesso às informações de acordo com o perfil de cada usuário.</p>
+        </header>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon nursing" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11Z"></path><path d="M8 12h8M12 8v8"></path></svg></div>
+            <h3>Atendimentos</h3><p>Organize registros e acompanhe as informações relevantes ao longo do atendimento estudantil.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon psychology" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a8 8 0 0 0-4 14.9V21h8v-3.1A8 8 0 0 0 12 3Z"></path><path d="M9 10a3 3 0 0 1 6 0c0 2-3 2-3 4M12 17h.01"></path></svg></div>
+            <h3>Acompanhamento</h3><p>Ofereça mais contexto para os profissionais que acompanham diferentes necessidades do estudante.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon education" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m2 9 10-5 10 5-10 5L2 9Z"></path><path d="M6 11v5c4 3 8 3 12 0v-5M22 9v6"></path></svg></div>
+            <h3>Gestão de estudantes</h3><p>Encontre cadastros e mantenha as informações organizadas para consulta e atualização.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon history" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5M12 7v5l3 2"></path></svg></div>
+            <h3>Histórico centralizado</h3><p>Consulte registros relacionados ao estudante sem depender de anotações espalhadas.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon reports" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h17"></path><path d="m7 15 4-4 3 2 5-6"></path></svg></div>
+            <h3>Relatórios e indicadores</h3><p>Organize relatórios para apoiar a leitura das atividades e a gestão dos atendimentos.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon integration" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="3"></circle><circle cx="5" cy="19" r="3"></circle><circle cx="19" cy="19" r="3"></circle><path d="m10.5 7.5-4 8.5M13.5 7.5l4 8.5M8 19h8"></path></svg></div>
+            <h3>Setores conectados</h3><p>Reúna os diferentes campos de atuação em uma experiência de uso consistente.</p>
+          </article>
         </div>
+      </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="contact">
-        <div class="cta-container">
-            <div class="cta-content">
-                <h2 class="cta-title">Pronto para transformar sua gestao escolar?</h2>
-                <p class="cta-description">
-                    Junte-se a centenas de instituicoes que ja utilizam o SIAE para melhorar
-                    o atendimento aos seus alunos.
-                </p>
-                <div class="cta-actions">
-                    <a href="views/public/login.html" class="btn btn-white btn-lg">
-                        <span>Faça parte</span>
-                    </a>
-                </div>
-            </div>
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="about-content">
+        <div class="about-text">
+          <span class="section-badge">Sobre o SIAE</span>
+          <h2 class="section-title" id="about-title">O estudante no centro. A equipe trabalhando com mais contexto.</h2>
+          <p class="about-description">O Sistema Integrado de Apoio Educacional foi pensado para aproximar as áreas que participam do acompanhamento estudantil. A proposta é reduzir a fragmentação dos registros e facilitar uma visão organizada das informações relevantes.</p>
+          <ul class="about-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg><span>Áreas de trabalho estruturadas por perfil de usuário.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg><span>Registros e histórico organizados para consulta.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg><span>Mais clareza para a colaboração entre os setores.</span></li>
+          </ul>
         </div>
+        <div class="about-visual">
+          <div class="about-card">
+            <div class="about-card-header"><span class="sector-tag nursing-tag">Enfermaria</span><span class="sector-tag psychology-tag">Psicologia</span><span class="sector-tag education-tag">Orientação</span></div>
+            <div class="about-card-body" aria-hidden="true">
+              <div class="connection-lines"><span class="line"></span><span class="line"></span><span class="line"></span></div>
+              <div class="central-student"><div class="student-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><span>Estudante</span></div>
+            </div>
+            <p class="about-note">Um ponto de referência compartilhado para o acompanhamento estudantil.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-main">
-                <div class="footer-brand">
-                    <a href="index.html" class="footer-logo">
-                        <div class="logo-icon small">
-                            <svg viewBox="0 0 48 48" class="owl-logo" aria-hidden="true">
-  <path fill="currentColor" d="M24 5 7.5 11.5 24 18l16.5-6.5L24 5Z"/>
-  <path fill="currentColor" d="M9.5 13.5 9 23.5l-2.1 3.2c-.4.7-.2 1.6.5 2l3.2 1.8 2.2-6.2-.9-9.8-2.4-1Z"/>
-  <path fill="currentColor" fill-rule="evenodd" d="M24 16.6c-8.6 0-15 5.8-15 13.2 0 5.9 4.1 10.7 10 12.1 2.3.6 3.8-1.1 5-2.7 1.2 1.6 2.7 3.3 5 2.7 5.9-1.4 10-6.2 10-12.1 0-7.4-6.4-13.2-15-13.2Zm-7.8 8.1c3.2.2 5.8 2.5 7.1 6.1-3.1 1.1-7.8.5-10-2.6.4-2.1 1.4-3.6 2.9-3.5Zm15.6 0c-3.2.2-5.8 2.5-7.1 6.1 3.1 1.1 7.8.5 10-2.6-.4-2.1-1.4-3.6-2.9-3.5ZM18.6 27a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Zm10.8 0a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Z" clip-rule="evenodd"/>
-  <path fill="currentColor" d="M18 43.2c-5.1-.7-9.4-1.5-13.5-2.7 4.9-.8 10.3-1 16.5.8l3 1.8 3-1.8c6.2-1.8 11.6-1.6 16.5-.8-4.1 1.2-8.4 2-13.5 2.7-2.3.3-4.3 1-6 2.4-1.7-1.4-3.7-2.1-6-2.4Z"/>
-</svg>
-                        </div>
-                        <span>SIAE</span>
-                    </a>
-                    <p>Sistema Integrado de Apoio Educacional</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Produto</h4>
-                        <a href="#features">Recursos</a>
-                        <a href="#">Precos</a>
-                        <a href="#">Integracoes</a>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Suporte</h4>
-                        <a href="views/app/faq.html">FAQ</a>
-                        <a href="#">Documentacao</a>
-                        <a href="#">Contato</a>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Empresa</h4>
-                        <a href="#about">Sobre</a>
-                        <a href="#">Blog</a>
-                        <a href="#">Carreiras</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>2026 SIAE - Sistema Integrado de Apoio Educacional. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
+    <section class="cta" id="contact" aria-labelledby="cta-title">
+      <div class="cta-container">
+        <span class="section-badge">Conheça o SIAE</span>
+        <h2 class="cta-title" id="cta-title">Mais organização para quem acompanha. Mais contexto para quem cuida.</h2>
+        <p class="cta-description">Acesse a plataforma para consultar os módulos disponíveis conforme o seu perfil de usuário.</p>
+        <div class="cta-actions"><a class="btn btn-white btn-lg" href="views/public/login.html">Entrar no sistema <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+  </main>
 
-    <script src="views/assets/public/script/main.js"></script>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" aria-label="SIAE — Página inicial"><span class="logo-icon small"><img class="owl-logo" src="views/assets/_common/images/siae-owl-black.png" alt="" width="24" height="24"></span><span>SIAE</span></a>
+          <p>Sistema Integrado de Apoio Educacional.<br>Conexões entre educação e cuidado.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column"><h4>Plataforma</h4><a href="#features">Recursos</a><a href="#about">Sobre o SIAE</a><a href="views/public/login.html">Acessar o sistema</a></div>
+          <div class="footer-column"><h4>Áreas de trabalho</h4><a href="#features">Atendimentos</a><a href="#features">Gestão de estudantes</a><a href="#features">Relatórios</a></div>
+          <div class="footer-column"><h4>Acesso</h4><a href="views/public/login.html">Entrar</a><a href="#contact">Conhecer a plataforma</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>© 2026 SIAE — Sistema Integrado de Apoio Educacional.</p></div>
+    </div>
+  </footer>
+
+  <script src="views/assets/public/script/main.js"></script>
+  <script defer src="views/assets/_common/script/theme-toggle.js"></script>
 </body>
-
 </html>

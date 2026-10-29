@@ -11,18 +11,30 @@
     const navMenu = document.getElementById('navMenu');
 
     if (navToggle && navMenu) {
+        const setMenuOpen = function(isOpen) {
+            navMenu.classList.toggle('active', isOpen);
+            navToggle.classList.toggle('active', isOpen);
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            navToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+        };
+
         navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            navToggle.classList.toggle('active');
+            setMenuOpen(!navMenu.classList.contains('active'));
         });
 
-        // Close menu when clicking on a link
-        const navLinks = navMenu.querySelectorAll('.nav-link');
+        // Close the mobile navigation after selecting a destination.
+        const navLinks = navMenu.querySelectorAll('.nav-link, .nav-btn');
         navLinks.forEach(function(link) {
             link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
-                navToggle.classList.remove('active');
+                setMenuOpen(false);
             });
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+                setMenuOpen(false);
+                navToggle.focus();
+            }
         });
     }
 

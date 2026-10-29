@@ -1,0 +1,433 @@
+/* ======================================================================
+   SIAE — Design polish v6
+   Refinamento incremental sobre v5: foco em consistência, acessibilidade,
+   controles, tema escuro e microinterações. Sem dependência de framework.
+   ====================================================================== */
+
+:root {
+  --siae-motion-fast: 150ms;
+  --siae-motion-base: 230ms;
+  --siae-motion-slow: 340ms;
+  --siae-ease: cubic-bezier(.2, .75, .25, 1);
+  --siae-ease-emphasis: cubic-bezier(.16, 1, .3, 1);
+  --siae-focus-ring: 0 0 0 3px rgba(47, 98, 214, .22);
+  --siae-control-height: 46px;
+  --siae-radius-control: 11px;
+  --siae-radius-card: 16px;
+  --siae-shadow-card: 0 2px 5px rgba(13, 32, 61, .035), 0 10px 28px rgba(13, 32, 61, .045);
+  --siae-shadow-card-hover: 0 7px 18px rgba(13, 32, 61, .055), 0 18px 38px rgba(13, 32, 61, .075);
+  --siae-overlay: rgba(4, 12, 26, .62);
+}
+
+html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+/* Use semantic tokens throughout the interface. */
+:where(a, button, input, select, textarea, summary, [role="button"], [tabindex]):focus-visible {
+  outline: 3px solid rgba(84, 132, 235, .62) !important;
+  outline-offset: 3px !important;
+}
+:where(button, .btn, .btn-primary, .btn-secondary, .btn-outline, .btn-ghost, .icon-btn,
+       .header-icon-btn, .sidebar-item, .filter-btn, .tab-btn, .login-tab,
+       .theme-toggle, .topbar-user, .sidebar-user, .admin-tabs button) {
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    color var(--siae-motion-base) var(--siae-ease),
+    background-color var(--siae-motion-base) var(--siae-ease),
+    border-color var(--siae-motion-base) var(--siae-ease),
+    box-shadow var(--siae-motion-base) var(--siae-ease),
+    transform var(--siae-motion-base) var(--siae-ease),
+    opacity var(--siae-motion-base) var(--siae-ease) !important;
+}
+:where(a, input, select, textarea, .form-control, .input-wrapper, .card, .stat-card,
+       .feature-card, .panel, .report-card, .notification-card, .info-item, .faq-item) {
+  transition:
+    color var(--siae-motion-base) var(--siae-ease),
+    background-color var(--siae-motion-base) var(--siae-ease),
+    border-color var(--siae-motion-base) var(--siae-ease),
+    box-shadow var(--siae-motion-base) var(--siae-ease),
+    transform var(--siae-motion-base) var(--siae-ease),
+    opacity var(--siae-motion-base) var(--siae-ease);
+}
+
+/* Refined page entrance: subtle, one-time movement only. */
+@keyframes siae-page-enter {
+  from { opacity: 0; transform: translate3d(0, 8px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes siae-overlay-enter { from { opacity: 0; } to { opacity: 1; } }
+@keyframes siae-dialog-enter {
+  from { opacity: 0; transform: translate3d(0, 12px, 0) scale(.985); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes siae-soft-emphasis {
+  from { opacity: .72; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+body:not(.login-page) .page-content,
+body:not(.login-page) .admin-content,
+.login-form-container {
+  animation: siae-page-enter 380ms var(--siae-ease-emphasis) both;
+}
+
+/* Cards should feel like surfaces, not hard boxes. Only lift cards that are
+   interactive; passive metric cards get softer elevation without jumping. */
+:where(.card, .stat-card, .kpi-card, .feature-card, .panel, .report-card,
+       .notification-card, .info-item, .faq-item, .chart-card) {
+  border-radius: var(--siae-radius-card);
+}
+:where(.card, .stat-card, .kpi-card, .feature-card, .panel, .report-card,
+       .notification-card, .chart-card):not(:has(button:hover, a:hover)):hover {
+  border-color: var(--border) !important;
+}
+:where(.card, .feature-card, .report-card, .notification-card, .faq-item)[role="button"],
+:where(.card, .feature-card, .report-card, .notification-card):has(> a:only-child) {
+  cursor: pointer;
+}
+:where(.card, .feature-card, .report-card, .notification-card)[role="button"]:hover,
+:where(.card, .feature-card, .report-card, .notification-card):has(> a:only-child):hover {
+  transform: translateY(-2px);
+  box-shadow: var(--siae-shadow-card-hover) !important;
+}
+
+/* Buttons: consistent hit-targets, focus and pressed state. */
+:where(.btn, button.btn, .btn-primary, .btn-secondary, .btn-outline, .btn-ghost,
+       .google-btn, .input-action, .admin-modal-close) {
+  min-height: 40px;
+  border-radius: 11px !important;
+}
+:where(.btn-primary, .login-form-container form > .btn-primary) {
+  box-shadow: 0 5px 14px rgba(47, 98, 214, .16) !important;
+}
+:where(.btn-primary, .btn-secondary, .btn-outline, .btn-ghost, .icon-btn, .header-icon-btn):hover {
+  filter: saturate(1.03);
+}
+:where(.btn-primary, .btn-secondary, .btn-outline, .btn-ghost, .icon-btn, .header-icon-btn):active {
+  transform: translateY(0) scale(.985) !important;
+}
+:where(button, .btn, .icon-btn, .header-icon-btn):disabled,
+:where(button, .btn, .icon-btn, .header-icon-btn)[aria-disabled="true"] {
+  cursor: not-allowed !important;
+  opacity: .56 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Inputs in all modules: comfortable dimensions and legible focus. */
+:where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+       select, textarea, .form-control, .form-select) {
+  min-width: 0;
+  border-radius: var(--siae-radius-control) !important;
+  transition: background-color var(--siae-motion-base) var(--siae-ease),
+              color var(--siae-motion-base) var(--siae-ease),
+              border-color var(--siae-motion-base) var(--siae-ease),
+              box-shadow var(--siae-motion-base) var(--siae-ease) !important;
+}
+:where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+       select, textarea, .form-control, .form-select):focus {
+  outline: none !important;
+  border-color: var(--primary) !important;
+  box-shadow: var(--siae-focus-ring) !important;
+}
+:where(input[type="checkbox"], input[type="radio"]) { accent-color: var(--primary); }
+:where(input[type="checkbox"], input[type="radio"]):focus-visible { outline-offset: 3px !important; }
+select { cursor: pointer; }
+option, optgroup { font: inherit; }
+
+/* LOGIN FIX: use a real icon column instead of overlaying SVGs on top of the
+   input text. Password gets a separate column for the visibility control. */
+.login-form-container .input-wrapper {
+  display: grid !important;
+  grid-template-columns: 44px minmax(0, 1fr) !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  min-height: 52px !important;
+  overflow: hidden !important;
+  border: 1px solid #C7D3E3 !important;
+  border-radius: 12px !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 1px 2px rgba(11, 32, 63, .025) !important;
+}
+.login-form-container .input-wrapper:has(.input-action) {
+  grid-template-columns: 44px minmax(0, 1fr) 42px !important;
+}
+.login-form-container .input-wrapper:focus-within {
+  border-color: #4779E4 !important;
+  box-shadow: 0 0 0 4px rgba(47, 98, 214, .13) !important;
+}
+.login-form-container .input-wrapper .input-icon {
+  position: static !important;
+  inset: auto !important;
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 0 0 7px !important;
+  transform: none !important;
+  color: #71829A !important;
+  pointer-events: none !important;
+}
+.login-form-container .input-wrapper .input-icon svg {
+  display: block !important;
+  width: 17px !important;
+  height: 17px !important;
+  flex: 0 0 17px !important;
+}
+.login-form-container .input-wrapper .form-control {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+  padding: 12px 10px 12px 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-indent: 0 !important;
+  line-height: 1.45 !important;
+  color: #15243A !important;
+}
+.login-form-container .input-wrapper .form-control:focus {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.login-form-container .input-wrapper .input-action {
+  position: static !important;
+  inset: auto !important;
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  align-self: stretch !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+  padding: 0 10px 0 0 !important;
+  transform: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #71829A !important;
+}
+.login-form-container .input-wrapper .input-action svg { width: 18px !important; height: 18px !important; }
+.login-form-container .input-wrapper .input-action:hover { color: #2F62D6 !important; background: transparent !important; box-shadow: none !important; }
+.login-form-container .input-wrapper:has(.input-action) .form-control { padding-right: 4px !important; }
+.login-form-container .form-group { min-width: 0; }
+.login-form-container .form-label { display: block; margin-bottom: 8px !important; }
+.login-form-container .form-options { gap: 12px; flex-wrap: wrap; }
+
+/* The dark theme now remaps legacy hard-coded components too, not only cards. */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #111C2D;
+  --surface-variant: #17243A;
+  --background: #0A1220;
+  --text-primary: #EEF3FC;
+  --text-secondary: #C0CCDF;
+  --text-muted: #9AABC3;
+  --border: #293951;
+  --primary-container: #1D3157;
+  --secondary-container: #1C2A43;
+  --accent-container: #202F4A;
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, .13), 0 8px 20px rgba(0, 0, 0, .08);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, .18);
+  --siae-focus-ring: 0 0 0 3px rgba(117, 157, 255, .28);
+}
+html[data-theme="dark"], html[data-theme="dark"] body {
+  background: #0A1220 !important;
+  color: #EEF3FC !important;
+}
+html[data-theme="dark"] :where(.main-content, .main, .page-content, .app-layout, .admin-content, main) {
+  color: #EEF3FC;
+}
+html[data-theme="dark"] :where(.app-header, .topbar, .page-toolbar, .filters-bar, .filter-panel, .search-panel,
+  .table-toolbar, .list-toolbar, .pagination, .profile-panel, .profile-section, .settings-panel, .faq-list,
+  .chart-container, .chart-card, .empty-state, .info-grid, .info-item, .filter-group, .filter-controls,
+  .tabs, .tab-list, .admin-tabs, .tab-content, .faq-item, .faq-question, .notification-item, .notification-row) {
+  color: #EAF1FC;
+  background-color: #111C2D;
+  border-color: #293951;
+}
+html[data-theme="dark"] :where(.card, .stat-card, .kpi-card, .metric-card, .feature-card, .toggle-row, .panel,
+  .report-card, .notification-card, .chart-card, .info-item, .profile-card, .profile-section, .settings-card,
+  .faq-item, .admin-card, .content-card, .table-container) {
+  color: #EEF3FC !important;
+  background: #111C2D !important;
+  border-color: #293951 !important;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, .13) !important;
+}
+html[data-theme="dark"] :where(.card-header, .card-body, .card-footer, .panel-header, .panel-body, .panel-footer,
+  .table-container, .card-section, .profile-section-header) {
+  color: inherit !important;
+  background: transparent !important;
+  border-color: #293951 !important;
+}
+html[data-theme="dark"] :where(h1, h2, h3, h4, h5, h6, .page-header-title h1, .page-header h1,
+  .card-title, .section-title, .stat-card .value, .kpi-value, .modal-title, .modal-header h2) {
+  color: #F2F6FF !important;
+}
+html[data-theme="dark"] :where(p, .subtitle, .card-subtitle, .page-header p, .meta, .description,
+  .help-text, .form-text, .text-muted, .text-secondary, .label-hint, small) {
+  color: #B3C1D7;
+}
+html[data-theme="dark"] :where(.form-label, label, legend, .form-check-label) { color: #D2DDEF !important; }
+html[data-theme="dark"] :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+  select, textarea, .form-control, .form-select, .filter-select, .search-input, .date-input) {
+  color: #EEF3FC !important;
+  background-color: #0B1525 !important;
+  border-color: #344861 !important;
+  color-scheme: dark;
+}
+html[data-theme="dark"] :where(input, textarea, select)::placeholder { color: #8496B0 !important; opacity: 1; }
+html[data-theme="dark"] :where(select option, select optgroup, option, optgroup) {
+  color: #EEF3FC !important;
+  background-color: #111C2D !important;
+}
+html[data-theme="dark"] :where(input[type="checkbox"], input[type="radio"]) { accent-color: #82A7FF; }
+html[data-theme="dark"] :where(.input-wrapper, .search-box, .search-field, .search-container, .date-picker, .select-wrapper) {
+  background-color: #0B1525 !important;
+  border-color: #344861 !important;
+  color: #EEF3FC !important;
+}
+html[data-theme="dark"] :where(.btn-secondary, .btn-outline, .btn-ghost, .btn-light, .btn-muted,
+  .icon-btn, .header-icon-btn, .filter-btn, .tab-btn, .pagination button, .admin-tabs button:not(.is-active),
+  .login-tab:not(.active), .dropdown-toggle, .select-button, .date-picker-toggle) {
+  color: #D3E0F4 !important;
+  background: #1A2940 !important;
+  border-color: #344861 !important;
+}
+html[data-theme="dark"] :where(.btn-secondary, .btn-outline, .btn-ghost, .btn-light, .btn-muted,
+  .icon-btn, .header-icon-btn, .filter-btn, .tab-btn, .pagination button, .dropdown-toggle, .select-button):hover {
+  color: #FFFFFF !important;
+  background: #263B5D !important;
+  border-color: #4D6A9A !important;
+}
+html[data-theme="dark"] :where(.btn-primary, .login-form-container form > .btn-primary) {
+  color: #FFFFFF !important;
+  background: linear-gradient(120deg, #4478E8, #2F62D6) !important;
+  border-color: #4779E4 !important;
+}
+html[data-theme="dark"] :where(.badge-primary, .badge-teal, .badge-info, .status-info, .tag-primary) {
+  color: #C7D8FF !important;
+  background: #1B2D4B !important;
+  border-color: #2E466C !important;
+}
+html[data-theme="dark"] :where(.badge-success, .status-success, .badge-warning, .status-warning, .badge-danger, .status-danger,
+  .badge-error, .badge-secondary, .status-pending) { border-color: rgba(255,255,255,.12) !important; }
+html[data-theme="dark"] :where(.table, .data-table, table) { color: #E6EDF8 !important; background: transparent !important; }
+html[data-theme="dark"] :where(thead, thead th, .data-table th, .table thead th) {
+  color: #B9C9E0 !important;
+  background: #16243A !important;
+  border-color: #293951 !important;
+}
+html[data-theme="dark"] :where(tbody, tbody tr, .data-table tbody tr, .table tbody tr) { background: transparent; }
+html[data-theme="dark"] :where(th, td, .data-table td, .table td) { border-color: #26364C !important; }
+html[data-theme="dark"] :where(tbody tr:hover, .data-table tbody tr:hover, .table tbody tr:hover) { background: #192941 !important; }
+html[data-theme="dark"] :where(.dropdown-menu, .menu-popover, .popover, .tooltip-panel, .autocomplete-list,
+  .suggestions, .calendar, .datepicker, .flatpickr-calendar) {
+  color: #EAF1FC !important;
+  background: #111C2D !important;
+  border-color: #344861 !important;
+  box-shadow: 0 16px 40px rgba(0,0,0,.35) !important;
+}
+html[data-theme="dark"] :where(.dropdown-item, .menu-popover a, .autocomplete-list li, .suggestions li) { color: #D8E4F6 !important; }
+html[data-theme="dark"] :where(.dropdown-item:hover, .menu-popover a:hover, .autocomplete-list li:hover, .suggestions li:hover) { color: #FFFFFF !important; background: #203253 !important; }
+html[data-theme="dark"] :where(.modal, .modal-content, .admin-modal) {
+  color: #ECF2FB !important;
+  background: #101B2D !important;
+  border-color: #2E4059 !important;
+  box-shadow: 0 28px 78px rgba(0,0,0,.42) !important;
+}
+html[data-theme="dark"] :where(.modal-header, .admin-modal-header) {
+  color: #F2F6FF !important;
+  background: linear-gradient(120deg, #0B1424, #142746) !important;
+  border-color: #2B3E57 !important;
+}
+html[data-theme="dark"] :where(.modal-body, .admin-modal-body) { color: #E5EDF9 !important; background: #101B2D !important; }
+html[data-theme="dark"] :where(.modal-footer, .admin-modal-footer) { background: #152238 !important; border-color: #2B3E57 !important; }
+html[data-theme="dark"] :where(.modal-body .form-label, .modal label, .admin-modal label) { color: #C4D2E7 !important; }
+html[data-theme="dark"] .modal-overlay { background: rgba(1, 5, 13, .76) !important; }
+html[data-theme="dark"] .admin-modal-overlay { background: rgba(1, 5, 13, .76) !important; }
+html[data-theme="dark"] :where(.sidebar, .workspace-toolbar, .sidebar-admin) { border-color: #24344B !important; }
+html[data-theme="dark"] :where(.topbar-user, .profile-trigger, .user-menu-button) {
+  color: #E5EDFA !important; background: #17243A !important; border-color: #2D405B !important;
+}
+html[data-theme="dark"] :where(.topbar-user:hover, .profile-trigger:hover, .user-menu-button:hover) { background: #203253 !important; }
+html[data-theme="dark"] .login-form-side { background: #0A1220 !important; }
+html[data-theme="dark"] .login-form-container { color: #EEF3FC !important; background: #111C2D !important; border-color: #293951 !important; }
+html[data-theme="dark"] .login-form-container .input-wrapper { background: #0B1525 !important; border-color: #364862 !important; }
+html[data-theme="dark"] .login-form-container .input-wrapper .form-control { color: #EEF3FC !important; background: transparent !important; }
+html[data-theme="dark"] .login-form-container .input-icon { color: #AFC0D9 !important; }
+html[data-theme="dark"] .login-form-container .input-action { color: #C1D2EB !important; }
+html[data-theme="dark"] .login-form-container .input-action:hover { color: #FFFFFF !important; }
+html[data-theme="dark"] .login-form-container .login-tabs { background: #17243A !important; border-color: #293951 !important; }
+html[data-theme="dark"] .login-form-container .login-tab.active { color: #FFFFFF !important; background: #2F62D6 !important; }
+html[data-theme="dark"] .theme-toggle,
+html[data-theme="dark"] .topbar-actions .theme-toggle,
+html[data-theme="dark"] .theme-toggle-floating {
+  color: #E3ECFD !important; background: #17243A !important; border-color: #344862 !important;
+}
+html[data-theme="dark"] .theme-toggle:hover { background: #263B5D !important; }
+html[data-theme="dark"] ::selection { color: #FFFFFF; background: #244FB9; }
+
+/* Keep the page's existing modal mechanisms but soften the entrance. */
+.modal-overlay.active, .modal-overlay.is-open {
+  animation: siae-overlay-enter 220ms var(--siae-ease) both;
+}
+.modal-overlay.active > .modal,
+.modal-overlay.active > .modal-content,
+.modal-overlay.is-open > .modal,
+.modal-overlay.is-open > .modal-content {
+  animation: siae-dialog-enter 300ms var(--siae-ease-emphasis) both;
+  will-change: transform, opacity;
+}
+.modal.is-open { animation: siae-dialog-enter 300ms var(--siae-ease-emphasis) both; }
+.admin-modal-overlay.is-open { animation: siae-overlay-enter 220ms var(--siae-ease) both; }
+.admin-modal-overlay.is-open .admin-modal { animation: siae-dialog-enter 300ms var(--siae-ease-emphasis) both; }
+
+/* Focus states and selected tabs for legacy module-specific controls. */
+html[data-theme="dark"] :where(.filter-btn.active, .tab-btn.active, .admin-tabs button.is-active,
+  .login-tab.active, .sidebar-item.active, .sidebar-item[aria-current="page"]) {
+  color: #FFFFFF !important;
+  background: linear-gradient(120deg, #376BE4, #244FB9) !important;
+  border-color: #4779E4 !important;
+}
+:where(.filter-btn, .tab-btn, .admin-tabs button, .login-tab) { border-radius: 10px; }
+:where(.sidebar-item, .filter-btn, .tab-btn, .admin-tabs button, .login-tab):active { transform: scale(.985); }
+:where(.sidebar-nav, .sidebar-admin .sidebar-nav) { scroll-behavior: smooth; }
+
+/* Small displays: keep controls spacious and avoid clipped forms/dialogs. */
+@media (max-width: 680px) {
+  .login-form-side { padding: 28px 18px !important; }
+  .login-form-container { max-width: 460px; }
+  .modal-overlay, .admin-modal-overlay { padding: 10px !important; }
+  .modal-overlay > .modal, .modal-overlay > .modal-content,
+  .admin-modal-overlay .admin-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: min(92dvh, 920px) !important;
+    border-radius: 18px 18px 12px 12px !important;
+  }
+}
+
+/* Respect system accessibility preferences. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

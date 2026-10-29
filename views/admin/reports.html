@@ -1,89 +1,90 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>RelatÃ³rios â€” SIAE Admin</title>
-<link rel="stylesheet" href="../assets/_common/styles/global.css"/>
-<link rel="stylesheet" href="../assets/app/styles/app.css"/>
-<link rel="stylesheet" href="../assets/admin/styles/admin.css"/>
-    <link rel="stylesheet" href="../assets/admin/styles/reports.css">
-
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Relat├│rios ÔÇö SIAE Admin</title>
+<link href="../assets/_common/styles/global.css" rel="stylesheet"/>
+<link href="../assets/app/styles/app.css" rel="stylesheet"/>
+<link href="../assets/admin/styles/admin.css" rel="stylesheet"/>
+<link href="../assets/admin/styles/reports.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="../assets/_common/styles/design-system.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v4.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v5.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v6.css" rel="stylesheet"/>  <link rel="stylesheet" href="../assets/_common/styles/product-polish-v6-1.css">
 </head>
-<body class="app-shell">
-<aside class="sidebar sidebar-admin">
-  <header class="sidebar-brand"><figure class="brand-mark">S</figure><hgroup><p class="brand-name">SIAE Admin</p><p class="brand-tag">Painel de gestÃ£o</p></hgroup></header>
-  <nav>
-    <p class="sidebar-section-label">GestÃ£o</p>
-    <ul class="sidebar-nav">
-      <li><a href="admin.html">VisÃ£o geral</a></li>
-      <li><a href="students.html">Alunos</a></li>
-      <li><a href="professionals.html">Profissionais</a></li>
-      
-    <li><a href="sectors.html">Setores</a></li>
-      <a href="services.html" class="sidebar-item">
-    <span>Atendimentos</span>
-</a>
-    <li><a href="reports.html" class="is-active">RelatÃ³rios</a></li>
-      <li><a href="../app/notifications.html">NotificaÃ§Ãµes</a></li>
-    </ul>
-    <p class="sidebar-section-label" style="margin-top:24px">Conta</p>
-    <ul class="sidebar-nav"><li><a href="../public/login.html" data-logout>Sair</a></li></ul>
-  </nav>
-  <footer class="sidebar-footer"><figure class="avatar avatar-cream" data-user-initials>AD</figure><hgroup><p class="name" data-user-name>AntÃ´nio Diniz</p><p class="role">Administrador</p></hgroup></footer>
-</aside>
-<section class="main">
+<body class="app-shell admin-page">
+<header aria-label="Navega├º├úo administrativa do SIAE" class="sidebar sidebar-admin workspace-shell workspace-toolbar" role="banner">
+<header class="sidebar-brand"><figure aria-hidden="true" class="brand-mark"><img alt="" class="brand-mark-img" decoding="async" src="../assets/_common/images/siae-owl-black.png"/></figure><hgroup><p class="brand-name">SIAE Admin</p><p class="brand-tag">Painel de gest├úo</p></hgroup></header>
+<nav>
+<p class="sidebar-section-label">Gest├úo</p>
+<ul class="sidebar-nav">
+<li><a class="nav-with-icon" href="admin.html"><svg aria-hidden="true" class="nav-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg>Vis├úo geral</a></li>
+<li><a class="nav-with-icon" href="students.html"><svg aria-hidden="true" class="nav-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Alunos</a></li>
+<li><a class="nav-with-icon" href="professionals.html"><svg aria-hidden="true" class="nav-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><path d="M20 8v6M23 11h-6"></path></svg>Profissionais</a></li>
+<li><a class="nav-with-icon" href="sectors.html"><svg aria-hidden="true" class="nav-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"></path><path d="M9 21v-8h6v8"></path></svg>Setores</a></li>
+<li><a aria-current="page" class="is-active nav-with-icon" href="reports.html"><svg aria-hidden="true" class="nav-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6M8 13h8M8 17h8"></path></svg>Relat├│rios</a></li>
+<li><a class="nav-with-icon" href="../app/notifications.html"><svg aria-hidden="true" class="nav-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M10 21h4"></path></svg>Notifica├º├Áes</a></li>
+</ul>
+<p class="sidebar-section-label" style="margin-top:24px">Conta</p>
+<ul class="sidebar-nav"><li><a class="nav-with-icon" data-logout="" href="../public/login.html"><svg aria-hidden="true" class="nav-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3"></path><path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7"></path></svg>Sair</a></li></ul>
+</nav>
+<footer class="sidebar-footer"><figure class="avatar avatar-cream" data-user-initials="">AD</figure><hgroup><p class="name" data-user-name="">Ant├┤nio Diniz</p><p class="role">Administrador</p></hgroup></footer>
+</header>
+<main class="main">
 <header class="topbar">
-  <button class="menu-toggle" data-menu-toggle aria-label="Abrir menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-  <form class="topbar-search" role="search" onsubmit="return false">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-    <input type="search" placeholder="Buscarâ€¦" aria-label="Buscar"/>
-  </form>
-  <nav class="topbar-actions">
-    <a href="../app/profile.html" class="topbar-user"><span class="topbar-user-name" data-user-name>AntÃ´nio Diniz</span><span class="avatar avatar-cream" data-user-initials>AD</span></a>
-  </nav>
+<button aria-label="Abrir menu" class="menu-toggle" data-menu-toggle=""><svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+<form class="topbar-search" onsubmit="return false" role="search">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+<input aria-label="Buscar" placeholder="BuscarÔÇª" type="search"/>
+</form>
+<nav class="topbar-actions">
+<button aria-label="Ativar modo escuro" class="theme-toggle" data-theme-toggle="" title="Ativar modo escuro" type="button">
+<svg aria-hidden="true" class="theme-icon theme-icon-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+<svg aria-hidden="true" class="theme-icon theme-icon-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"></path></svg>
+<span class="theme-toggle-label">Tema</span>
+</button><a class="topbar-user" href="../app/profile.html"><span class="topbar-user-name" data-user-name="">Ant├┤nio Diniz</span><span class="avatar avatar-cream" data-user-initials="">AD</span></a>
+</nav>
 </header>
 <article class="page"><header class="page-header">
-  <hgroup><h1>RelatÃ³rios administrativos</h1><p class="subtitle">VisÃ£o consolidada da plataforma.</p></hgroup>
-  <button class="btn btn-primary">+ Novo relatÃ³rio</button>
+<hgroup><h1>Relat├│rios administrativos</h1><p class="subtitle">Vis├úo consolidada da plataforma.</p></hgroup>
+<button class="btn btn-primary">+ Novo relat├│rio</button>
 </header>
 <section class="grid grid-stats">
-  <article class="stat-card"><p class="label">Alunos cadastrados</p><p class="value">842</p><p class="trend">â†‘ 14 este mÃªs</p></article>
-  <article class="stat-card"><p class="label">Profissionais</p><p class="value">26</p><p class="trend">â†‘ 2 esta semana</p></article>
-  <article class="stat-card"><p class="label">Setores</p><p class="value">3</p><p class="trend">Ativos</p></article>
-  <article class="stat-card"><p class="label">Atendimentos no mÃªs</p><p class="value">766</p><p class="trend">â†‘ 9%</p></article>
+<article class="stat-card"><p class="label">Alunos cadastrados</p><p class="value">842</p><p class="trend">Ôåæ 14 este m├¬s</p></article>
+<article class="stat-card"><p class="label">Profissionais</p><p class="value">26</p><p class="trend">Ôåæ 2 esta semana</p></article>
+<article class="stat-card"><p class="label">Setores</p><p class="value">3</p><p class="trend">Ativos</p></article>
+<article class="stat-card"><p class="label">Atendimentos no m├¬s</p><p class="value">766</p><p class="trend">Ôåæ 9%</p></article>
 </section>
-
 <section class="card admin-form-card">
-  <header class="card-header">
-    <h2 class="card-title">Novo relatÃ³rio</h2>
-  </header>
-  <form>
-    
+<header class="card-header">
+<h2 class="card-title">Novo relat├│rio</h2>
+</header>
+<form>
 <div class="form-grid">
-  <label><span>TÃ­tulo do relatÃ³rio</span><input type="text" placeholder="RelatÃ³rio mensal"/></label>
-  <label><span>Tipo</span><select><option>PDF</option><option>CSV</option><option>Dashboard</option></select></label>
-  <label><span>PerÃ­odo</span><input type="month"/></label>
-  <label><span>ResponsÃ¡vel</span><input type="text" placeholder="Nome do responsÃ¡vel"/></label>
+<label><span>T├¡tulo do relat├│rio</span><input placeholder="Relat├│rio mensal" type="text"/></label>
+<label><span>Tipo</span><select><option>PDF</option><option>CSV</option><option>Dashboard</option></select></label>
+<label><span>Per├¡odo</span><input type="month"/></label>
+<label><span>Respons├ível</span><input placeholder="Nome do respons├ível" type="text"/></label>
 </div>
-
-    <label style="display:flex;flex-direction:column;gap:8px;margin-top:16px;font-weight:600;color:#374151;">
-      <span>ObservaÃ§Ãµes</span>
-      <textarea rows="4" placeholder="Adicione informaÃ§Ãµes complementares"></textarea>
-    </label>
-    <div class="form-actions">
-      <button type="reset" class="btn btn-ghost">Limpar</button>
-      <button type="submit" class="btn btn-primary">Salvar</button>
-    </div>
-  </form>
+<label style="display:flex;flex-direction:column;gap:8px;margin-top:16px;font-weight:600;color:#374151;">
+<span>Observa├º├Áes</span>
+<textarea placeholder="Adicione informa├º├Áes complementares" rows="4"></textarea>
+</label>
+<div class="form-actions">
+<button class="btn btn-ghost" type="reset">Limpar</button>
+<button class="btn btn-primary" type="submit">Salvar</button>
+</div>
+</form>
 </section>
-
-<section class="card"><header class="card-header"><h2 class="card-title">RelatÃ³rios disponÃ­veis</h2></header>
+<section class="card"><header class="card-header"><h2 class="card-title">Relat├│rios dispon├¡veis</h2></header>
 <ul class="occurrence-list">
-  <li><article class="occurrence-item" style="cursor:default"><figure class="avatar">ðŸ“Š</figure><hgroup><p class="student-name">Atendimentos por setor</p><p class="meta">Mensal Â· PDF/CSV</p></hgroup><a href="#" class="btn btn-ghost">Baixar</a><time></time></article></li>
-  <li><article class="occurrence-item" style="cursor:default"><figure class="avatar avatar-rose">ðŸ‘¥</figure><hgroup><p class="student-name">UsuÃ¡rios ativos</p><p class="meta">Semanal Â· CSV</p></hgroup><a href="#" class="btn btn-ghost">Baixar</a><time></time></article></li>
-  <li><article class="occurrence-item" style="cursor:default"><figure class="avatar avatar-cream">ðŸŽ¯</figure><hgroup><p class="student-name">Casos de alta preocupaÃ§Ã£o</p><p class="meta">Sob demanda</p></hgroup><a href="#" class="btn btn-ghost">Gerar</a><time></time></article></li>
-</ul></section></article></section>
+<li><article class="occurrence-item" style="cursor:default"><figure class="avatar">­ƒôè</figure><hgroup><p class="student-name">Atendimentos por setor</p><p class="meta">Mensal ┬À PDF/CSV</p></hgroup><a class="btn btn-ghost" href="#">Baixar</a><time></time></article></li>
+<li><article class="occurrence-item" style="cursor:default"><figure class="avatar avatar-rose">­ƒæÑ</figure><hgroup><p class="student-name">Usu├írios ativos</p><p class="meta">Semanal ┬À CSV</p></hgroup><a class="btn btn-ghost" href="#">Baixar</a><time></time></article></li>
+<li><article class="occurrence-item" style="cursor:default"><figure class="avatar avatar-cream">­ƒÄ»</figure><hgroup><p class="student-name">Casos de alta preocupa├º├úo</p><p class="meta">Sob demanda</p></hgroup><a class="btn btn-ghost" href="#">Gerar</a><time></time></article></li>
+</ul></section></article></main>
 <script src="../assets/_common/script/global.js"></script>
 <script src="../assets/app/script/app.js"></script>
 <script src="../assets/admin/script/admin.js"></script>
-</body></html>
+<script defer="True" src="../assets/_common/script/theme-toggle.js"></script><script defer="True" src="../assets/_common/script/workspace-navigation.js"></script></body></html>

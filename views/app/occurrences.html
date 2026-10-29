@@ -1,519 +1,543 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minhas Ocorrencias - SIAE</title>
-    <link rel="stylesheet" href="../assets/app/styles/app.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="../assets/app/styles/occurrences.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Minhas Ocorr├¬ncias - SIAE</title>
+<link href="../assets/app/styles/app.css" rel="stylesheet"/>
+<link href="../assets/app/styles/occurrences.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="../assets/_common/styles/design-system.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v4.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v5.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v6.css" rel="stylesheet"/>  <link rel="stylesheet" href="../assets/_common/styles/product-polish-v6-1.css">
 </head>
-<body>
-    <div class="app-layout">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-logo">
-                <div class="sidebar-logo-icon">
-                    <svg viewBox="0 0 48 48" class="owl-logo" aria-hidden="true">
-  <path fill="currentColor" d="M24 5 7.5 11.5 24 18l16.5-6.5L24 5Z"/>
-  <path fill="currentColor" d="M9.5 13.5 9 23.5l-2.1 3.2c-.4.7-.2 1.6.5 2l3.2 1.8 2.2-6.2-.9-9.8-2.4-1Z"/>
-  <path fill="currentColor" fill-rule="evenodd" d="M24 16.6c-8.6 0-15 5.8-15 13.2 0 5.9 4.1 10.7 10 12.1 2.3.6 3.8-1.1 5-2.7 1.2 1.6 2.7 3.3 5 2.7 5.9-1.4 10-6.2 10-12.1 0-7.4-6.4-13.2-15-13.2Zm-7.8 8.1c3.2.2 5.8 2.5 7.1 6.1-3.1 1.1-7.8.5-10-2.6.4-2.1 1.4-3.6 2.9-3.5Zm15.6 0c-3.2.2-5.8 2.5-7.1 6.1 3.1 1.1 7.8.5 10-2.6-.4-2.1-1.4-3.6-2.9-3.5ZM18.6 27a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Zm10.8 0a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Z" clip-rule="evenodd"/>
-  <path fill="currentColor" d="M18 43.2c-5.1-.7-9.4-1.5-13.5-2.7 4.9-.8 10.3-1 16.5.8l3 1.8 3-1.8c6.2-1.8 11.6-1.6 16.5-.8-4.1 1.2-8.4 2-13.5 2.7-2.3.3-4.3 1-6 2.4-1.7-1.4-3.7-2.1-6-2.4Z"/>
+<body class="workspace-page">
+<div class="app-layout">
+<!-- Sidebar -->
+<header aria-label="Navega├º├úo principal do SIAE" class="sidebar workspace-shell workspace-toolbar" role="banner">
+<div class="sidebar-logo">
+<div class="sidebar-logo-icon">
+<img alt="S├¡mbolo da coruja do SIAE" class="owl-logo" decoding="async" src="../assets/_common/images/siae-owl-black.png"/>
+</div>
+<div class="sidebar-logo-text">
+<h1>SIAE</h1>
+<p>Conex├Áes entre Setores</p>
+</div>
+</div>
+<nav class="sidebar-nav">
+<div class="sidebar-section-label">Principal</div>
+<a class="sidebar-item" href="dashboard.html">
+<div class="sidebar-item-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<rect height="7" width="7" x="3" y="3"></rect>
+<rect height="7" width="7" x="14" y="3"></rect>
+<rect height="7" width="7" x="14" y="14"></rect>
+<rect height="7" width="7" x="3" y="14"></rect>
 </svg>
-                </div>
-                <div class="sidebar-logo-text">
-                    <h1>SIAE</h1>
-                    <p>Conexoes entre Setores</p>
-                </div>
-            </div>
+</div>
+<span>Dashboard</span>
+</a>
+<a class="sidebar-item" href="search.html">
+<div class="sidebar-item-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+</div>
+<span>Busca</span>
+</a>
+<a class="sidebar-item" href="charts.html">
+<div class="sidebar-item-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M18 20V10"></path>
+<path d="M12 20V4"></path>
+<path d="M6 20v-6"></path>
+</svg>
+</div>
+<span>Gr├íficos</span>
+</a>
+<a class="sidebar-item" href="reports.html">
+<div class="sidebar-item-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+<polyline points="14 2 14 8 20 8"></polyline>
+</svg>
+</div>
+<span>Relat├│rios</span>
+</a>
+<a class="sidebar-item" href="notifications.html">
+<div class="sidebar-item-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+</svg>
+</div>
+<span>Notifica├º├Áes</span>
+<span class="sidebar-badge">3</span>
+</a>
+<a class="sidebar-item" href="faq.html">
+<div class="sidebar-item-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+</svg>
+</div>
+<span>FAQ</span>
+</a>
+<a aria-current="page" class="sidebar-item active" href="occurrences.html">
+<div class="sidebar-item-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+<polyline points="14 2 14 8 20 8"></polyline>
+<line x1="16" x2="8" y1="13" y2="13"></line>
+<line x1="16" x2="8" y1="17" y2="17"></line>
+</svg>
+</div>
+<span>Minhas Ocorr├¬ncias</span>
+</a>
+<div class="sidebar-section-label admin-only">Administra├º├úo</div><a class="sidebar-item admin-only" href="../admin/students.html">
+<div class="sidebar-item-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+</div>
+<span>Alunos</span>
+</a><a class="sidebar-item admin-only" href="../admin/professionals.html">
+<div class="sidebar-item-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+<circle cx="8.5" cy="7" r="4"></circle>
+<line x1="20" x2="20" y1="8" y2="14"></line>
+<line x1="23" x2="17" y1="11" y2="11"></line>
+</svg>
+</div>
+<span>Profissionais</span>
+</a><a class="sidebar-item admin-only" href="../admin/sectors.html">
+<div class="sidebar-item-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+</div>
+<span>Setores</span>
+</a></nav>
+<div class="sidebar-footer">
+<button aria-label="Ativar modo escuro" class="theme-toggle" data-theme-toggle="" title="Ativar modo escuro" type="button">
+<svg aria-hidden="true" class="theme-icon theme-icon-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+<svg aria-hidden="true" class="theme-icon theme-icon-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"></path></svg>
+<span class="theme-toggle-label">Tema</span>
+</button><a class="sidebar-user" href="profile.html">
+<div class="sidebar-avatar" id="userAvatar">PL</div>
+<div class="sidebar-user-info">
+<h4 id="userName">Dra. Patricia Lima</h4>
+<p id="userRole">Psicologa</p>
+</div>
+</a>
 
-            <nav class="sidebar-nav">
-                <div class="sidebar-section-label">Principal</div>
-
-                <a href="dashboard.html" class="sidebar-item">
-                    <div class="sidebar-item-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="7" height="7"/>
-                            <rect x="14" y="3" width="7" height="7"/>
-                            <rect x="14" y="14" width="7" height="7"/>
-                            <rect x="3" y="14" width="7" height="7"/>
-                        </svg>
-                    </div>
-                    <span>Dashboard</span>
-                </a>
-
-                <a href="search.html" class="sidebar-item">
-                    <div class="sidebar-item-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"/>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                        </svg>
-                    </div>
-                    <span>Busca</span>
-                </a>
-
-                <a href="charts.html" class="sidebar-item">
-                    <div class="sidebar-item-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 20V10"/>
-                            <path d="M12 20V4"/>
-                            <path d="M6 20v-6"/>
-                        </svg>
-                    </div>
-                    <span>Graficos</span>
-                </a>
-
-                <a href="reports.html" class="sidebar-item">
-                    <div class="sidebar-item-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                        </svg>
-                    </div>
-                    <span>Relatorios</span>
-                </a>
-
-                <a href="notifications.html" class="sidebar-item">
-                    <div class="sidebar-item-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-                        </svg>
-                    </div>
-                    <span>Notificacoes</span>
-                    <span class="sidebar-badge">3</span>
-                </a>
-
-                <a href="faq.html" class="sidebar-item">
-                    <div class="sidebar-item-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                        </svg>
-                    </div>
-                    <span>FAQ</span>
-                </a>
-
-                <a href="occurrences.html" class="sidebar-item active">
-                    <div class="sidebar-item-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                            <line x1="16" y1="13" x2="8" y2="13"/>
-                            <line x1="16" y1="17" x2="8" y2="17"/>
-                        </svg>
-                    </div>
-                    <span>Minhas Ocorrencias</span>
-                </a>
-            </nav>
-
-            <div class="sidebar-footer">
-                <a href="profile.html" class="sidebar-user">
-                    <div class="sidebar-avatar" id="userAvatar">PL</div>
-                    <div class="sidebar-user-info">
-                        <h4 id="userName">Dra. Patricia Lima</h4>
-                        <p id="userRole">Psicologa</p>
-                    </div>
-                </a>
-                <button class="sidebar-logout" onclick="handleLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sair</button>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="app-header">
-                <div class="header-breadcrumb">
-                    <h2>Minhas Ocorrencias</h2>
-                    <p>Gerencie suas ocorrencias e compartilhamentos</p>
-                </div>
-
-                <div class="header-search">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"/>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                    </svg>
-                    <input type="text" placeholder="Buscar ocorrencias...">
-                </div>
-
-                <a href="notifications.html" class="header-icon-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-                    </svg>
-                    <span class="dot"></span>
-                </a>
-
-                <a href="profile.html" class="header-user-chip">
-                    <div class="header-user-avatar" id="headerAvatar">PL</div>
-                    <span class="header-user-name" id="headerName">Patricia</span>
-                </a>
-            </header>
-
-            <div class="page-content animate-fade-in">
-                <!-- Page Header -->
-                <div class="page-header">
-                    <div class="page-header-title">
-                        <h1>Minhas Ocorrencias</h1>
-                        <p>Visualize e gerencie todas as suas ocorrencias</p>
-                    </div>
-                    <button class="btn btn-primary btn-sm" id="btnNewOccurrence">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
+</div>
+</header>
+<!-- Main Content -->
+<main class="main-content">
+<header class="app-header">
+<div class="header-breadcrumb">
+<h2>Minhas Ocorr├¬ncias</h2>
+<p>Gerencie suas ocorr├¬ncias e compartilhamentos</p>
+</div>
+<div class="header-search">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+<input placeholder="Buscar ocorrencias..." type="text"/>
+</div>
+<a class="header-icon-btn" href="notifications.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+</svg>
+<span class="dot"></span>
+</a>
+<a class="header-user-chip" href="profile.html">
+<div class="header-user-avatar" id="headerAvatar">PL</div>
+<span class="header-user-name" id="headerName">Patricia</span>
+</a>
+</header>
+<div class="page-content animate-fade-in">
+<!-- Page Header -->
+<div class="page-header">
+<div class="page-header-title">
+<h1>Minhas Ocorr├¬ncias</h1>
+<p>Visualize e gerencie todas as suas ocorr├¬ncias</p>
+</div>
+<button class="btn btn-primary btn-sm" onclick="openNewOccurrenceModal()">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
                         Nova Ocorrencia
                     </button>
-                </div>
-
-                <!-- Tabs -->
-                <div class="tab-container">
-                    <button class="tab-btn active" onclick="switchTab('created')">
+</div>
+<!-- Tabs -->
+<div class="tab-container">
+<button class="tab-btn active" onclick="switchTab('created')">
                         Criadas por Mim
                         <span class="badge badge-primary" style="margin-left: 8px; font-size: 10px;">12</span>
-                    </button>
-                    <button class="tab-btn" onclick="switchTab('received')">
+</button>
+<button class="tab-btn" onclick="switchTab('received')">
                         Compartilhadas comigo
                         <span class="badge badge-success" style="margin-left: 8px; font-size: 10px;">5</span>
-                    </button>
-                    <button class="tab-btn" onclick="switchTab('shared')">
+</button>
+<button class="tab-btn" onclick="switchTab('shared')">
                         Que Compartilhei
                         <span class="badge badge-info" style="margin-left: 8px; font-size: 10px;">8</span>
-                    </button>
-                </div>
-
-                <!-- Tab Content: Created -->
-                <div class="tab-content active" id="tab-created">
-                    <div class="occurrence-card">
-                        <div class="occurrence-header">
-                            <div class="occurrence-title">Atendimento Psicologico - Ana Paula Silva</div>
-                            <span class="badge badge-success">Concluido</span>
-                        </div>
-                        <div class="occurrence-meta">
-                            <span class="occurrence-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+</button>
+</div>
+<!-- Tab Content: Created -->
+<div class="tab-content active" id="tab-created">
+<div class="occurrence-card">
+<div class="occurrence-header">
+<div class="occurrence-title">Atendimento Psicologico - Ana Paula Silva</div>
+<span class="badge badge-success">Concluido</span>
+</div>
+<div class="occurrence-meta">
+<span class="occurrence-meta-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
                                 15 Jun 2026
                             </span>
-                            <span class="occurrence-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                </svg>
+<span class="occurrence-meta-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+</svg>
                                 Psicologia
                             </span>
+</div>
+<div class="occurrence-description">
+                            Sessao de acompanhamento psicologico para discussao de ansiedade escolar. Aluno demonstrou melhora significativa nos ultimos m├¬ses.
                         </div>
-                        <div class="occurrence-description">
-                            Sessao de acompanhamento psicologico para discussao de ansiedade escolar. Aluno demonstrou melhora significativa nos ultimos meses.
-                        </div>
-                        <div class="occurrence-footer">
-                            <div style="font-size: 12px; color: var(--text-muted);">RA: 2024001</div>
-                            <div style="display: flex; gap: 8px;">
-                                <button class="btn btn-ghost btn-sm">Ver Detalhes</button>
-                                <button class="btn btn-outline btn-sm" onclick="openShareModal(1)">Compartilhar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="occurrence-card">
-                        <div class="occurrence-header">
-                            <div class="occurrence-title">Triagem - Bruno Santos</div>
-                            <span class="badge badge-warning">Em Andamento</span>
-                        </div>
-                        <div class="occurrence-meta">
-                            <span class="occurrence-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+<div class="occurrence-footer">
+<div style="font-size: 12px; color: var(--text-muted);">RA: 2024001</div>
+<div style="display: flex; gap: 8px;">
+<button class="btn btn-ghost btn-sm">Ver Detalhes</button>
+<button class="btn btn-outline btn-sm" onclick="openShareModal(1)">Compartilhar</button>
+</div>
+</div>
+</div>
+<div class="occurrence-card">
+<div class="occurrence-header">
+<div class="occurrence-title">Triagem - Bruno Santos</div>
+<span class="badge badge-warning">Em Andamento</span>
+</div>
+<div class="occurrence-meta">
+<span class="occurrence-meta-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
                                 14 Jun 2026
                             </span>
-                            <span class="occurrence-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                </svg>
+<span class="occurrence-meta-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+</svg>
                                 Psicologia
                             </span>
-                        </div>
-                        <div class="occurrence-description">
+</div>
+<div class="occurrence-description">
                             Triagem inicial para avaliacao de necessidades de acompanhamento psicologico. Encaminhado para sessoes semanais.
                         </div>
-                        <div class="occurrence-footer">
-                            <div style="font-size: 12px; color: var(--text-muted);">RA: 2024002</div>
-                            <div style="display: flex; gap: 8px;">
-                                <button class="btn btn-ghost btn-sm">Ver Detalhes</button>
-                                <button class="btn btn-outline btn-sm" onclick="openShareModal(2)">Compartilhar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="occurrence-card">
-                        <div class="occurrence-header">
-                            <div class="occurrence-title">Encaminhamento - Carla Mendes</div>
-                            <span class="badge badge-primary">Novo</span>
-                        </div>
-                        <div class="occurrence-meta">
-                            <span class="occurrence-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+<div class="occurrence-footer">
+<div style="font-size: 12px; color: var(--text-muted);">RA: 2024002</div>
+<div style="display: flex; gap: 8px;">
+<button class="btn btn-ghost btn-sm">Ver Detalhes</button>
+<button class="btn btn-outline btn-sm" onclick="openShareModal(2)">Compartilhar</button>
+</div>
+</div>
+</div>
+<div class="occurrence-card">
+<div class="occurrence-header">
+<div class="occurrence-title">Encaminhamento - Carla Mendes</div>
+<span class="badge badge-primary">Novo</span>
+</div>
+<div class="occurrence-meta">
+<span class="occurrence-meta-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
                                 13 Jun 2026
                             </span>
-                            <span class="occurrence-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                </svg>
+<span class="occurrence-meta-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+</svg>
                                 Psicologia
                             </span>
+</div>
+<div class="occurrence-description">
+                            Encaminhamento para acompanhamento externo devido a complexidade do caso. Familia foi contatada e acatou a sugest├úo.
                         </div>
-                        <div class="occurrence-description">
-                            Encaminhamento para acompanhamento externo devido a complexidade do caso. Familia foi contatada e acatou a sugestao.
-                        </div>
-                        <div class="occurrence-footer">
-                            <div style="font-size: 12px; color: var(--text-muted);">RA: 2024003</div>
-                            <div style="display: flex; gap: 8px;">
-                                <button class="btn btn-ghost btn-sm">Ver Detalhes</button>
-                                <button class="btn btn-outline btn-sm" onclick="openShareModal(3)">Compartilhar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tab Content: Received -->
-                <div class="tab-content" id="tab-received">
-                    <div class="occurrence-card">
-                        <div class="occurrence-header">
-                            <div class="occurrence-title">Atendimento de Enfermagem - Diego Lima</div>
-                            <span class="badge badge-success">Concluido</span>
-                        </div>
-                        <div class="occurrence-meta">
-                            <span class="occurrence-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+<div class="occurrence-footer">
+<div style="font-size: 12px; color: var(--text-muted);">RA: 2024003</div>
+<div style="display: flex; gap: 8px;">
+<button class="btn btn-ghost btn-sm">Ver Detalhes</button>
+<button class="btn btn-outline btn-sm" onclick="openShareModal(3)">Compartilhar</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Tab Content: Received -->
+<div class="tab-content" id="tab-received">
+<div class="occurrence-card">
+<div class="occurrence-header">
+<div class="occurrence-title">Atendimento de Enfermagem - Diego Lima</div>
+<span class="badge badge-success">Concluido</span>
+</div>
+<div class="occurrence-meta">
+<span class="occurrence-meta-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
                                 12 Jun 2026
                             </span>
-                            <span style="font-size: 11px; color: var(--text-muted);">
+<span style="font-size: 11px; color: var(--text-muted);">
                                 Compartilhado por: <strong>Enf. Lucia Barbosa</strong>
-                            </span>
-                        </div>
-                        <div class="occurrence-description">
+</span>
+</div>
+<div class="occurrence-description">
                             Aluno apresentou sintomas de ansiedade durante o atendimento de enfermagem. Compartilhado com psicologia para avaliacao.
                         </div>
-                        <div class="occurrence-footer">
-                            <div class="shared-with">
-                                <span style="font-size: 11px; color: var(--text-muted);">Setor:</span>
-                                <span class="badge badge-danger" style="font-size: 10px;">Enfermaria</span>
-                            </div>
-                            <button class="btn btn-ghost btn-sm">Ver Detalhes</button>
-                        </div>
-                    </div>
-
-                    <div class="occurrence-card">
-                        <div class="occurrence-header">
-                            <div class="occurrence-title">Ocorrencia Pedagogica - Elena Rocha</div>
-                            <span class="badge badge-warning">Em Andamento</span>
-                        </div>
-                        <div class="occurrence-meta">
-                            <span class="occurrence-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+<div class="occurrence-footer">
+<div class="shared-with">
+<span style="font-size: 11px; color: var(--text-muted);">Setor:</span>
+<span class="badge badge-danger" style="font-size: 10px;">Enfermaria</span>
+</div>
+<button class="btn btn-ghost btn-sm">Ver Detalhes</button>
+</div>
+</div>
+<div class="occurrence-card">
+<div class="occurrence-header">
+<div class="occurrence-title">Ocorrencia Pedagogica - Elena Rocha</div>
+<span class="badge badge-warning">Em Andamento</span>
+</div>
+<div class="occurrence-meta">
+<span class="occurrence-meta-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
                                 10 Jun 2026
                             </span>
-                            <span style="font-size: 11px; color: var(--text-muted);">
+<span style="font-size: 11px; color: var(--text-muted);">
                                 Compartilhado por: <strong>Prof. Ricardo Moura</strong>
-                            </span>
-                        </div>
-                        <div class="occurrence-description">
+</span>
+</div>
+<div class="occurrence-description">
                             Aluno apresentou dificuldades de aprendizagem e possivel indicativo de TDAH. Compartilhado para avaliacao psicologica.
                         </div>
-                        <div class="occurrence-footer">
-                            <div class="shared-with">
-                                <span style="font-size: 11px; color: var(--text-muted);">Setor:</span>
-                                <span class="badge badge-primary" style="font-size: 10px;">Pedagogico</span>
-                            </div>
-                            <button class="btn btn-ghost btn-sm">Ver Detalhes</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tab Content: Shared -->
-                <div class="tab-content" id="tab-shared">
-                    <div class="occurrence-card">
-                        <div class="occurrence-header">
-                            <div class="occurrence-title">Atendimento Psicologico - Felipe Costa</div>
-                            <span class="badge badge-success">Concluido</span>
-                        </div>
-                        <div class="occurrence-meta">
-                            <span class="occurrence-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+<div class="occurrence-footer">
+<div class="shared-with">
+<span style="font-size: 11px; color: var(--text-muted);">Setor:</span>
+<span class="badge badge-primary" style="font-size: 10px;">Pedagogico</span>
+</div>
+<button class="btn btn-ghost btn-sm">Ver Detalhes</button>
+</div>
+</div>
+</div>
+<!-- Tab Content: Shared -->
+<div class="tab-content" id="tab-shared">
+<div class="occurrence-card">
+<div class="occurrence-header">
+<div class="occurrence-title">Atendimento Psicologico - Felipe Costa</div>
+<span class="badge badge-success">Concluido</span>
+</div>
+<div class="occurrence-meta">
+<span class="occurrence-meta-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
                                 11 Jun 2026
                             </span>
-                        </div>
-                        <div class="occurrence-description">
+</div>
+<div class="occurrence-description">
                             Sessao de acompanhamento para discussao de problemas comportamentais. Aluno encaminhado para acompanhamento continuado.
                         </div>
-                        <div class="occurrence-footer">
-                            <div class="shared-with">
-                                <span style="font-size: 11px; color: var(--text-muted);">Compartilhado com:</span>
-                                <div class="shared-avatar" title="Enf. Lucia Barbosa">LB</div>
-                                <div class="shared-avatar" title="Prof. Ricardo Moura">RM</div>
-                            </div>
-                            <button class="btn btn-ghost btn-sm">Ver Detalhes</button>
-                        </div>
-                    </div>
-
-                    <div class="occurrence-card">
-                        <div class="occurrence-header">
-                            <div class="occurrence-title">Relatorio de Desempenho - Gabriela Nunes</div>
-                            <span class="badge badge-info">Informativo</span>
-                        </div>
-                        <div class="occurrence-meta">
-                            <span class="occurrence-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
+<div class="occurrence-footer">
+<div class="shared-with">
+<span style="font-size: 11px; color: var(--text-muted);">Compartilhado com:</span>
+<div class="shared-avatar" title="Enf. Lucia Barbosa">LB</div>
+<div class="shared-avatar" title="Prof. Ricardo Moura">RM</div>
+</div>
+<button class="btn btn-ghost btn-sm">Ver Detalhes</button>
+</div>
+</div>
+<div class="occurrence-card">
+<div class="occurrence-header">
+<div class="occurrence-title">Relatorio de Desempenho - Gabriela Nunes</div>
+<span class="badge badge-info">Informativo</span>
+</div>
+<div class="occurrence-meta">
+<span class="occurrence-meta-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
                                 08 Jun 2026
                             </span>
-                        </div>
-                        <div class="occurrence-description">
+</div>
+<div class="occurrence-description">
                             Acompanhamento mensal de evolucao. Aluno apresentando melhora progressiva nos indicadores comportamentais.
                         </div>
-                        <div class="occurrence-footer">
-                            <div class="shared-with">
-                                <span style="font-size: 11px; color: var(--text-muted);">Compartilhado com:</span>
-                                <div class="shared-avatar" title="Dra. Claudia Vieira">CV</div>
-                            </div>
-                            <button class="btn btn-ghost btn-sm">Ver Detalhes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- New Occurrence Modal -->
-    <!-- Modal Nova Ocorrência -->
-<div class="modal-overlay" id="newOccurrenceModal">
-    <div class="modal">
-
-        <div class="modal-header">
-            <h2>Nova Ocorrência</h2>
-
-            <!-- X para fechar -->
-            <button
-                class="btn btn-ghost btn-sm btn-icon"
-                id="btnCloseOccurrence"
-                type="button"
-            >
-                ×
-            </button>
-        </div>
-
-        <form id="occurrenceForm">
-
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <label for="student_id">Aluno</label>
-                    <input
-                        type="text"
-                        id="student_id"
-                        name="student_id"
-                        placeholder="Escreva o nome do aluno"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="type">Tipo</label>
-                    <input
-                        type="text"
-                        id="type"
-                        name="type"
-                        placeholder="Insira o tipo de Ocorrência"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="title">Título</label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        placeholder="Insira o tituo da ocorrência"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="description">Descrição</label>
-                    <textarea
-                        id="description"
-                        name="description"
-                    ></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="share_with">Compartilhar com</label>
-                    <select
-                        id="share_with"
-                        name="share_with"
-                        multiple
-                    >
-                        <option value="admin">psicoogia</option>
-                        <option value="teacher">oientação</option>
-                        <option value="parent">enfermaria</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <div class="modal-footer">
-
-                <!-- Único botão cancelar -->
-                <button
-                    type="button"
-                    class="btn btn-ghost"
-                    id="btnCancelOccurrence"
-                >
-                    Cancelar
-                </button>
-
-                <!-- Único botão salvar -->
-                <button
-                    type="submit"
-                    class="btn btn-primary"
-                >
-                    Salvar Ocorrência
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
+<div class="occurrence-footer">
+<div class="shared-with">
+<span style="font-size: 11px; color: var(--text-muted);">Compartilhado com:</span>
+<div class="shared-avatar" title="Dra. Claudia Vieira">CV</div>
 </div>
-    <script type="module" src="../assets/app/script/occurrences.js"></script>
-</body>
+<button class="btn btn-ghost btn-sm">Ver Detalhes</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- New Occurrence Modal -->
+<div class="modal-overlay" id="newOccurrenceModal" role="presentation">
+<div aria-label="Nova Ocorrencia" aria-modal="true" class="modal" role="dialog" style="max-width: 600px;">
+<div class="modal-header">
+<div>
+<div class="card-title">Nova Ocorrencia</div>
+<div class="card-subtitle">Registre uma nova ocorrencia</div>
+</div>
+<button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('newOccurrenceModal')">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</button>
+</div>
+<div class="modal-body">
+<div class="grid-2">
+<div class="form-group">
+<label class="form-label">Aluno</label>
+<input class="form-control" placeholder="Buscar aluno..." type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label">Tipo</label>
+<select class="form-control">
+<option>Atendimento</option>
+<option>Encaminhamento</option>
+<option>Triagem</option>
+<option>Relatorio</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">T├¡tulo</label>
+<input class="form-control" placeholder="Titulo da ocorrencia" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label">Descri├º├úo</label>
+<textarea class="form-control" placeholder="Descreva a ocorrencia..." rows="4"></textarea>
+</div>
+<div class="form-group">
+<label class="form-label">Compartilhar com (opcional)</label>
+<select class="form-control">
+<option>Selecione um profissional...</option>
+<option>Enf. Lucia Barbosa - Enfermaria</option>
+<option>Prof. Ricardo Moura - Pedagogico</option>
+<option>Dra. Claudia Vieira - Social</option>
+</select>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-ghost" onclick="closeModal('newOccurrenceModal')">Cancelar</button>
+<button class="btn btn-primary" onclick="saveOccurrence()">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+                    Salvar Ocorrencia
+                </button>
+</div>
+</div>
+</div>
+<!-- Share Modal -->
+<div class="modal-overlay" id="shareModal" role="presentation">
+<div aria-label="Compartilhar Ocorrencia" aria-modal="true" class="modal" role="dialog" style="max-width: 400px;">
+<div class="modal-header">
+<div>
+<div class="card-title">Compartilhar Ocorrencia</div>
+<div class="card-subtitle">Selecione os profissionais</div>
+</div>
+<button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('shareModal')">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</button>
+</div>
+<div class="modal-body">
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<label style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--surface-variant); border-radius: var(--radius-md); cursor: pointer;">
+<input style="width: 18px; height: 18px; accent-color: var(--primary);" type="checkbox"/>
+<div style="flex: 1;">
+<div style="font-size: 13px; font-weight: 600;">Enf. Lucia Barbosa</div>
+<div style="font-size: 11px; color: var(--text-muted);">Enfermaria</div>
+</div>
+</label>
+<label style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--surface-variant); border-radius: var(--radius-md); cursor: pointer;">
+<input style="width: 18px; height: 18px; accent-color: var(--primary);" type="checkbox"/>
+<div style="flex: 1;">
+<div style="font-size: 13px; font-weight: 600;">Prof. Ricardo Moura</div>
+<div style="font-size: 11px; color: var(--text-muted);">Pedagogico</div>
+</div>
+</label>
+<label style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--surface-variant); border-radius: var(--radius-md); cursor: pointer;">
+<input style="width: 18px; height: 18px; accent-color: var(--primary);" type="checkbox"/>
+<div style="flex: 1;">
+<div style="font-size: 13px; font-weight: 600;">Dra. Claudia Vieira</div>
+<div style="font-size: 11px; color: var(--text-muted);">Social</div>
+</div>
+</label>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-ghost" onclick="closeModal('shareModal')">Cancelar</button>
+<button class="btn btn-primary" onclick="confirmShare()">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
+<circle cx="18" cy="5" r="3"></circle>
+<circle cx="6" cy="12" r="3"></circle>
+<circle cx="18" cy="19" r="3"></circle>
+<line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+<line x1="15.41" x2="8.59" y1="6.51" y2="10.51"></line>
+</svg>
+                    Compartilhar
+                </button>
+</div>
+</div>
+</div>
+<script src="../assets/app/script/occurrences.js"></script>
+<script defer="True" src="../assets/_common/script/theme-toggle.js"></script><script defer="True" src="../assets/_common/script/workspace-navigation.js"></script></body>
 </html>
