@@ -1,141 +1,275 @@
 <!DOCTYPE html>
 
 <html lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Relatórios - SIAE</title>
-<link href="../assets/app/styles/app.css" rel="stylesheet"/>
-<link href="../assets/app/styles/reports.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="../assets/_common/styles/design-system.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v4.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v5.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v6.css" rel="stylesheet"/>  <link rel="stylesheet" href="../assets/_common/styles/product-polish-v6-1.css">
-</head>
-<body class="workspace-page">
-<div class="app-layout">
-<header aria-label="Navegação principal do SIAE" class="sidebar workspace-shell workspace-toolbar" role="banner">
-<div class="sidebar-logo">
-<div class="sidebar-logo-icon"><img alt="Símbolo da coruja do SIAE" class="owl-logo" decoding="async" src="../assets/_common/images/siae-owl-black.png"/></div>
-<div class="sidebar-logo-text"><h1>SIAE</h1><p>Conexões entre Setores</p></div>
-</div>
-<nav class="sidebar-nav">
-<div class="sidebar-section-label">Principal</div>
-<a class="sidebar-item" href="dashboard.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></div><span>Dashboard</span></a>
-<a class="sidebar-item" href="search.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg></div><span>Busca</span></a>
-<a class="sidebar-item" href="charts.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg></div><span>Gráficos</span></a>
-<a aria-current="page" class="sidebar-item active" href="reports.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div><span>Relatórios</span></a>
-<a class="sidebar-item" href="notifications.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg></div><span>Notificações</span><span class="sidebar-badge professional-only">3</span></a>
-<a class="sidebar-item" href="faq.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg></div><span>FAQ</span></a>
-<a class="sidebar-item professional-only" href="occurrences.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg></div><span>Minhas Ocorrências</span></a>
-<div class="sidebar-section-label admin-only">Administracao</div>
-<a class="sidebar-item admin-only" href="../admin/students.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></div><span>Alunos</span></a>
-<a class="sidebar-item admin-only" href="../admin/professionals.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><path d="M20 8v6"></path><path d="M23 11h-6"></path></svg></div><span>Profissionais</span></a>
-<a class="sidebar-item admin-only" href="../admin/sectors.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div><span>Setores</span></a>
-</nav>
-<div class="sidebar-footer">
-<button aria-label="Ativar modo escuro" class="theme-toggle" data-theme-toggle="" title="Ativar modo escuro" type="button">
-<svg aria-hidden="true" class="theme-icon theme-icon-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
-<svg aria-hidden="true" class="theme-icon theme-icon-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"></path></svg>
-<span class="theme-toggle-label">Tema</span>
-</button><a class="sidebar-user" href="profile.html"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Usuario</h4><p id="userRole">Cargo</p></div></a>
 
-</div>
-</header>
-<main class="main-content">
-<header class="app-header">
-<div class="header-breadcrumb"><h2>Relatórios</h2><p id="reportsSubtitle">Visualize relatórios criados pela equipe</p></div>
-<a class="header-icon-btn professional-only" href="notifications.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg><span class="dot"></span></a>
-<a class="header-user-chip" href="profile.html"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></a>
-</header>
-<div class="page-content animate-fade-in">
-<div class="page-header">
-<div class="page-header-title"><h1>Relatórios</h1><p>Lista de relatórios por setor e profissional responsavel</p></div>
-<button class="btn btn-primary btn-sm professional-only" onclick="openReportModal()">
-<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Relatórios - SIAE</title>
+    <link href="../assets/app/styles/app.css" rel="stylesheet" />
+    <link href="../assets/app/styles/reports.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="../assets/_common/styles/design-system.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="../assets/_common/styles/product-redesign-v4.css" rel="stylesheet" />
+    <link href="../assets/_common/styles/product-redesign-v5.css" rel="stylesheet" />
+    <link href="../assets/_common/styles/product-redesign-v6.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/_common/styles/product-polish-v6-1.css">
+</head>
+
+<body class="workspace-page">
+    <div class="app-layout">
+        <header aria-label="Navegação principal do SIAE" class="sidebar workspace-shell workspace-toolbar"
+            role="banner">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon"><img alt="Símbolo da coruja do SIAE" class="owl-logo" decoding="async"
+                        src="../assets/_common/images/siae-owl-black.png" /></div>
+                <div class="sidebar-logo-text">
+                    <h1>SIAE</h1>
+                    <p>Conexões entre Setores</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Principal</div>
+                <a class="sidebar-item" href="dashboard.html">
+                    <div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24">
+                            <rect height="7" width="7" x="3" y="3"></rect>
+                            <rect height="7" width="7" x="14" y="3"></rect>
+                            <rect height="7" width="7" x="14" y="14"></rect>
+                            <rect height="7" width="7" x="3" y="14"></rect>
+                        </svg></div><span>Dashboard</span>
+                </a>
+                <a class="sidebar-item" href="search.html">
+                    <div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+                        </svg></div><span>Busca</span>
+                </a>
+                <a class="sidebar-item" href="charts.html">
+                    <div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24">
+                            <path d="M18 20V10"></path>
+                            <path d="M12 20V4"></path>
+                            <path d="M6 20v-6"></path>
+                        </svg></div><span>Gráficos</span>
+                </a>
+                <a aria-current="page" class="sidebar-item active" href="reports.html">
+                    <div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg></div><span>Relatórios</span>
+                </a>
+                <a class="sidebar-item" href="notifications.html">
+                    <div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        </svg></div><span>Notificações</span><span class="sidebar-badge professional-only">3</span>
+                </a>
+                <a class="sidebar-item" href="faq.html">
+                    <div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"></circle>
+                        </svg></div><span>FAQ</span>
+                </a>
+                <a class="sidebar-item professional-only" href="occurrences.html">
+                    <div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        </svg></div><span>Minhas Ocorrências</span>
+                </a>
+                <div class="sidebar-section-label admin-only">Administracao</div>
+                <a class="sidebar-item admin-only" href="../admin/students.html">
+                    <div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                        </svg></div><span>Alunos</span>
+                </a>
+                <a class="sidebar-item admin-only" href="../admin/professionals.html">
+                    <div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="8.5" cy="7" r="4"></circle>
+                            <path d="M20 8v6"></path>
+                            <path d="M23 11h-6"></path>
+                        </svg></div><span>Profissionais</span>
+                </a>
+                <a class="sidebar-item admin-only" href="../admin/sectors.html">
+                    <div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        </svg></div><span>Setores</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button aria-label="Ativar modo escuro" class="theme-toggle" data-theme-toggle=""
+                    title="Ativar modo escuro" type="button">
+                    <svg aria-hidden="true" class="theme-icon theme-icon-sun" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path
+                            d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42">
+                        </path>
+                    </svg>
+                    <svg aria-hidden="true" class="theme-icon theme-icon-moon" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+                        <path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"></path>
+                    </svg>
+                    <span class="theme-toggle-label">Tema</span>
+                </button><a class="sidebar-user" href="profile.html">
+                    <div class="sidebar-avatar" id="userAvatar">AD</div>
+                    <div class="sidebar-user-info">
+                        <h4 id="userName">Usuario</h4>
+                        <p id="userRole">Cargo</p>
+                    </div>
+                </a>
+
+            </div>
+        </header>
+        <main class="main-content">
+            <header class="app-header">
+                <div class="header-breadcrumb">
+                    <h2>Relatórios</h2>
+                    <p id="reportsSubtitle">Visualize relatórios criados pela equipe</p>
+                </div>
+                <a class="header-icon-btn professional-only" href="notifications.html"><svg fill="none"
+                        stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    </svg><span class="dot"></span></a>
+                <a class="header-user-chip" href="profile.html">
+                    <div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name"
+                        id="headerName">Admin</span>
+                </a>
+            </header>
+            <div class="page-content animate-fade-in">
+                <div class="page-header">
+                    <div class="page-header-title">
+                        <h1>Relatórios</h1>
+                        <p>Lista de relatórios por setor e profissional responsavel</p>
+                    </div>
+                    <button class="btn btn-primary btn-sm professional-only" onclick="openReportModal()">
+                        <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"
+                            width="14">
+                            <line x1="12" x2="12" y1="5" y2="19"></line>
+                            <line x1="5" x2="19" y1="12" y2="12"></line>
+                        </svg>
                         Criar Relatorio
                     </button>
-</div>
-<div class="reports-layout">
-<section class="reports-card">
-<div class="reports-card-header">
-<div>
-<h2>Relatórios disponiveis</h2>
-<p>Organizados pelo setor e por quem criou cada registro</p>
-</div>
-</div>
-<div class="reports-list" id="reportsList">
-<!-- Reports will be rendered here -->
-</div>
-</section>
-</div>
-</div>
-</main>
-</div>
-<div class="modal-overlay" id="reportModal" role="presentation">
-<div aria-label="Criar relatorio" aria-modal="true" class="modal" role="dialog" style="max-width: 620px;">
-<div class="modal-header">
-<div>
-<div class="card-title" id="reportModalTitle">Criar relatorio</div>
-<div class="card-subtitle">Preencha as informações do relatorio</div>
-</div>
-<button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('reportModal')"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></button>
-</div>
-<div class="modal-body">
-<div class="form-group">
-<label class="form-label">Título</label>
-<input class="form-control" id="reportTitle" placeholder="Digite o titulo do relatorio" type="text"/>
-</div>
-<div class="form-group">
-<label class="form-label">Conteudo</label>
-<textarea class="form-control" id="reportContent" placeholder="Digite o conteudo do relatorio" rows="6"></textarea>
-</div>
-<div class="grid-2">
-<div class="form-group">
-<label class="form-label">Quem criou</label>
-<input class="form-control" id="reportCreator" placeholder="Nome do profissional" readonly="" type="text"/>
-</div>
-<div class="form-group">
-<label class="form-label">Setor</label>
-<select class="form-control" id="reportSector">
-<option>Psicologia</option>
-<option>Pedagogico</option>
-<option>Enfermaria</option>
-<option>Social</option>
-</select>
-</div>
-</div>
-</div>
-<div class="modal-footer">
-<button class="btn btn-ghost" onclick="closeModal('reportModal')">Cancelar</button>
-<button class="btn btn-primary" onclick="saveReport()"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="20 6 9 17 4 12"></polyline></svg>Salvar</button>
-</div>
-</div>
-</div>
-<div class="modal-overlay" id="viewReportModal" role="presentation">
-<div aria-label="Relatorio" aria-modal="true" class="modal" role="dialog" style="max-width: 680px;">
-<div class="modal-header">
-<div>
-<div class="card-title" id="viewReportTitle">Relatorio</div>
-<div class="card-subtitle">Conteudo do relatorio selecionado</div>
-</div>
-<button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('viewReportModal')"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></button>
-</div>
-<div class="modal-body">
-<div class="info-grid" style="margin-bottom: 14px;">
-<div class="info-item"><div class="info-label">Quem criou</div><div class="info-value" id="viewReportCreator">-</div></div>
-<div class="info-item"><div class="info-label">Setor</div><div class="info-value" id="viewReportSector">-</div></div>
-<div class="info-item"><div class="info-label">Data</div><div class="info-value" id="viewReportDate">-</div></div>
-</div>
-<div class="modal-section-title">Conteudo</div>
-<div class="report-view-content" id="viewReportContent"></div>
-</div>
-<div class="modal-footer">
-<button class="btn btn-ghost" onclick="closeModal('viewReportModal')">Fechar</button>
-</div>
-</div>
-</div>
-<script src="../assets/app/script/reports.js"></script>
-<script defer="True" src="../assets/_common/script/theme-toggle.js"></script><script defer="True" src="../assets/_common/script/workspace-navigation.js"></script></body>
+                </div>
+                <div class="reports-layout">
+                    <section class="reports-card">
+                        <div class="reports-card-header">
+                            <div>
+                                <h2>Relatórios disponiveis</h2>
+                                <p>Organizados pelo setor e por quem criou cada registro</p>
+                            </div>
+                        </div>
+                        <div class="reports-list" id="reportsList">
+                            <!-- Reports will be rendered here -->
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="modal-overlay" id="reportModal" role="presentation">
+        <div aria-label="Criar relatorio" aria-modal="true" class="modal" role="dialog" style="max-width: 620px;">
+            <div class="modal-header">
+                <div>
+                    <div class="card-title" id="reportModalTitle">Criar relatorio</div>
+                    <div class="card-subtitle">Preencha as informações do relatorio</div>
+                </div>
+                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('reportModal')"><svg fill="none"
+                        height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+                        <line x1="18" x2="6" y1="6" y2="18"></line>
+                        <line x1="6" x2="18" y1="6" y2="18"></line>
+                    </svg></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Título</label>
+                    <input class="form-control" id="reportTitle" placeholder="Digite o titulo do relatorio"
+                        type="text" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Conteudo</label>
+                    <textarea class="form-control" id="reportContent" placeholder="Digite o conteudo do relatorio"
+                        rows="6"></textarea>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Quem criou</label>
+                        <input class="form-control" id="reportCreator" placeholder="Nome do profissional" readonly=""
+                            type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Setor</label>
+                        <select class="form-control" id="reportSector">
+                            <option>Psicologia</option>
+                            <option>Pedagogico</option>
+                            <option>Enfermaria</option>
+                            <option>Social</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('reportModal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveReport()"><svg fill="none" height="14"
+                        stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>Salvar</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="viewReportModal" role="presentation">
+        <div aria-label="Relatorio" aria-modal="true" class="modal" role="dialog" style="max-width: 680px;">
+            <div class="modal-header">
+                <div>
+                    <div class="card-title" id="viewReportTitle">Relatorio</div>
+                    <div class="card-subtitle">Conteudo do relatorio selecionado</div>
+                </div>
+                <button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('viewReportModal')"><svg fill="none"
+                        height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+                        <line x1="18" x2="6" y1="6" y2="18"></line>
+                        <line x1="6" x2="18" y1="6" y2="18"></line>
+                    </svg></button>
+            </div>
+            <div class="modal-body">
+                <div class="info-grid" style="margin-bottom: 14px;">
+                    <div class="info-item">
+                        <div class="info-label">Quem criou</div>
+                        <div class="info-value" id="viewReportCreator">-</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Setor</div>
+                        <div class="info-value" id="viewReportSector">-</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Data</div>
+                        <div class="info-value" id="viewReportDate">-</div>
+                    </div>
+                </div>
+                <div class="modal-section-title">Conteudo</div>
+                <div class="report-view-content" id="viewReportContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('viewReportModal')">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/app/script/reports.js"></script>
+    <script defer="True" src="../assets/_common/script/theme-toggle.js"></script>
+    <script defer="True" src="../assets/_common/script/workspace-navigation.js"></script>
+</body>
+
 </html>

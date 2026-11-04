@@ -3,6 +3,14 @@
 -- Host: 127.0.0.1    Database: db_siae
 -- ------------------------------------------------------
 -- Server version	8.2.0
+-- MySQL dump
+-- Host: 127.0.0.1
+-- Database: db_siae
+
+CREATE DATABASE IF NOT EXISTS `db_siae`;
+USE `db_siae`;
+
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
