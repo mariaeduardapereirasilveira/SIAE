@@ -204,10 +204,10 @@ class User extends Model
 
     
 
-    // if (!password_verify($password, $user->password)) {
-    //     $this->errorMessage = "Senha incorreta";
-    //     return false;
-    // }
+    if (!password_verify($password, $user->password)) {
+        $this->errorMessage = "Senha incorreta";
+        return false;
+    }
 
 // var_dump("Senha recebida:", $password);
 // var_dump("Hash do banco:", $user->password);
