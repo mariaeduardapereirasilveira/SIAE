@@ -1,81 +1,318 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Gráficos - SIAE</title>
-<link href="../assets/app/styles/app.css" rel="stylesheet"/>
-<link href="../assets/app/styles/charts.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="../assets/_common/styles/design-system.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v4.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v5.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v6.css" rel="stylesheet"/>  <link rel="stylesheet" href="../assets/_common/styles/product-polish-v6-1.css">
-</head>
-<body class="workspace-page">
-<div class="app-layout">
-<header aria-label="Navegação principal do SIAE" class="sidebar workspace-shell workspace-toolbar" role="banner">
-<div class="sidebar-logo"><div class="sidebar-logo-icon"><img alt="Símbolo da coruja do SIAE" class="owl-logo" decoding="async" src="../assets/_common/images/siae-owl-black.png"/></div><div class="sidebar-logo-text"><h1>SIAE</h1><p>Conexões entre Setores</p></div></div>
-<nav class="sidebar-nav">
-<div class="sidebar-section-label">Principal</div>
-<a class="sidebar-item" href="dashboard.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></div><span>Dashboard</span></a>
-<a class="sidebar-item" href="search.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg></div><span>Busca</span></a>
-<a aria-current="page" class="sidebar-item active" href="charts.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg></div><span>Gráficos</span></a>
-<a class="sidebar-item" href="reports.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div><span>Relatórios</span></a>
-<a class="sidebar-item" href="notifications.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg></div><span>Notificações</span><span class="sidebar-badge professional-only">3</span></a>
-<a class="sidebar-item" href="faq.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg></div><span>FAQ</span></a>
-<a class="sidebar-item professional-only" href="occurrences.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg></div><span>Minhas Ocorrências</span></a>
-<div class="sidebar-section-label admin-only">Administracao</div>
-<a class="sidebar-item admin-only" href="../admin/students.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></div><span>Alunos</span></a>
-<a class="sidebar-item admin-only" href="../admin/professionals.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><path d="M20 8v6"></path><path d="M23 11h-6"></path></svg></div><span>Profissionais</span></a>
-<a class="sidebar-item admin-only" href="../admin/sectors.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div><span>Setores</span></a>
-</nav>
-<div class="sidebar-footer">
-<button aria-label="Ativar modo escuro" class="theme-toggle" data-theme-toggle="" title="Ativar modo escuro" type="button">
-<svg aria-hidden="true" class="theme-icon theme-icon-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
-<svg aria-hidden="true" class="theme-icon theme-icon-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"></path></svg>
-<span class="theme-toggle-label">Tema</span>
-</button><a class="sidebar-user" href="profile.html"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Usuario</h4><p id="userRole">Cargo</p></div></a>
-
-</div>
-</header>
-<main class="main-content">
-<header class="app-header">
-<div class="header-breadcrumb"><h2>Gráficos</h2><p>Visualizacao de indicadores</p></div>
-<a class="header-icon-btn professional-only" href="notifications.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg><span class="dot"></span></a>
-<a class="header-user-chip" href="profile.html"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></a>
-</header>
-<div class="page-content animate-fade-in">
-<div class="page-header"><div class="page-header-title"><h1>Gráficos</h1><p>Visualizacao de indicadores e metricas</p></div></div>
-<div class="grid-4" style="margin-bottom: 24px;">
-<div class="chart-card">
-<div class="progress-ring"><div class="ring-container"><svg height="100" width="100"><circle class="ring-bg" cx="50" cy="50" r="40"></circle><circle class="ring-progress" cx="50" cy="50" r="40" stroke="#5C6BC0" stroke-dasharray="251.2" stroke-dashoffset="25.12"></circle></svg><div class="ring-value">90%</div></div><span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Alunos Atendidos</span></div>
-</div>
-<div class="chart-card">
-<div class="progress-ring"><div class="ring-container"><svg height="100" width="100"><circle class="ring-bg" cx="50" cy="50" r="40"></circle><circle class="ring-progress" cx="50" cy="50" r="40" stroke="#26A69A" stroke-dasharray="251.2" stroke-dashoffset="75.36"></circle></svg><div class="ring-value">70%</div></div><span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Taxa de Resolução</span></div>
-</div>
-<div class="chart-card">
-<div class="progress-ring"><div class="ring-container"><svg height="100" width="100"><circle class="ring-bg" cx="50" cy="50" r="40"></circle><circle class="ring-progress" cx="50" cy="50" r="40" stroke="#7C4DFF" stroke-dasharray="251.2" stroke-dashoffset="50.24"></circle></svg><div class="ring-value">80%</div></div><span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Satisfacao</span></div>
-</div>
-<div class="chart-card">
-<div class="progress-ring"><div class="ring-container"><svg height="100" width="100"><circle class="ring-bg" cx="50" cy="50" r="40"></circle><circle class="ring-progress" cx="50" cy="50" r="40" stroke="#FFA726" stroke-dasharray="251.2" stroke-dashoffset="37.68"></circle></svg><div class="ring-value">85%</div></div><span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Encaminhamentos</span></div>
-</div>
-</div>
-<div class="chart-card">
-<div class="chart-header"><div><div class="chart-title">Atendimentos Mensais</div><div class="chart-subtitle">2026</div></div></div>
-<div class="bar-chart">
-<div class="bar-item"><div class="bar" style="height: 65%;"></div><span class="bar-label">Jan</span></div>
-<div class="bar-item"><div class="bar" style="height: 50%;"></div><span class="bar-label">Fev</span></div>
-<div class="bar-item"><div class="bar" style="height: 80%;"></div><span class="bar-label">Mar</span></div>
-<div class="bar-item"><div class="bar" style="height: 45%;"></div><span class="bar-label">Abr</span></div>
-<div class="bar-item"><div class="bar" style="height: 70%;"></div><span class="bar-label">Mai</span></div>
-<div class="bar-item"><div class="bar" style="height: 90%;"></div><span class="bar-label">Jun</span></div>
-</div>
-</div>
-</div>
-</main>
-</div>
-<script src="../assets/app/script/charts.js"></script>
-<script defer="True" src="../assets/_common/script/theme-toggle.js"></script><script defer="True" src="../assets/_common/script/workspace-navigation.js"></script></body>
+<html data-theme="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Indicadores — SIAE</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Sora:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="../assets/_common/styles/global.css" rel="stylesheet" />
+    <link href="../assets/app/styles/app.css" rel="stylesheet" />
+    <link
+      href="../assets/public/styles/siae-identity-2026.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="workspace-page">
+    <section class="app-layout">
+      <aside aria-label="Menu principal" class="sidebar workspace-shell">
+        <a class="sidebar-logo" href="dashboard.html"
+          ><span class="sidebar-logo-icon"
+            ><img
+              alt="SIAE"
+              src="../assets/public/images/brand/siae-logo.svg" /></span
+          ><span class="sidebar-logo-text"
+            ><strong>SIAE</strong><small>Atendimento ao estudante</small></span
+          ></a
+        >
+        <nav class="sidebar-nav">
+          <p class="sidebar-section-label">Principal</p>
+          <a class="sidebar-item" href="dashboard.html">Dashboard</a>
+          <a class="sidebar-item" href="search.html">Busca</a>
+          <a class="sidebar-item" href="appointments.html">Atendimentos</a>
+          <a class="sidebar-item" href="occurrences.html">Minhas Ocorrências</a>
+          <a aria-current="page" class="sidebar-item active" href="charts.html"
+            >Gráficos</a
+          >
+          <a class="sidebar-item" href="reports.html">Relatórios</a>
+          <a class="sidebar-item" href="notifications.html">Notificações</a>
+          <a class="sidebar-item" href="faq.html">FAQ</a>
+          <p class="sidebar-section-label">Conta</p>
+          <a class="sidebar-item" href="profile.html">Meu perfil</a>
+        </nav>
+        <footer class="sidebar-footer">
+          <a class="sidebar-user" href="profile.html"
+            ><span class="sidebar-avatar">US</span
+            ><span class="sidebar-user-info"
+              ><strong id="userName">Usuário</strong
+              ><small id="userRole">Profissional</small></span
+            ></a
+          >
+        </footer>
+      </aside>
+      <main class="main-content">
+        <header class="app-header">
+          <button
+            aria-label="Abrir menu"
+            class="menu-toggle"
+            data-menu-toggle=""
+            type="button"
+          >
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewbox="0 0 24 24"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+          <section class="header-breadcrumb">
+            <h1>Indicadores</h1>
+            <p>Dados de acompanhamento</p>
+          </section>
+          <nav class="app-header-actions">
+            <button
+              aria-label="Ativar modo escuro"
+              class="theme-toggle header-theme-toggle"
+              data-theme-toggle=""
+              title="Tema"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="theme-icon theme-icon-sun"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewbox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path
+                  d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.3-11.3 1.4-1.4"
+                ></path>
+              </svg>
+              <svg
+                aria-hidden="true"
+                class="theme-icon theme-icon-moon"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  d="M20.5 14A8.5 8.5 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"
+                ></path>
+              </svg>
+              <span class="theme-toggle-label">Tema</span></button
+            ><a
+              aria-label="Notificações"
+              class="header-icon-btn"
+              href="notifications.html"
+              title="Notificações"
+              >♧<img
+                alt=""
+                aria_hidden="true"
+                class="notification-bell-svg"
+                src="../assets/public/images/brand/interface/sino.svg" /></a
+            ><a class="header-user-chip" href="profile.html"
+              ><span class="header-user-avatar">US</span
+              ><span class="header-user-name">Meu perfil</span></a
+            >
+          </nav>
+        </header>
+        <section class="page-content">
+          <section class="page-heading-row">
+            <section>
+              <p class="eyebrow">VISÃO EM DADOS</p>
+              <h2>Indicadores de atendimento</h2>
+              <p class="page-lead">
+                Acompanhe a distribuição e a evolução dos registros autorizados.
+              </p>
+            </section>
+            <label class="period-control"
+              >Período<select id="chartPeriod">
+                <option value="month">Últimos 30 dias</option>
+                <option value="week">Últimos 7 dias</option>
+                <option value="quarter">Últimos 90 dias</option>
+              </select></label
+            >
+          </section>
+          <section aria-label="Indicadores resumidos" class="metrics-grid">
+            <article class="metric-card">
+              <span class="metric-icon">▤</span>
+              <p>Atendimentos no período</p>
+              <strong id="metricTotal">128</strong
+              ><small>Registros demonstrativos</small>
+            </article>
+            <article class="metric-card">
+              <span class="metric-icon">♙</span>
+              <p>Estudantes acompanhados</p>
+              <strong id="metricStudents">76</strong
+              ><small>Registros demonstrativos</small>
+            </article>
+            <article class="metric-card">
+              <span class="metric-icon">◷</span>
+              <p>Em acompanhamento</p>
+              <strong id="metricActive">34</strong
+              ><small>Registros demonstrativos</small>
+            </article>
+            <article class="metric-card">
+              <span class="metric-icon">✓</span>
+              <p>Finalizados</p>
+              <strong id="metricClosed">94</strong
+              ><small>Registros demonstrativos</small>
+            </article>
+          </section>
+          <section class="analytics-grid">
+            <article class="analytics-panel">
+              <header class="analytics-heading">
+                <section>
+                  <h3>Atendimentos por setor</h3>
+                  <p>Distribuição no período selecionado</p>
+                </section>
+                <span class="chart-tag">POR SETOR</span>
+              </header>
+              <ul class="horizontal-chart" id="sectorChart">
+                <li>
+                  <span>Orientação Educacional</span
+                  ><span class="track"
+                    ><i
+                      class="fill fill-plum siae-u-width-72-46b44df"
+                    ></i></span
+                  ><strong>42%</strong>
+                </li>
+                <li>
+                  <span>Psicologia</span
+                  ><span class="track"
+                    ><i
+                      class="fill fill-pink siae-u-width-56-049a95b"
+                    ></i></span
+                  ><strong>33%</strong>
+                </li>
+                <li>
+                  <span>Enfermaria</span
+                  ><span class="track"
+                    ><i
+                      class="fill fill-coral siae-u-width-42-6ac1322"
+                    ></i></span
+                  ><strong>25%</strong>
+                </li>
+              </ul>
+            </article>
+            <article class="analytics-panel">
+              <header class="analytics-heading">
+                <section>
+                  <h3>Volume semanal</h3>
+                  <p>Quantidade de registros por semana</p>
+                </section>
+                <span class="chart-tag">TENDÊNCIA</span>
+              </header>
+              <figure
+                aria-label="Gráfico de atendimentos semanais"
+                class="column-chart"
+              >
+                <ol>
+                  <li>
+                    <span class="column column-48"></span><small>Sem 1</small>
+                  </li>
+                  <li>
+                    <span class="column column-66"></span><small>Sem 2</small>
+                  </li>
+                  <li>
+                    <span class="column column-58"></span><small>Sem 3</small>
+                  </li>
+                  <li>
+                    <span class="column column-82"></span><small>Sem 4</small>
+                  </li>
+                  <li>
+                    <span class="column column-72"></span><small>Sem 5</small>
+                  </li>
+                  <li>
+                    <span class="column column-94"></span><small>Sem 6</small>
+                  </li>
+                </ol>
+              </figure>
+            </article>
+            <article class="analytics-panel">
+              <header class="analytics-heading">
+                <section>
+                  <h3>Situação dos registros</h3>
+                  <p>Visão geral dos atendimentos</p>
+                </section>
+                <span class="chart-tag">STATUS</span>
+              </header>
+              <section class="donut-layout">
+                <figure class="donut-chart">
+                  <span><strong>128</strong><small>registros</small></span>
+                </figure>
+                <ul class="chart-legend">
+                  <li>
+                    <i class="legend-plum"></i><span>Finalizados</span
+                    ><strong>73%</strong>
+                  </li>
+                  <li>
+                    <i class="legend-coral"></i><span>Em andamento</span
+                    ><strong>27%</strong>
+                  </li>
+                </ul>
+              </section>
+            </article>
+            <article class="analytics-panel">
+              <header class="analytics-heading">
+                <section>
+                  <h3>Atividade recente</h3>
+                  <p>Resumo dos últimos registros</p>
+                </section>
+                <span class="chart-tag">RECENTE</span>
+              </header>
+              <ul class="recent-activity">
+                <li>
+                  <span class="activity-dot dot-coral"></span>
+                  <section>
+                    <strong>Orientação Educacional</strong
+                    ><small>12 registros nesta semana</small>
+                  </section>
+                  <b>+12</b>
+                </li>
+                <li>
+                  <span class="activity-dot dot-pink"></span>
+                  <section>
+                    <strong>Psicologia</strong
+                    ><small>9 registros nesta semana</small>
+                  </section>
+                  <b>+9</b>
+                </li>
+                <li>
+                  <span class="activity-dot dot-purple"></span>
+                  <section>
+                    <strong>Enfermaria</strong
+                    ><small>7 registros nesta semana</small>
+                  </section>
+                  <b>+7</b>
+                </li>
+              </ul>
+            </article>
+          </section>
+          <p class="privacy-note">
+            Indicadores ilustrativos para composição visual. Na integração, os
+            dados devem ser calculados somente a partir de registros que o
+            usuário pode consultar.
+          </p>
+        </section>
+      </main>
+    </section>
+    <script defer="" src="../assets/_common/script/theme-toggle.js"></script>
+    <script
+      defer=""
+      src="../assets/_common/script/workspace-navigation.js"
+    ></script>
+    <script defer="" src="../assets/app/script/charts.js"></script>
+    <script defer="True" src="../assets/_common/script/siae-ui.js"></script>
+  </body>
 </html>

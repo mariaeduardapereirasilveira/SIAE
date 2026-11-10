@@ -186,7 +186,7 @@ class User extends Model
     public function login (
         string $email, 
         string $password,
-        string $enrollment = null
+        ?string $enrollment = null
         ): bool
         {
         $query = "SELECT * FROM {$this->table}
@@ -201,6 +201,25 @@ class User extends Model
         $this->errorMessage = "Email não cadastrado";
         return false;
     }
+
+
+
+// Valida se o perfil selecionado corresponde ao cadastro.
+if (
+    $enrollment !== null &&
+    !in_array($enrollment, ["administrador", "profissional"], true)
+) {
+    $this->errorMessage = "Perfil de acesso inválido.";
+    return false;
+}
+
+if (
+    $enrollment !== null &&
+    $user->enrollment !== $enrollment
+) {
+    $this->errorMessage = "Esta conta não pertence ao perfil selecionado.";
+    return false;
+}
 
     
 

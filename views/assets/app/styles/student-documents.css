@@ -1,0 +1,405 @@
+
+/* =========================================================
+   SIAE — DOCUMENTOS DO ESTUDANTE
+   Identidade visual: ameixa, coral, rosa e creme.
+   Estilos exclusivos da página student-documents.html.
+   ========================================================= */
+
+:root {
+    --documents-plum: #3A1038;
+    --documents-plum-light: #4B1B49;
+    --documents-coral: #FF6B5B;
+    --documents-pink: #E64ABF;
+    --documents-paper: #F3E3D9;
+    --documents-cream: #F9EFE6;
+    --documents-muted: #806A7D;
+    --documents-line: rgba(58, 16, 56, .15);
+    --documents-danger: #C94258;
+}
+
+/* Área de envio */
+
+.documents-upload {
+    margin-top: 18px;
+    padding: 22px;
+    border-radius: 19px;
+    background: rgba(249, 239, 230, .65);
+    border: 1px solid var(--documents-line);
+}
+
+.upload-description strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--documents-plum);
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.upload-description p {
+    margin: 0 0 17px;
+    color: var(--documents-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Botão de seleção */
+
+.upload-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 43px;
+    padding: 10px 17px;
+    border: 1px solid var(--documents-plum);
+    border-radius: 12px;
+    background: var(--documents-cream);
+    color: var(--documents-plum);
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    transition: background .2s, color .2s, transform .2s;
+}
+
+.upload-button::before {
+    content: "+";
+    font-size: 19px;
+    line-height: 1;
+}
+
+.upload-button:hover {
+    background: var(--documents-plum);
+    color: var(--documents-cream);
+    transform: translateY(-2px);
+}
+
+.upload-button:focus-visible {
+    outline: 3px solid var(--documents-coral);
+    outline-offset: 3px;
+}
+
+/* Lista de arquivos selecionados */
+
+.selected-documents-list {
+    display: grid;
+    gap: 8px;
+    margin: 14px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.selected-documents-list:empty {
+    display: none;
+}
+
+.selected-documents-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 13px;
+    border: 1px solid var(--documents-line);
+    border-radius: 12px;
+    background: var(--documents-cream);
+}
+
+.selected-documents-list strong {
+    color: var(--documents-plum);
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.selected-documents-list small {
+    flex-shrink: 0;
+    color: var(--documents-muted);
+    font-size: 10px;
+}
+
+/* Botão de envio */
+
+#uploadDocumentsButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 43px;
+    margin-top: 13px;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: var(--documents-plum);
+    color: var(--documents-cream);
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    transition: background .2s, transform .2s, opacity .2s;
+}
+
+#uploadDocumentsButton:not(:disabled):hover {
+    background: var(--documents-plum-light);
+    transform: translateY(-2px);
+}
+
+#uploadDocumentsButton:disabled {
+    background: rgba(58, 16, 56, .10);
+    color: rgba(58, 16, 56, .38);
+    cursor: not-allowed;
+}
+
+#uploadDocumentsButton:focus-visible {
+    outline: 3px solid var(--documents-coral);
+    outline-offset: 3px;
+}
+
+/* Mensagens de retorno */
+
+#documentsUploadFeedback {
+    min-height: 0;
+    margin: 10px 0 0;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+#documentsUploadFeedback:empty {
+    display: none;
+}
+
+#documentsUploadFeedback.success {
+    color: #287568;
+    font-weight: 700;
+}
+
+#documentsUploadFeedback.error {
+    color: var(--documents-danger);
+    font-weight: 700;
+}
+
+/* Separação da área de envio */
+
+.documents-divider {
+    height: 1px;
+    margin: 22px 0 8px;
+    background: var(--documents-line);
+}
+
+/* Lista de documentos cadastrados */
+
+.student-documents-list {
+    display: grid;
+    gap: 0;
+    margin-top: 10px;
+}
+
+.student-documents-list li {
+    display: grid !important;
+    grid-template-columns: 42px minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 13px;
+    padding: 16px 4px;
+    border-bottom: 1px solid var(--documents-line);
+    min-width: 0;
+}
+
+.student-documents-list li > section {
+    min-width: 0;
+}
+
+.student-documents-list li strong {
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.student-documents-list li small {
+    font-size: 10px;
+    line-height: 1.5;
+    margin-top: 4px;
+}
+
+/* Ícone do tipo de documento */
+
+.document-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    background: rgba(255, 107, 91, .16);
+    color: var(--documents-plum);
+    display: grid;
+    place-items: center;
+    font-size: 9px;
+    font-weight: 850;
+}
+
+/* Indicador de disponibilidade */
+
+.document-status {
+    margin-left: 0;
+    padding: 6px 10px;
+    border-radius: 99px;
+    background: rgba(84, 164, 152, .16);
+    color: #276D63;
+    font-size: 9px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+/* Ações de cada documento */
+
+.document-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.document-action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 7px 11px;
+    border: 1px solid var(--documents-line);
+    border-radius: 9px;
+    background: var(--documents-cream);
+    color: var(--documents-plum);
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 750;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background .2s, border-color .2s, transform .2s;
+}
+
+.document-action-button:hover {
+    background: #EBD5E4;
+    border-color: rgba(122, 59, 143, .35);
+    transform: translateY(-1px);
+}
+
+.document-action-button:focus-visible {
+    outline: 3px solid var(--documents-coral);
+    outline-offset: 2px;
+}
+
+.document-delete-button {
+    background: rgba(217, 77, 100, .08);
+    border-color: rgba(217, 77, 100, .2);
+    color: var(--documents-danger);
+}
+
+.document-delete-button:hover {
+    background: rgba(217, 77, 100, .16);
+    border-color: rgba(217, 77, 100, .4);
+}
+
+/* Estado vazio */
+
+.empty-documents {
+    padding: 25px 15px;
+    color: var(--documents-muted);
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Tema escuro */
+
+html[data-theme="dark"] .documents-upload {
+    background: #351D36;
+    border-color: rgba(249, 239, 230, .13);
+}
+
+html[data-theme="dark"] .upload-description strong,
+html[data-theme="dark"] .selected-documents-list strong {
+    color: var(--documents-cream);
+}
+
+html[data-theme="dark"] .upload-description p,
+html[data-theme="dark"] .selected-documents-list small {
+    color: #C6AEC3;
+}
+
+html[data-theme="dark"] .upload-button,
+html[data-theme="dark"] .selected-documents-list li,
+html[data-theme="dark"] .document-action-button {
+    background: #241326;
+    border-color: rgba(249, 239, 230, .16);
+    color: var(--documents-cream);
+}
+
+html[data-theme="dark"] #uploadDocumentsButton:disabled {
+    background: rgba(249, 239, 230, .10);
+    color: rgba(249, 239, 230, .4);
+}
+
+html[data-theme="dark"] .document-delete-button {
+    background: rgba(217, 77, 100, .13);
+    border-color: rgba(217, 77, 100, .25);
+    color: #FF9BAA;
+}
+
+html[data-theme="dark"] .student-documents-list li strong {
+    color: var(--documents-cream);
+}
+
+html[data-theme="dark"] .student-documents-list li small {
+    color: #C6AEC3;
+}
+
+html[data-theme="dark"] .documents-divider {
+    background: rgba(249, 239, 230, .13);
+}
+
+/* Responsividade */
+
+@media (max-width: 850px) {
+    .student-documents-list li {
+        grid-template-columns: 42px minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .student-documents-list li > .document-icon {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+    }
+
+    .student-documents-list li > section {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .student-documents-list li > .document-status {
+        grid-column: 2;
+        grid-row: 2;
+        justify-self: start;
+        margin-top: 5px;
+    }
+
+    .student-documents-list li > .document-actions {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        justify-content: flex-start;
+        padding-top: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .documents-upload {
+        padding: 16px;
+    }
+
+    .document-actions {
+        gap: 6px;
+    }
+
+    .document-action-button {
+        padding: 8px 10px;
+        font-size: 10px;
+    }
+
+    .selected-documents-list li {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+    }
+}

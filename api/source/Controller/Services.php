@@ -87,6 +87,15 @@ class Services extends Api
     // INSERT - POST
     public function insert(array $data): void
     {
+        $isAdministrator = $this->authToken('administrador');
+        $isProfessional = $this->authToken('profissional');
+        if (!$isAdministrator && !$isProfessional) {
+            $this->call(401, "unauthorized", "Sessão inválida ou sem permissão para criar serviços.", "error")->back();
+            return;
+        }
+        // O vínculo do serviço sempre registra o usuário autenticado.
+        $data["user_id"] = $this->userAuthId;
+
        
 
         $service = new Service(
@@ -114,7 +123,7 @@ class Services extends Api
             "success",
             "Serviço cadastrado com sucesso!",
             "success"
-        )->back();
+        )->back(["id" => $service->getId()]);
     }
 
     // UPDATE - PUT

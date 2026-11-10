@@ -1,3 +1,9 @@
+function resolveSiaeApiBase() {
+  const parts = window.location.pathname.split("/").filter(Boolean);
+  const projectPrefix = parts.length ? `/${parts[0]}` : "";
+  return `${window.location.origin}${projectPrefix}/api`;
+}
+
 // ============================================================
 // 1. INICIALIZAÇÃO DO SCRIPT
 // ============================================================
@@ -22,7 +28,7 @@
 
     // Endereço-base da API do SIAE.
     // Todos os endpoints serão acessados a partir desse endereço.
-    const API_BASE = 'http://localhost/SIAE/api';
+    const API_BASE = resolveSiaeApiBase();
 
     // Recupera o token de autenticação armazenado no navegador.
     // Ele será enviado à API para identificar o usuário.
@@ -485,6 +491,7 @@
         } else {
 
             localStorage.removeItem('userPhoto');
+        localStorage.removeItem('userId');
         }
 
 
@@ -892,6 +899,7 @@
 
         localStorage.removeItem('userName');
         localStorage.removeItem('userPhoto');
+        localStorage.removeItem('userId');
         localStorage.removeItem('enrollment');
 
         // Redireciona para a tela de login.

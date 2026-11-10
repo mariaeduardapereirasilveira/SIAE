@@ -19,26 +19,42 @@ class Shares extends Api
     //LIST ALL - GET
     public function listAll(): void
     {
-        $share = new Share();
+        $isAdministrator = $this->authToken('administrador');
+        $isProfessional = $this->authToken('profissional');
 
-        $shares = $share->selectAll();
+        if (!$isAdministrator && !$isProfessional) {
+            $this->call(401, "unauthorized", "Sessão inválida ou sem permissão.", "error")->back([]);
+            return;
+        }
 
-    if (empty($shares)) {
-        $this->call(
-            404,
-            "not_found",
-            "Nenhum compartilhamento encontrado",
-            "error"
-        )->back([]);
-        return;
-    }
-
-    $this->call(
-        200,
-        "success",
-        "Compartilhamentos encontrados",
-        "success"
-    )->back($shares);
+        try {
+            $pdo = \Source\Core\Connect::getInstance();
+            if ($isAdministrator) {
+                $stmt = $pdo->query("SELECT * FROM shares WHERE active = 1 ORDER BY id DESC");
+            } else {
+                $stmt = $pdo->prepare(
+                    "SELECT sh.*
+                     FROM shares sh
+                     INNER JOIN occurrences o ON o.id = sh.occurrence_id
+                     WHERE sh.active = 1
+                       AND (o.user_id = :owner_user_id OR sh.user_id = :recipient_user_id)
+                     ORDER BY sh.id DESC"
+                );
+                $stmt->execute([
+                    "owner_user_id" => $this->userAuthId,
+                    "recipient_user_id" => $this->userAuthId
+                ]);
+            }
+            $shares = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if (empty($shares)) {
+                $this->call(404, "not_found", "Nenhum compartilhamento encontrado.", "error")->back([]);
+                return;
+            }
+            $this->call(200, "success", "Compartilhamentos encontrados.", "success")->back($shares);
+        } catch (\Throwable $exception) {
+            error_log("Erro ao listar compartilhamentos: " . $exception->getMessage());
+            $this->call(500, "internal_server_error", "Não foi possível carregar os compartilhamentos.", "error")->back([]);
+        }
     }
 
     //LIST BY ID - GET
@@ -129,6 +145,13 @@ class Shares extends Api
     //INSERT - POST
     public function insert(array $data): void
     {
+        $isAdministrator = $this->authToken('administrador');
+        $isProfessional = $this->authToken('profissional');
+        if (!$isAdministrator && !$isProfessional) {
+            $this->call(401, "unauthorized", "Sessão inválida ou sem permissão para compartilhar.", "error")->back();
+            return;
+        }
+
 
 
     if (
@@ -154,6 +177,16 @@ class Shares extends Api
             "Ocorrência não encontrada.",
             "error"
         )->back();
+        return;
+    }
+
+    if (!$isAdministrator && (int) $occurrence->getUserId() !== (int) $this->userAuthId) {
+        $this->call(403, "forbidden", "Somente o responsável pode compartilhar esta ocorrência.", "error")->back();
+        return;
+    }
+
+    if ($occurrence->getSecrecyLevel() !== "Entidades especificas") {
+        $this->call(400, "bad_request", "O compartilhamento por destinatários exige o nível de sigilo 'Entidades especificas'.", "error")->back();
         return;
     }
 

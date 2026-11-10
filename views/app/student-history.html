@@ -1,0 +1,186 @@
+<!doctype html>
+
+<html data-theme="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Histórico do estudante — SIAE</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Sora:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="../assets/_common/styles/global.css" rel="stylesheet" />
+    <link href="../assets/app/styles/app.css" rel="stylesheet" />
+    <link
+      href="../assets/public/styles/siae-identity-2026.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="workspace-page">
+    <section class="app-layout">
+      <aside aria-label="Menu principal" class="sidebar workspace-shell">
+        <a aria-label="SIAE, início" class="sidebar-logo" href="dashboard.html">
+          <span class="sidebar-logo-icon"
+            ><img alt="" src="../assets/public/images/brand/siae-logo.svg"
+          /></span>
+          <span class="sidebar-logo-text"
+            ><strong>SIAE</strong><small>Atendimento ao estudante</small></span
+          >
+        </a>
+        <nav class="sidebar-nav">
+          <p class="sidebar-section-label">Visão geral</p>
+          <a class="sidebar-item" href="dashboard.html">Dashboard</a>
+          <a class="sidebar-item" href="search.html">Busca</a>
+          <a class="sidebar-item" href="appointments.html">Atendimentos</a>
+          <a class="sidebar-item" href="occurrences.html">Minhas Ocorrências</a>
+          <a class="sidebar-item" href="charts.html">Gráficos</a>
+          <a class="sidebar-item" href="reports.html">Relatórios</a>
+          <a class="sidebar-item" href="notifications.html">Notificações</a>
+          <a class="sidebar-item" href="faq.html">FAQ</a>
+          <p class="sidebar-section-label">Conta</p>
+          <a class="sidebar-item" href="profile.html">Meu perfil</a>
+        </nav>
+        <footer class="sidebar-footer">
+          <a class="sidebar-user" href="profile.html"
+            ><span class="sidebar-avatar">US</span
+            ><span class="sidebar-user-info"
+              ><strong id="userName">Usuário</strong
+              ><small id="userRole">Profissional</small></span
+            ></a
+          >
+        </footer>
+      </aside>
+      <main class="main-content">
+        <header class="app-header">
+          <button
+            aria-label="Abrir menu"
+            class="menu-toggle"
+            data-menu-toggle=""
+            type="button"
+          >
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewbox="0 0 24 24"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+          <section class="header-breadcrumb">
+            <h1>Histórico do estudante</h1>
+            <p>Acompanhamentos e registros anteriores</p>
+          </section>
+          <nav aria-label="Ações da conta" class="app-header-actions">
+            <button
+              aria-label="Ativar modo escuro"
+              class="theme-toggle header-theme-toggle"
+              data-theme-toggle=""
+              title="Tema"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="theme-icon theme-icon-sun"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewbox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path
+                  d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.3-11.3 1.4-1.4"
+                ></path>
+              </svg>
+              <svg
+                aria-hidden="true"
+                class="theme-icon theme-icon-moon"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  d="M20.5 14A8.5 8.5 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"
+                ></path>
+              </svg>
+              <span class="theme-toggle-label">Tema</span></button
+            ><a
+              aria-label="Notificações"
+              class="header-icon-btn"
+              href="notifications.html"
+              title="Notificações"
+              >♧<img
+                alt=""
+                aria_hidden="true"
+                class="notification-bell-svg"
+                src="../assets/public/images/brand/interface/sino.svg"
+            /></a>
+            <a class="header-user-chip" href="profile.html"
+              ><span class="header-user-avatar">US</span
+              ><span class="header-user-name">Meu perfil</span></a
+            >
+          </nav>
+        </header>
+        <section class="page-content">
+          <a class="back-link" href="search.html">← Voltar para estudantes</a>
+          <section class="student-hero-compact">
+            <span class="student-large-avatar" id="studentInitials">AS</span>
+            <section>
+              <p class="eyebrow">ESTUDANTE</p>
+              <h2 id="studentName">Ana Paula Silva</h2>
+              <p id="studentMeta">Matrícula 2024001 · 1º Info A</p>
+            </section>
+          </section>
+          <nav aria-label="Seções do estudante" class="student-subnav">
+            <a data-student-tab="details" href="student-details.html"
+              >Informações</a
+            >
+            <a data-student-tab="history" href="student-history.html"
+              >Histórico</a
+            >
+            <a data-student-tab="documents" href="student-documents.html"
+              >Documentos</a
+            >
+          </nav>
+          <article class="detail-panel">
+            <header class="panel-heading">
+              <span class="panel-icon">◷</span>
+              <section>
+                <h2>Histórico de atendimentos</h2>
+                <p>Registros disponíveis conforme as permissões de acesso</p>
+              </section>
+            </header>
+            <ol class="student-timeline" id="studentHistoryList">
+              <li>
+                <time>12/06/2026</time>
+                <section>
+                  <strong>Acompanhamento educacional</strong
+                  ><small>Orientação Educacional</small>
+                  <p>Registro demonstrativo de acompanhamento.</p>
+                </section>
+              </li>
+            </ol>
+          </article>
+          <p class="privacy-note">
+            Registros de Psicologia, Enfermaria e Orientação Educacional só
+            devem aparecer quando houver autorização de consulta ou
+            compartilhamento.
+          </p>
+        </section>
+      </main>
+    </section>
+    <script defer="" src="../assets/_common/script/theme-toggle.js"></script>
+    <script
+      defer=""
+      src="../assets/_common/script/workspace-navigation.js"
+    ></script>
+    <script
+      defer=""
+      src="../assets/app/script/student-record-pages.js"
+    ></script>
+    <script defer="True" src="../assets/_common/script/siae-ui.js"></script>
+  </body>
+</html>

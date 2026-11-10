@@ -1,208 +1,326 @@
 <!doctype html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="SIAE — Sistema Integrado de Apoio Educacional. Uma plataforma para organizar o acompanhamento estudantil e aproximar os setores de atendimento.">
-  <meta name="theme-color" content="#08152B">
-  <title>SIAE — Conexões entre Educação e Cuidado</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="views/assets/public/styles/main.css">
-  <link rel="stylesheet" href="views/assets/_common/styles/design-system.css">
-  <link rel="stylesheet" href="views/assets/_common/styles/product-redesign-v4.css">
-  <link rel="stylesheet" href="views/assets/_common/styles/product-redesign-v5.css">
-  <link rel="stylesheet" href="views/assets/_common/styles/product-redesign-v6.css">
-  <link rel="stylesheet" href="views/assets/_common/styles/product-polish-v6-1.css">
-</head>
-<body class="public-home">
-  <nav class="navbar" aria-label="Navegação principal">
-    <div class="nav-container">
-      <a class="nav-logo" href="index.html" aria-label="SIAE — Página inicial">
-        <span class="logo-icon" aria-hidden="true">
-          <img class="owl-logo" src="views/assets/_common/images/siae-owl-black.png" alt="" width="31" height="31">
-        </span>
-        <span class="logo-text">SIAE</span>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="#35172D" name="theme-color" />
+    <title>SIAE — Cuidado que conecta</title>
+    <meta
+      content="Orientação, Psicologia e Enfermaria conectadas para acompanhar cada estudante."
+      name="description"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Sora:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="views/assets/public/styles/siae-identity-2026.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="siae-landing">
+    <header class="landing-nav">
+      <a aria-label="SIAE — início" class="landing-brand" href="index.html">
+        <img
+          alt="Símbolo SIAE"
+          src="views/assets/public/images/brand/siae-logo.svg"
+        />
+        <span class="brand-word">SIAE</span>
+        <span class="brand-description"
+          >SISTEMA INTEGRADO DE<br />ACOMPANHAMENTO EDUCACIONAL</span
+        >
       </a>
-
-      <div class="nav-menu" id="navMenu">
-        <a class="nav-link" href="#features">Recursos</a>
-        <a class="nav-link" href="#about">Sobre o SIAE</a>
-        <a class="nav-link" href="#contact">Acesso</a>
-        <button class="theme-toggle theme-toggle-public" type="button" data-theme-toggle aria-label="Ativar modo escuro" title="Ativar modo escuro">
-          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
-          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"></path></svg>
-          <span class="theme-toggle-label">Tema</span>
-        </button>
-        <a class="nav-btn" href="views/public/login.html">Acessar sistema <span aria-hidden="true">↗</span></a>
-      </div>
-
-      <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-controls="navMenu" aria-expanded="false">
-        <span></span><span></span><span></span>
+      <button
+        aria-expanded="false"
+        aria-label="Abrir menu"
+        class="landing-menu-toggle"
+      >
+        ☰
       </button>
-    </div>
-  </nav>
-
-  <main class="landing-main">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-bg" aria-hidden="true">
-        <div class="hero-shape shape-1"></div>
-        <div class="hero-shape shape-2"></div>
-        <div class="hero-shape shape-3"></div>
-      </div>
-      <div class="hero-container">
-        <div class="hero-content">
-          <div class="hero-badge">Sistema Integrado de Apoio Educacional</div>
-          <h1 class="hero-title" id="hero-title">Mais conexão entre <span class="gradient-text">educação, cuidado e acompanhamento.</span></h1>
-          <p class="hero-description">O SIAE reúne profissionais, registros e informações de atendimento em um só ambiente, ajudando a tornar o acompanhamento do estudante mais organizado, contextualizado e integrado.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary btn-lg" href="views/public/login.html">Acessar o sistema <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
-            <a class="btn btn-outline btn-lg" href="#features">Conhecer recursos <span aria-hidden="true">↓</span></a>
-          </div>
-          <div class="hero-trust-row">
-            <span class="hero-trust-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 19 6v5c0 4.4-2.8 7.7-7 10-4.2-2.3-7-5.6-7-10V6l7-3Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
-            <span>Informações organizadas, acesso por perfil e uma visão mais integrada do atendimento estudantil.</span>
+      <nav aria-label="Navegação principal" class="landing-links">
+        <a class="is-current" href="#inicio">Início</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#setores">Setores</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#duvidas">Perguntas frequentes</a>
+        <button
+          aria-label="Ativar modo escuro"
+          class="landing-theme-toggle"
+          data-theme-toggle=""
+          type="button"
+        >
+          <svg
+            class="theme-icon theme-icon-sun"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            viewbox="0 0 24 24"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <path
+              d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"
+            ></path>
+          </svg>
+          <svg
+            class="theme-icon theme-icon-moon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            viewbox="0 0 24 24"
+          >
+            <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"></path>
+          </svg>
+        </button>
+        <a class="nav-access" href="views/public/login.html"
+          ><img
+            alt=""
+            aria-hidden="true"
+            class="nav-access-icon"
+            src="views/assets/public/images/brand/interface/pessoa.svg"
+          />
+          Acessar sistema</a
+        >
+      </nav>
+    </header>
+    <main>
+      <section class="landing-hero" id="inicio">
+        <div class="hero-orbit hero-orbit-one"></div>
+        <div class="hero-orbit hero-orbit-two"></div>
+        <img
+          alt=""
+          aria-hidden="true"
+          class="hero-organic hero-organic-coral"
+          src="views/assets/public/images/brand/formas organicas/Vector 8.svg"
+        />
+        <img
+          alt=""
+          aria-hidden="true"
+          class="hero-organic hero-organic-plum"
+          src="views/assets/public/images/brand/formas organicas/Vector 9.svg"
+        />
+        <div class="hero-copy">
+          <span class="eyebrow eyebrow-pink">ACOMPANHAMENTO EDUCACIONAL</span>
+          <h1>Cuidar, acompanhar<br />e <em>transformar.</em></h1>
+          <p>
+           Um espaço integrado para fortalecer o cuidado e o <br> 
+           desenvolvimento da comunidade escolar.
+          </p>
+          <a class="button button-coral" href="views/public/login.html"
+            >Acessar sistema <span>→</span></a
+          >
+          <div class="hero-note">
+            <span class="note-line"></span> CUIDADO QUE CONECTA PESSOAS.
           </div>
         </div>
-
-        <div class="hero-visual" aria-label="Prévia ilustrativa da interface do SIAE">
-          <div class="dashboard-preview">
-            <div class="preview-header">
-              <div class="preview-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-              <span class="preview-title">SIAE · Área de trabalho</span>
-              <span class="preview-label">Prévia ilustrativa</span>
+        <div aria-hidden="true" class="hero-art">
+          <div class="art-disc art-disc-coral"></div>
+          <div class="art-disc art-disc-pink"></div>
+          <div class="art-disc art-disc-cream"></div>
+          <img alt="" src="views/assets/public/images/brand/siae-logo.svg" />
+        </div>
+       
+      </section>
+      <section class="intro-ribbon" id="sobre">
+        <div class="ribbon-lead">
+          <span class="eyebrow">UM OLHAR INTEGRADO</span>
+          <h2>O estudante no<br /><em>centro de tudo.</em></h2>
+          <p>Educação, acolhimento e acompanhamento em um só lugar. </p>
+        </div>
+        <div class="ribbon-feature">
+          <span class="ribbon-icon"
+            ><img
+              alt=""
+              aria_hidden="true"
+              src="views/assets/public/images/brand/interface/tres-pessoas.svg" /></span
+          ><strong>Acompanhamento<br />educacional</strong>
+        </div>
+        <div class="ribbon-feature">
+          <span class="ribbon-icon"
+            ><img
+              alt=""
+              aria_hidden="true"
+              src="views/assets/public/images/brand/interface/prancheta.svg" /></span
+          ><strong>Registro de<br />atendimentos</strong>
+        </div>
+        <div class="ribbon-feature">
+          <span class="ribbon-icon"
+            ><img
+              alt=""
+              aria_hidden="true"
+              src="views/assets/public/images/brand/interface/livros.svg" /></span
+          ><strong>Gestão de setores<br />e serviços</strong>
+        </div>
+        <div class="ribbon-feature">
+          <span class="ribbon-icon"
+            ><img
+              alt=""
+              aria_hidden="true"
+              src="views/assets/public/images/brand/interface/grafico.svg" /></span
+          ><strong>Relatórios e<br />indicadores</strong>
+        </div>
+      </section>
+      <section class="sectors-section section-wrap" id="setores">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">CUIDADO EM REDE</span>
+            <h2>Três áreas. <em>Uma rede de apoio.</em></h2>
+          </div>
+          <p>
+            Uma rede de profissionais, com informação organizada e acesso
+            responsável.
+          </p>
+        </div>
+        <div class="sector-grid">
+          <article class="sector-card sector-education">
+            <div class="sector-card-top">
+              <span class="sector-number">01 / EDUCAÇÃO</span
+              ><span class="sector-symbol"
+                ><img
+                  alt=""
+                  src="views/assets/public/images/brand/Group (2).svg"
+              /></span>
             </div>
-            <div class="preview-content">
-              <div class="preview-heading-row">
-                <div><p class="preview-overline">Visão geral</p><h2>Acompanhamento estudantil</h2></div>
-                <span class="preview-status">Painel integrado</span>
-              </div>
-              <div class="preview-cards">
-                <div class="preview-card">
-                  <div class="mini-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M20 8v6M23 11h-6"></path></svg></div>
-                  <strong>Estudantes</strong><span>Cadastros organizados</span>
-                </div>
-                <div class="preview-card">
-                  <div class="mini-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M8 13h8M8 17h8"></path></svg></div>
-                  <strong>Atendimentos</strong><span>Registros por setor</span>
-                </div>
-                <div class="preview-card">
-                  <div class="mini-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h.01M15 10h.01M9 14h.01M15 14h.01"></path></svg></div>
-                  <strong>Equipe</strong><span>Setores conectados</span>
-                </div>
-              </div>
-              <div class="preview-divider"></div>
-              <div class="preview-list-heading">Atividade recente <span>Exemplos de registros</span></div>
-              <div class="preview-list">
-                <div class="list-item"><div class="list-copy"><strong>Registro de atendimento</strong><small>Enfermaria · exemplo de atividade</small></div><span class="list-pill">Atendimento</span></div>
-                <div class="list-item"><div class="list-copy"><strong>Acompanhamento educacional</strong><small>Orientação · exemplo de atividade</small></div><span class="list-pill">Acompanhamento</span></div>
-                <div class="list-item"><div class="list-copy"><strong>Histórico do estudante</strong><small>Consulta organizada por perfil</small></div><span class="list-pill">Histórico</span></div>
-              </div>
-              <p class="preview-caption">Representação visual ilustrativa — os dados acima não são informações reais do sistema.</p>
+            <h3>Orientação<br />Educacional</h3>
+            <p>Acompanhamento acadêmico e desenvolvimento estudantil.</p>
+            <a
+              aria-label="Acessar o SIAE para Orientação Educacional"
+              href="views/public/login.html"
+              >Conheça o setor <span>↗</span></a
+            >
+            <div class="sector-shape"></div>
+          </article>
+          <article class="sector-card sector-psychology">
+            <div class="sector-card-top">
+              <span class="sector-number">02 / EMOÇÃO</span
+              ><span class="sector-symbol"
+                ><img alt="" src="views/assets/public/images/brand/brain.svg"
+              /></span>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="home-capabilities" aria-label="Pilares do SIAE">
-      <div class="capabilities-row">
-        <div class="capability-item"><span class="capability-number">01</span><div><strong>Informações centralizadas</strong><span>Registros reunidos em um único ambiente</span></div></div>
-        <div class="capability-item"><span class="capability-number">02</span><div><strong>Acesso por perfil</strong><span>Áreas adequadas às responsabilidades de cada usuário</span></div></div>
-        <div class="capability-item"><span class="capability-number">03</span><div><strong>Visão multidisciplinar</strong><span>Conexão entre os setores de atendimento</span></div></div>
-      </div>
-    </section>
-
-    <section class="features" id="features" aria-labelledby="features-title">
-      <div class="section-container">
-        <header class="section-header">
-          <span class="section-badge">Recursos da plataforma</span>
-          <h2 class="section-title" id="features-title">O essencial para acompanhar cada estudante com mais contexto.</h2>
-          <p class="section-description">Uma estrutura feita para organizar as atividades do dia a dia e facilitar o acesso às informações de acordo com o perfil de cada usuário.</p>
-        </header>
-        <div class="features-grid">
-          <article class="feature-card">
-            <div class="feature-icon nursing" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11Z"></path><path d="M8 12h8M12 8v8"></path></svg></div>
-            <h3>Atendimentos</h3><p>Organize registros e acompanhe as informações relevantes ao longo do atendimento estudantil.</p>
+            <h3>Psicologia</h3>
+            <p>Acolhimento emocional e atenção à saúde mental.</p>
+            <a
+              aria-label="Acessar o SIAE para Psicologia"
+              href="views/public/login.html"
+              >Conheça o setor <span>↗</span></a
+            >
+            <div class="sector-shape"></div>
           </article>
-          <article class="feature-card">
-            <div class="feature-icon psychology" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a8 8 0 0 0-4 14.9V21h8v-3.1A8 8 0 0 0 12 3Z"></path><path d="M9 10a3 3 0 0 1 6 0c0 2-3 2-3 4M12 17h.01"></path></svg></div>
-            <h3>Acompanhamento</h3><p>Ofereça mais contexto para os profissionais que acompanham diferentes necessidades do estudante.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon education" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m2 9 10-5 10 5-10 5L2 9Z"></path><path d="M6 11v5c4 3 8 3 12 0v-5M22 9v6"></path></svg></div>
-            <h3>Gestão de estudantes</h3><p>Encontre cadastros e mantenha as informações organizadas para consulta e atualização.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon history" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5M12 7v5l3 2"></path></svg></div>
-            <h3>Histórico centralizado</h3><p>Consulte registros relacionados ao estudante sem depender de anotações espalhadas.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon reports" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h17"></path><path d="m7 15 4-4 3 2 5-6"></path></svg></div>
-            <h3>Relatórios e indicadores</h3><p>Organize relatórios para apoiar a leitura das atividades e a gestão dos atendimentos.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon integration" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="3"></circle><circle cx="5" cy="19" r="3"></circle><circle cx="19" cy="19" r="3"></circle><path d="m10.5 7.5-4 8.5M13.5 7.5l4 8.5M8 19h8"></path></svg></div>
-            <h3>Setores conectados</h3><p>Reúna os diferentes campos de atuação em uma experiência de uso consistente.</p>
+          <article class="sector-card sector-health">
+            <div class="sector-card-top">
+              <span class="sector-number">03 / SAÚDE</span
+              ><span class="sector-symbol"
+                ><img
+                  alt=""
+                  src="views/assets/public/images/brand/Vector (3).svg"
+              /></span>
+            </div>
+            <h3>Enfermaria</h3>
+            <p>Atenção à saúde e ao bem-estar da comunidade escolar.</p>
+            <a
+              aria-label="Acessar o SIAE para Enfermaria"
+              href="views/public/login.html"
+              >Conheça o setor <span>↗</span></a
+            >
+            <div class="sector-shape"></div>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section class="about" id="about" aria-labelledby="about-title">
-      <div class="about-content">
-        <div class="about-text">
-          <span class="section-badge">Sobre o SIAE</span>
-          <h2 class="section-title" id="about-title">O estudante no centro. A equipe trabalhando com mais contexto.</h2>
-          <p class="about-description">O Sistema Integrado de Apoio Educacional foi pensado para aproximar as áreas que participam do acompanhamento estudantil. A proposta é reduzir a fragmentação dos registros e facilitar uma visão organizada das informações relevantes.</p>
-          <ul class="about-list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg><span>Áreas de trabalho estruturadas por perfil de usuário.</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg><span>Registros e histórico organizados para consulta.</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg><span>Mais clareza para a colaboração entre os setores.</span></li>
+      </section>
+      <section class="care-section" id="recursos">
+        <div class="care-visual">
+          <div class="care-shape care-shape-a"></div>
+          <div class="care-shape care-shape-b"></div>
+          <img
+            alt="Símbolo SIAE"
+            src="views/assets/public/images/brand/siae-logo.svg"
+          />
+          <span>CONEXÃO<br />QUE GERA<br />CUIDADO.</span>
+        </div>
+        <div class="care-copy">
+          <span class="eyebrow">UMA PLATAFORMA, MUITAS POSSIBILIDADES</span>
+          <h2>
+            Informação que aproxima.<br /><em>Cuidado que transforma.</em>
+          </h2>
+          <p>
+            Registros organizados e colaboração entre setores, com respeito à
+            privacidade de cada estudante.
+          </p>
+          <ul class="care-list">
+            <li>
+              <span>01</span>
+              <div>
+                <strong>Integração entre setores</strong
+                ><small>Uma atuação conectada e colaborativa.</small>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>Proteção e cuidado</strong
+                ><small>Informações acessadas conforme as permissões.</small>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>Foco no estudante</strong
+                ><small>Acompanhamento mais organizado e humanizado.</small>
+              </div>
+            </li>
           </ul>
+          <a class="text-link" href="views/public/login.html"
+            >Entre no SIAE <span>→</span></a
+          >
         </div>
-        <div class="about-visual">
-          <div class="about-card">
-            <div class="about-card-header"><span class="sector-tag nursing-tag">Enfermaria</span><span class="sector-tag psychology-tag">Psicologia</span><span class="sector-tag education-tag">Orientação</span></div>
-            <div class="about-card-body" aria-hidden="true">
-              <div class="connection-lines"><span class="line"></span><span class="line"></span><span class="line"></span></div>
-              <div class="central-student"><div class="student-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><span>Estudante</span></div>
-            </div>
-            <p class="about-note">Um ponto de referência compartilhado para o acompanhamento estudantil.</p>
+      </section>
+      <section class="faq-section section-wrap" id="duvidas">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">PERGUNTAS FREQUENTES</span>
+            <h2>Vamos conversar?</h2>
           </div>
+          <p>Saiba mais sobre o propósito e o funcionamento do sistema.</p>
         </div>
-      </div>
-    </section>
-
-    <section class="cta" id="contact" aria-labelledby="cta-title">
-      <div class="cta-container">
-        <span class="section-badge">Conheça o SIAE</span>
-        <h2 class="cta-title" id="cta-title">Mais organização para quem acompanha. Mais contexto para quem cuida.</h2>
-        <p class="cta-description">Acesse a plataforma para consultar os módulos disponíveis conforme o seu perfil de usuário.</p>
-        <div class="cta-actions"><a class="btn btn-white btn-lg" href="views/public/login.html">Entrar no sistema <span aria-hidden="true">↗</span></a></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-main">
-        <div class="footer-brand">
-          <a class="footer-logo" href="index.html" aria-label="SIAE — Página inicial"><span class="logo-icon small"><img class="owl-logo" src="views/assets/_common/images/siae-owl-black.png" alt="" width="24" height="24"></span><span>SIAE</span></a>
-          <p>Sistema Integrado de Apoio Educacional.<br>Conexões entre educação e cuidado.</p>
+        <div class="faq-list">
+          <details>
+            <summary>O que é o SIAE?<span>+</span></summary>
+            <p>
+              É o Sistema Integrado de Acompanhamento Educacional, criado para
+              conectar os setores de apoio e cuidado da comunidade escolar.
+            </p>
+          </details>
+          <details>
+            <summary>Quem pode acessar o sistema?<span>+</span></summary>
+            <p>
+              Administradores e profissionais autorizados, conforme suas
+              funções, setores e permissões de acesso.
+            </p>
+          </details>
+          <details>
+            <summary>Quais setores fazem parte do SIAE?<span>+</span></summary>
+            <p>
+              Orientação Educacional, Psicologia e Enfermaria, trabalhando de
+              forma integrada e respeitando a confidencialidade das informações.
+            </p>
+          </details>
         </div>
-        <div class="footer-links">
-          <div class="footer-column"><h4>Plataforma</h4><a href="#features">Recursos</a><a href="#about">Sobre o SIAE</a><a href="views/public/login.html">Acessar o sistema</a></div>
-          <div class="footer-column"><h4>Áreas de trabalho</h4><a href="#features">Atendimentos</a><a href="#features">Gestão de estudantes</a><a href="#features">Relatórios</a></div>
-          <div class="footer-column"><h4>Acesso</h4><a href="views/public/login.html">Entrar</a><a href="#contact">Conhecer a plataforma</a></div>
-        </div>
-      </div>
-      <div class="footer-bottom"><p>© 2026 SIAE — Sistema Integrado de Apoio Educacional.</p></div>
-    </div>
-  </footer>
-
-  <script src="views/assets/public/script/main.js"></script>
-  <script defer src="views/assets/_common/script/theme-toggle.js"></script>
-</body>
+      </section>
+    </main>
+    <footer class="landing-footer">
+      <a class="landing-brand footer-brand" href="#inicio"
+        ><img
+          alt=""
+          src="views/assets/public/images/brand/siae-logo.svg"
+        /><span class="brand-word">SIAE</span></a
+      >
+      <p>Cuidado que conecta pessoas.</p>
+      <span>© 2026 SIAE · Sistema Integrado de Acompanhamento Educacional</span>
+    </footer>
+    <script defer="" src="views/assets/_common/script/theme-toggle.js"></script>
+    <script defer="" src="views/assets/public/script/siae-landing.js"></script>
+  </body>
 </html>

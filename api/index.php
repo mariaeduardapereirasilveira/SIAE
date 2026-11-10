@@ -74,6 +74,7 @@ $route->namespace("Source\Controller");
 
 $route->get("/hello", "Users:hello");
 $route->get("/list", "Users:listAll");
+$route->get("/professionals/list", "Users:listProfessionals");
 $route->get("/me", "Users:me");
 $route->get("/id/{user_id}", "Users:listById");
 $route->post("/register", "Users:insert");
@@ -84,6 +85,31 @@ $route->put("/id/{user_id}", "Users:update");
 $route->delete("/id/{user_id}", "Users:delete");
 
 $route->group(null);
+
+
+$route->group("/student-documents");
+$route->namespace("Source\Controller");
+
+// Lista os documentos de um estudante.
+$route->get("/student/{student_id}", "StudentDocuments:listByStudent");
+
+// Envia um ou vários documentos para um estudante.
+$route->post("/student/{student_id}", "StudentDocuments:upload");
+
+// Baixa um documento específico.
+$route->get("/download/{document_id}", "StudentDocuments:download");
+
+// Exclui um documento específico.
+$route->delete("/id/{document_id}", "StudentDocuments:delete");
+
+//edita
+$route->put("/id/{document_id}", "StudentDocuments:updateName");
+
+$route->group(null);
+
+
+
+
 
 $route->group("/faqs"); // select by id
 $route->namespace("Source\Controller");

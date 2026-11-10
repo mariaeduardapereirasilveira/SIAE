@@ -7,6 +7,26 @@ use Source\Controller\Api;
 
 class Sectors extends Api
 {
+    private function authorizeReader(): bool
+    {
+        if ($this->authToken('administrador') || $this->authToken('profissional')) {
+            return true;
+        }
+
+        $this->call(401, "unauthorized", "Sessão inválida ou sem permissão para consultar os setores.", "error")->back([]);
+        return false;
+    }
+
+    private function authorizeAdministrator(): bool
+    {
+        if ($this->authToken('administrador')) {
+            return true;
+        }
+
+        $this->call(403, "forbidden", "Apenas administradores podem gerenciar os setores.", "error")->back([]);
+        return false;
+    }
+
     public function hello(): void
     {
         echo "HELLO SECTORS";
@@ -15,6 +35,10 @@ class Sectors extends Api
     // LIST ALL - GET
     public function listAll(): void
     {
+        if (!$this->authorizeReader()) {
+            return;
+        }
+
         $sector = new Sector();
         $sectors = $sector->selectAll(["active = 1"]);
 
@@ -39,6 +63,10 @@ class Sectors extends Api
     // LIST BY ID - GET
     public function listById(array $data): void
     {
+        if (!$this->authorizeReader()) {
+            return;
+        }
+
         if (
             !isset($data["sector_id"]) ||
             empty($data["sector_id"]) ||
@@ -83,6 +111,10 @@ class Sectors extends Api
     // INSERT - POST
     public function insert(array $data): void
     {
+        if (!$this->authorizeAdministrator()) {
+            return;
+        }
+
        
 
         $sectors = new Sector(
@@ -115,6 +147,10 @@ class Sectors extends Api
     // UPDATE - PUT
     public function update(array $data): void
     {
+        if (!$this->authorizeAdministrator()) {
+            return;
+        }
+
       
         if (
             !isset($data["sector_id"]) ||
@@ -179,6 +215,10 @@ class Sectors extends Api
     // DELETE - DELETE
     public function delete(array $data): void
     {
+        if (!$this->authorizeAdministrator()) {
+            return;
+        }
+
         if (
             !isset($data["sector_id"]) ||
             empty($data["sector_id"]) ||

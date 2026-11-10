@@ -25,7 +25,7 @@
 .form-grid input:focus,
 .form-grid select:focus,
 .form-grid textarea:focus{
-  border-color:#2563eb;
+  border-color:#3A1038;
 }
 .form-actions{
   display:flex;

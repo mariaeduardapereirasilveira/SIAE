@@ -1,111 +1,224 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Setores - SIAE</title>
-<link href="../assets/app/styles/app.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="../assets/_common/styles/design-system.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v4.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v5.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v6.css" rel="stylesheet"/>  <link rel="stylesheet" href="../assets/_common/styles/product-polish-v6-1.css">
-</head>
-<body class="admin-page">
-<div class="app-layout">
-<header aria-label="Navega├º├úo principal do SIAE" class="sidebar workspace-shell workspace-toolbar" role="banner">
-<div class="sidebar-logo"><div class="sidebar-logo-icon"><img alt="S├¡mbolo da coruja do SIAE" class="owl-logo" decoding="async" src="../assets/_common/images/siae-owl-black.png"/></div><div class="sidebar-logo-text"><h1>SIAE</h1><p>Conex├Áes entre Setores</p></div></div>
-<nav class="sidebar-nav">
-<div class="sidebar-section-label">Principal</div>
-<a class="sidebar-item" href="../app/dashboard.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></div><span>Dashboard</span></a>
-<a class="sidebar-item" href="../app/search.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg></div><span>Busca</span></a>
-<a class="sidebar-item" href="../app/charts.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg></div><span>Gr├íficos</span></a>
-<a class="sidebar-item" href="../app/reports.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div><span>Relat├│rios</span></a>
-<a class="sidebar-item" href="../app/notifications.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg></div><span>Notifica├º├Áes</span></a>
-<a class="sidebar-item" href="../app/faq.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg></div><span>FAQ</span></a>
-<div class="sidebar-section-label">Administracao</div>
-<a class="sidebar-item" href="students.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></div><span>Alunos</span></a>
-<a class="sidebar-item" href="professionals.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><path d="M20 8v6"></path><path d="M23 11h-6"></path></svg></div><span>Profissionais</span></a>
-<a aria-current="page" class="sidebar-item active" href="sectors.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div><span>Setores</span></a>
-</nav>
-<div class="sidebar-footer">
-<button aria-label="Ativar modo escuro" class="theme-toggle" data-theme-toggle="" title="Ativar modo escuro" type="button">
-<svg aria-hidden="true" class="theme-icon theme-icon-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
-<svg aria-hidden="true" class="theme-icon theme-icon-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"></path></svg>
-<span class="theme-toggle-label">Tema</span>
-</button><a class="sidebar-user" href="../app/profile.html"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Admin</h4><p id="userRole">Administrador</p></div></a>
-
-</div>
-</header>
-<main class="main-content">
-<header class="app-header">
-<div class="header-breadcrumb"><h2>Setores</h2><p>Areas de atuacao</p></div>
-<a class="header-user-chip" href="../app/profile.html"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></a>
-</header>
-<div class="page-content animate-fade-in">
-<div class="page-header">
-<div class="page-header-title"><h1>Setores</h1><p>Areas de atuacao da instituicao</p></div>
-<button class="btn btn-primary btn-sm" onclick="openModal('sectorModal')"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg> Novo Setor</button>
-</div>
-<div class="grid-3" id="sectorsGrid">
-<div class="card" onclick="editSector('Enfermaria')" style="padding: 20px; cursor: pointer;">
-<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-<div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(239,83,80,0.15); display: flex; align-items: center; justify-content: center;"><svg fill="none" height="22" stroke="#EF5350" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></div>
-<div><div style="font-weight: 700; font-size: 15px;">Enfermaria</div><span class="badge badge-danger" style="font-size: 10px;">ENF</span></div>
-</div>
-<p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Atendimento de sa├║de basica e primeiros socorros.</p>
-<div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);"><span>3 profissionais</span><span>145 atendimentos/m├¬s</span></div>
-</div>
-<div class="card" onclick="editSector('Psicologia')" style="padding: 20px; cursor: pointer;">
-<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-<div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(124,77,255,0.15); display: flex; align-items: center; justify-content: center;"><svg fill="none" height="22" stroke="#7C4DFF" stroke-width="2" viewbox="0 0 24 24" width="22"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path></svg></div>
-<div><div style="font-weight: 700; font-size: 15px;">Psicologia</div><span class="badge badge-info" style="font-size: 10px;">PSI</span></div>
-</div>
-<p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Acompanhamento psicologico e triagem comportamental.</p>
-<div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);"><span>4 profissionais</span><span>178 atendimentos/m├¬s</span></div>
-</div>
-<div class="card" onclick="editSector('Pedagogico')" style="padding: 20px; cursor: pointer;">
-<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-<div style="width: 44px; height: 44px; border-radius: 12px; background: var(--primary-container); display: flex; align-items: center; justify-content: center;"><svg fill="none" height="22" stroke="var(--primary)" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 0 3-3h7z"></path></svg></div>
-<div><div style="font-weight: 700; font-size: 15px;">Pedagogico</div><span class="badge badge-primary" style="font-size: 10px;">PED</span></div>
-</div>
-<p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Suporte pedagogico e orienta├º├úo educacional.</p>
-<div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);"><span>5 profissionais</span><span>89 atendimentos/m├¬s</span></div>
-</div>
-<div class="card" onclick="editSector('Social')" style="padding: 20px; cursor: pointer;">
-<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-<div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(38,166,154,0.15); display: flex; align-items: center; justify-content: center;"><svg fill="none" height="22" stroke="#26A69A" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></div>
-<div><div style="font-weight: 700; font-size: 15px;">Social</div><span class="badge badge-success" style="font-size: 10px;">SOC</span></div>
-</div>
-<p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Assistencia social e visitas domiciliares.</p>
-<div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);"><span>2 profissionais</span><span>44 atendimentos/m├¬s</span></div>
-</div>
-</div>
-</div>
-</main>
-</div>
-<!-- Sector Modal -->
-<div class="modal-overlay" id="sectorModal" role="presentation">
-<div aria-label="Cadastrar Setor" aria-modal="true" class="modal" role="dialog" style="max-width: 450px;">
-<div class="modal-header">
-<div><div class="card-title">Cadastrar Setor</div><div class="card-subtitle">Preencha os dados do setor</div></div>
-<button class="btn btn-ghost btn-sm btn-icon" onclick="closeModal('sectorModal')"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></button>
-</div>
-<div class="modal-body">
-<div class="form-group"><label class="form-label">Nome do Setor</label><input class="form-control" id="sectorName" placeholder="Ex: Odontologia" type="text"/></div>
-<div class="grid-2">
-<div class="form-group"><label class="form-label">Sigla</label><input class="form-control" id="sectorAcronym" placeholder="Ex: ODO" style="text-transform: uppercase;" type="text"/></div>
-<div class="form-group"><label class="form-label">Cor</label><select class="form-control" id="sectorColor"><option value="#EF5350">Vermelho</option><option value="#7C4DFF">Roxo</option><option value="#5C6BC0">Azul</option><option value="#26A69A">Verde</option><option value="#FFA726">Laranja</option><option value="#EC407A">Rosa</option></select></div>
-</div>
-<div class="form-group" style="margin-bottom: 0;"><label class="form-label">Descri├º├úo</label><textarea class="form-control" id="sectorDesc" placeholder="Descreva as responsabilidades do setor..." rows="3"></textarea></div>
-</div>
-<div class="modal-footer">
-<button class="btn btn-ghost" onclick="closeModal('sectorModal')">Cancelar</button>
-<button class="btn btn-primary" onclick="saveSector()"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="20 6 9 17 4 12"></polyline></svg>Salvar</button>
-</div>
-</div>
-</div>
-<script src="../assets/admin/script/sectors.js"></script>
-<script defer="True" src="../assets/_common/script/theme-toggle.js"></script><script defer="True" src="../assets/_common/script/workspace-navigation.js"></script></body>
+<html data-theme="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Setores — SIAE</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Sora:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="../assets/_common/styles/global.css" rel="stylesheet" />
+    <link href="../assets/app/styles/app.css" rel="stylesheet" />
+    <link href="../assets/admin/styles/admin.css" rel="stylesheet" />
+    <link
+      href="../assets/public/styles/siae-identity-2026.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="workspace-page">
+    <section class="app-layout">
+      <aside aria-label="Menu administrativo" class="sidebar workspace-shell">
+        <a class="sidebar-logo" href="admin.html"
+          ><span class="sidebar-logo-icon"
+            ><img
+              alt="SIAE"
+              src="../assets/public/images/brand/siae-logo.svg" /></span
+          ><span class="sidebar-logo-text"
+            ><strong>SIAE</strong><small>Administração</small></span
+          ></a
+        >
+        <nav class="sidebar-nav">
+          <p class="sidebar-section-label">Gestão</p>
+          <a class="sidebar-item" href="admin.html">Dashboard</a>
+          <a class="sidebar-item" href="students.html">Alunos</a>
+          <a class="sidebar-item" href="professionals.html">Profissionais</a>
+          <a aria-current="page" class="sidebar-item active" href="sectors.html"
+            >Setores</a
+          >
+          <a class="sidebar-item" href="../app/appointments.html"
+            >Atendimentos</a
+          >
+          <a class="sidebar-item" href="reports.html">Relatórios</a>
+          <a class="sidebar-item" href="notifications.html">Notificações</a>
+          <p class="sidebar-section-label">Conta</p>
+          <a class="sidebar-item" href="../app/profile.html">Meu perfil</a>
+        </nav>
+        <footer class="sidebar-footer">
+          <a class="sidebar-user" href="../app/profile.html"
+            ><span class="sidebar-avatar">AD</span
+            ><span class="sidebar-user-info"
+              ><strong id="userName">Administrador</strong
+              ><small id="userRole">Administração</small></span
+            ></a
+          >
+        </footer>
+      </aside>
+      <main class="main-content">
+        <header class="app-header">
+          <button
+            aria-label="Abrir menu"
+            class="menu-toggle"
+            data-menu-toggle=""
+            type="button"
+          >
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewbox="0 0 24 24"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+          <section class="header-breadcrumb">
+            <h1>Setores</h1>
+            <p>Áreas de atuação da instituição</p>
+          </section>
+          <button
+            aria-label="Ativar modo escuro"
+            class="theme-toggle header-theme-toggle"
+            data-theme-toggle=""
+            title="Tema"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="theme-icon theme-icon-sun"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              viewbox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path
+                d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.3-11.3 1.4-1.4"
+              ></path>
+            </svg>
+            <svg
+              aria-hidden="true"
+              class="theme-icon theme-icon-moon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              viewbox="0 0 24 24"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"></path>
+            </svg>
+            <span class="theme-toggle-label">Tema</span></button
+          ><a
+            aria-label="Notificações"
+            class="header-icon-btn topbar-notifications"
+            href="../app/notifications.html"
+            title="Notificações"
+          >
+            <img
+              alt=""
+              aria_hidden="true"
+              class="notification-bell-svg"
+              src="../assets/public/images/brand/interface/sino.svg" /><span
+              aria-hidden="true"
+              class="notification-indicator"
+            ></span></a
+          ><a class="header-user-chip" href="../app/profile.html"
+            ><span class="header-user-avatar">AD</span
+            ><span class="header-user-name">Meu perfil</span></a
+          >
+        </header>
+        <section class="page-content">
+          <section class="page-heading-row">
+            <section>
+              <p class="eyebrow">ESTRUTURA INSTITUCIONAL</p>
+              <h2>Setores de atendimento</h2>
+              <p class="page-lead">
+                Organize as áreas responsáveis pelo acompanhamento dos
+                estudantes.
+              </p>
+            </section>
+            <button class="button button-coral" id="btnNovoSetor" type="button">
+              Novo setor <span>＋</span>
+            </button>
+          </section>
+          <section
+            aria-label="Setores cadastrados"
+            class="sector-management-grid"
+            id="sectorsGrid"
+          >
+            <article class="sector-management-card">
+              <img alt="" src="../assets/public/images/brand/Vector (3).svg" />
+              <section>
+                <h3>Enfermaria</h3>
+                <p>Saúde e bem-estar dos estudantes.</p>
+              </section>
+            </article>
+            <article class="sector-management-card">
+              <img alt="" src="../assets/public/images/brand/brain.svg" />
+              <section>
+                <h3>Psicologia</h3>
+                <p>Acolhimento e saúde emocional.</p>
+              </section>
+            </article>
+            <article class="sector-management-card">
+              <img alt="" src="../assets/public/images/brand/Group (2).svg" />
+              <section>
+                <h3>Orientação Educacional</h3>
+                <p>Trajetória acadêmica e desenvolvimento.</p>
+              </section>
+            </article>
+          </section>
+        </section>
+      </main>
+    </section>
+    <dialog class="sector-dialog" id="sectorModal">
+      <form id="sectorForm" method="dialog">
+        <header>
+          <section>
+            <p class="eyebrow">CADASTRO</p>
+            <h2 class="modal-title">Novo setor</h2>
+            <p class="modal-subtitle">Informe os dados da área de atuação.</p>
+          </section>
+          <button
+            aria-label="Fechar"
+            class="dialog-close"
+            id="btnFecharModal"
+            type="button"
+          >
+            ×
+          </button>
+        </header>
+        <label for="sectorName">Nome do setor</label
+        ><input
+          class="form-control"
+          id="sectorName"
+          maxlength="45"
+          name="name"
+          placeholder="Ex.: Orientação Educacional"
+          required=""
+        />
+        <label for="sectorDesc">Descrição</label
+        ><textarea
+          class="form-control"
+          id="sectorDesc"
+          name="description"
+          placeholder="Descreva a atuação deste setor."
+          rows="4"
+        ></textarea>
+        <footer>
+          <button class="btn btn-ghost" id="btnCancelar" type="button">
+            Cancelar</button
+          ><button class="btn btn-primary" type="submit">Salvar setor</button>
+        </footer>
+      </form>
+    </dialog>
+    <script src="../assets/admin/script/sectors.js" type="module"></script>
+    <script defer="" src="../assets/_common/script/theme-toggle.js"></script>
+    <script
+      defer=""
+      src="../assets/_common/script/workspace-navigation.js"
+    ></script>
+    <script defer="True" src="../assets/_common/script/siae-ui.js"></script>
+  </body>
 </html>

@@ -1,84 +1,70 @@
-import Users from "../../_common/classes/Users";
-let currentRole = 'admin';
+import Users from "../../_common/classes/Users.js";
 
-        // function setRole(role) {
-        //     currentRole = role;
-        //     document.getElementById('tabProfessional').classList.toggle('active', role === 'professional');
-        //     document.getElementById('tabAdmin').classList.toggle('active', role === 'admin');
-        // }
-
-        // function togglePassword() {
-        //     const input = document.getElementById('passwordInput');
-        //     const icon = document.getElementById('eyeIcon');
-
-        //     if (input.type === 'password') {
-        //         input.type = 'text';
-        //         icon.innerHTML = `
-        //             <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
-        //             <line x1="1" y1="1" x2="23" y2="23"/>
-        //         `;
-        //     } else {
-        //         input.type = 'password';
-        //         icon.innerHTML = `
-        //             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-        //             <circle cx="12" cy="12" r="3"/>
-        //         `;
-        //     }
-        // }
-
-        // function handleLogin(event) {
-        //     event.preventDefault();
-
-        //     // Save role to localStorage
-        //     localStorage.setItem('siae_user_role', currentRole);
-        //     localStorage.setItem('siae_role', currentRole);
-        //     localStorage.setItem('siae_name', currentRole === 'admin' ? 'Admin SIAE' : 'Dra. Patricia Lima');
-        //     localStorage.setItem('siae_is_logged_in', 'true');
-
-        //     // Redirect to dashboard
-        //     window.location.href = '../app/dashboard.html';
-        // }
-
-        // function handleGoogleLogin() {
-        //     localStorage.setItem('siae_user_role', currentRole);
-        //     localStorage.setItem('siae_role', currentRole);
-        //     localStorage.setItem('siae_name', currentRole === 'admin' ? 'Admin SIAE' : 'Dra. Patricia Lima');
-        //     localStorage.setItem('siae_is_logged_in', 'true');
-        //     window.location.href = '../app/dashboard.html';
-        // }
-
-        // // Check if already logged in
-        // if (localStorage.getItem('siae_is_logged_in') === 'true') {
-        //     window.location.href = '../app/dashboard.html';
-        // }
 const users = new Users();
-
 const form = document.querySelector("#loginForm");
+const professionalTab = document.querySelector("#tabProfessional");
+const adminTab = document.querySelector("#tabAdmin");
+const passwordInput = document.querySelector("#passwordInput");
+const passwordToggle = document.querySelector("#togglePassword");
+const feedback = document.querySelector("#loginFeedback");
+const submitButton = form?.querySelector('button[type="submit"]');
+let selectedRole = "admin";
 
-form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+function selectRole(role) {
+  selectedRole = role;
+  const isAdmin = role === "admin";
+  adminTab?.classList.toggle("active", isAdmin);
+  professionalTab?.classList.toggle("active", !isAdmin);
+  adminTab?.setAttribute("aria-pressed", String(isAdmin));
+  professionalTab?.setAttribute("aria-pressed", String(!isAdmin));
+  if (feedback) feedback.textContent = "";
+}
 
-    try {
-        const response = await users.loginFromForm(form);
+professionalTab?.addEventListener("click", () => selectRole("professional"));
+adminTab?.addEventListener("click", () => selectRole("admin"));
 
-        console.log("RESPOSTA COMPLETA:", response);
-
-        if (response.code === 200) {
-            console.log("LOGIN REALIZADO!");
-            console.log(response.data);
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("enrollment", response.data.enrollment);
-            localStorage.setItem("userId", response.data.id);
-            localStorage.setItem("userName", response.data.name);
-            localStorage.setItem("userPhoto", response.data.photoUrl || response.data.photo || "");
-            let token = localStorage.getItem("token");
-            users.setAuthToken(token);
-
-            console.log("TOKEN SALVO:", localStorage.getItem("token"));
-
-            window.location.href = "../app/dashboard.html";
-        }
-    } catch (error) {
-        console.error("ERRO NO LOGIN:", error);
-    }
+passwordToggle?.addEventListener("click", () => {
+  if (!passwordInput) return;
+  const visible = passwordInput.type === "password";
+  passwordInput.type = visible ? "text" : "password";
+  passwordToggle.setAttribute("aria-label", visible ? "Ocultar senha" : "Mostrar senha");
 });
+
+form?.addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!form.reportValidity()) return;
+
+  if (feedback) feedback.textContent = "Verificando acesso...";
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Entrando...";
+  }
+
+  try {
+    const response = selectedRole === "admin"
+      ? await users.loginAdminFromForm(form)
+      : await users.loginFromForm(form);
+
+    if (response?.code !== 200 || !response?.data?.token) {
+      throw new Error(response?.message || "Não foi possível validar suas credenciais.");
+    }
+
+    const user = response.data;
+    localStorage.setItem("token", user.token);
+    localStorage.setItem("enrollment", user.enrollment || (selectedRole === "admin" ? "administrador" : "profissional"));
+    localStorage.setItem("userId", user.id || "");
+    localStorage.setItem("userName", user.name || "");
+    localStorage.setItem("userPhoto", user.photoUrl || user.photo || "");
+    window.location.href = "../app/dashboard.html";
+  } catch (error) {
+    console.error("Erro ao realizar login:", error);
+    if (feedback) feedback.textContent = error.message || "Ocorreu um erro. Tente novamente.";
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = "Entrar";
+    }
+  }
+});
+
+selectRole("admin");

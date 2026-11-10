@@ -1,156 +1,238 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Atendimentos - SIAE</title>
-    <link rel="stylesheet" href="../assets/app/styles/app.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-</head>
-<body>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="../assets/_common/styles/global.css" rel="stylesheet" />
+    <link href="../assets/app/styles/app.css" rel="stylesheet" />
+    <link href="../assets/admin/styles/admin.css" rel="stylesheet" />
+    <link
+      href="../assets/public/styles/siae-identity-2026.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="app-layout">
-        <aside class="sidebar">
-            <div class="sidebar-logo">
-                <div class="sidebar-logo-icon"><span aria-hidden="true">S</span></div>
-                <div class="sidebar-logo-text">
-                    <h1>SIAE</h1>
-                    <p>Conexoes entre Setores</p>
-                </div>
+      <aside class="sidebar">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-icon"><span aria-hidden="true">S</span></div>
+          <div class="sidebar-logo-text">
+            <h1>SIAE</h1>
+            <p>Conexoes entre Setores</p>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="sidebar-section-label">Principal</div>
+          <a class="sidebar-item" href="../app/dashboard.html">Dashboard</a>
+          <a class="sidebar-item" href="../app/search.html">Busca</a>
+          <a class="sidebar-item" href="../app/charts.html">Gráficos</a>
+          <a class="sidebar-item" href="../app/reports.html">Relatórios</a>
+          <a class="sidebar-item" href="../app/notifications.html"
+            >Notificações</a
+          >
+          <a class="sidebar-item" href="../app/faq.html">FAQ</a>
+          <div class="sidebar-section-label">Administracao</div>
+          <a class="sidebar-item" href="students.html">Alunos</a>
+          <a class="sidebar-item" href="../app/appointments.html"
+            >Atendimentos</a
+          >
+          <a class="sidebar-item" href="professionals.html">Profissionais</a>
+          <a class="sidebar-item" href="sectors.html">Setores</a>
+          <a
+            aria-current="page"
+            class="sidebar-item active"
+            href="services.html"
+            >Atendimentos</a
+          >
+        </nav>
+        <div class="sidebar-footer">
+          <a class="sidebar-user" href="../app/profile.html">
+            <div class="sidebar-avatar" id="userAvatar">AD</div>
+            <div class="sidebar-user-info">
+              <h4 id="userName">Administrador</h4>
+              <p>Administrador</p>
             </div>
-
-            <nav class="sidebar-nav">
-                <div class="sidebar-section-label">Principal</div>
-                <a href="../app/dashboard.html" class="sidebar-item"><span>Dashboard</span></a>
-                <a href="../app/search.html" class="sidebar-item"><span>Busca</span></a>
-                <a href="../app/charts.html" class="sidebar-item"><span>Graficos</span></a>
-                <a href="../app/reports.html" class="sidebar-item"><span>Relatorios</span></a>
-                <a href="../app/notifications.html" class="sidebar-item"><span>Notificacoes</span></a>
-                <a href="../app/faq.html" class="sidebar-item"><span>FAQ</span></a>
-
-                <div class="sidebar-section-label">Administracao</div>
-                <a href="students.html" class="sidebar-item"><span>Alunos</span></a>
-                <a href="professionals.html" class="sidebar-item"><span>Profissionais</span></a>
-                <a href="sectors.html" class="sidebar-item"><span>Setores</span></a>
-                <a href="services.html" class="sidebar-item active" aria-current="page">
-                    <span>Atendimentos</span>
-                </a>
-            </nav>
-
-            <div class="sidebar-footer">
-                <a href="../app/profile.html" class="sidebar-user">
-                    <div class="sidebar-avatar" id="userAvatar">AD</div>
-                    <div class="sidebar-user-info">
-                        <h4 id="userName">Administrador</h4>
-                        <p>Administrador</p>
-                    </div>
-                </a>
-                <button class="sidebar-logout" id="logoutButton" type="button">Sair</button>
+          </a>
+          <button class="sidebar-logout" id="logoutButton" type="button">
+            Sair
+          </button>
+        </div>
+      </aside>
+      <main class="main-content">
+        <header class="app-header">
+          <button
+            aria-expanded="false"
+            aria-label="Abrir menu"
+            class="menu-toggle"
+            data-menu-toggle=""
+            type="button"
+          >
+            <span aria-hidden="true" class="menu-toggle-lines"
+              ><i></i><i></i><i></i
+            ></span>
+          </button>
+          <div class="header-breadcrumb">
+            <h2>Atendimentos</h2>
+            <p>Registro e acompanhamento de serviços prestados</p>
+          </div>
+          <button
+            aria-label="Ativar modo escuro"
+            class="theme-toggle header-theme-toggle"
+            data-theme-toggle=""
+            title="Tema"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="theme-icon theme-icon-sun"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              viewbox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path
+                d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.3-11.3 1.4-1.4"
+              ></path>
+            </svg>
+            <svg
+              aria-hidden="true"
+              class="theme-icon theme-icon-moon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              viewbox="0 0 24 24"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"></path>
+            </svg>
+            <span class="theme-toggle-label">Tema</span></button
+          ><a
+            aria-label="Notificações"
+            class="header-icon-btn topbar-notifications"
+            href="../app/notifications.html"
+            title="Notificações"
+          >
+            <img
+              alt=""
+              aria_hidden="true"
+              class="notification-bell-svg"
+              src="../assets/public/images/brand/interface/sino.svg" /><span
+              aria-hidden="true"
+              class="notification-indicator"
+            ></span></a
+          ><a class="header-user-chip" href="../app/profile.html">
+            <div class="header-user-avatar" id="headerAvatar">AD</div>
+            <span class="header-user-name" id="headerName">Administrador</span>
+          </a>
+        </header>
+        <div class="page-content animate-fade-in">
+          <div class="page-header">
+            <div class="page-header-title">
+              <h1>Atendimentos</h1>
+              <p>Registre e acompanhe os atendimentos dos alunos.</p>
             </div>
-        </aside>
-
-        <main class="main-content">
-            <header class="app-header">
-                <div class="header-breadcrumb">
-                    <h2>Atendimentos</h2>
-                    <p>Registro e acompanhamento de serviços prestados</p>
-                </div>
-                <a href="../app/profile.html" class="header-user-chip">
-                    <div class="header-user-avatar" id="headerAvatar">AD</div>
-                    <span class="header-user-name" id="headerName">Administrador</span>
-                </a>
-            </header>
-
-            <div class="page-content animate-fade-in">
-                <div class="page-header">
-                    <div class="page-header-title">
-                        <h1>Atendimentos</h1>
-                        <p>Registre e acompanhe os atendimentos dos alunos.</p>
-                    </div>
-                    <button class="btn btn-primary btn-sm" id="newServiceButton" type="button">
-                        + Novo atendimento
-                    </button>
-                </div>
-
-                <p id="pageMessage" role="status" aria-live="polite"></p>
-
-                <div class="card">
-                    <div class="table-container" style="border: none; border-radius: 0;">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Aluno</th>
-                                    <th>Responsável</th>
-                                    <th>Observações</th>
-                                    <th>Status</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody id="servicesTable">
-                                <tr>
-                                    <td colspan="5">Carregando atendimentos...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <button
+              class="btn btn-primary btn-sm"
+              id="newServiceButton"
+              type="button"
+            >
+              + Novo atendimento
+            </button>
+          </div>
+          <p aria-live="polite" id="pageMessage" role="status"></p>
+          <div class="card">
+            <div
+              class="table-container siae-u-border-none-border-radius-0-4255cd0"
+            >
+              <table>
+                <thead>
+                  <tr>
+                    <th>Aluno</th>
+                    <th>Responsável</th>
+                    <th>Observações</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="servicesTable">
+                  <tr>
+                    <td colspan="5">Carregando atendimentos...</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-        </main>
+          </div>
+        </div>
+      </main>
     </div>
-
-    <div class="modal-overlay" id="serviceModal" aria-hidden="true">
-        <section class="modal" role="dialog" aria-modal="true"
-                 aria-labelledby="modalTitle" style="max-width: 560px;">
-            <form id="serviceForm">
-                <div class="modal-header">
-                    <div>
-                        <div class="card-title" id="modalTitle">Novo atendimento</div>
-                        <div class="card-subtitle">
-                            Informe o aluno e registre as observações.
-                        </div>
-                    </div>
-                    <button class="btn btn-ghost btn-sm btn-icon"
-                            id="closeModalButton" type="button" aria-label="Fechar">
-                        ×
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <input type="hidden" id="serviceId">
-
-                    <div class="form-group">
-                        <label class="form-label" for="studentId">Aluno</label>
-                        <select class="form-control" id="studentId" required>
-                            <option value="">Selecione um aluno</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="observations">Observações</label>
-                        <textarea class="form-control" id="observations" rows="5"
-                                  placeholder="Descreva o atendimento" required></textarea>
-                    </div>
-
-                    <div class="form-group" id="activeField" hidden>
-                        <label class="form-label" for="active">Status</label>
-                        <select class="form-control" id="active">
-                            <option value="1">Ativo</option>
-                            <option value="0">Inativo</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-ghost" id="cancelButton" type="button">
-                        Cancelar
-                    </button>
-                    <button class="btn btn-primary" id="saveButton" type="submit">
-                        Salvar atendimento
-                    </button>
-                </div>
-            </form>
-        </section>
+    <div aria-hidden="true" class="modal-overlay" id="serviceModal">
+      <section
+        aria-labelledby="modalTitle"
+        aria-modal="true"
+        class="modal siae-u-max-width-560px-eb19676"
+        role="dialog"
+      >
+        <form id="serviceForm">
+          <div class="modal-header">
+            <div>
+              <div class="card-title" id="modalTitle">Novo atendimento</div>
+              <div class="card-subtitle">
+                Informe o aluno e registre as observações.
+              </div>
+            </div>
+            <button
+              aria-label="Fechar"
+              class="btn btn-ghost btn-sm btn-icon"
+              id="closeModalButton"
+              type="button"
+            >
+              ×
+            </button>
+          </div>
+          <div class="modal-body">
+            <input id="serviceId" type="hidden" />
+            <div class="form-group">
+              <label class="form-label" for="studentId">Aluno</label>
+              <select class="form-control" id="studentId" required="">
+                <option value="">Selecione um aluno</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="observations">Observações</label>
+              <textarea
+                class="form-control"
+                id="observations"
+                placeholder="Descreva o atendimento"
+                required=""
+                rows="5"
+              ></textarea>
+            </div>
+            <div class="form-group" hidden="" id="activeField">
+              <label class="form-label" for="active">Status</label>
+              <select class="form-control" id="active">
+                <option value="1">Ativo</option>
+                <option value="0">Inativo</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" id="cancelButton" type="button">
+              Cancelar
+            </button>
+            <button class="btn btn-primary" id="saveButton" type="submit">
+              Salvar atendimento
+            </button>
+          </div>
+        </form>
+      </section>
     </div>
-
-    <script type="module" src="../assets/admin/script/services.js"></script>
-</body>
+    <script src="../assets/admin/script/Services.js" type="module"></script>
+    <script defer="True" src="../assets/_common/script/siae-ui.js"></script>
+  </body>
 </html>

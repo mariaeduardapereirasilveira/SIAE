@@ -18,13 +18,23 @@ class Users extends Api {
     // Senhas e outros dados internos nunca são enviados ao navegador.
     public function listAll(): void
     {
-        if (!$this->authToken('administrador')) {
-            $this->call(401, "unauthorized", "Apenas administradores podem consultar esta lista.", "error")->back();
+        $isAdministrator = $this->authToken('administrador');
+        $isProfessional = $this->authToken('profissional');
+
+        if (!$isAdministrator && !$isProfessional) {
+            $this->call(401, "unauthorized", "Sessão inválida ou sem permissão para consultar estudantes.", "error")->back();
             return;
         }
 
         try {
             $pdo = \Source\Core\Connect::getInstance();
+
+            // Administradores consultam estudantes e profissionais.
+            // Profissionais consultam somente estudantes, conforme a matriz de acesso do SIAE.
+            $enrollmentFilter = $isAdministrator
+                ? "u.enrollment IN ('estudante', 'profissional')"
+                : "u.enrollment = 'estudante'";
+
             $query = "SELECT
                         u.id,
                         u.name,
@@ -40,7 +50,7 @@ class Users extends Api {
                       FROM users u
                       LEFT JOIN classes c ON c.id = u.class_id
                       LEFT JOIN sectors s ON s.id = u.sector_id
-                      WHERE u.enrollment IN ('estudante', 'profissional')
+                      WHERE {$enrollmentFilter}
                       ORDER BY u.enrollment ASC, u.name ASC";
             $stmt = $pdo->query($query);
             $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -84,6 +94,39 @@ class Users extends Api {
         }
 
         return null;
+    }
+
+
+
+    // Lista profissionais autorizados para seleção no compartilhamento de ocorrências.
+    public function listProfessionals(): void
+    {
+        if (!$this->authToken('administrador') && !$this->authToken('profissional')) {
+            $this->call(401, "unauthorized", "Sessão inválida ou sem permissão.", "error")->back();
+            return;
+        }
+
+        try {
+            $pdo = \Source\Core\Connect::getInstance();
+            $stmt = $pdo->query(
+                "SELECT u.id, u.name, u.email, u.photo, u.enrollment, u.active,
+                        u.sector_id AS sectorId, s.name AS sectorName
+                 FROM users u
+                 LEFT JOIN sectors s ON s.id = u.sector_id
+                 WHERE u.enrollment = 'profissional' AND u.active = 1
+                 ORDER BY u.name ASC"
+            );
+            $professionals = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($professionals as &$professional) {
+                $professional["photoUrl"] = $this->publicPhotoUrl($professional["photo"] ?? null);
+            }
+            unset($professional);
+
+            $this->call(200, "success", "Profissionais encontrados.", "success")->back($professionals);
+        } catch (\Throwable $exception) {
+            error_log("Erro ao listar profissionais para compartilhamento: " . $exception->getMessage());
+            $this->call(500, "internal_server_error", "Não foi possível carregar os profissionais.", "error")->back();
+        }
     }
 
     // Retorna somente as informações básicas do usuário autenticado.
@@ -625,7 +668,7 @@ public function auth (?array $data = null): void
 
 
         $user = new User();
-        if(!$user->login($data['email'], $data['password'])) {
+       if(!$user->login($data['email'], $data['password'], 'profissional')) {
             $this->call(
                 401,
                 "unauthorized",

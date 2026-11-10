@@ -15,25 +15,51 @@ class Occurrences extends Api
     // LIST ALL - GET
     public function listAll(): void
     {
-        $occurrence = new Occurrence();
-        $occurrences = $occurrence->selectAll();
+        $isAdministrator = $this->authToken('administrador');
+        $isProfessional = $this->authToken('profissional');
 
-        if (empty($occurrences)) {
-            $this->call(
-                404,
-                "not_found",
-                "Nenhuma ocorrência encontrada",
-                "error"
-            )->back([]);
+        if (!$isAdministrator && !$isProfessional) {
+            $this->call(401, "unauthorized", "Sessão inválida ou sem permissão para consultar ocorrências.", "error")->back([]);
             return;
         }
 
-        $this->call(
-            200,
-            "success",
-            "Ocorrências encontradas",
-            "success"
-        )->back($occurrences);
+        try {
+            $pdo = \Source\Core\Connect::getInstance();
+            if ($isAdministrator) {
+                $stmt = $pdo->query(
+                    "SELECT * FROM occurrences WHERE active = 1 ORDER BY created_at DESC, id DESC"
+                );
+            } else {
+                $stmt = $pdo->prepare(
+                    "SELECT DISTINCT o.*
+                     FROM occurrences o
+                     LEFT JOIN shares sh
+                       ON sh.occurrence_id = o.id AND sh.user_id = :shared_user_id AND sh.active = 1
+                     WHERE o.active = 1
+                       AND (
+                         o.user_id = :owner_user_id
+                         OR sh.id IS NOT NULL
+                         OR o.secrecy_level = 'Todas as entidades'
+                       )
+                     ORDER BY o.created_at DESC, o.id DESC"
+                );
+                $stmt->execute([
+                    "shared_user_id" => $this->userAuthId,
+                    "owner_user_id" => $this->userAuthId
+                ]);
+            }
+
+            $occurrences = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if (empty($occurrences)) {
+                $this->call(404, "not_found", "Nenhuma ocorrência disponível.", "error")->back([]);
+                return;
+            }
+
+            $this->call(200, "success", "Ocorrências encontradas.", "success")->back($occurrences);
+        } catch (\Throwable $exception) {
+            error_log("Erro ao listar ocorrências: " . $exception->getMessage());
+            $this->call(500, "internal_server_error", "Não foi possível carregar as ocorrências.", "error")->back([]);
+        }
     }
 
     // LIST BY ID - GET
@@ -92,6 +118,15 @@ class Occurrences extends Api
     // INSERT - POST
     public function insert(array $data): void
     {
+        $isAdministrator = $this->authToken('administrador');
+        $isProfessional = $this->authToken('profissional');
+        if (!$isAdministrator && !$isProfessional) {
+            $this->call(401, "unauthorized", "Sessão inválida ou sem permissão para registrar ocorrências.", "error")->back();
+            return;
+        }
+        // O responsável é sempre o usuário identificado pelo token.
+        $data["user_id"] = $this->userAuthId;
+
        
 
         $occurrence = new Occurrence(
@@ -125,7 +160,7 @@ class Occurrences extends Api
             "success",
             "Ocorrência cadastrada com sucesso!",
             "success"
-        )->back();
+        )->back(["id" => $occurrence->getId()]);
     }
 
     // UPDATE - PUT

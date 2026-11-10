@@ -1,6 +1,12 @@
+function resolveSiaeApiBase() {
+  const parts = window.location.pathname.split("/").filter(Boolean);
+  const projectPrefix = parts.length ? `/${parts[0]}` : "";
+  return `${window.location.origin}${projectPrefix}/api`;
+}
+
 import Users from "../../_common/classes/Users.js";
 
-const API_BASE = "http://localhost/SIAE/api";
+const API_BASE = resolveSiaeApiBase();
 const users = new Users();
 const modal = document.querySelector("#professionalModal");
 const form = document.querySelector("#professionalForm");
@@ -97,9 +103,9 @@ function initials(name) {
 
 function createAvatar(name, photo) {
     const avatar = document.createElement("div");
-    avatar.className = "table-person-avatar";
-    avatar.textContent = initials(name);
     const url = resolvePhotoUrl(photo);
+    avatar.className = `table-person-avatar ${url ? "has-photo" : "is-placeholder"}`;
+    avatar.textContent = initials(name);
     if (url) {
         const image = document.createElement("img"); image.src = url; image.alt = `Foto de ${name}`;
         image.addEventListener("error", () => {
@@ -142,6 +148,35 @@ function showProfessionalDetails(professional) {
     dialog.appendChild(list);
     if (!dialog.isConnected) document.body.appendChild(dialog);
     dialog.showModal();
+}
+
+async function loadProfessionalSectors() {
+    const select = document.querySelector("#profSector");
+    if (!select) return;
+    try {
+        const response = await fetch(`${API_BASE}/sectors/list`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` }
+        });
+        const payload = await response.json();
+        if (!response.ok || payload?.code !== 200 || !Array.isArray(payload.data)) {
+            throw new Error(payload?.message || "Não foi possível carregar os setores.");
+        }
+        const selected = select.value;
+        select.replaceChildren();
+        const placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = "Selecione";
+        select.appendChild(placeholder);
+        payload.data.forEach(sector => {
+            const option = document.createElement("option");
+            option.value = sector.name;
+            option.textContent = sector.name;
+            select.appendChild(option);
+        });
+        if (payload.data.some(sector => sector.name === selected)) select.value = selected;
+    } catch (error) {
+        console.warn("Não foi possível atualizar as opções de setor do formulário:", error);
+    }
 }
 
 async function loadProfessionals() {
@@ -212,4 +247,4 @@ form?.addEventListener("submit", async (event) => {
     }
 });
 
-if (checkAuth()) loadProfessionals();
+if (checkAuth()) { loadProfessionalSectors(); loadProfessionals(); }

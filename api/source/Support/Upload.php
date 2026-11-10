@@ -7,27 +7,48 @@ use RuntimeException;
 
 class Upload
 {
-    private const MIME_EXTENSIONS = [
-        'image/jpeg' => 'jpg',
-        'image/png' => 'png',
-        'image/webp' => 'webp',
-        'application/pdf' => 'pdf',
-        'application/zip' => 'zip',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
-        'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'pptx',
-    ];
+   private const MIME_EXTENSIONS = [
+    'image/jpeg' => 'jpg',
+    'image/png' => 'png',
+    'image/webp' => 'webp',
+
+    'application/pdf' => 'pdf',
+    'application/zip' => 'zip',
+
+    'application/msword' => 'doc',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
+
+    'application/vnd.ms-excel' => 'xls',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
+
+    'text/csv' => 'csv',
+    'application/csv' => 'csv',
+    'text/plain' => 'txt',
+
+    'application/vnd.ms-powerpoint' => 'ppt',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'pptx',
+];
 
     public string $destinationDirectory;
     public int $maxFileSize = 10 * 1024 * 1024;
     public int $maxImageSize = 5 * 1024 * 1024;
     public array $allowedFileTypes = [
-        'application/pdf',
-        'application/zip',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-    ];
+    'application/pdf',
+    'application/zip',
+
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+
+    'text/csv',
+    'application/csv',
+    'text/plain',
+
+    'application/vnd.ms-powerpoint',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+];
     public array $allowedImageTypes = [
         'image/jpeg',
         'image/png',

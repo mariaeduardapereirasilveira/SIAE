@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-labelledby="siae-title siae-desc">
+<title id="siae-title">Símbolo SIAE</title><desc id="siae-desc">Símbolo da pessoa ao centro, cercada por formas orgânicas em coral, rosa e magenta.</desc><svg x="20" y="3" width="30" height="23" viewBox="0 0 30 23">
+<path d="M15.5006 6.30602C26.6993 -0.31398 29.4106 -1.2431 30 1.31198V13.4723L19.9801 20.4751C17.033 22.2172 16.0895 24.0984 12.9072 22.2172C9.96012 20.4751 -4.42144 17.4555 1.35476 14.7843L15.5006 6.30602Z" fill="url(#paint0_linear_8_30)"/>
+<defs>
+<linearGradient id="paint0_linear_8_30" x1="15" y1="0" x2="15" y2="23" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F18B70"/>
+<stop offset="1" stop-color="#ED6585"/>
+</linearGradient>
+</defs>
+</svg><svg x="50" y="3" width="33" height="23" viewBox="0 0 33 23">
+<path d="M15.4179 5.70816C3.3893 -0.387397 0.508065 -1.19319 0.00836889 1.37381L3.39059e-06 13.542L11.3791 19.9962C14.5445 21.6003 15.6187 23.4302 18.864 21.4203C21.8694 19.559 36.7874 15.9281 30.6173 13.5233L15.4179 5.70816Z" fill="url(#paint0_linear_8_31)"/>
+<defs>
+<linearGradient id="paint0_linear_8_31" x1="15.3676" y1="-0.573764" x2="16.3213" y2="22.3063" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E83E9B"/>
+<stop offset="1" stop-color="#BE0068"/>
+</linearGradient>
+</defs>
+</svg><svg x="1" y="27" width="32" height="49" viewBox="0 0 32 49">
+<path d="M12.6934 37.3255C10.8955 36.1966 3.44673 30.4393 1.77718 23.3274C1.52033 22.1986 -1.43348 12.1516 0.878198 1.65309C0.878198 1.65309 -0.406068 -5.23304 12.6934 9.10365L21.1696 19.9408C25.5361 24.795 38.5072 55.6132 27.9762 47.7111L12.6934 37.3255Z" fill="url(#paint0_linear_8_33)"/>
+<defs>
+<linearGradient id="paint0_linear_8_33" x1="16" y1="0" x2="16" y2="49" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F18B70"/>
+<stop offset="0.5" stop-color="#ED6586"/>
+<stop offset="1" stop-color="#CD50CB"/>
+</linearGradient>
+</defs>
+</svg><svg x="67" y="27" width="31" height="49" viewBox="0 0 31 49">
+<path d="M18.7032 37.3255C20.445 36.1966 27.661 30.4393 29.2784 23.3274C29.5272 22.1986 32.3887 12.1516 30.1492 1.65309C30.1492 1.65309 31.3934 -5.23304 18.7032 9.10365L10.492 19.9408C6.26191 24.795 -6.30383 55.6132 3.89806 47.7111L18.7032 37.3255Z" fill="url(#paint0_linear_8_34)"/>
+<defs>
+<linearGradient id="paint0_linear_8_34" x1="15.5" y1="0" x2="15.5" y2="49" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F18B70"/>
+<stop offset="0.5" stop-color="#ED6586"/>
+<stop offset="1" stop-color="#CD50CB"/>
+</linearGradient>
+</defs>
+</svg><svg x="29" y="33" width="43" height="45" viewBox="0 0 43 45">
+<path d="M15.8451 9.61976C22.1922 15.0521 22.5408 12.9295 26.6508 10.2988C29.6283 8.3929 37.8049 1.01857 41.9878 0C44.0792 0 42.9173 2.48982 38.6183 6.11137C37.5292 7.02878 32.1116 12.6755 27.3479 24.5587C24.3524 32.031 24.3621 32.6099 23.9784 37.0078C23.2379 45.4958 21.2627 46.288 19.4037 43.685C19.21 42.9683 18.7065 40.6293 18.0527 35.7629C17.9472 34.9774 17.2468 30.4437 11.7785 17.5419C8.99726 10.98 5.85282 7.92214 4.10997 6.11137C2.36712 4.3006 -3.09379 -0.565868 2.36712 0.679038C7.59819 1.87155 15.8451 9.61976 15.8451 9.61976Z" fill="#FFF3E2"/>
+</svg><svg x="44" y="30" width="12" height="12" viewBox="0 0 12 12">
+<circle cx="6" cy="6" r="6" fill="#FFF4E6"/>
+</svg></svg>

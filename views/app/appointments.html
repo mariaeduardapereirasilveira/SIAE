@@ -1,0 +1,306 @@
+<!doctype html>
+
+<html data-theme="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Atendimentos — SIAE</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Sora:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="../assets/_common/styles/global.css" rel="stylesheet" />
+    <link href="../assets/app/styles/app.css" rel="stylesheet" />
+    <link
+      href="../assets/public/styles/siae-identity-2026.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="workspace-page">
+    <section class="app-layout">
+      <aside aria-label="Menu principal" class="sidebar workspace-shell">
+        <a aria-label="SIAE, início" class="sidebar-logo" href="dashboard.html">
+          <span class="sidebar-logo-icon"
+            ><img alt="" src="../assets/public/images/brand/siae-logo.svg"
+          /></span>
+          <span class="sidebar-logo-text"
+            ><strong>SIAE</strong><small>Atendimento ao estudante</small></span
+          >
+        </a>
+        <nav class="sidebar-nav">
+          <p class="sidebar-section-label">Visão geral</p>
+          <a class="sidebar-item" href="dashboard.html">Dashboard</a>
+          <a class="sidebar-item" href="search.html">Busca</a>
+          <a class="sidebar-item" href="appointments.html">Atendimentos</a>
+          <a class="sidebar-item" href="occurrences.html">Minhas Ocorrências</a>
+          <a class="sidebar-item" href="charts.html">Gráficos</a>
+          <a class="sidebar-item" href="reports.html">Relatórios</a>
+          <a class="sidebar-item" href="notifications.html">Notificações</a>
+          <a class="sidebar-item" href="faq.html">FAQ</a>
+          <p class="sidebar-section-label">Conta</p>
+          <a class="sidebar-item" href="profile.html">Meu perfil</a>
+        </nav>
+        <footer class="sidebar-footer">
+          <a class="sidebar-user" href="profile.html"
+            ><span class="sidebar-avatar">US</span
+            ><span class="sidebar-user-info"
+              ><strong id="userName">Usuário</strong
+              ><small id="userRole">Profissional</small></span
+            ></a
+          >
+        </footer>
+      </aside>
+      <main class="main-content">
+        <header class="app-header">
+          <button
+            aria-label="Abrir menu"
+            class="menu-toggle"
+            data-menu-toggle=""
+            type="button"
+          >
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewbox="0 0 24 24"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+          <section class="header-breadcrumb">
+            <h1>Atendimentos</h1>
+            <p>Registros e acompanhamentos estudantis</p>
+          </section>
+          <nav aria-label="Ações da conta" class="app-header-actions">
+            <button
+              aria-label="Ativar modo escuro"
+              class="theme-toggle header-theme-toggle"
+              data-theme-toggle=""
+              title="Tema"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="theme-icon theme-icon-sun"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewbox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path
+                  d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.3-11.3 1.4-1.4"
+                ></path>
+              </svg>
+              <svg
+                aria-hidden="true"
+                class="theme-icon theme-icon-moon"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  d="M20.5 14A8.5 8.5 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"
+                ></path>
+              </svg>
+              <span class="theme-toggle-label">Tema</span></button
+            ><a
+              aria-label="Notificações"
+              class="header-icon-btn"
+              href="notifications.html"
+              title="Notificações"
+              >♧<img
+                alt=""
+                aria_hidden="true"
+                class="notification-bell-svg"
+                src="../assets/public/images/brand/interface/sino.svg"
+            /></a>
+            <a class="header-user-chip" href="profile.html"
+              ><span class="header-user-avatar">US</span
+              ><span class="header-user-name">Meu perfil</span></a
+            >
+          </nav>
+        </header>
+        <section class="page-content">
+          <section class="page-heading-row">
+            <section>
+              <p class="eyebrow">ACOMPANHAMENTO</p>
+              <h2>Atendimentos</h2>
+              <p class="page-lead">
+                Consulte os registros e acompanhe os atendimentos que você tem
+                permissão para visualizar.
+              </p>
+            </section>
+            <button
+              class="button button-coral"
+              id="openAppointmentForm"
+              type="button"
+            >
+              Registrar atendimento <span>＋</span>
+            </button>
+          </section>
+          <section
+            aria-label="Resumo dos atendimentos"
+            class="appointment-summary-grid"
+          >
+            <article>
+              <span class="summary-icon">▤</span
+              ><small>Registros no período</small><strong>28</strong
+              ><em>Dados demonstrativos</em>
+            </article>
+            <article>
+              <span class="summary-icon">◷</span><small>Em acompanhamento</small
+              ><strong>12</strong><em>Dados demonstrativos</em>
+            </article>
+            <article>
+              <span class="summary-icon">✓</span><small>Finalizados</small
+              ><strong>16</strong><em>Dados demonstrativos</em>
+            </article>
+          </section>
+          <section class="appointment-filter-panel">
+            <label for="appointmentSearch">Buscar atendimento</label>
+            <input
+              id="appointmentSearch"
+              placeholder="Nome do estudante, matrícula ou assunto"
+              type="search"
+            />
+            <label for="appointmentStatus">Situação</label>
+            <select id="appointmentStatus">
+              <option value="all">Todas</option>
+              <option value="active">Em acompanhamento</option>
+              <option value="closed">Finalizados</option>
+            </select>
+          </section>
+          <section
+            aria-label="Lista de atendimentos"
+            class="appointment-list"
+            id="appointmentList"
+          >
+            <article class="appointment-card">
+              <span class="appointment-date"
+                >12 JUN<br /><strong>2026</strong></span
+              >
+              <section>
+                <small>ORIENTAÇÃO EDUCACIONAL</small>
+                <h3>Acompanhamento acadêmico</h3>
+                <p>Ana Paula Silva · 1º Info A</p>
+              </section>
+              <span class="status-pill">Em acompanhamento</span>
+            </article>
+          </section>
+
+          <p class="privacy-note">
+            Esta tela utiliza registros demonstrativos. A integração deverá
+            mapear os atendimentos para as entidades existentes de serviços,
+            ocorrências e tratamentos, após validar as regras e endpoints da
+            API.
+          </p>
+        </section>
+      </main>
+    </section>
+    <script defer="" src="../assets/_common/script/theme-toggle.js"></script>
+    <script
+      defer=""
+      src="../assets/_common/script/workspace-navigation.js"
+    ></script>
+    <script defer="" src="../assets/app/script/appointments.js"></script>
+    <script defer="True" src="../assets/_common/script/siae-ui.js"></script>
+    <dialog class="appointment-dialog" id="appointmentDialog">
+      <form id="appointmentForm" method="dialog">
+        <header>
+          <section>
+            <p class="eyebrow">NOVO REGISTRO</p>
+            <h2>Registrar atendimento</h2>
+            <p>Preencha os dados principais do atendimento.</p>
+          </section>
+          <button
+            aria-label="Fechar formulário"
+            class="dialog-close"
+            id="closeAppointmentForm"
+            type="button"
+          >
+            ×
+          </button>
+        </header>
+        <div class="appointment-dialog-body">
+          <fieldset>
+            <legend>Identificação</legend>
+            <label for="appointmentStudent">Estudante</label
+            ><input
+              id="appointmentStudent"
+              name="student"
+              placeholder="Nome ou matrícula"
+              required=""
+            />
+            <label for="appointmentSector">Setor</label
+            ><select id="appointmentSector" name="sector" required="">
+              <option value="">Selecione o setor</option>
+              <option>Orientação Educacional</option>
+              <option>Psicologia</option>
+              <option>Enfermaria</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <legend>Informações do atendimento</legend>
+            <section class="form-grid-two">
+              <label>Data<input name="date" required="" type="date" /></label
+              ><label
+                >Horário<input name="time" required="" type="time"
+              /></label>
+            </section>
+            <label for="appointmentType">Tipo de atendimento</label
+            ><input
+              id="appointmentType"
+              name="type"
+              placeholder="Ex.: Acompanhamento"
+              required=""
+            />
+            <label for="appointmentDescription">Descrição</label
+            ><textarea
+              id="appointmentDescription"
+              name="description"
+              placeholder="Descreva o atendimento de forma objetiva."
+              required=""
+              rows="4"
+            ></textarea>
+            <label for="appointmentNotes">Encaminhamentos e observações</label
+            ><textarea
+              id="appointmentNotes"
+              name="notes"
+              placeholder="Informações complementares, se necessário."
+              rows="3"
+            ></textarea>
+          </fieldset>
+          <fieldset>
+            <legend>Confidencialidade</legend>
+            <label for="appointmentPrivacy">Compartilhamento</label
+            ><select id="appointmentPrivacy" name="privacy">
+              <option>Somente meu setor</option>
+              <option>Compartilhamento autorizado</option>
+              <option>Registro privado</option>
+            </select>
+            <label for="appointmentStatusForm">Situação</label
+            ><select id="appointmentStatusForm" name="status">
+              <option value="active">Em acompanhamento</option>
+              <option value="closed">Finalizado</option>
+            </select>
+          </fieldset>
+        </div>
+        <footer>
+          <button
+            class="btn btn-ghost"
+            id="cancelAppointmentForm"
+            type="button"
+          >
+            Cancelar</button
+          ><button class="btn btn-primary" type="submit">
+            Salvar registro
+          </button>
+        </footer>
+      </form>
+    </dialog>
+  </body>
+</html>

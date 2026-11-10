@@ -1,7 +1,7 @@
 
 :root {
-  --color-primary: #355c7d;
-  --color-primary-dark: #243b53;
+  --color-primary: #3A1038;
+  --color-primary-dark: #3A1038;
   --color-primary-light: #edf2f7;
 
   --color-secondary: #c06c84;
@@ -28,8 +28,8 @@
   --color-danger: #c53030;
   --color-info: #3182ce;
 
-  --color-deep-teal: #243b53;
-  --color-teal: #355c7d;
+  --color-deep-teal: #3A1038;
+  --color-teal: #3A1038;
   --color-cream: #f7fafc;
   --color-rose: #c06c84;
   --color-wine: #6b3657;

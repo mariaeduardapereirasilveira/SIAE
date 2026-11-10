@@ -1,8 +1,14 @@
+function resolveSiaeApiBase() {
+  const parts = window.location.pathname.split("/").filter(Boolean);
+  const projectPrefix = parts.length ? `/${parts[0]}` : "";
+  return `${window.location.origin}${projectPrefix}/api`;
+}
+
 /* Mantém a navegação por perfil e sincroniza nome/foto do usuário autenticado. */
 (() => {
   'use strict';
 
-  const API_BASE = 'http://localhost/SIAE/api';
+  const API_BASE = resolveSiaeApiBase();
   const token = (() => { try { return localStorage.getItem('token') || ''; } catch (_) { return ''; } })();
   let role = '';
   try {

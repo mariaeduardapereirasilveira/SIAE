@@ -2,8 +2,10 @@ export default class HttpClientBase {
     #baseUrl;
     #defaultHeaders;
 
-    constructor(baseUrl = "http://localhost/SIAE/api") {
-        this.#baseUrl = baseUrl;
+    constructor(baseUrl = null) {
+        const parts = window.location.pathname.split("/").filter(Boolean);
+        const projectPrefix = parts.length ? `/${parts[0]}` : "";
+        this.#baseUrl = (baseUrl || `${window.location.origin}${projectPrefix}/api`).replace(/\/+$/, "");
         this.#defaultHeaders = {
             "Content-Type": "application/json"
         };

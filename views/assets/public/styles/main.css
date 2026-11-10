@@ -5,16 +5,16 @@
 
 /* ---- CSS Variables (Design Tokens) ---- */
 :root {
-    --primary: #5C6BC0;
+    --primary: #3A1038;
     --primary-hover: #4A5AB0;
     --primary-dark: #3949AB;
     --primary-light: #7986CB;
     --primary-container: #E8EAF6;
 
-    --secondary: #7C4DFF;
+    --secondary: #7A3B8F;
     --secondary-container: #EDE7F6;
 
-    --accent: #42A5F5;
+    --accent: #7A3B8F;
     --accent-container: #E3F2FD;
 
     --success: #26A69A;

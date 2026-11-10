@@ -220,7 +220,7 @@ option, optgroup { font: inherit; }
   color: #71829A !important;
 }
 .login-form-container .input-wrapper .input-action svg { width: 18px !important; height: 18px !important; }
-.login-form-container .input-wrapper .input-action:hover { color: #2F62D6 !important; background: transparent !important; box-shadow: none !important; }
+.login-form-container .input-wrapper .input-action:hover { color: #7A3B8F !important; background: transparent !important; box-shadow: none !important; }
 .login-form-container .input-wrapper:has(.input-action) .form-control { padding-right: 4px !important; }
 .login-form-container .form-group { min-width: 0; }
 .login-form-container .form-label { display: block; margin-bottom: 8px !important; }
@@ -293,7 +293,7 @@ html[data-theme="dark"] :where(select option, select optgroup, option, optgroup)
   color: #EEF3FC !important;
   background-color: #111C2D !important;
 }
-html[data-theme="dark"] :where(input[type="checkbox"], input[type="radio"]) { accent-color: #82A7FF; }
+html[data-theme="dark"] :where(input[type="checkbox"], input[type="radio"]) { accent-color: #E64ABF; }
 html[data-theme="dark"] :where(.input-wrapper, .search-box, .search-field, .search-container, .date-picker, .select-wrapper) {
   background-color: #0B1525 !important;
   border-color: #344861 !important;
@@ -314,7 +314,7 @@ html[data-theme="dark"] :where(.btn-secondary, .btn-outline, .btn-ghost, .btn-li
 }
 html[data-theme="dark"] :where(.btn-primary, .login-form-container form > .btn-primary) {
   color: #FFFFFF !important;
-  background: linear-gradient(120deg, #4478E8, #2F62D6) !important;
+  background: linear-gradient(120deg, #4478E8, #7A3B8F) !important;
   border-color: #4779E4 !important;
 }
 html[data-theme="dark"] :where(.badge-primary, .badge-teal, .badge-info, .status-info, .tag-primary) {
@@ -371,14 +371,14 @@ html[data-theme="dark"] .login-form-container .input-icon { color: #AFC0D9 !impo
 html[data-theme="dark"] .login-form-container .input-action { color: #C1D2EB !important; }
 html[data-theme="dark"] .login-form-container .input-action:hover { color: #FFFFFF !important; }
 html[data-theme="dark"] .login-form-container .login-tabs { background: #17243A !important; border-color: #293951 !important; }
-html[data-theme="dark"] .login-form-container .login-tab.active { color: #FFFFFF !important; background: #2F62D6 !important; }
+html[data-theme="dark"] .login-form-container .login-tab.active { color: #FFFFFF !important; background: #7A3B8F !important; }
 html[data-theme="dark"] .theme-toggle,
 html[data-theme="dark"] .topbar-actions .theme-toggle,
 html[data-theme="dark"] .theme-toggle-floating {
   color: #E3ECFD !important; background: #17243A !important; border-color: #344862 !important;
 }
 html[data-theme="dark"] .theme-toggle:hover { background: #263B5D !important; }
-html[data-theme="dark"] ::selection { color: #FFFFFF; background: #244FB9; }
+html[data-theme="dark"] ::selection { color: #FFFFFF; background: #7A3B8F; }
 
 /* Keep the page's existing modal mechanisms but soften the entrance. */
 .modal-overlay.active, .modal-overlay.is-open {
@@ -399,7 +399,7 @@ html[data-theme="dark"] ::selection { color: #FFFFFF; background: #244FB9; }
 html[data-theme="dark"] :where(.filter-btn.active, .tab-btn.active, .admin-tabs button.is-active,
   .login-tab.active, .sidebar-item.active, .sidebar-item[aria-current="page"]) {
   color: #FFFFFF !important;
-  background: linear-gradient(120deg, #376BE4, #244FB9) !important;
+  background: linear-gradient(120deg, #376BE4, #7A3B8F) !important;
   border-color: #4779E4 !important;
 }
 :where(.filter-btn, .tab-btn, .admin-tabs button, .login-tab) { border-radius: 10px; }

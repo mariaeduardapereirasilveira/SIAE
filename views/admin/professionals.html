@@ -1,139 +1,313 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 
 <html lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Profissionais - SIAE</title>
-<link href="../assets/app/styles/app.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="../assets/_common/styles/design-system.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v4.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v5.css" rel="stylesheet"/><link href="../assets/_common/styles/product-redesign-v6.css" rel="stylesheet"/>  <link rel="stylesheet" href="../assets/_common/styles/product-polish-v6-1.css">
-</head>
-<body class="admin-page">
-<div class="app-layout">
-<header aria-label="Navega├º├úo principal do SIAE" class="sidebar workspace-shell workspace-toolbar" role="banner">
-<div class="sidebar-logo"><div class="sidebar-logo-icon"><img alt="S├¡mbolo da coruja do SIAE" class="owl-logo" decoding="async" src="../assets/_common/images/siae-owl-black.png"/></div><div class="sidebar-logo-text"><h1>SIAE</h1><p>Conex├Áes entre Setores</p></div></div>
-<nav class="sidebar-nav">
-<div class="sidebar-section-label">Principal</div>
-<a class="sidebar-item" href="../app/dashboard.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></div><span>Dashboard</span></a>
-<a class="sidebar-item" href="../app/search.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg></div><span>Busca</span></a>
-<a class="sidebar-item" href="../app/charts.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg></div><span>Gr├íficos</span></a>
-<a class="sidebar-item" href="../app/reports.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div><span>Relat├│rios</span></a>
-<a class="sidebar-item" href="../app/notifications.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg></div><span>Notifica├º├Áes</span></a>
-<a class="sidebar-item" href="../app/faq.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg></div><span>FAQ</span></a>
-<div class="sidebar-section-label">Administracao</div>
-<a class="sidebar-item" href="students.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></div><span>Alunos</span></a>
-<a aria-current="page" class="sidebar-item active" href="professionals.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><path d="M20 8v6"></path><path d="M23 11h-6"></path></svg></div><span>Profissionais</span></a>
-<a class="sidebar-item" href="sectors.html"><div class="sidebar-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div><span>Setores</span></a>
-</nav>
-<div class="sidebar-footer">
-<button aria-label="Ativar modo escuro" class="theme-toggle" data-theme-toggle="" title="Ativar modo escuro" type="button">
-<svg aria-hidden="true" class="theme-icon theme-icon-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
-<svg aria-hidden="true" class="theme-icon theme-icon-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"></path></svg>
-<span class="theme-toggle-label">Tema</span>
-</button><a class="sidebar-user" href="../app/profile.html"><div class="sidebar-avatar" id="userAvatar">AD</div><div class="sidebar-user-info"><h4 id="userName">Admin</h4><p id="userRole">Administrador</p></div></a>
-
-</div>
-</header>
-<main class="main-content">
-<header class="app-header">
-<div class="header-breadcrumb"><h2>Profissionais</h2><p>Gerenciamento de profissionais</p></div>
-<a class="header-user-chip" href="../app/profile.html"><div class="header-user-avatar" id="headerAvatar">AD</div><span class="header-user-name" id="headerName">Admin</span></a>
-</header>
-<div class="page-content animate-fade-in">
-<div class="page-header">
-<div class="page-header-title"><h1>Profissionais</h1><p>Gerenciamento da equipe</p></div>
-<button class="btn btn-primary btn-sm" id="openProfessionalModal" type="button">
-<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg> Novo Profissional</button>
-</div>
-<div class="card">
-<div class="table-container" style="border: none; border-radius: 0;">
-<table>
-<thead><tr><th>Profissional</th><th>Setor</th><th>E-mail</th><th>Status</th><th>A├º├Áes</th></tr></thead>
-<tbody id="professionalsTable"><tr><td colspan="5" class="table-message">Carregando profissionais...</td></tr></tbody>
-</table>
-</div>
-</div>
-</div>
-</main>
-</div>
-<!-- Professional Modal -->
-<div class="modal-overlay" id="professionalModal" role="presentation">
-<div aria-label="Cadastrar Profissional" aria-modal="true" class="modal" role="dialog" style="max-width: 500px;">
-<div class="modal-header">
-<div>
-<div class="card-title">Cadastrar Profissional</div>
-<div class="card-subtitle">Preencha os dados do profissional</div>
-</div>
-<button aria-label="Fechar" class="btn btn-ghost btn-sm btn-icon" id="closeProfessionalModal" type="button">
-<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
-<line x1="18" x2="6" y1="6" y2="18"></line>
-<line x1="6" x2="18" y1="6" y2="18"></line>
-</svg>
-</button>
-</div>
-<form id="professionalForm">
-<div class="modal-body">
-<div class="form-group">
-<label class="form-label" for="profName">
-                Nome Completo
-            </label>
-<input autocomplete="name" class="form-control" id="profName" name="name" placeholder="Nome do profissional" required="" type="text"/>
-</div>
-<div class="grid-2">
-<!-- <div class="form-group">
-                <label class="form-label" for="profFunction">
-                    Fun├º├úo
-                </label>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Profissionais - SIAE</title>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="../assets/_common/styles/global.css" rel="stylesheet" />
+    <link href="../assets/app/styles/app.css" rel="stylesheet" />
+    <link href="../assets/admin/styles/admin.css" rel="stylesheet" />
+    <link
+      href="../assets/public/styles/siae-identity-2026.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="admin-page">
+    <div class="app-layout">
+      <header
+        aria-label="Navega├º├úo principal do SIAE"
+        class="sidebar workspace-shell workspace-toolbar"
+        role="banner"
+      >
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-icon">
+            <img
+              alt="Símbolo SIAE"
+              class="owl-logo"
+              decoding="async"
+              src="../assets/public/images/brand/siae-logo.svg"
+            />
+          </div>
+          <div class="sidebar-logo-text">
+            <h1>SIAE</h1>
+            <p>Conex├Áes entre Setores</p>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="sidebar-section-label">Principal</div>
+          <a class="sidebar-item" href="../app/dashboard.html">Dashboard</a>
+          <a class="sidebar-item" href="../app/search.html">Busca</a>
+          <a class="sidebar-item" href="../app/charts.html">Gráficos</a>
+          <a class="sidebar-item" href="../app/reports.html">Relatórios</a>
+          <a class="sidebar-item" href="../app/notifications.html"
+            >Notificações</a
+          >
+          <a class="sidebar-item" href="../app/faq.html">FAQ</a>
+          <div class="sidebar-section-label">Administracao</div>
+          <a class="sidebar-item" href="students.html">Alunos</a>
+          <a class="sidebar-item" href="../app/appointments.html"
+            >Atendimentos</a
+          >
+          <a
+            aria-current="page"
+            class="sidebar-item active"
+            href="professionals.html"
+            >Profissionais</a
+          >
+          <a class="sidebar-item" href="sectors.html">Setores</a>
+        </nav>
+        <div class="sidebar-footer">
+          <a class="sidebar-user" href="../app/profile.html"
+            ><div class="sidebar-avatar" id="userAvatar">AD</div>
+            <div class="sidebar-user-info">
+              <h4 id="userName">Admin</h4>
+              <p id="userRole">Administrador</p>
+            </div></a
+          >
+        </div>
+      </header>
+      <main class="main-content">
+        <header class="app-header">
+          <button
+            aria-expanded="false"
+            aria-label="Abrir menu"
+            class="menu-toggle"
+            data-menu-toggle=""
+            type="button"
+          >
+            <span aria-hidden="true" class="menu-toggle-lines"
+              ><i></i><i></i><i></i
+            ></span>
+          </button>
+          <div class="header-breadcrumb">
+            <h2>Profissionais</h2>
+            <p>Gerenciamento de profissionais</p>
+          </div>
+          <button
+            aria-label="Ativar modo escuro"
+            class="theme-toggle header-theme-toggle"
+            data-theme-toggle=""
+            title="Tema"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="theme-icon theme-icon-sun"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              viewbox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path
+                d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.3-11.3 1.4-1.4"
+              ></path>
+            </svg>
+            <svg
+              aria-hidden="true"
+              class="theme-icon theme-icon-moon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              viewbox="0 0 24 24"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"></path>
+            </svg>
+            <span class="theme-toggle-label">Tema</span></button
+          ><a
+            aria-label="Notificações"
+            class="header-icon-btn topbar-notifications"
+            href="../app/notifications.html"
+            title="Notificações"
+          >
+            <img
+              alt=""
+              aria_hidden="true"
+              class="notification-bell-svg"
+              src="../assets/public/images/brand/interface/sino.svg" /><span
+              aria-hidden="true"
+              class="notification-indicator"
+            ></span></a
+          ><a class="header-user-chip" href="../app/profile.html"
+            ><div class="header-user-avatar" id="headerAvatar">AD</div>
+            <span class="header-user-name" id="headerName">Admin</span></a
+          >
+        </header>
+        <div class="page-content animate-fade-in">
+          <div class="page-header">
+            <div class="page-header-title">
+              <h1>Profissionais</h1>
+              <p>Gerenciamento da equipe</p>
+            </div>
+            <button
+              class="btn btn-primary btn-sm"
+              id="openProfessionalModal"
+              type="button"
+            >
+              <svg
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-width="2"
+                viewbox="0 0 24 24"
+                width="14"
+              >
+                <line x1="12" x2="12" y1="5" y2="19"></line>
+                <line x1="5" x2="19" y1="12" y2="12"></line>
+              </svg>
+              Novo Profissional
+            </button>
+          </div>
+          <div class="card">
+            <div
+              class="table-container siae-u-border-none-border-radius-0-4255cd0"
+            >
+              <table>
+                <thead>
+                  <tr>
+                    <th>Profissional</th>
+                    <th>Setor</th>
+                    <th>E-mail</th>
+                    <th>Status</th>
+                    <th>A├º├Áes</th>
+                  </tr>
+                </thead>
+                <tbody id="professionalsTable">
+                  <tr>
+                    <td class="table-message" colspan="5">
+                      Carregando profissionais...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <!-- Professional Modal -->
+    <div class="modal-overlay" id="professionalModal" role="presentation">
+      <div
+        aria-label="Cadastrar Profissional"
+        aria-modal="true"
+        class="modal siae-u-max-width-500px-72fca94"
+        role="dialog"
+      >
+        <div class="modal-header">
+          <div>
+            <div class="card-title">Cadastrar Profissional</div>
+            <div class="card-subtitle">Preencha os dados do profissional</div>
+          </div>
+          <button
+            aria-label="Fechar"
+            class="btn btn-ghost btn-sm btn-icon"
+            id="closeProfessionalModal"
+            type="button"
+          >
+            <svg
+              fill="none"
+              height="16"
+              stroke="currentColor"
+              stroke-width="2"
+              viewbox="0 0 24 24"
+              width="16"
+            >
+              <line x1="18" x2="6" y1="6" y2="18"></line>
+              <line x1="6" x2="18" y1="6" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <form id="professionalForm">
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="form-label" for="profName"> Nome Completo </label>
+              <input
+                autocomplete="name"
+                class="form-control"
+                id="profName"
+                name="name"
+                placeholder="Nome do profissional"
+                required=""
+                type="text"
+              />
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="profFunction">Função</label>
                 <select
-                    class="form-control"
-                    id="profFunction"
-                    name="function"
-                    required
+                  class="form-control"
+                  id="profFunction"
+                  name="function"
+                  required=""
                 >
-                    <option value="">Selecione</option>
-                    <option value="Psicologo(a)">Psic├│logo(a)</option>
-                    <option value="Pedagogo(a)">Pedagogo(a)</option>
-                    <option value="Enfermeiro(a)">Enfermeiro(a)</option>
-                    <option value="Assistente Social">Assistente Social</option>
-                    <option value="Coordenador(a)">Coordenador(a)</option>
+                  <option value="">Selecione</option>
+                  <option value="Psicologo(a)">Psicólogo(a)</option>
+                  <option value="Pedagogo(a)">Pedagogo(a)</option>
+                  <option value="Enfermeiro(a)">Enfermeiro(a)</option>
+                  <option value="Assistente Social">Assistente Social</option>
+                  <option value="Coordenador(a)">Coordenador(a)</option>
                 </select>
-            </div> -->
-<div class="form-group">
-<label class="form-label" for="profSector">
-                    Setor
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profSector"> Setor </label>
+                <select
+                  class="form-control"
+                  id="profSector"
+                  name="sector"
+                  required=""
+                >
+                  <option value="">Selecione</option>
+                  <option value="Dire├º├úo">Direção</option>
+                  <option value="Orienta├º├úo">Orientação</option>
+                  <option value="Psicologia">Psicologia</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="profEmail"> E-mail </label>
+              <input
+                autocomplete="email"
+                class="form-control"
+                id="profEmail"
+                name="email"
+                placeholder="email@siae.edu.br"
+                required=""
+                type="email"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="profPassword"> Senha </label>
+              <input
+                autocomplete="new-password"
+                class="form-control"
+                id="profPassword"
+                minlength="6"
+                name="password"
+                placeholder="Defina a senha de acesso"
+                type="password"
+              />
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="profBirth">
+                  Data de nascimento
                 </label>
-<select class="form-control" id="profSector" name="sector" required="">
-<option value="">Selecione</option>
-<option value="Dire├º├úo">Dire├º├úo</option>
-<option value="Orienta├º├úo">Orienta├º├úo</option>
-<option value="Psicologia">Psicologia</option>
-</select>
-</div>
-</div>
-<div class="form-group">
-<label class="form-label" for="profEmail">
-                E-mail
-            </label>
-<input autocomplete="email" class="form-control" id="profEmail" name="email" placeholder="email@siae.edu.br" required="" type="email"/>
-</div>
-<div class="form-group">
-<label class="form-label" for="profPassword">
-                Senha
-            </label>
-<input autocomplete="new-password" class="form-control" id="profPassword" minlength="6" name="password" placeholder="Defina a senha de acesso" type="password"/>
-</div>
-<div class="grid-2">
-<div class="form-group">
-<label class="form-label" for="profBirth">
-                    Data de nascimento
-                </label>
-<input autocomplete="bday" class="form-control" id="profBirth" name="dateBirth" required="" type="date"/>
-</div>
-<!-- <div class="form-group">
+                <input
+                  autocomplete="bday"
+                  class="form-control"
+                  id="profBirth"
+                  name="dateBirth"
+                  required=""
+                  type="date"
+                />
+              </div>
+              <!-- <div class="form-group">
                 <label class="form-label" for="profPhone">
                     Telefone
                 </label>
@@ -150,7 +324,7 @@
 
         </div>
 
-        <div class="form-group" style="margin-bottom: 0;">
+        <div class="form-group siae-u-margin-bottom-0-648149c">
             <label class="form-label" for="profRegister">
                 Registro Profissional (CRP/CRN/CRESS)
             </label>
@@ -162,47 +336,97 @@
                 placeholder="06/123456"
             >
         </div> -->
-<div class="form-group">
-<label class="form-label" for="profPhoto">Foto do profissional</label>
-<div class="photo-picker-row">
-<div class="photo-preview is-empty" id="professionalPhotoPreview" aria-label="Pr├®via da foto do profissional">
-<img alt="Pr├®via da foto do profissional" id="professionalPhotoPreviewImage" hidden/>
-<span id="professionalPhotoPlaceholder">Sem foto</span>
-</div>
-<div class="photo-picker-actions">
-<input class="file-input-hidden" id="profPhoto" name="photo" type="file" accept="image/jpeg,image/png,image/webp"/>
-<button class="btn btn-outline" id="professionalChoosePhoto" type="button">Escolher foto</button>
-<p class="form-hint">JPG, PNG ou WEBP ┬À at├® 5 MB.</p>
-</div>
-</div>
-</div>
-<div class="form-group">
-<label class="form-label" for="profActive">
-                Status da conta
-            </label>
-<select class="form-control" id="profActive" name="active" required="">
-<option selected="" value="1">Ativo</option>
-<option value="0">Inativo</option>
-</select>
-</div>
-</div>
-</div>
-<div class="modal-footer">
-<button class="btn btn-ghost" id="cancelProfessionalModal" type="button">
-                    Cancelar
-                </button>
-<button class="btn btn-primary" type="submit">
-<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
-<polyline points="20 6 9 17 4 12"></polyline>
-</svg>
+              <div class="form-group">
+                <label class="form-label" for="profPhoto"
+                  >Foto do profissional</label
+                >
+                <div class="photo-picker-row">
+                  <div
+                    aria-label="Pr├®via da foto do profissional"
+                    class="photo-preview is-empty"
+                    id="professionalPhotoPreview"
+                  >
+                    <img
+                      alt="Pr├®via da foto do profissional"
+                      hidden=""
+                      id="professionalPhotoPreviewImage"
+                    />
+                    <span id="professionalPhotoPlaceholder">Sem foto</span>
+                  </div>
+                  <div class="photo-picker-actions">
+                    <input
+                      accept="image/jpeg,image/png,image/webp"
+                      class="file-input-hidden"
+                      id="profPhoto"
+                      name="photo"
+                      type="file"
+                    />
+                    <button
+                      class="btn btn-outline"
+                      id="professionalChoosePhoto"
+                      type="button"
+                    >
+                      Escolher foto
+                    </button>
+                    <p class="form-hint">JPG, PNG ou WEBP ┬À at├® 5 MB.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profActive">
+                  Status da conta
+                </label>
+                <select
+                  class="form-control"
+                  id="profActive"
+                  name="active"
+                  required=""
+                >
+                  <option selected="" value="1">Ativo</option>
+                  <option value="0">Inativo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-ghost"
+              id="cancelProfessionalModal"
+              type="button"
+            >
+              Cancelar
+            </button>
+            <button class="btn btn-primary" type="submit">
+              <svg
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-width="2"
+                viewbox="0 0 24 24"
+                width="14"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
 
-                    Salvar
-                </button>
-</div>
-</form>
-</div>
-</div>
-<script src="../assets/admin/script/professionals.js" type="module"></script>
-<!--<script type= "module" src="../assets/admin/script/cadastro.js" ></script>-->
-<script defer="True" src="../assets/_common/script/theme-toggle.js"></script><script defer="True" src="../assets/_common/script/workspace-navigation.js"></script></body>
+              Salvar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script
+      src="../assets/admin/script/professionals.js"
+      type="module"
+    ></script>
+    <!--<script type= "module" src="../assets/admin/script/cadastro.js" ></script>-->
+    <script
+      defer="True"
+      src="../assets/_common/script/theme-toggle.js"
+    ></script>
+    <script
+      defer="True"
+      src="../assets/_common/script/workspace-navigation.js"
+    ></script>
+    <script defer="True" src="../assets/_common/script/siae-ui.js"></script>
+  </body>
 </html>

@@ -1,6 +1,12 @@
+function resolveSiaeApiBase() {
+  const parts = window.location.pathname.split("/").filter(Boolean);
+  const projectPrefix = parts.length ? `/${parts[0]}` : "";
+  return `${window.location.origin}${projectPrefix}/api`;
+}
+
 import Users from "../../_common/classes/Users.js";
 
-const API_BASE = "http://localhost/SIAE/api";
+const API_BASE = resolveSiaeApiBase();
 const users = new Users();
 const modal = document.querySelector("#studentModal");
 const form = document.querySelector("#studentForm");
@@ -104,9 +110,9 @@ function initials(name) {
 
 function createAvatar(name, photo) {
     const avatar = document.createElement("div");
-    avatar.className = "table-person-avatar";
-    avatar.textContent = initials(name);
     const url = resolvePhotoUrl(photo);
+    avatar.className = `table-person-avatar ${url ? "has-photo" : "is-placeholder"}`;
+    avatar.textContent = initials(name);
     if (url) {
         const image = document.createElement("img");
         image.src = url;
@@ -128,50 +134,24 @@ function makeCell(text, className = "") {
 }
 
 function showStudentDetails(student) {
-    const dialog = document.getElementById("userDetailsDialog") || document.createElement("dialog");
-    dialog.id = "userDetailsDialog";
-    dialog.className = "user-details-dialog";
-    dialog.replaceChildren();
-
-    const header = document.createElement("div");
-    header.className = "user-details-header";
-    const avatar = createAvatar(student.name, student.photoUrl || student.photo);
-    avatar.classList.add("user-details-avatar");
-    header.appendChild(avatar);
-
-    const titleWrap = document.createElement("div");
-    const title = document.createElement("h2");
-    title.textContent = student.name || "Aluno";
-    const subtitle = document.createElement("p");
-    subtitle.textContent = "Informações do aluno";
-    titleWrap.append(title, subtitle);
-    header.appendChild(titleWrap);
-
-    const close = document.createElement("button");
-    close.type = "button";
-    close.className = "btn btn-ghost btn-sm";
-    close.textContent = "Fechar";
-    close.addEventListener("click", () => dialog.close());
-    header.appendChild(close);
-    dialog.appendChild(header);
-
-    const fields = [
-        ["E-mail", student.email],
-        ["Turma", student.className],
-        ["Data de nascimento", student.dateBirth],
-        ["Status", Number(student.active) === 1 ? "Ativo" : "Inativo"]
-    ];
-    const list = document.createElement("dl");
-    list.className = "user-details-fields";
-    fields.forEach(([label, value]) => {
-        const item = document.createElement("div");
-        const term = document.createElement("dt"); term.textContent = label;
-        const description = document.createElement("dd"); description.textContent = value || "—";
-        item.append(term, description); list.appendChild(item);
-    });
-    dialog.appendChild(list);
-    if (!dialog.isConnected) document.body.appendChild(dialog);
-    dialog.showModal();
+    const record = {
+        id: student.id,
+        name: student.name || "Estudante",
+        ra: student.enrollmentNumber || student.ra || String(student.id || ""),
+        className: student.className || "Turma não informada",
+        course: student.courseName || "Curso não informado",
+        shift: student.shift || "Não informado",
+        status: Number(student.active) === 1 ? "Ativo" : "Inativo",
+        email: student.email || "",
+        phone: student.phone || "",
+        birth: student.dateBirth || "",
+        photoUrl: resolvePhotoUrl(student.photoUrl || student.photo),
+        guardian: student.guardian || "",
+        history: [],
+        documents: []
+    };
+    try { sessionStorage.setItem("siae_selected_student", JSON.stringify(record)); } catch (_) {}
+    window.location.href = `../app/student-details.html?id=${encodeURIComponent(record.id)}`;
 }
 
 async function loadClasses() {

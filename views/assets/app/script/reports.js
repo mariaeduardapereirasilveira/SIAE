@@ -1,209 +1,139 @@
-const currentProfessionalName = 'Dra. Patricia Lima';
-const currentProfessionalSector = 'Psicologia';
-
 const initialReports = [
-    {
-        id: 1,
-        title: 'Acompanhamento emocional do 2B',
-        content: 'Resumo dos atendimentos psicologicos realizados com alunos do 2B no mes atual.',
-        creator: 'Dra. Patricia Lima',
-        sector: 'Psicologia',
-        date: '17/06/2026'
-    },
-    {
-        id: 2,
-        title: 'Rendimento e rotina de estudos',
-        content: 'Relatorio pedagogico sobre frequencia, entregas pendentes e combinados de estudo.',
-        creator: 'Prof. Ricardo Moura',
-        sector: 'Pedagogico',
-        date: '14/06/2026'
-    },
-    {
-        id: 3,
-        title: 'Atendimentos de enfermaria',
-        content: 'Consolidado de queixas, encaminhamentos e comunicacoes com responsaveis.',
-        creator: 'Enf. Lucia Barbosa',
-        sector: 'Enfermaria',
-        date: '12/06/2026'
-    },
-    {
-        id: 4,
-        title: 'Atualizacao cadastral social',
-        content: 'Levantamento de documentos pendentes e necessidades familiares identificadas.',
-        creator: 'Assist. Social Camila Reis',
-        sector: 'Social',
-        date: '10/06/2026'
-    }
+  { id: 1, title: "Acompanhamento emocional do 2B", content: "Resumo dos atendimentos psicológicos realizados com estudantes do 2B no período.", creator: "Equipe de Psicologia", sector: "Psicologia", date: "17/06/2026" },
+  { id: 2, title: "Rendimento e rotina de estudos", content: "Relatório de acompanhamento acadêmico, frequência e estratégias de estudo.", creator: "Orientação Educacional", sector: "Orientação Educacional", date: "14/06/2026" },
+  { id: 3, title: "Atendimentos de enfermaria", content: "Consolidado demonstrativo de atendimentos e encaminhamentos.", creator: "Equipe de Enfermaria", sector: "Enfermaria", date: "12/06/2026" }
 ];
 
-let reports = JSON.parse(localStorage.getItem('siae_reports') || 'null') || initialReports;
-let editingReportId = null;
+const currentProfessionalName = localStorage.getItem("userName") || "Profissional";
+const currentProfessionalSector = localStorage.getItem("userSector") || "Psicologia";
+const currentRole = (localStorage.getItem("enrollment") || "").toLocaleLowerCase("pt-BR");
+const isAdmin = ["admin", "administrador", "administrator"].includes(currentRole);
+let reports = JSON.parse(localStorage.getItem("siae_reports") || "null") || initialReports;
 
 function checkAuth() {
-    const token= localStorage.getItem('token');
-    const enrollment= localStorage.getItem('enrollment');
-
-    if ( !token) {
-        window.location.href = '../public/login.html'; 
-        return false;
-    }
-
-
-    // if (enrollment !== 'admin') {
-    //     window.location.href = '../app/dashboard.html'; 
-    //     return false;
-    // } 
-    return true;
+  if (!localStorage.getItem("token")) {
+    window.location.href = "../public/login.html";
+    return false;
+  }
+  return true;
 }
 
-// function getCurrentRole() {
-//     return localStorage.getItem('siae_user_role') || 'professional';
-// }
-let enroll = true;
-
 function updateUIByRole() {
-    const role = getCurrentRole();
-    const isAdmin = role === 'admin';
-
-    document.getElementById('userName').textContent = currentProfessionalName ;
-    document.getElementById('userRole').textContent = 'Administrador';
-    document.getElementById('userAvatar').textContent ='AD' ;
-    document.getElementById('headerName').textContent =  'Admin' ;
-    document.getElementById('headerAvatar').textContent = 'AD';
-
-    document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? '' : 'none');
-    document.querySelectorAll('.professional-only').forEach(el => el.style.display = isAdmin ? 'none' : '');
-
-    document.getElementById('reportsSubtitle').textContent =  'Visualize os relatorios criados por setor e profissional';
+  const roleName = isAdmin ? "Administrador" : "Profissional";
+  document.querySelectorAll("#userName").forEach(node => { node.textContent = currentProfessionalName; });
+  document.querySelectorAll("#userRole").forEach(node => { node.textContent = roleName; });
+  const avatar = currentProfessionalName.split(/\s+/).slice(0, 2).map(part => part[0]).join("").toUpperCase();
+  document.querySelectorAll("#userAvatar, #headerAvatar").forEach(node => { node.textContent = avatar; });
+  document.querySelectorAll(".admin-only").forEach(node => { node.hidden = !isAdmin; });
+  document.querySelectorAll(".professional-only").forEach(node => { node.hidden = isAdmin; });
+  const subtitle = document.querySelector("#reportsSubtitle");
+  if (subtitle) subtitle.textContent = isAdmin ? "Relatórios disponíveis conforme as permissões administrativas." : "Relatórios relacionados à sua atuação.";
 }
 
 function saveReports() {
-    localStorage.setItem('siae_reports', JSON.stringify(reports));
+  localStorage.setItem("siae_reports", JSON.stringify(reports));
 }
 
 function getVisibleReports() {
-    if (enroll=== true) return reports;
-    return reports.filter(report => report.creator === currentProfessionalName);
+  return isAdmin ? reports : reports.filter(report => report.creator === currentProfessionalName || report.sector === currentProfessionalSector);
 }
 
 function renderReports() {
-    const container = document.getElementById('reportsList');
-    const visibleReports = getVisibleReports();
+  const container = document.querySelector("#reportsList");
+  if (!container) return;
+  const visible = getVisibleReports();
+  container.replaceChildren();
 
-    if (visibleReports.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <h3>Nenhum relatorio encontrado</h3>
-                <p>Crie um novo relatorio para ele aparecer aqui.</p>
-            </div>
-        `;
-        return;
-    }
+  if (!visible.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty-state";
+    empty.textContent = "Nenhum relatório disponível. Crie um novo registro para começar.";
+    container.appendChild(empty);
+    return;
+  }
 
-    container.innerHTML = visibleReports.map(report => `
-        <article class="report-item" onclick="viewReport(${report.id})" tabindex="0" role="button" onkeydown="handleReportKeydown(event, ${report.id})">
-            <div class="report-icon">${getSectorInitial(report.sector)}</div>
-            <div class="report-content">
-                <div class="report-head">
-                    <div>
-                        <h3>${report.title}</h3>
-                        <p>${report.content}</p>
-                    </div>
-                    <span class="badge badge-primary">${report.sector}</span>
-                </div>
-                <div class="report-meta">
-                    <span>Criado por ${report.creator}</span>
-                    <span>${report.date}</span>
-                </div>
-            </div>
-        </article>
-    `).join('');
-}
+  visible.forEach(report => {
+    const article = document.createElement("article");
+    article.className = "report-item";
+    const icon = document.createElement("span");
+    icon.className = "report-icon";
+    icon.textContent = String(report.sector || "R").slice(0, 2).toUpperCase();
 
-function handleReportKeydown(event, id) {
-    if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        viewReport(id);
-    }
+    const content = document.createElement("section");
+    content.className = "report-content";
+    const heading = document.createElement("h3");
+    heading.textContent = report.title;
+    const description = document.createElement("p");
+    description.textContent = report.content;
+    const meta = document.createElement("small");
+    meta.textContent = `${report.creator} · ${report.sector} · ${report.date}`;
+    content.append(heading, description, meta);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "btn btn-ghost btn-sm";
+    button.textContent = "Visualizar";
+    button.dataset.reportId = String(report.id);
+    article.append(icon, content, button);
+    container.appendChild(article);
+  });
 }
 
 function viewReport(id) {
-    const report = reports.find(item => item.id === id);
-    if (!report) return;
-
-    document.getElementById('viewReportTitle').textContent = report.title;
-    document.getElementById('viewReportContent').textContent = report.content;
-    document.getElementById('viewReportCreator').textContent = report.creator;
-    document.getElementById('viewReportSector').textContent = report.sector;
-    document.getElementById('viewReportDate').textContent = report.date;
-    document.getElementById('viewReportModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function getSectorInitial(sector) {
-    return sector.split(' ').map(part => part[0]).slice(0, 2).join('').toUpperCase();
+  const report = reports.find(item => String(item.id) === String(id));
+  if (!report) return;
+  document.querySelector("#viewReportTitle").textContent = report.title;
+  document.querySelector("#viewReportContent").textContent = report.content;
+  document.querySelector("#viewReportCreator").textContent = report.creator;
+  document.querySelector("#viewReportSector").textContent = report.sector;
+  document.querySelector("#viewReportDate").textContent = report.date;
+  document.querySelector("#viewReportModal").classList.add("active");
 }
 
 function openReportModal() {
-    editingReportId = null;
-    document.getElementById('reportModalTitle').textContent = 'Criar relatorio';
-    document.getElementById('reportTitle').value = '';
-    document.getElementById('reportContent').value = '';
-    document.getElementById('reportCreator').value = currentProfessionalName;
-    document.getElementById('reportSector').value = currentProfessionalSector;
-    document.getElementById('reportModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
+  document.querySelector("#reportTitle").value = "";
+  document.querySelector("#reportContent").value = "";
+  document.querySelector("#reportModalTitle").textContent = "Criar relatório";
+  document.querySelector("#reportCreator").value = currentProfessionalName;
+  document.querySelector("#reportSector").value = currentProfessionalSector;
+  document.querySelector("#reportModal").classList.add("active");
 }
 
 function closeModal(id) {
-    document.getElementById(id).classList.remove('active');
-    document.body.style.overflow = '';
+  document.querySelector(`#${id}`)?.classList.remove("active");
 }
 
 function saveReport() {
-    const title = document.getElementById('reportTitle').value.trim();
-    const content = document.getElementById('reportContent').value.trim();
-    const creator = document.getElementById('reportCreator').value.trim();
-    const sector = document.getElementById('reportSector').value;
-
-    if (!title || !content || !creator || !sector) {
-        alert('Preencha todos os campos do relatorio.');
-        return;
-    }
-
-    const report = {
-        id: Date.now(),
-        title,
-        content,
-        creator,
-        sector,
-        date: new Date().toLocaleDateString('pt-BR')
-    };
-
-    reports.unshift(report);
-    saveReports();
-    renderReports();
-    closeModal('reportModal');
+  const title = document.querySelector("#reportTitle").value.trim();
+  const content = document.querySelector("#reportContent").value.trim();
+  const creator = document.querySelector("#reportCreator").value.trim();
+  const sector = document.querySelector("#reportSector").value;
+  if (!title || !content || !creator || !sector) {
+    window.alert("Preencha todos os campos do relatório.");
+    return;
+  }
+  reports.unshift({ id: Date.now(), title, content, creator, sector, date: new Date().toLocaleDateString("pt-BR") });
+  saveReports();
+  renderReports();
+  closeModal("reportModal");
 }
 
-function handleLogout() {
-    localStorage.clear();
-    window.location.href = '../public/login.html';
-}
-
-document.getElementById('reportModal')?.addEventListener('click', event => {
-    if (event.target.id === 'reportModal') closeModal('reportModal');
+document.querySelector("#openReportModal")?.addEventListener("click", openReportModal);
+document.querySelector("#saveReportButton")?.addEventListener("click", saveReport);
+document.querySelectorAll("[data-close-modal]").forEach(button => {
+  button.addEventListener("click", () => closeModal(button.dataset.closeModal));
 });
-
-document.getElementById('viewReportModal')?.addEventListener('click', event => {
-    if (event.target.id === 'viewReportModal') closeModal('viewReportModal');
+document.querySelector("#reportsList")?.addEventListener("click", event => {
+  const button = event.target.closest("[data-report-id]");
+  if (button) viewReport(button.dataset.reportId);
+});
+["reportModal", "viewReportModal"].forEach(id => {
+  document.querySelector(`#${id}`)?.addEventListener("click", event => {
+    if (event.target.id === id) closeModal(id);
+  });
 });
 
 if (checkAuth()) {
-    updateUIByRole();
-    renderReports();
+  updateUIByRole();
+  renderReports();
 }
