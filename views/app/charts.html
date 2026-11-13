@@ -32,7 +32,18 @@
         >
         <nav class="sidebar-nav">
           <p class="sidebar-section-label">Principal</p>
+
           <a class="sidebar-item" href="dashboard.html">Dashboard</a>
+
+          <div class="admin-only">
+            <p class="sidebar-section-label">Gestão</p>
+            <a class="sidebar-item" href="../admin/students.html">Alunos</a>
+            <a class="sidebar-item" href="../admin/professionals.html"
+              >Profissionais</a
+            >
+            <a class="sidebar-item" href="../admin/sectors.html">Setores</a>
+            <a class="sidebar-item" href="../admin/services.html">Serviços</a>
+          </div>
           <a class="sidebar-item" href="search.html">Busca</a>
           <a class="sidebar-item" href="appointments.html">Atendimentos</a>
           <a class="sidebar-item" href="occurrences.html">Minhas Ocorrências</a>
@@ -115,7 +126,7 @@
               class="header-icon-btn"
               href="notifications.html"
               title="Notificações"
-              >♧<img
+              ><img
                 alt=""
                 aria_hidden="true"
                 class="notification-bell-svg"

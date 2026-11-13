@@ -154,39 +154,56 @@ function resolveSiaeApiBase() {
     avatarElements.forEach(element => renderAvatar(element, name, photo));
   }
 
-    if (roleType) {
-    // Mantém a filtragem dos elementos que já possuem classes de perfil.
-    document.querySelectorAll('.sidebar-nav .admin-only').forEach(item => {
-      item.style.display = roleType === 'admin' ? '' : 'none';
+      if (roleType) {
+    // Identifica o perfil atual no documento.
+    document.body.dataset.role = roleType;
+
+    // Oculta elementos exclusivos de cada perfil.
+    document.querySelectorAll('.admin-only').forEach(element => {
+     if (roleType === 'admin') {
+  element.style.removeProperty('display');
+} else {
+  element.style.setProperty('display', 'none', 'important');
+}
     });
 
-    document.querySelectorAll('.sidebar-nav .professional-only').forEach(item => {
-      item.style.display = roleType === 'professional' ? '' : 'none';
+    document.querySelectorAll('.professional-only').forEach(element => {
+      element.style.display = roleType === 'professional' ? '' : 'none';
     });
 
-    // Oculta links conforme a permissão da página de destino.
-    document.querySelectorAll('.sidebar-nav a[href]').forEach(anchor => {
-      const targetPage = getViewPage(anchor.href);
+    // Filtra os links conforme o destino.
+    // Filtra os links conforme o destino.
+document.querySelectorAll('a[href]').forEach(anchor => {
+  const targetPage = getViewPage(anchor.href);
 
-      if (!targetPage || !Object.prototype.hasOwnProperty.call(PAGE_ACCESS, targetPage)) {
-        return;
-      }
-
-      if (PAGE_ACCESS[targetPage].includes(roleType)) {
-        return;
-      }
-
-      const listItem = anchor.closest('li');
-
-      // Evita esconder outros links quando um mesmo <li> contém mais de um.
-      const elementToHide = listItem && listItem.querySelectorAll('a[href]').length === 1
-        ? listItem
-        : anchor;
-
-      elementToHide.style.display = 'none';
-    });
+  if (
+    !targetPage ||
+    !Object.prototype.hasOwnProperty.call(PAGE_ACCESS, targetPage)
+  ) {
+    return;
   }
 
+  const allowedProfiles = PAGE_ACCESS[targetPage];
+  const allowed = allowedProfiles.includes(roleType);
+
+  if (allowed) {
+    anchor.style.removeProperty('display');
+  } else {
+    anchor.style.setProperty('display', 'none', 'important');
+  }
+
+  // Também oculta o item inteiro quando ele contém apenas esse link.
+  const listItem = anchor.closest('li');
+
+  if (listItem && listItem.querySelectorAll('a[href]').length === 1) {
+    if (allowed) {
+      listItem.style.removeProperty('display');
+    } else {
+      listItem.style.setProperty('display', 'none', 'important');
+    }
+  }
+});
+  }
   // Mostra os dados salvos enquanto busca o perfil atualizado no servidor.
   try {
     applyUser({ name: localStorage.getItem('userName'), photo: localStorage.getItem('userPhoto'), enrollment: role });
