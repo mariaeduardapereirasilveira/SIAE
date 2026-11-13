@@ -20,6 +20,84 @@ function resolveSiaeApiBase() {
   const roleLabel = value => isAdminRole(value) ? 'Administrador' : isProfessionalRole(value) ? 'Profissional' : (value || 'Usuário');
   const initials = name => String(name || 'Usuário').trim().split(/\s+/).slice(0, 2).map(part => part[0] || '').join('').toUpperCase() || 'US';
 
+
+
+  // Define quais perfis podem acessar cada página.
+  const PAGE_ACCESS = {
+    // Páginas administrativas
+    '/admin/admin.html': ['admin'],
+    '/admin/notifications.html': ['admin'],
+    '/admin/professionals.html': ['admin'],
+    '/admin/reports.html': ['admin'],
+    '/admin/sectors.html': ['admin'],
+    '/admin/services.html': ['admin'],
+    '/admin/students.html': ['admin'],
+
+    // Páginas exclusivas dos profissionais
+    '/app/appointments.html': ['professional'],
+    '/app/dashboard.html': ['professional'],
+    '/app/occurrences.html': ['professional'],
+    '/app/student-documents.html': ['professional'],
+    '/app/student-history.html': ['professional'],
+
+    // Páginas compartilhadas
+    '/app/charts.html': ['admin', 'professional'],
+    '/app/faq.html': ['admin', 'professional'],
+    '/app/notifications.html': ['admin', 'professional'],
+    '/app/profile.html': ['admin', 'professional'],
+    '/app/reports.html': ['admin', 'professional'],
+    '/app/search.html': ['admin', 'professional'],
+    '/app/student-details.html': ['admin', 'professional']
+  };
+
+  const roleType = isAdminRole(role)
+    ? 'admin'
+    : isProfessionalRole(role)
+      ? 'professional'
+      : '';
+
+  function getViewPage(url) {
+    try {
+      const pathname = new URL(url, window.location.href).pathname;
+      const marker = '/views/';
+      const index = pathname.lastIndexOf(marker);
+
+      return index === -1
+        ? ''
+        : pathname.slice(index + '/views'.length);
+    } catch (_) {
+      return '';
+    }
+  }
+
+  const currentPage = getViewPage(window.location.href);
+  const viewIndex = window.location.pathname.lastIndexOf('/views/');
+  const projectRoot = viewIndex >= 0
+    ? window.location.pathname.slice(0, viewIndex)
+    : '';
+
+  const loginUrl = `${projectRoot}/views/public/login.html`;
+
+  const homeUrl = roleType === 'admin'
+    ? `${projectRoot}/views/admin/admin.html`
+    : `${projectRoot}/views/app/dashboard.html`;
+
+  // Impede acesso direto a páginas sem autorização.
+  if (Object.prototype.hasOwnProperty.call(PAGE_ACCESS, currentPage)) {
+    if (!token || !roleType) {
+      window.location.replace(loginUrl);
+      return;
+    }
+
+    if (!PAGE_ACCESS[currentPage].includes(roleType)) {
+      window.location.replace(homeUrl);
+      return;
+    }
+  }
+
+
+
+
   function resolvePhotoUrl(photo) {
     if (!photo || typeof photo !== 'string') return '';
     const normalized = photo.trim().replace(/\\/g, '/');
@@ -76,10 +154,37 @@ function resolveSiaeApiBase() {
     avatarElements.forEach(element => renderAvatar(element, name, photo));
   }
 
-  if (role) {
-    document.querySelectorAll('.sidebar-nav .admin-only').forEach(item => { item.style.display = isAdminRole(role) ? '' : 'none'; });
-    document.querySelectorAll('.sidebar-nav .professional-only').forEach(item => { item.style.display = isProfessionalRole(role) ? '' : 'none'; });
-    document.querySelectorAll('.sidebar-nav .admin-only.sidebar-section-label').forEach(item => { item.style.display = isAdminRole(role) ? '' : 'none'; });
+    if (roleType) {
+    // Mantém a filtragem dos elementos que já possuem classes de perfil.
+    document.querySelectorAll('.sidebar-nav .admin-only').forEach(item => {
+      item.style.display = roleType === 'admin' ? '' : 'none';
+    });
+
+    document.querySelectorAll('.sidebar-nav .professional-only').forEach(item => {
+      item.style.display = roleType === 'professional' ? '' : 'none';
+    });
+
+    // Oculta links conforme a permissão da página de destino.
+    document.querySelectorAll('.sidebar-nav a[href]').forEach(anchor => {
+      const targetPage = getViewPage(anchor.href);
+
+      if (!targetPage || !Object.prototype.hasOwnProperty.call(PAGE_ACCESS, targetPage)) {
+        return;
+      }
+
+      if (PAGE_ACCESS[targetPage].includes(roleType)) {
+        return;
+      }
+
+      const listItem = anchor.closest('li');
+
+      // Evita esconder outros links quando um mesmo <li> contém mais de um.
+      const elementToHide = listItem && listItem.querySelectorAll('a[href]').length === 1
+        ? listItem
+        : anchor;
+
+      elementToHide.style.display = 'none';
+    });
   }
 
   // Mostra os dados salvos enquanto busca o perfil atualizado no servidor.
