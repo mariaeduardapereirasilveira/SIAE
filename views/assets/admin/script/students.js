@@ -1,7 +1,11 @@
+import FormController from "../../_common/prototypes/FormControllerPrototype.js";
+import Toast from "../../_common/prototypes/Toast.js";
+
+
 function resolveSiaeApiBase() {
-  const parts = window.location.pathname.split("/").filter(Boolean);
-  const projectPrefix = parts.length ? `/${parts[0]}` : "";
-  return `${window.location.origin}${projectPrefix}/api`;
+    const parts = window.location.pathname.split("/").filter(Boolean);
+    const projectPrefix = parts.length ? `/${parts[0]}` : "";
+    return `${window.location.origin}${projectPrefix}/api`;
 }
 
 import Users from "../../_common/classes/Users.js";
@@ -20,16 +24,34 @@ const photoPlaceholder = document.querySelector("#studentPhotoPlaceholder");
 const choosePhotoButton = document.querySelector("#studentChoosePhoto");
 let previewObjectUrl = null;
 
+if (form) {
+    FormController.inicializar(form);
+}
+
 function checkAuth() {
     const token = localStorage.getItem("token");
+
     if (!token) {
         window.location.href = "../public/login.html";
         return false;
     }
+
+    const enrollment = (
+        localStorage.getItem("enrollment") || ""
+    ).trim().toLowerCase();
+
+    if (enrollment !== "administrador") {
+        if (openModalButton) {
+            openModalButton.hidden = true;
+        }
+
+        window.location.replace("../app/search.html");
+        return false;
+    }
+
     users.setAuthToken(token);
     return true;
 }
-
 function openModal() {
     form?.reset();
     resetPhotoPreview();
@@ -67,12 +89,12 @@ function updatePhotoPreview(file) {
     if (!file) return;
     const allowed = ["image/jpeg", "image/png", "image/webp"];
     if (!allowed.includes(file.type)) {
-        alert("Escolha uma imagem JPG, PNG ou WEBP.");
+        Toast.mostrar("Escolha uma imagem JPG, PNG ou WEBP.", "warning");
         resetPhotoPreview();
         return;
     }
     if (file.size > 5 * 1024 * 1024) {
-        alert("A foto deve ter no máximo 5 MB.");
+        Toast.mostrar("A foto deve ter no máximo 5 MB.", "warning");
         resetPhotoPreview();
         return;
     }
@@ -150,7 +172,7 @@ function showStudentDetails(student) {
         history: [],
         documents: []
     };
-    try { sessionStorage.setItem("siae_selected_student", JSON.stringify(record)); } catch (_) {}
+    try { sessionStorage.setItem("siae_selected_student", JSON.stringify(record)); } catch (_) { }
     window.location.href = `../app/student-details.html?id=${encodeURIComponent(record.id)}`;
 }
 
@@ -169,7 +191,7 @@ async function loadClasses() {
         });
     } catch (error) {
         console.error("Erro ao carregar turmas:", error);
-        alert("Não foi possível carregar as turmas.");
+        Toast.mostrar("Não foi possível carregar as turmas.", "error");
     }
 }
 
@@ -213,6 +235,10 @@ async function loadStudents() {
             tbody.appendChild(row);
         });
     } catch (error) {
+        Toast.mostrar(
+            "Não foi possível carregar os alunos.",
+            "error"
+        );
         console.error("Erro ao listar alunos:", error);
         tbody.innerHTML = '<tr><td colspan="5" class="table-message">Não foi possível carregar os alunos. Confira sua conexão e tente novamente.</td></tr>';
     }
@@ -232,21 +258,75 @@ document.addEventListener("click", event => {
 
 form?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const formData = new FormData(form);
-    if (!formData.get("name") || !formData.get("class_id") || !formData.get("email") || !formData.get("dateBirth")) {
-        alert("Preencha nome, turma, e-mail e data de nascimento.");
+
+    if (!form.reportValidity()) {
+        Toast.mostrar(
+            "Verifique os campos obrigatórios.",
+            "warning"
+        );
         return;
     }
+
+    const dados = FormController.obterDados();
+
+    if (
+        !String(dados.name || "").trim() ||
+        !dados.class_id ||
+        !String(dados.email || "").trim() ||
+        !dados.dateBirth
+    ) {
+        Toast.mostrar(
+            "Preencha nome, turma, e-mail e data de nascimento.",
+            "warning"
+        );
+        return;
+    }
+
+    // Mantemos FormData para incluir a fotografia no cadastro.
+    const formData = new FormData(form);
     formData.set("enrollment", "estudante");
+
+    const submitButton = form.querySelector('[type="submit"]');
+    const originalText = submitButton?.textContent || "Cadastrar aluno";
+
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Cadastrando...";
+    }
+
     try {
         const response = await users.register(formData);
-        if (![200, 201].includes(Number(response?.code))) throw new Error(response?.message || "Não foi possível cadastrar o aluno.");
-        alert("Aluno cadastrado com sucesso!");
-        form.reset(); resetPhotoPreview(); closeModal();
+
+        if (![200, 201].includes(Number(response?.code))) {
+            throw new Error(
+                response?.message || "Não foi possível cadastrar o aluno."
+            );
+        }
+
+        Toast.mostrar(
+            "Aluno cadastrado com sucesso!",
+            "success"
+        );
+
+        FormController.limpar();
+        resetPhotoPreview();
+        closeModal();
+
         await loadStudents();
+
     } catch (error) {
         console.error("Erro ao cadastrar aluno:", error);
-        alert(error.message || "Erro ao cadastrar aluno. Confira o console para mais detalhes.");
+
+        Toast.mostrar(
+            error.message || "Erro ao cadastrar aluno.",
+            "error"
+        );
+
+    } finally {
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        }
     }
 });
 
