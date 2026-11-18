@@ -1,97 +1,555 @@
-(() => {
+
+(async () => {
   "use strict";
 
-  if (!localStorage.getItem("token")) {
-    window.location.href = "../public/login.html";
+  // ==========================================
+  // 1. AUTENTICAÇÃO
+  // ==========================================
+
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.replace("../public/login.html");
     return;
   }
 
-  const fallbackStudents = {
-    "1": { id: 1, name: "Ana Paula Silva", ra: "2024001", className: "1º Info A", course: "Técnico em Informática", shift: "Manhã", status: "Ativo", birth: "15/04/2009", email: "ana.paula@aluno.exemplo", phone: "(51) 90000-0001", guardian: "Marcia Silva", history: [{ date: "12/06/2026", title: "Acompanhamento acadêmico", sector: "Orientação Educacional", summary: "Registro demonstrativo de acompanhamento da rotina de estudos." }, { date: "02/05/2026", title: "Encaminhamento para acolhimento", sector: "Psicologia", summary: "Registro demonstrativo de encaminhamento autorizado." }], documents: [{ name: "Ficha cadastral", type: "Cadastro", date: "10/02/2026" }, { name: "Autorização do responsável", type: "Responsável", date: "12/02/2026" }] },
-    "2": { id: 2, name: "Bruno Santos", ra: "2024002", className: "2º Info B", course: "Técnico em Informática", shift: "Tarde", status: "Ativo", birth: "22/08/2008", email: "bruno.santos@aluno.exemplo", phone: "(51) 90000-0002", guardian: "Carlos Santos", history: [{ date: "10/06/2026", title: "Acolhimento", sector: "Psicologia", summary: "Registro demonstrativo de acolhimento." }], documents: [{ name: "Ficha cadastral", type: "Cadastro", date: "11/02/2026" }] }
-  };
+  // ==========================================
+  // 2. FUNÇÕES AUXILIARES
+  // ==========================================
 
-  const queryId = new URLSearchParams(window.location.search).get("id") || "1";
-  let student = fallbackStudents[queryId] || fallbackStudents["1"];
+  // Atualiza os textos da página.
+  function setText(selector, value) {
+    document.querySelectorAll(selector).forEach(node => {
+      node.textContent =
+        value === null ||
+        value === undefined ||
+        value === ""
+          ? "Não informado"
+          : String(value);
+    });
+  }
+
+  // Limpa possíveis dados fictícios do HTML.
+  function showPageMessage(message) {
+    setText("#studentName", message);
+    setText("#studentMeta", "");
+    setText("#studentStatus", "");
+    setText("#studentInitials", "—");
+  }
+
+  const dataSelectors = [
+    "#studentFullName",
+    "#studentBirth",
+    "#studentEmail",
+    "#studentPhone",
+    "#studentGuardian",
+    "#studentRa",
+    "#studentCourse",
+    "#studentClass",
+    "#studentShift"
+  ];
+
+  dataSelectors.forEach(selector => setText(selector, ""));
+
+  showPageMessage("Carregando estudante...");
+
+  // ==========================================
+  // 3. HISTÓRICO
+  // ==========================================
+
+  const historyList = document.querySelector(
+    "#studentHistoryList"
+  );
+
+  function showHistoryMessage(message) {
+    if (!historyList) return;
+
+    const item = document.createElement("li");
+
+    item.className = "student-empty-state";
+    item.textContent = message;
+
+    historyList.replaceChildren(item);
+  }
+
+  showHistoryMessage(
+    "Carregando informações do estudante..."
+  );
+
+  // ==========================================
+  // 4. IMPORTAÇÃO DAS CLASSES E PROTOTYPES
+  // ==========================================
+
+  let Users;
+  let Toast;
+  let FormControllerPrototype;
+
   try {
-    const saved = JSON.parse(sessionStorage.getItem("siae_selected_student") || "null");
-    if (saved && String(saved.id) === String(queryId)) student = { ...student, ...saved };
-  } catch (_) {}
+    const modules = await Promise.all([
+      import("../../_common/classes/Users.js"),
+      import("../../_common/prototypes/Toast.js"),
+        import("../../_common/prototypes/FormControllerPrototype.js")
+    ]);
 
-  const initials = String(student.name || "Estudante").split(/\s+/).slice(0, 2).map(part => part[0]).join("").toUpperCase();
-  document.querySelectorAll("#studentName").forEach(node => { node.textContent = student.name; });
-  document.querySelectorAll("#studentMeta").forEach(node => { node.textContent = `Matrícula ${student.ra} · ${student.className}`; });
-  document.querySelectorAll("#studentInitials").forEach(node => {
-    if (student.photoUrl) {
+    Users = modules[0].default;
+    Toast = modules[1].default;
+    FormControllerPrototype = modules[2].default;
+
+  } catch (error) {
+    console.error(
+      "Erro ao carregar módulos do SIAE:",
+      error
+    );
+
+    showPageMessage(
+      "Não foi possível iniciar a página"
+    );
+
+    showHistoryMessage(
+      "Não foi possível carregar as informações."
+    );
+
+    return;
+  }
+
+  // ==========================================
+  // 5. IDENTIFICAÇÃO DO ESTUDANTE
+  // ==========================================
+
+  // O ID é recebido pela URL.
+  const studentId = new URLSearchParams(
+    window.location.search
+  ).get("id");
+
+  if (
+    !studentId ||
+    !/^[1-9]\d*$/.test(studentId)
+  ) {
+    showPageMessage(
+      "Estudante não identificado"
+    );
+
+    showHistoryMessage(
+      "Não foi possível identificar o estudante."
+    );
+
+    Toast.mostrar(
+      "O ID do estudante é inválido ou não foi informado.",
+      "warning"
+    );
+
+    return;
+  }
+
+  // ==========================================
+  // 6. FORMATAÇÃO DOS DADOS
+  // ==========================================
+
+  function formatBirthDate(date) {
+    if (!date) return "";
+
+    const match = String(date).match(
+      /^(\d{4})-(\d{2})-(\d{2})/
+    );
+
+    return match
+      ? `${match[3]}/${match[2]}/${match[1]}`
+      : String(date);
+  }
+
+  // ==========================================
+  // 7. FOTO DO ESTUDANTE
+  // ==========================================
+
+  function showStudentAvatar(student) {
+    const initials = student.name
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map(part => part[0] || "")
+      .join("")
+      .toUpperCase();
+
+    document.querySelectorAll(
+      "#studentInitials"
+    ).forEach(node => {
+
+      node.textContent = initials || "?";
+
+      if (!student.photoUrl) return;
+
       const image = document.createElement("img");
+
       image.src = student.photoUrl;
       image.alt = "";
-      image.addEventListener("error", () => { image.remove(); node.textContent = initials; }, { once: true });
+
+      image.addEventListener(
+        "error",
+        () => {
+          image.remove();
+          node.textContent = initials || "?";
+        },
+        { once: true }
+      );
+
       node.replaceChildren(image);
-    } else {
-      node.textContent = initials;
+    });
+  }
+
+  // ==========================================
+  // 8. NAVEGAÇÃO ENTRE PÁGINAS
+  // ==========================================
+
+  function updateStudentLinks() {
+    const currentFile = window.location.pathname
+      .split("/")
+      .pop();
+
+    const currentTab =
+      currentFile === "student-history.html"
+        ? "history"
+        : currentFile === "student-documents.html"
+          ? "documents"
+          : "details";
+
+    // Mantém o ID do estudante em todas as abas.
+    document.querySelectorAll(
+      "[data-student-tab]"
+    ).forEach(link => {
+
+      const href = new URL(link.href);
+
+      href.searchParams.set("id", studentId);
+
+      link.href = href.href;
+
+      const active =
+        link.dataset.studentTab === currentTab;
+
+      link.classList.toggle("active", active);
+
+      if (active) {
+        link.setAttribute(
+          "aria-current",
+          "page"
+        );
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+
+    // Atualiza o ID usado em Novo Atendimento.
+    const appointmentLink = document.querySelector(
+      'a[href^="appointments.html?student="]'
+    );
+
+    if (appointmentLink) {
+      const href = new URL(
+        appointmentLink.href
+      );
+
+      href.searchParams.set(
+        "student",
+        studentId
+      );
+
+      appointmentLink.href = href.href;
     }
-  });
-  const setText = (selector, value) => {
-    const node = document.querySelector(selector);
-    if (node) node.textContent = value || "Não informado";
+  }
+
+  // ==========================================
+  // 9. RENDERIZAÇÃO DO ESTUDANTE
+  // ==========================================
+
+  function renderStudent(student) {
+
+    // Informações do cabeçalho.
+    setText("#studentName", student.name);
+
+    if (student.ra) {
+      setText(
+        "#studentMeta",
+        `Matrícula ${student.ra} · ${
+          student.className || "Turma não informada"
+        }`
+      );
+    } else {
+      setText(
+        "#studentMeta",
+        student.className
+          ? `Turma: ${student.className}`
+          : "Turma não informada"
+      );
+    }
+
+    // Informações do cadastro.
+    setText("#studentStatus", student.status);
+    setText("#studentFullName", student.name);
+    setText("#studentBirth", student.birth);
+    setText("#studentEmail", student.email);
+    setText("#studentPhone", student.phone);
+    setText("#studentGuardian", student.guardian);
+    setText("#studentRa", student.ra);
+    setText("#studentCourse", student.course);
+    setText("#studentClass", student.className);
+    setText("#studentShift", student.shift);
+
+    // Foto de perfil.
+    showStudentAvatar(student);
+
+    // Ainda não integramos a API de histórico.
+    // Não exibimos registros demonstrativos.
+    showHistoryMessage(
+      "O histórico de atendimentos ainda não foi integrado nesta página."
+    );
+
+    // Os documentos são carregados pelo arquivo
+    // student-documents.js, que já possui sua
+    // própria integração com a API.
+  }
+
+
+
+function configurarEdicao(student) {
+
+  // Elementos da interface
+  const botaoEditar = document.querySelector(
+    "#editStudentButton"
+  );
+
+  const modal = document.querySelector(
+    "#editStudentModal"
+  );
+
+  const formulario = document.querySelector(
+    "#editStudentForm"
+  );
+
+  // Esta função só atua na página de detalhes.
+  if (!botaoEditar || !modal || !formulario) {
+    return;
+  }
+
+  // Cria um objeto que utiliza nosso prototype Form.
+  const form = Object.create(FormControllerPrototype);
+
+  form.inicializar(formulario);
+
+  // Preenche um campo existente.
+  const preencherCampo = (id, valor) => {
+    const campo = document.getElementById(id);
+
+    if (campo) {
+      campo.value = valor ?? "";
+    }
   };
 
-  setText("#studentStatus", student.status);
-  setText("#studentFullName", student.name);
-  setText("#studentBirth", student.birth);
-  setText("#studentEmail", student.email);
-  setText("#studentPhone", student.phone);
-  setText("#studentGuardian", student.guardian);
-  setText("#studentRa", student.ra);
-  setText("#studentCourse", student.course);
-  setText("#studentClass", student.className);
-  setText("#studentShift", student.shift);
+  // Abre a modal com os dados atuais.
+  function abrirModal() {
 
-  const currentFile = window.location.pathname.split("/").pop();
-  const currentTab = currentFile === "student-history.html" ? "history" :
-    currentFile === "student-documents.html" ? "documents" : "details";
-  document.querySelectorAll("[data-student-tab]").forEach(link => {
-    const href = new URL(link.href);
-    href.searchParams.set("id", queryId);
-    link.href = href.href;
-    link.classList.toggle("active", link.dataset.studentTab === currentTab);
-    if (link.dataset.studentTab === currentTab) link.setAttribute("aria-current", "page");
+    if (document.body.dataset.role !== "admin") {
+      Toast.mostrar(
+        "Somente administradores podem editar alunos.",
+        "error"
+      );
+      return;
+    }
+
+    form.limpar();
+
+    preencherCampo("editStudentName", student.name);
+    preencherCampo("editStudentEmail", student.email);
+
+    // Converte DD/MM/AAAA para AAAA-MM-DD.
+    let nascimento = "";
+
+    if (student.birth) {
+      const partes = student.birth.split("/");
+
+      if (partes.length === 3) {
+        nascimento =
+          `${partes[2]}-${partes[1]}-${partes[0]}`;
+      }
+    }
+
+    preencherCampo("editStudentBirth", nascimento);
+    preencherCampo("editStudentPhone", student.phone);
+    preencherCampo("editStudentGuardian", student.guardian);
+    preencherCampo("editStudentCourse", student.course);
+    preencherCampo("editStudentShift", student.shift);
+
+    // Exibe a turma atual no select informativo.
+    const turma = document.querySelector(
+      "#editStudentClass"
+    );
+
+    if (turma) {
+      turma.options[0].textContent =
+        student.className || "Turma não informada";
+    }
+
+    modal.classList.add("active");
+
+    document.querySelector("#editStudentName")?.focus();
+  }
+
+  // Fecha a modal sem alterar os dados.
+  function fecharModal() {
+    modal.classList.remove("active");
+    form.limpar();
+    botaoEditar.focus();
+  }
+
+  botaoEditar.addEventListener("click", abrirModal);
+
+  document.querySelector(
+    "#closeEditStudentModal"
+  )?.addEventListener("click", fecharModal);
+
+  document.querySelector(
+    "#cancelEditStudent"
+  )?.addEventListener("click", fecharModal);
+
+  // Fecha ao clicar fora da janela.
+  modal.addEventListener("click", event => {
+    if (event.target === modal) {
+      fecharModal();
+    }
   });
 
-  const historyList = document.querySelector("#studentHistoryList");
-  if (historyList) {
-    historyList.replaceChildren();
-    (student.history || []).forEach(item => {
-      const entry = document.createElement("li");
-      const time = document.createElement("time"); time.textContent = item.date;
-      const content = document.createElement("section");
-      const title = document.createElement("strong"); title.textContent = item.title;
-      const sector = document.createElement("small"); sector.textContent = item.sector;
-      const summary = document.createElement("p"); summary.textContent = item.summary;
-      content.append(title, sector, summary); entry.append(time, content); historyList.appendChild(entry);
-    });
-    if (!student.history?.length) {
-      const empty = document.createElement("li"); empty.className = "student-empty-state";
-      empty.textContent = "Ainda não há registros disponíveis para este estudante.";
-      historyList.appendChild(empty);
+  // Fecha utilizando a tecla Escape.
+  document.addEventListener("keydown", event => {
+    if (
+      event.key === "Escape" &&
+      modal.classList.contains("active")
+    ) {
+      fecharModal();
     }
+  });
+
+  // Impede o envio antes da integração com a API.
+  formulario.addEventListener("submit", event => {
+    event.preventDefault();
+
+    Toast.mostrar(
+      "O salvamento será conectado na próxima etapa.",
+      "warning"
+    );
+  });
+}
+
+
+
+
+
+  // Atualiza os links antes de consultar os dados.
+  updateStudentLinks();
+
+  // ==========================================
+  // 10. CONSULTA À API
+  // ==========================================
+
+  try {
+
+    // Utiliza a classe Users do SIAE.
+    const users = new Users();
+
+    // Adiciona o token de autenticação.
+    users.setAuthToken(token);
+
+    // Busca os usuários cadastrados.
+    const response = await users.get(
+      "/users/list"
+    );
+
+    // Verifica o retorno da API.
+    if (
+      Number(response?.code) !== 200 ||
+      !Array.isArray(response?.data)
+    ) {
+      throw new Error(
+        response?.message ||
+        "Não foi possível consultar os estudantes."
+      );
+    }
+
+    // Localiza somente o estudante selecionado.
+    const record = response.data.find(user =>
+      String(user.id) === studentId &&
+      user.enrollment === "estudante"
+    );
+
+    if (!record) {
+      throw new Error(
+        "Estudante não encontrado ou sem permissão de consulta."
+      );
+    }
+
+    // ========================================
+    // 11. ORGANIZAÇÃO DO REGISTRO
+    // ========================================
+
+    const student = {
+      id: record.id,
+
+      name: record.name || "Estudante",
+
+      ra:
+        record.enrollmentNumber ||
+        record.ra ||
+        "",
+
+      className: record.className || "",
+
+      course: record.courseName || "",
+
+      shift: record.shift || "",
+
+      status:
+        Number(record.active) === 1
+          ? "Ativo"
+          : "Inativo",
+
+      birth: formatBirthDate(
+        record.dateBirth
+      ),
+
+      email: record.email || "",
+
+      phone: record.phone || "",
+
+      guardian: record.guardian || "",
+
+      photoUrl: record.photoUrl || ""
+    };
+
+// Renderiza os dados do estudante na página.
+renderStudent(student);
+
+// Configura o formulário de edição.
+configurarEdicao(student);
+
+  } catch (error) {
+
+    console.error(
+      "Erro ao carregar estudante:",
+      error
+    );
+
+    showPageMessage(
+      "Não foi possível carregar o estudante"
+    );
+
+    showHistoryMessage(
+      "Não foi possível carregar as informações do estudante."
+    );
+
+    // Utiliza o prototype Toast do projeto.
+    Toast.mostrar(
+      error.message ||
+      "Erro ao carregar os dados do estudante.",
+      "error"
+    );
   }
 
-  const documentsList = document.querySelector("#studentDocumentsList");
-  const emptyDocuments = document.querySelector("#documentsEmpty");
-  if (documentsList) {
-    documentsList.replaceChildren();
-    (student.documents || []).forEach(item => {
-      const row = document.createElement("li");
-      const icon = document.createElement("span"); icon.className = "document-icon"; icon.textContent = "DOC";
-      const content = document.createElement("section");
-      const title = document.createElement("strong"); title.textContent = item.name;
-      const meta = document.createElement("small"); meta.textContent = `${item.type} · ${item.date}`;
-      content.append(title, meta);
-      const status = document.createElement("span"); status.className = "document-status"; status.textContent = "Cadastrado";
-      row.append(icon, content, status); documentsList.appendChild(row);
-    });
-    if (emptyDocuments) emptyDocuments.hidden = Boolean(student.documents?.length);
-  }
 })();

@@ -155,26 +155,22 @@ function makeCell(text, className = "") {
     return cell;
 }
 
+
 function showStudentDetails(student) {
-    const record = {
-        id: student.id,
-        name: student.name || "Estudante",
-        ra: student.enrollmentNumber || student.ra || String(student.id || ""),
-        className: student.className || "Turma não informada",
-        course: student.courseName || "Curso não informado",
-        shift: student.shift || "Não informado",
-        status: Number(student.active) === 1 ? "Ativo" : "Inativo",
-        email: student.email || "",
-        phone: student.phone || "",
-        birth: student.dateBirth || "",
-        photoUrl: resolvePhotoUrl(student.photoUrl || student.photo),
-        guardian: student.guardian || "",
-        history: [],
-        documents: []
-    };
-    try { sessionStorage.setItem("siae_selected_student", JSON.stringify(record)); } catch (_) { }
-    window.location.href = `../app/student-details.html?id=${encodeURIComponent(record.id)}`;
+    const id = Number(student.id);
+
+    if (!Number.isInteger(id) || id <= 0) {
+        Toast.mostrar(
+            "Não foi possível identificar o aluno.",
+            "error"
+        );
+        return;
+    }
+
+    window.location.href =
+        `../app/student-details.html?id=${encodeURIComponent(id)}`;
 }
+
 
 async function loadClasses() {
     const select = document.querySelector("#studentClass");

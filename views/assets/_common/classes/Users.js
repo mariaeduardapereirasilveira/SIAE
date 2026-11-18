@@ -39,9 +39,18 @@ export default class Users extends HttpClientBase {
         return this.postForm("/users/register", data);
     }
 
-    async update(data) {
-        return this.put("/users/update", data);
+    
+async update(id, data) {
+    if (!Number.isInteger(Number(id)) || Number(id) <= 0) {
+        throw new Error("ID do usuário inválido.");
     }
+
+    return this.put(
+        `/users/id/${encodeURIComponent(id)}`,
+        data
+    );
+}
+
 
     async updateAdmin(data) {
         return this.put("/users/update-admin", data);

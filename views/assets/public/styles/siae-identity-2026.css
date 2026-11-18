@@ -9469,3 +9469,297 @@ button {
     overflow-y: auto !important;
     overflow-x: hidden !important;
 }
+
+/* =========================================
+   CORREÇÃO 01 — ROLAGEM ÚNICA DA SIDEBAR
+   ========================================= */
+
+/* A sidebar inteira será responsável pela rolagem */
+.sidebar {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    scrollbar-width: none !important;
+}
+
+/* Oculta a barra de rolagem no Chrome e Edge */
+.sidebar::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Impede que o nav crie outra área de rolagem */
+.app-layout > .sidebar > nav,
+body.admin-page.app-shell > .sidebar > nav,
+body.app-shell > .sidebar > nav {
+    flex: 0 0 auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* As listas acompanham a rolagem da sidebar */
+.sidebar > nav .sidebar-nav {
+    flex: 0 0 auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Evita que a logo e o rodapé sejam comprimidos */
+.sidebar-logo,
+.sidebar-brand,
+.sidebar-footer {
+    flex-shrink: 0 !important;
+}
+
+/* Ações do cadastro do estudante */
+.student-hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 620px) {
+    .student-hero-actions {
+        width: 100%;
+    }
+
+    .student-hero-actions .button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+/* ==========================================
+   MODAL DE EDIÇÃO DO ALUNO
+   Correção das barras de rolagem
+   ========================================== */
+
+/* A janela não cria rolagem própria */
+#editStudentModal > .modal {
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 90dvh !important;
+    overflow: hidden !important;
+}
+
+/* O formulário não cria uma segunda rolagem */
+#editStudentForm {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Apenas o conteúdo interno pode rolar */
+#editStudentForm .modal-body {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    /* Firefox */
+    scrollbar-width: none !important;
+
+    /* Remove o espaço reservado à barra */
+    scrollbar-gutter: auto !important;
+}
+
+/* Chrome, Edge e Safari */
+#editStudentForm .modal-body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Mantém os botões fora da área rolável */
+#editStudentForm .modal-footer {
+    flex-shrink: 0 !important;
+}
+
+/* ==========================================
+   MODAL DE EDIÇÃO DO ESTUDANTE
+   Ajuste de largura e distribuição
+   ========================================== */
+
+#editStudentModal > .modal {
+    width: min(800px, calc(100vw - 32px)) !important;
+    max-width: 800px !important;
+    max-height: 90dvh !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+/* Cabeçalho ocupa toda a largura */
+#editStudentModal .modal-header {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+}
+
+/* Formulário ocupa a largura disponível */
+#editStudentForm {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    flex: 1 1 auto !important;
+    flex-direction: column !important;
+    align-self: stretch !important;
+
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+/* Campos distribuídos em duas colunas */
+#editStudentForm .modal-body {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 18px 24px !important;
+
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    flex: 1 1 auto !important;
+    padding: 26px 32px !important;
+    align-content: start !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+
+    scrollbar-width: none !important;
+}
+
+#editStudentForm .modal-body::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Títulos e observações ocupam as duas colunas */
+#editStudentForm .modal-body > h3,
+#editStudentForm .modal-body > .form-hint {
+    grid-column: 1 / -1 !important;
+}
+
+/* Campos preenchem suas respectivas colunas */
+#editStudentForm .form-group,
+#editStudentForm .form-control {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Botões sempre acessíveis no rodapé */
+#editStudentForm .modal-footer {
+    display: flex !important;
+    width: 100% !important;
+    flex: 0 0 auto !important;
+    justify-content: flex-end !important;
+    gap: 12px !important;
+    padding: 18px 32px !important;
+    box-sizing: border-box !important;
+}
+
+/* Responsividade */
+@media (max-width: 620px) {
+    #editStudentForm .modal-body {
+        grid-template-columns: minmax(0, 1fr) !important;
+        padding: 20px !important;
+    }
+
+    #editStudentForm .modal-footer {
+        padding: 16px 20px !important;
+    }
+}
+
+
+
+/* ==========================================
+   MODAL DE EDIÇÃO — LARGURA E ORGANIZAÇÃO
+   ========================================== */
+
+/* Aumenta a largura da janela */
+#editStudentModal > .modal {
+    width: min(800px, calc(100vw - 32px)) !important;
+    max-width: 800px !important;
+    box-sizing: border-box;
+}
+
+/* O formulário ocupa toda a largura disponível */
+#editStudentForm {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+/* Organiza os campos em duas colunas */
+#editStudentForm .modal-body {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 24px;
+
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box;
+
+    padding: 24px 32px;
+    align-content: start;
+}
+
+/* Títulos ocupam toda a largura */
+#editStudentForm .modal-body > h3,
+#editStudentForm .modal-body > .form-hint {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
+/* Remove limitações de largura dos campos */
+#editStudentForm .form-group {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0;
+    margin: 0;
+}
+
+/* Inputs e selects preenchem sua coluna */
+#editStudentForm .form-control,
+#editStudentForm input,
+#editStudentForm select {
+    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box;
+}
+
+/* Em telas pequenas, volta para uma coluna */
+@media (max-width: 620px) {
+    #editStudentModal > .modal {
+        width: calc(100vw - 24px) !important;
+    }
+
+    #editStudentForm .modal-body {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 20px;
+        gap: 16px;
+    }
+}
