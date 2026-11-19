@@ -205,133 +205,143 @@
       <!-- Formulário -->
       <form id="editStudentForm">
 
+
         <div class="modal-body">
 
-        
-<div class="modal-body">
+          <!-- DADOS PESSOAIS -->
+          <h3>Dados pessoais</h3>
 
-  <!-- DADOS PESSOAIS -->
-  <h3>Dados pessoais</h3>
+<!-- FOTO DO ESTUDANTE -->
+<div class="form-group student-photo-field">
 
-  <div class="form-group">
-    <label class="form-label" for="editStudentName">
-      Nome completo
-    </label>
-    <input
-      class="form-control"
-      type="text"
-      id="editStudentName"
-      name="name"
-      required
-      minlength="2"
-      maxlength="150"
-      autocomplete="name"
-    >
+  <label class="form-label" for="editStudentPhoto">
+    Foto do estudante
+  </label>
+
+  <div class="photo-picker-row">
+
+    <!-- Prévia -->
+    <div class="photo-preview is-empty" id="editStudentPhotoPreview">
+      <img
+        id="editStudentPhotoPreviewImage"
+        alt="Foto do estudante"
+        hidden
+      >
+      <span id="editStudentPhotoPlaceholder">
+        Sem foto
+      </span>
+    </div>
+
+    <!-- Seleção do arquivo -->
+    <div class="photo-picker-actions">
+      <input
+        id="editStudentPhoto"
+        name="photo"
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        hidden
+      >
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        id="editStudentChoosePhoto"
+      >
+        Escolher foto
+      </button>
+
+      <p class="form-hint">
+        JPG, PNG ou WEBP. Máximo de 5 MB.
+      </p>
+    </div>
+
   </div>
-
-  <div class="form-group">
-    <label class="form-label" for="editStudentEmail">
-      E-mail
-    </label>
-    <input
-      class="form-control"
-      type="email"
-      id="editStudentEmail"
-      name="email"
-      required
-      autocomplete="email"
-    >
-  </div>
-
-  <div class="form-group">
-    <label class="form-label" for="editStudentBirth">
-      Data de nascimento
-    </label>
-    <input
-      class="form-control"
-      type="date"
-      id="editStudentBirth"
-      name="dateBirth"
-      disabled
-    >
-  </div>
-
-  <div class="form-group">
-    <label class="form-label" for="editStudentPhone">
-      Telefone
-    </label>
-    <input
-      class="form-control"
-      type="tel"
-      id="editStudentPhone"
-      disabled
-      placeholder="Não informado"
-    >
-  </div>
-
-  <div class="form-group">
-    <label class="form-label" for="editStudentGuardian">
-      Responsável
-    </label>
-    <input
-      class="form-control"
-      type="text"
-      id="editStudentGuardian"
-      disabled
-      placeholder="Não informado"
-    >
-  </div>
-
-  <!-- DADOS ACADÊMICOS -->
-  <h3>Dados acadêmicos</h3>
-
-  <div class="form-group">
-    <label class="form-label" for="editStudentClass">
-      Turma
-    </label>
-    <select
-      class="form-control"
-      id="editStudentClass"
-      name="class_id"
-      disabled
-    >
-      <option value="">Selecione uma turma</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label class="form-label" for="editStudentCourse">
-      Curso
-    </label>
-    <input
-      class="form-control"
-      type="text"
-      id="editStudentCourse"
-      disabled
-      placeholder="Não informado"
-    >
-  </div>
-
-  <div class="form-group">
-    <label class="form-label" for="editStudentShift">
-      Turno
-    </label>
-    <input
-      class="form-control"
-      type="text"
-      id="editStudentShift"
-      disabled
-      placeholder="Não informado"
-    >
-  </div>
-
 </div>
+
+
+          <div class="form-group">
+            <label class="form-label" for="editStudentName">
+              Nome completo
+            </label>
+            <input class="form-control" type="text" id="editStudentName" name="name" required minlength="2"
+              maxlength="150" autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="editStudentEmail">
+              E-mail
+            </label>
+            <input class="form-control" type="email" id="editStudentEmail" name="email" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="editStudentBirth">
+              Data de nascimento
+            </label>
+            <input class="form-control" type="date" id="editStudentBirth" name="dateBirth" disabled>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="editStudentPhone">
+              Telefone
+            </label>
+            <input class="form-control" type="tel" id="editStudentPhone" disabled placeholder="Não informado">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="editStudentGuardian">
+              Responsável
+            </label>
+            <input class="form-control" type="text" id="editStudentGuardian" disabled placeholder="Não informado">
+          </div>
+
+          <!-- DADOS ACADÊMICOS -->
+          <h3>Dados acadêmicos</h3>
+
+          <div class="form-group">
+            <label class="form-label" for="editStudentClass">
+              Turma
+            </label>
+            <select class="form-control" id="editStudentClass" name="class_id" disabled>
+              <option value="">Selecione uma turma</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="editStudentCourse">
+              Curso
+            </label>
+            <input class="form-control" type="text" id="editStudentCourse" disabled placeholder="Não informado">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="editStudentShift">
+              Turno
+            </label>
+            <input class="form-control" type="text" id="editStudentShift" disabled placeholder="Não informado">
+          </div>
+
+
+        </div>
+        <!-- Fim da modal-body -->
+
+        <!-- Rodapé do formulário -->
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-ghost" id="cancelEditStudent">
+            Cancelar
+          </button>
+
+          <button type="submit" class="btn btn-primary" id="saveStudentChanges">
+            Salvar alterações
+          </button>
 
         </div>
 
       </form>
     </div>
   </div>
+
 
 
 

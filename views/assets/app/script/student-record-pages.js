@@ -335,6 +335,69 @@ function configurarEdicao(student) {
 
   form.inicializar(formulario);
 
+  // Elementos do campo de fotografia
+  const inputFoto = document.querySelector("#editStudentPhoto");
+  const imagemFoto = document.querySelector("#editStudentPhotoPreviewImage");
+  const placeholderFoto = document.querySelector("#editStudentPhotoPlaceholder");
+  const escolherFoto = document.querySelector("#editStudentChoosePhoto");
+
+  let urlTemporaria = null;
+
+  function limparFotoTemporaria() {
+    if (urlTemporaria) {
+      URL.revokeObjectURL(urlTemporaria);
+      urlTemporaria = null;
+    }
+  }
+
+  function mostrarFoto(url) {
+    if (!imagemFoto || !placeholderFoto) return;
+
+    if (url) {
+      imagemFoto.src = url;
+      imagemFoto.hidden = false;
+      placeholderFoto.hidden = true;
+    } else {
+      imagemFoto.removeAttribute("src");
+      imagemFoto.hidden = true;
+      placeholderFoto.hidden = false;
+    }
+  }
+
+  escolherFoto?.addEventListener("click", () => {
+    inputFoto?.click();
+  });
+
+  inputFoto?.addEventListener("change", () => {
+    const arquivo = inputFoto.files?.[0];
+
+    if (!arquivo) return;
+
+    const tiposPermitidos = [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ];
+
+    if (!tiposPermitidos.includes(arquivo.type) ||
+        arquivo.size > 5 * 1024 * 1024) {
+
+      Toast.mostrar(
+        "Escolha uma imagem JPG, PNG ou WEBP de até 5 MB.",
+        "warning"
+      );
+
+      inputFoto.value = "";
+      return;
+    }
+
+    limparFotoTemporaria();
+
+    urlTemporaria = URL.createObjectURL(arquivo);
+    mostrarFoto(urlTemporaria);
+  });
+
+
   // Preenche um campo existente.
   const preencherCampo = (id, valor) => {
     const campo = document.getElementById(id);
@@ -356,6 +419,10 @@ function configurarEdicao(student) {
     }
 
     form.limpar();
+    
+limparFotoTemporaria();
+mostrarFoto(student.photoUrl || "");
+
 
     preencherCampo("editStudentName", student.name);
     preencherCampo("editStudentEmail", student.email);
@@ -397,6 +464,7 @@ function configurarEdicao(student) {
   function fecharModal() {
     modal.classList.remove("active");
     form.limpar();
+    limparFotoTemporaria();
     botaoEditar.focus();
   }
 

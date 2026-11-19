@@ -1,13 +1,14 @@
 <?php
 
 namespace Source\Models\Users;
+
 use Source\Core\JWTToken;
 use Source\Core\Model;
 use Source\Core\Connect;
 
 class User extends Model
 {
-     private ?int $id;
+    private ?int $id;
     private ?int $sectorId;
     private ?int $classId;
     private ?string $name;
@@ -20,11 +21,27 @@ class User extends Model
     private ?string $dateBirth;
     private ?int $active;
 
-    public function __construct(?int $id = null, ?int $sectorId = null,
-    ?int $classId = null, ?string $name = null, ?string $email = null,
-    ?string $password = null, ?string $photo = null, ?string $createdAt = null,
-     ?string $updatedAt = null, ?string $enrollment = null, ?string $dateBirth = null, ?int $active = 1)
-    {
+    private ?string $registrationNumber = null;
+    private ?string $phone = null;
+    private ?string $guardian = null;
+    private ?string $course = null;
+    private ?string $shift = null;
+
+
+    public function __construct(
+        ?int $id = null,
+        ?int $sectorId = null,
+        ?int $classId = null,
+        ?string $name = null,
+        ?string $email = null,
+        ?string $password = null,
+        ?string $photo = null,
+        ?string $createdAt = null,
+        ?string $updatedAt = null,
+        ?string $enrollment = null,
+        ?string $dateBirth = null,
+        ?int $active = null
+    ) {
         $this->id = $id;
         $this->sectorId = $sectorId;
         $this->classId = $classId;
@@ -40,7 +57,25 @@ class User extends Model
 
         $this->table = 'users';
         $this->primaryKey = 'id';
-        $this->fillable = ['sectorId', 'classId', 'name', 'email', 'password', 'photo', 'createdAt', 'updatedAt', 'enrollment', 'dateBirth', 'active'];
+
+        $this->fillable = [
+            'sectorId',
+            'classId',
+            'name',
+            'email',
+            'password',
+            'photo',
+            'createdAt',
+            'updatedAt',
+            'enrollment',
+            'dateBirth',
+            'active',
+            'registrationNumber',
+            'phone',
+            'guardian',
+            'course',
+            'shift'
+        ];
     }
 
     public function getId(): ?int
@@ -109,9 +144,9 @@ class User extends Model
     }
 
     public function setPhoto(?string $photo): void
-{
-    $this->photo = $photo;
-}
+    {
+        $this->photo = $photo;
+    }
 
     public function getCreatedAt(): ?string
     {
@@ -123,14 +158,14 @@ class User extends Model
         $this->createdAt = $createdAt;
     }
     public function getUpdatedAt(): ?string
-{
-    return $this->updatedAt;
-}
+    {
+        return $this->updatedAt;
+    }
 
     public function setUpdatedAt(?string $updatedAt): void
-{
-    $this->updatedAt = $updatedAt;
-}
+    {
+        $this->updatedAt = $updatedAt;
+    }
     public function getEnrollment(): ?string
     {
         return $this->enrollment;
@@ -155,98 +190,172 @@ class User extends Model
         return $this->active;
     }
 
+
+
+    /* ==========================================
+   DADOS COMPLEMENTARES DO ESTUDANTE
+   ========================================== */
+
+    // MATRÍCULA
+    public function getRegistrationNumber(): ?string
+    {
+        return $this->registrationNumber;
+    }
+
+    public function setRegistrationNumber(?string $registrationNumber): void
+    {
+        $this->registrationNumber = $registrationNumber;
+    }
+
+    // TELEFONE
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    // RESPONSÁVEL
+    public function getGuardian(): ?string
+    {
+        return $this->guardian;
+    }
+
+    public function setGuardian(?string $guardian): void
+    {
+        $this->guardian = $guardian;
+    }
+
+    // CURSO
+    public function getCourse(): ?string
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?string $course): void
+    {
+        $this->course = $course;
+    }
+
+    // TURNO
+    public function getShift(): ?string
+    {
+        return $this->shift;
+    }
+
+    public function setShift(?string $shift): void
+    {
+        $this->shift = $shift;
+    }
+
+
+
+
+
+
+
     public function setActive(int $active): void
     {
         $this->active = $active;
     }
- public function getToken(): ?string
-    {        return $this->token;
+    public function getToken(): ?string
+    {
+        return $this->token;
     }
 
-       public function insert (): bool
+    public function insert(): bool
     {
+
+        // Novos usuários são ativos por padrão,
+        // caso o status não seja informado explicitamente.
+        if ($this->active === null) {
+            $this->active = 1;
+        }
+
+
         $query = "SELECT * FROM  {$this->table} WHERE email = :email";
         $stmt = Connect::getInstance()->prepare($query);
         $stmt->bindParam(":email", $this->email);
         $stmt->execute();
-        if($stmt->rowCount() > 0){
+        if ($stmt->rowCount() > 0) {
             $this->errorMessage = "Email já cadastrado";
             return false;
         }
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
 
-        if(!parent::insert()){
+        if (!parent::insert()) {
             $this->errorMessage = "Algo deu errado";
             return false;
         }
         return true;
-
     }
 
-    public function login (
-        string $email, 
+    public function login(
+        string $email,
         string $password,
         ?string $enrollment = null
-        ): bool
-        {
+    ): bool {
         $query = "SELECT * FROM {$this->table}
          WHERE email = :email";
         $stmt = Connect::getInstance()->prepare($query);
         $stmt->bindParam(":email", $email);
         $stmt->execute();
 
-      $user = $stmt->fetch();
+        $user = $stmt->fetch();
 
-    if (!$user) {
-        $this->errorMessage = "Email não cadastrado";
-        return false;
-    }
+        if (!$user) {
+            $this->errorMessage = "Email não cadastrado";
+            return false;
+        }
 
 
 
-// Valida se o perfil selecionado corresponde ao cadastro.
-if (
-    $enrollment !== null &&
-    !in_array($enrollment, ["administrador", "profissional"], true)
-) {
-    $this->errorMessage = "Perfil de acesso inválido.";
-    return false;
-}
+        // Valida se o perfil selecionado corresponde ao cadastro.
+        if (
+            $enrollment !== null &&
+            !in_array($enrollment, ["administrador", "profissional"], true)
+        ) {
+            $this->errorMessage = "Perfil de acesso inválido.";
+            return false;
+        }
 
-if (
-    $enrollment !== null &&
-    $user->enrollment !== $enrollment
-) {
-    $this->errorMessage = "Esta conta não pertence ao perfil selecionado.";
-    return false;
-}
+        if (
+            $enrollment !== null &&
+            $user->enrollment !== $enrollment
+        ) {
+            $this->errorMessage = "Esta conta não pertence ao perfil selecionado.";
+            return false;
+        }
 
-    
 
-    if (!password_verify($password, $user->password)) {
-        $this->errorMessage = "Senha incorreta";
-        return false;
-    }
 
-// var_dump("Senha recebida:", $password);
-// var_dump("Hash do banco:", $user->password);
-// var_dump("Resultado:", password_verify($password, $user->password));
+        if (!password_verify($password, $user->password)) {
+            $this->errorMessage = "Senha incorreta";
+            return false;
+        }
 
-// exit;
-//
+        // var_dump("Senha recebida:", $password);
+        // var_dump("Hash do banco:", $user->password);
+        // var_dump("Resultado:", password_verify($password, $user->password));
 
-if(
-        $user->enrollment !== "administrador" &&
-        $user->enrollment !== "profissional"
-    ){
-        $this->errorMessage = "Este usuário não possui permissão para acessar o sistema";
-        return false;
-    }
+        // exit;
+        //
 
-    if($user->active != 1){
-    $this->errorMessage = "Usuário desativado";
-    return false;
-}
+        if (
+            $user->enrollment !== "administrador" &&
+            $user->enrollment !== "profissional"
+        ) {
+            $this->errorMessage = "Este usuário não possui permissão para acessar o sistema";
+            return false;
+        }
+
+        if ($user->active != 1) {
+            $this->errorMessage = "Usuário desativado";
+            return false;
+        }
 
 
         $this->id = $user->id;
@@ -265,14 +374,14 @@ if(
         return true;
     }
 
-    public function permissionVerify (string $email, string $enrollment): bool
+    public function permissionVerify(string $email, string $enrollment): bool
     {
         $query = "SELECT * FROM {$this->table} WHERE email = :email AND enrollment = :enrollment";
         $stmt = Connect::getInstance()->prepare($query);
         $stmt->bindParam(":email", $email);
-            $stmt->bindParam(':enrollment', $enrollment);
+        $stmt->bindParam(':enrollment', $enrollment);
         $stmt->execute();
-        if($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() == 0) {
             return false;
         }
         return true;
@@ -287,7 +396,7 @@ if(
                       WHERE {$this->primaryKey} = :id";
             $stmt = Connect::getInstance()->prepare($query);
             $stmt->bindValue(':photo', $photoPath);
-            $stmt->bindValue(':updated_at', (string) time());
+            $stmt->bindValue(':updated_at', date('Y-m-d H:i:s'));
             $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
             $stmt->execute();
 
@@ -298,7 +407,7 @@ if(
 
             $this->id = $id;
             $this->photo = $photoPath;
-            $this->updatedAt = (string) time();
+            $this->updatedAt = date('Y-m-d H:i:s');
             return true;
         } catch (\PDOException $exception) {
             $this->errorMessage = "Erro ao atualizar a foto do usuário.";
@@ -306,5 +415,4 @@ if(
             return false;
         }
     }
-
 }

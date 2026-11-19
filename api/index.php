@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 use CoffeeCode\Router\Router;
 // localhost/acme-3am/api
-$route = new Router(url("api"),":");
+$route = new Router(url("api"), ":");
 
-$route->namespace("Source\Controller");// localhost/acme-3am/api/hello
+$route->namespace("Source\Controller"); // localhost/acme-3am/api/hello
 $route->get("/hello", "Api:hello");
 // $route->get("/products/list", "Products:productsList");
 //$route->get("/users/list", "Users:usersList");
@@ -79,8 +79,13 @@ $route->get("/me", "Users:me");
 $route->get("/id/{user_id}", "Users:listById");
 $route->post("/register", "Users:insert");
 $route->post("/login", "Users:auth");
-$route->post("/login/admin", "Users:authAdmin"); 
+$route->post("/login/admin", "Users:authAdmin");
 $route->post("/photo", "Users:uploadPhoto");
+$route->post(
+    "/id/{user_id}/photo",
+    "Users:uploadStudentPhoto"
+);
+
 $route->put("/id/{user_id}", "Users:update");
 $route->delete("/id/{user_id}", "Users:delete");
 
@@ -114,21 +119,21 @@ $route->group(null);
 $route->group("/faqs"); // select by id
 $route->namespace("Source\Controller");
 
-$route->get("/list","Faqs:listAll");
-$route->get("/list/{faq_id}","Faqs:listById");
-$route->post("/","Faqs:insert");
-$route->put("/{faq_id}","Faqs:update");
-$route->delete("/{faq_id}","Faqs:delete");
+$route->get("/list", "Faqs:listAll");
+$route->get("/list/{faq_id}", "Faqs:listById");
+$route->post("/", "Faqs:insert");
+$route->put("/{faq_id}", "Faqs:update");
+$route->delete("/{faq_id}", "Faqs:delete");
 $route->group(null);
 
 $route->group("/faqs-categories");
 $route->namespace("Source\Controller");
 
-$route->get("/list","FaqsCategories:listAll");
-$route->get("/list/{category_id}","FaqsCategories:listById");
-$route->put("/{category_id}","FaqsCategories:update");
-$route->post("/","FaqsCategories:insert"); // insert
-$route->delete("/{category_id}","FaqsCategories:delete"); // delete
+$route->get("/list", "FaqsCategories:listAll");
+$route->get("/list/{category_id}", "FaqsCategories:listById");
+$route->put("/{category_id}", "FaqsCategories:update");
+$route->post("/", "FaqsCategories:insert"); // insert
+$route->delete("/{category_id}", "FaqsCategories:delete"); // delete
 $route->group(null);
 
 $route->group("/shares");
@@ -182,7 +187,6 @@ if ($route->error()) {
         "status" => "not_found",
         "message" => "URL não encontrada"
     ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
 }
 
 ob_end_flush();
