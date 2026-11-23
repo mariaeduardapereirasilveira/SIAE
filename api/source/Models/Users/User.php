@@ -40,7 +40,12 @@ class User extends Model
         ?string $updatedAt = null,
         ?string $enrollment = null,
         ?string $dateBirth = null,
-        ?int $active = null
+         ?string $registrationNumber = null,
+        ?string $phone = null,
+         ?string $guardian = null,
+         ?string $course = null,
+        ?string $shift = null,
+        ?int $active = null,
     ) {
         $this->id = $id;
         $this->sectorId = $sectorId;
@@ -53,7 +58,11 @@ class User extends Model
         $this->updatedAt = $updatedAt;
         $this->enrollment = $enrollment;
         $this->dateBirth = $dateBirth;
-        $this->active = $active;
+        $this-> phone = $phone;
+         $this-> guardian = $guardian;
+        $this-> course = $course;
+        $this-> shift = $shift;
+        $this-> active = $active;
 
         $this->table = 'users';
         $this->primaryKey = 'id';
@@ -284,7 +293,24 @@ class User extends Model
             $this->errorMessage = "Email já cadastrado";
             return false;
         }
-        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+      
+if ($this->enrollment === 'estudante') {
+    // Estudantes não possuem senha.
+    $this->password = null;
+} else {
+    // Somente perfis que acessam o sistema
+    // devem possuir uma senha válida.
+    if ($this->password === null || $this->password === '') {
+        $this->errorMessage = 'Senha obrigatória para este perfil.';
+        return false;
+    }
+
+    $this->password = password_hash(
+        $this->password,
+        PASSWORD_DEFAULT
+    );
+}
+
 
         if (!parent::insert()) {
             $this->errorMessage = "Algo deu errado";

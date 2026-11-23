@@ -1,5 +1,6 @@
 import FormController from "../../_common/prototypes/FormControllerPrototype.js";
 import Toast from "../../_common/prototypes/Toast.js";
+import ConfirmModal from "../../_common/components/ConfirmModal.js";
 
 
 function resolveSiaeApiBase() {
@@ -12,6 +13,14 @@ import Users from "../../_common/classes/Users.js";
 
 const API_BASE = resolveSiaeApiBase();
 const users = new Users();
+
+/**
+ * Identifica se estamos na página de alunos desativados.
+ * Será false na página students.html.
+ */
+const isInactivePage = window.location.pathname
+    .endsWith("/students-inactive.html");
+
 const modal = document.querySelector("#studentModal");
 const form = document.querySelector("#studentForm");
 const openModalButton = document.querySelector("#openStudentModal");
@@ -201,12 +210,72 @@ async function loadStudents() {
         const result = await response.json();
         if (!response.ok || result.code !== 200) throw new Error(result.message || "Não foi possível carregar os alunos.");
 
-        const students = (result.data || []).filter(user => user.enrollment === "estudante");
+
+        // Reúne todos os estudantes recebidos da API,
+        // independentemente de estarem ativos ou inativos.
+        const allStudents = (result.data || []).filter(
+            user => user.enrollment === "estudante"
+        );
+
+        // Calcula as quantidades.
+        const total = allStudents.length;
+
+        const activeCount = allStudents.filter(
+            student => Number(student.active) === 1
+        ).length;
+
+        const inactiveCount = total - activeCount;
+
+        // Atualiza os indicadores nas duas páginas.
+        document.querySelector("#studentsTotal").textContent = total;
+
+        document.querySelector("#studentsActive").textContent = activeCount;
+
+        document.querySelector("#studentsInactive").textContent = inactiveCount;
+
+        // Filtra os estudantes conforme a página atual.
+        const students = (result.data || []).filter(user => {
+
+            // Confirma que o usuário é estudante.
+            const isStudent = user.enrollment === "estudante";
+
+            // Verifica o status armazenado no banco.
+            const isActive = Number(user.active) === 1;
+
+            // A página de desativados mostra somente inativos.
+            // A página principal mostra somente ativos.
+            return isStudent && (
+                isInactivePage ? !isActive : isActive
+            );
+        });
+
+        // Mostra quantos estudantes estão na listagem atual.
+        const countBadge = document.querySelector(
+            "#studentsListCount"
+        );
+
+        if (countBadge) {
+            countBadge.textContent = `${students.length} ${students.length === 1 ? "aluno" : "alunos"
+                }`;
+        }
+
         tbody.replaceChildren();
+
         if (!students.length) {
-            tbody.innerHTML = '<tr><td colspan="5" class="table-message">Nenhum aluno cadastrado ainda.</td></tr>';
+            const message = isInactivePage
+                ? "Nenhum aluno desativado."
+                : "Nenhum aluno ativo encontrado.";
+
+            tbody.innerHTML = `
+        <tr>
+            <td colspan="5" class="table-message">
+                ${message}
+            </td>
+        </tr>
+    `;
             return;
         }
+
 
         students.forEach(student => {
             const row = document.createElement("tr");
@@ -227,8 +296,33 @@ async function loadStudents() {
             const detailsButton = document.createElement("button");
             detailsButton.type = "button"; detailsButton.className = "btn btn-ghost btn-sm"; detailsButton.textContent = "Detalhes";
             detailsButton.addEventListener("click", () => showStudentDetails(student));
-            actionCell.appendChild(detailsButton); row.appendChild(actionCell);
+
+            // Mantém o botão Detalhes.
+            actionCell.appendChild(detailsButton);
+
+            // Cria o botão de alteração do status.
+            const statusButton = document.createElement("button");
+
+            statusButton.type = "button";
+            statusButton.className = "btn btn-outline btn-sm";
+            statusButton.style.marginLeft = "8px";
+
+            // Decide qual ação mostrar.
+            statusButton.textContent = active
+                ? "Desativar"
+                : "Reativar";
+
+            // Conecta o botão à API.
+            statusButton.addEventListener("click", () => {
+                changeStudentStatus(student, statusButton);
+            });
+
+            // Insere os botões na coluna Ações.
+            actionCell.appendChild(statusButton);
+
+            row.appendChild(actionCell);
             tbody.appendChild(row);
+
         });
     } catch (error) {
         Toast.mostrar(
@@ -239,6 +333,96 @@ async function loadStudents() {
         tbody.innerHTML = '<tr><td colspan="5" class="table-message">Não foi possível carregar os alunos. Confira sua conexão e tente novamente.</td></tr>';
     }
 }
+
+
+/**
+ * Desativa ou reativa um estudante.
+ * Utiliza a modal de confirmação personalizada do SIAE.
+ *
+ * @param {Object} student - Dados do estudante.
+ * @param {HTMLButtonElement} button - Botão clicado.
+ */
+async function changeStudentStatus(student, button) {
+
+    // Identifica o status atual do estudante.
+    const isActive = Number(student.active) === 1;
+
+    // Abre a modal personalizada e aguarda a decisão.
+    const confirmed = await ConfirmModal.confirmar({
+        titulo: isActive
+            ? "Desativar estudante?"
+            : "Reativar estudante?",
+
+        mensagem: isActive
+            ? `Deseja realmente desativar ${student.name}? O cadastro será preservado e poderá ser reativado posteriormente.`
+            : `Deseja reativar ${student.name}? O cadastro voltará à listagem de alunos ativos.`,
+
+        textoConfirmar: isActive
+            ? "Desativar"
+            : "Reativar",
+
+        tipo: isActive ? "danger" : "positive"
+    });
+
+    // Se clicar em Cancelar, não altera nada.
+    if (!confirmed) {
+        return;
+    }
+
+    // Bloqueia o botão para evitar múltiplos cliques.
+    button.disabled = true;
+
+    // Guarda o texto original para restaurá-lo depois.
+    const originalText = button.textContent;
+
+    button.textContent = isActive
+        ? "Desativando..."
+        : "Reativando...";
+
+    try {
+        // Executa a operação na API.
+        const result = isActive
+            ? await users.deactivate(student.id)
+            : await users.reactivate(student.id);
+
+        // Verifica se a API confirmou a operação.
+        if (Number(result?.code) !== 200) {
+            throw new Error(
+                result?.message || "Erro ao alterar o status."
+            );
+        }
+
+        // Exibe a mensagem de sucesso.
+        Toast.mostrar(
+            isActive
+                ? "Aluno desativado com sucesso!"
+                : "Aluno reativado com sucesso!",
+            "success"
+        );
+
+        // Atualiza a tabela e os indicadores.
+        await loadStudents();
+
+    } catch (error) {
+        console.error("Erro ao alterar status:", error);
+
+        Toast.mostrar(
+            error.message || "Não foi possível alterar o status.",
+            "error"
+        );
+
+    } finally {
+        // Restaura o botão após a operação.
+        button.disabled = false;
+        button.textContent = originalText;
+    }
+}
+
+
+
+
+
+
 
 openModalButton?.addEventListener("click", openModal);
 closeModalButton?.addEventListener("click", closeModal);

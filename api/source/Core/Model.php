@@ -328,4 +328,60 @@ public function updateById(int $id): bool
 
         return lcfirst($field);
     }
+
+
+
+
+/**
+ * Reativa um registro que foi desativado.
+ *
+ * Altera o campo active de 0 para 1.
+ */
+public function reactivateById(int $id): bool
+{
+    try {
+        // 1. Verifica se o registro existe.
+        $query = "SELECT active
+                  FROM {$this->table}
+                  WHERE {$this->primaryKey} = :id
+                  LIMIT 1";
+
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if ($result === false) {
+            $this->errorMessage = "Registro não encontrado.";
+            return false;
+        }
+
+        // 2. Se já estiver ativo, não precisa alterar.
+        if ((int) $result->active === 1) {
+            return true;
+        }
+
+        // 3. Reativa o registro.
+        $query = "UPDATE {$this->table}
+                  SET active = 1
+                  WHERE {$this->primaryKey} = :id";
+
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        if (!$stmt->execute()) {
+            $this->errorMessage = "Não foi possível reativar o registro.";
+            return false;
+        }
+
+        return true;
+
+    } catch (\PDOException $exception) {
+        $this->errorMessage = $exception->getMessage();
+        return false;
+    }
+}
+
+
 }

@@ -1,0 +1,384 @@
+﻿<!doctype html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Profissionais Desativados- SIAE</title>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="../assets/_common/styles/global.css" rel="stylesheet" />
+  <link href="../assets/app/styles/app.css" rel="stylesheet" />
+  <link href="../assets/admin/styles/admin.css" rel="stylesheet" />
+  <link href="../assets/public/styles/siae-identity-2026.css" rel="stylesheet" />
+   <link href="../assets/_common/styles/toast.css" rel="stylesheet">  
+  <link rel="stylesheet" href="../assets/_common/styles/confirm-modal.css">
+</head>
+
+<body class="admin-page professionals-management-page">
+  <div class="app-layout">
+    <header aria-label="Navegação principal do SIAE" class="sidebar workspace-shell workspace-toolbar" role="banner">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">
+          <img alt="Símbolo SIAE" class="owl-logo" decoding="async" src="../assets/public/images/brand/siae-logo.svg" />
+        </div>
+        <div class="sidebar-logo-text">
+          <h1>SIAE</h1>
+          <p>Conexões entre Setores</p>
+        </div>
+      </div>
+      <nav>
+        <p class="sidebar-section-label">Gestão</p>
+        <ul class="sidebar-nav">
+          <li>
+            <a aria-current="page" class="is-active nav-with-icon" href="admin.html">Dashboard</a>
+          </li>
+          <li>
+            <a class="nav-with-icon" href="students.html">Alunos</a>
+
+          </li>
+          <li>
+            <a class="nav-with-icon" href="professionals.html">Profissionais</a>
+          </li>
+          <li><a class="nav-with-icon" href="sectors.html">Setores</a></li>
+          <li><a class="nav-with-icon" href="reports.html">Relatórios</a></li>
+
+          <li>
+            <a class="nav-with-icon" href="../app/charts.html">
+              Gráficos
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-with-icon" href="../app/faq.html">
+              FAQ
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-with-icon" href="../app/notifications.html">
+              Notificações
+            </a>
+          </li>
+        </ul>
+        <p class="sidebar-section-label siae-u-margin-top-24px-49fcd85">
+          Conta
+        </p>
+        <ul class="sidebar-nav">
+          <li><a data-logout="" href="../public/login.html">Sair</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="sidebar-user" href="../app/profile.html">
+          <div class="sidebar-avatar" id="userAvatar">AD</div>
+          <div class="sidebar-user-info">
+            <h4 id="userName">Admin</h4>
+            <p id="userRole">Administrador</p>
+          </div>
+        </a>
+      </div>
+    </header>
+    <main class="main-content">
+      <header class="app-header">
+        <button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button">
+          <span aria-hidden="true" class="menu-toggle-lines"><i></i><i></i><i></i></span>
+        </button>
+        <div class="header-breadcrumb">
+          <h2>Profissionais</h2>
+          <p>Gerenciamento de profissionais</p>
+        </div>
+        <button aria-label="Ativar modo escuro" class="theme-toggle header-theme-toggle" data-theme-toggle=""
+          title="Tema" type="button">
+          <svg aria-hidden="true" class="theme-icon theme-icon-sun" fill="none" stroke="currentColor" stroke-width="1.8"
+            viewbox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.3-11.3 1.4-1.4">
+            </path>
+          </svg>
+          <svg aria-hidden="true" class="theme-icon theme-icon-moon" fill="none" stroke="currentColor"
+            stroke-width="1.8" viewbox="0 0 24 24">
+            <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"></path>
+          </svg>
+          <span class="theme-toggle-label">Tema</span></button><a aria-label="Notificações"
+          class="header-icon-btn topbar-notifications" href="../app/notifications.html" title="Notificações">
+          <img alt="" aria_hidden="true" class="notification-bell-svg"
+            src="../assets/public/images/brand/interface/sino.svg" /><span aria-hidden="true"
+            class="notification-indicator"></span></a><a class="header-user-chip" href="../app/profile.html">
+          <div class="header-user-avatar" id="headerAvatar">AD</div>
+          <span class="header-user-name" id="headerName">Admin</span>
+        </a>
+      </header>
+      <div class="page-content animate-fade-in">
+
+        <div class="page-header professionals-page-header">
+
+          <div class="page-header-title">
+            <h1>Profissionais desativados</h1>
+            <p>Gerencie os profissionais que estão inativos.</p>
+          </div>
+
+          <!-- Retorna à listagem principal -->
+
+        </div>
+
+
+
+
+        <!-- Indicadores da gestão de profissionais -->
+        <section class="students-overview" aria-label="Indicadores de profissionais">
+
+          <!-- Total -->
+          <article class="students-metric students-metric--total">
+            <div class="students-metric-top">
+              <span class="students-metric-label">
+                TOTAL DE PROFISSIONAIS
+              </span>
+
+              <span class="students-metric-icon">
+                <img src="../assets/public/images/brand/interface/tres-pessoas.svg" alt="">
+              </span>
+            </div>
+
+            <strong class="students-metric-number" id="professionalsTotal">—</strong>
+
+            <p class="students-metric-description">
+              Profissionais cadastrados no SIAE
+            </p>
+          </article>
+
+          <!-- Ativos -->
+          <article class="students-metric students-metric--active">
+            <div class="students-metric-top">
+              <span class="students-metric-label">
+                PROFISSIONAIS ATIVOS
+              </span>
+
+              <span class="students-metric-icon">
+                <img src="../assets/public/images/brand/interface/pessoa.svg" alt="">
+              </span>
+            </div>
+
+            <strong class="students-metric-number" id="professionalsActive">—</strong>
+
+            <p class="students-metric-description">
+              Profissionais disponíveis
+            </p>
+          </article>
+
+          <!-- Desativados -->
+          <article class="students-metric students-metric--inactive">
+            <div class="students-metric-top">
+              <span class="students-metric-label">
+                DESATIVADOS
+              </span>
+
+              <span class="students-metric-icon">
+                <img src="../assets/public/images/brand/interface/pessoa.svg" alt="">
+              </span>
+            </div>
+
+            <strong class="students-metric-number" id="professionalsInactive">—</strong>
+
+            <p class="students-metric-description">
+              Cadastros preservados no histórico
+            </p>
+          </article>
+
+        </section>
+
+        <div class="management-list-header">
+
+          <div class="management-list-title">
+            <h2>Profissionais desativados</h2>
+            <p>Consulte e reative cadastros preservados</p>
+          </div>
+
+          <nav class="management-tabs" aria-label="Situação dos profissionais">
+
+            <a href="professionals.html" class="management-tab">
+              Ativos
+            </a>
+
+            <a href="professionals-inactive.html" class="management-tab is-current" aria-current="page">
+              Desativados
+            </a>
+
+          </nav>
+
+        </div>
+
+
+
+        <div class="card">
+          <div class="table-container siae-u-border-none-border-radius-0-4255cd0">
+            <table class="professionals-list-table">
+              <thead>
+                <tr>
+                  <th>Profissional</th>
+                  <th>Setor</th>
+                  <th>E-mail</th>
+                  <th>Status</th>
+                  <th>A├º├Áes</th>
+                </tr>
+              </thead>
+              <tbody id="professionalsTable">
+                <tr>
+                  <td class="table-message" colspan="5">
+                    Carregando profissionais...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <!-- Professional Modal -->
+  <div class="modal-overlay" id="professionalModal" role="presentation">
+    <div aria-label="Cadastrar Profissional" aria-modal="true" class="modal siae-u-max-width-500px-72fca94"
+      role="dialog">
+      <div class="modal-header">
+        <div>
+          <div class="card-title">Cadastrar Profissional</div>
+          <div class="card-subtitle">Preencha os dados do profissional</div>
+        </div>
+        <button aria-label="Fechar" class="btn btn-ghost btn-sm btn-icon" id="closeProfessionalModal" type="button">
+          <svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+            <line x1="18" x2="6" y1="6" y2="18"></line>
+            <line x1="6" x2="18" y1="6" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form id="professionalForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="profName"> Nome Completo </label>
+            <input autocomplete="name" class="form-control" id="profName" name="name" placeholder="Nome do profissional"
+              required="" type="text" />
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="profFunction">Função</label>
+              <select class="form-control" id="profFunction" name="function" required="">
+                <option value="">Selecione</option>
+                <option value="Psicologo(a)">Psicólogo(a)</option>
+                <option value="Pedagogo(a)">Pedagogo(a)</option>
+                <option value="Enfermeiro(a)">Enfermeiro(a)</option>
+                <option value="Assistente Social">Assistente Social</option>
+                <option value="Coordenador(a)">Coordenador(a)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="profSector"> Setor </label>
+              <select class="form-control" id="profSector" name="sector" required="">
+                <option value="">Selecione</option>
+                <option value="Dire├º├úo">Direção</option>
+                <option value="Orienta├º├úo">Orientação</option>
+                <option value="Psicologia">Psicologia</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="profEmail"> E-mail </label>
+            <input autocomplete="email" class="form-control" id="profEmail" name="email" placeholder="email@siae.edu.br"
+              required="" type="email" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="profPassword"> Senha </label>
+            <input autocomplete="new-password" class="form-control" id="profPassword" minlength="6" name="password"
+              placeholder="Defina a senha de acesso" type="password" />
+          </div>
+
+          <!-- Data de nascimento e telefone -->
+          <div class="grid-2">
+
+            <div class="form-group">
+              <label class="form-label" for="profBirth">
+                Data de nascimento
+              </label>
+
+              <input class="form-control" type="date" id="profBirth" name="dateBirth" autocomplete="bday" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="profPhone">
+                Telefone
+              </label>
+
+              <input class="form-control" type="tel" id="profPhone" name="phone" maxlength="20"
+                placeholder="(00) 00000-0000" autocomplete="tel" required>
+            </div>
+
+          </div>
+
+          <!-- Registro do conselho profissional -->
+          <div class="form-group">
+            <label class="form-label" for="profRegister">
+              Registro profissional
+            </label>
+
+            <input class="form-control" type="text" id="profRegister" name="register" maxlength="45"
+              placeholder="Ex.: CRP 00/123456">
+
+            <p class="form-hint">
+              Informe o registro do conselho, quando aplicável.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profPhoto">Foto do profissional</label>
+            <div class="photo-picker-row">
+              <div aria-label="Pr├®via da foto do profissional" class="photo-preview is-empty"
+                id="professionalPhotoPreview">
+                <img alt="Pr├®via da foto do profissional" hidden="" id="professionalPhotoPreviewImage" />
+                <span id="professionalPhotoPlaceholder">Sem foto</span>
+              </div>
+              <div class="photo-picker-actions">
+                <input accept="image/jpeg,image/png,image/webp" class="file-input-hidden" id="profPhoto" name="photo"
+                  type="file" />
+                <button class="btn btn-outline" id="professionalChoosePhoto" type="button">
+                  Escolher foto
+                </button>
+                <p class="form-hint">JPG, PNG ou WEBP ┬À at├® 5 MB.</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="profActive">
+              Status da conta
+            </label>
+            <select class="form-control" id="profActive" name="active" required="">
+              <option selected="" value="1">Ativo</option>
+              <option value="0">Inativo</option>
+            </select>
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="cancelProfessionalModal" type="button">
+        Cancelar
+      </button>
+      <button class="btn btn-primary" type="submit">
+        <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+
+        Salvar
+      </button>
+    </div>
+    </form>
+  </div>
+  </div>
+  <script src="../assets/admin/script/professionals.js" type="module"></script>
+  <!--<script type= "module" src="../assets/admin/script/cadastro.js" ></script>-->
+  <script defer="True" src="../assets/_common/script/theme-toggle.js"></script>
+  <script defer="True" src="../assets/_common/script/workspace-navigation.js"></script>
+  <script defer="True" src="../assets/_common/script/siae-ui.js"></script>
+</body>
+
+</html>

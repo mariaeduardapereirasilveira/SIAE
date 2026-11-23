@@ -112,7 +112,9 @@ function resolveSiaeApiBase() {
       {
         title: 'Principal',
         items: [
-          { label: 'Dashboard', page: '/admin/admin.html' }
+          { label: 'Dashboard', page: '/admin/admin.html' },
+          { label: 'Busca de alunos', page: '/app/search.html' }
+
         ]
       },
       {
@@ -191,6 +193,16 @@ function resolveSiaeApiBase() {
   if (roleType) {
     document.body.dataset.role = roleType;
     document.body.dataset.menuProfile = roleType;
+    const backToStudents = document.querySelector("#backToStudents");
+    if (backToStudents) {
+      if (roleType === "admin") {
+        backToStudents.href = `${PROJECT_ROOT}/views/admin/students.html`;
+      } else {
+        backToStudents.href = `${PROJECT_ROOT}/views/app/search.html`;
+
+      }
+    }
+
 
     function applyRoleVisibility() {
       document.querySelectorAll('.admin-only').forEach(element => {
@@ -218,7 +230,26 @@ function resolveSiaeApiBase() {
       anchor.textContent = item.label;
 
       if (item.logout) anchor.setAttribute('data-logout', '');
-      if (item.page === currentPage) {
+
+      // Algumas páginas pertencem a uma seção principal do menu.
+      // Por isso, devem destacar o mesmo item da sua listagem.
+
+      const paginasVinculadas = {
+        "/admin/professional-details.html": "/admin/professionals.html",
+        "/admin/professionals-inactive.html": "/admin/professionals.html",
+
+        "/admin/students-inactive.html": "/admin/students.html",
+        "/admin/sector-details.html": "/admin/sectors.html",
+"/admin/sectors-inactive.html": "/admin/sectors.html",
+      };
+
+      // Identifica qual item do menu deve ficar selecionado.
+      const paginaSelecionada =
+        paginasVinculadas[currentPage] ?? currentPage;
+
+      // Compara com a página principal ou vinculada.
+      if (item.page === paginaSelecionada) {
+
         anchor.classList.add('is-active', 'active');
         anchor.setAttribute('aria-current', 'page');
       }

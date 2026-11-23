@@ -16,6 +16,7 @@
   <link href="../assets/admin/styles/admin.css" rel="stylesheet" />
   <link href="../assets/public/styles/siae-identity-2026.css" rel="stylesheet" />
   <link href="../assets/_common/styles/toast.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/_common/styles/confirm-modal.css">
 </head>
 
 <body class="admin-page">
@@ -27,47 +28,42 @@
         </div>
         <div class="sidebar-logo-text">
           <h1>SIAE</h1>
-          <p>Conex├Áes entre Setores</p>
+          <p>Conexões entre Setores</p>
         </div>
       </div>
       <nav>
         <p class="sidebar-section-label">Gestão</p>
         <ul class="sidebar-nav">
           <li>
-            <a
-              aria-current="page"
-              class="is-active nav-with-icon"
-              href="admin.html"
-              >Dashboard</a
-            >
+            <a aria-current="page" class="is-active nav-with-icon" href="admin.html">Dashboard</a>
           </li>
           <li>
             <a class="nav-with-icon" href="students.html">Alunos</a>
-            
+
           </li>
           <li>
             <a class="nav-with-icon" href="professionals.html">Profissionais</a>
           </li>
           <li><a class="nav-with-icon" href="sectors.html">Setores</a></li>
-    <li><a class="nav-with-icon" href="reports.html">Relatórios</a></li>
+          <li><a class="nav-with-icon" href="reports.html">Relatórios</a></li>
 
-<li>
-  <a class="nav-with-icon" href="../app/charts.html">
-    Gráficos
-  </a>
-</li>
+          <li>
+            <a class="nav-with-icon" href="../app/charts.html">
+              Gráficos
+            </a>
+          </li>
 
-<li>
-  <a class="nav-with-icon" href="../app/faq.html">
-    FAQ
-  </a>
-</li>
+          <li>
+            <a class="nav-with-icon" href="../app/faq.html">
+              FAQ
+            </a>
+          </li>
 
-<li>
-  <a class="nav-with-icon" href="../app/notifications.html">
-    Notificações
-  </a>
-</li>
+          <li>
+            <a class="nav-with-icon" href="../app/notifications.html">
+              Notificações
+            </a>
+          </li>
         </ul>
         <p class="sidebar-section-label siae-u-margin-top-24px-49fcd85">
           Conta
@@ -117,29 +113,138 @@
         </a>
       </header>
       <div class="page-content animate-fade-in">
-        <div class="page-header">
+
+        <div class="page-header students-page-header">
+
           <div class="page-header-title">
             <h1>Alunos</h1>
             <p>Gerenciamento de alunos cadastrados</p>
           </div>
-          <button class="btn btn-primary btn-sm" id="openStudentModal" type="button">
-            <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
-              <line x1="12" x2="12" y1="5" y2="19"></line>
-              <line x1="5" x2="19" y1="12" y2="12"></line>
-            </svg>
-            Novo Aluno
-          </button>
+
+          <!-- Agrupa os botões do cabeçalho -->
+          <div class="students-page-actions">
+
+          
+            <!-- Mantém o botão que abre o cadastro -->
+            <button class="btn btn-primary btn-sm" id="openProfessionalModal" type="button">
+              + Novo Aluno
+            </button>
+
+
+          </div>
+
+        </div> <!-- Fecha students-page-header -->
+        <!-- Indicadores da gestão de alunos -->
+        <section class="students-overview" aria-label="Indicadores de estudantes">
+
+          <!-- TOTAL DE ALUNOS -->
+          <article class="students-metric students-metric--total">
+
+            <div class="students-metric-top">
+              <span class="students-metric-label">
+                TOTAL DE ALUNOS
+              </span>
+
+              <span class="students-metric-icon">
+                <img src="../assets/public/images/brand/interface/tres-pessoas.svg" alt="">
+              </span>
+            </div>
+
+            <strong class="students-metric-number" id="studentsTotal">—</strong>
+
+            <p class="students-metric-description">
+              Estudantes cadastrados no SIAE
+            </p>
+
+          </article>
+
+          <!-- ALUNOS ATIVOS -->
+          <article class="students-metric students-metric--active">
+
+            <div class="students-metric-top">
+              <span class="students-metric-label">
+                ALUNOS ATIVOS
+              </span>
+
+              <span class="students-metric-icon">
+                <img src="../assets/public/images/brand/interface/pessoa.svg" alt="">
+              </span>
+            </div>
+
+            <strong class="students-metric-number" id="studentsActive">—</strong>
+
+            <p class="students-metric-description">
+              Cadastros disponíveis
+            </p>
+
+          </article>
+
+          <!-- ALUNOS DESATIVADOS -->
+          <article class="students-metric students-metric--inactive">
+
+            <div class="students-metric-top">
+              <span class="students-metric-label">
+                DESATIVADOS
+              </span>
+
+              <span class="students-metric-icon">
+                <img src="../assets/public/images/brand/interface/pessoa.svg" alt="">
+              </span>
+            </div>
+
+            <strong class="students-metric-number" id="studentsInactive">—</strong>
+
+            <p class="students-metric-description">
+              Cadastros preservados no histórico
+            </p>
+
+          </article>
+
+        </section>
+
+        <div class="management-list-header">
+
+          <div class="management-list-title">
+            <h2>Alunos cadastrados</h2>
+            <p>Gerencie os estudantes da instituição</p>
+          </div>
+
+          <nav class="management-tabs" aria-label="Situação dos alunos">
+
+            <a href="students.html" class="management-tab is-current" aria-current="page">
+              Ativos
+            </a>
+
+            <a href="students-inactive.html" class="management-tab">
+              Desativados
+            </a>
+
+          </nav>
+
         </div>
+
+
         <div class="card">
+
+          <div class="card-header">
+            <div class="card-title">
+              Alunos ativos
+            </div>
+
+            <span class="badge" id="studentsListCount">
+              — alunos
+            </span>
+          </div>
+
           <div class="table-container siae-u-border-none-border-radius-0-4255cd0">
-            <table>
+            <table class="students-list-table">
               <thead>
                 <tr>
                   <th>Aluno</th>
                   <th>E-mail</th>
                   <th>Turma</th>
                   <th>Status</th>
-                  <th>A├º├Áes</th>
+                  <th>Ações</th>
                 </tr>
               </thead>
               <tbody id="studentsTable">
@@ -186,11 +291,7 @@
             <label class="form-label" for="studentEmail">E-mail</label>
             <input class="form-control" id="studentEmail" name="email" placeholder="aluno@exemplo.com" type="email" />
           </div>
-          <div class="form-group">
-            <label class="form-label" for="studentPassword">Senha</label>
-            <input class="form-control" id="studentPassword" name="password" placeholder="Digite a senha"
-              type="password" />
-          </div>
+
           <div class="form-group">
             <label class="form-label" for="studentDateBirth">Data de nascimento</label>
             <input class="form-control" id="studentDateBirth" name="dateBirth" type="date" />
@@ -212,6 +313,57 @@
               </div>
             </div>
           </div>
+
+          <!-- Matrícula institucional -->
+          <div class="form-group">
+            <label class="form-label" for="studentRegistration">
+              Matrícula
+            </label>
+            <input class="form-control" type="text" id="studentRegistration" name="registration_number" maxlength="30"
+              placeholder="Número de matrícula">
+          </div>
+
+          <!-- Telefone do estudante -->
+          <div class="form-group">
+            <label class="form-label" for="studentPhone">
+              Telefone
+            </label>
+            <input class="form-control" type="tel" id="studentPhone" name="phone" maxlength="20"
+              placeholder="(00) 00000-0000">
+          </div>
+
+          <!-- Responsável -->
+          <div class="form-group">
+            <label class="form-label" for="studentGuardian">
+              Responsável
+            </label>
+            <input class="form-control" type="text" id="studentGuardian" name="guardian" maxlength="150"
+              placeholder="Nome do responsável">
+          </div>
+
+          <!-- Curso -->
+          <div class="form-group">
+            <label class="form-label" for="studentCourse">
+              Curso
+            </label>
+            <input class="form-control" type="text" id="studentCourse" name="course" maxlength="100"
+              placeholder="Ex.: Técnico em Informática">
+          </div>
+
+          <!-- Turno -->
+          <div class="form-group">
+            <label class="form-label" for="studentShift">
+              Turno
+            </label>
+            <select class="form-control" id="studentShift" name="shift">
+              <option value="">Selecione um turno</option>
+              <option value="Manhã">Manhã</option>
+              <option value="Tarde">Tarde</option>
+              <option value="Noite">Noite</option>
+              <option value="Integral">Integral</option>
+            </select>
+          </div>
+
           <div class="form-group siae-u-margin-bottom-0-648149c">
             <label class="form-label" for="studentStatus">Status</label>
             <select class="form-control" id="studentStatus" name="active">

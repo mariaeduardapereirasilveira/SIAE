@@ -45,10 +45,20 @@ $route->namespace("Source\Controller");
 
 $route->get("/hello", "Sectors:hello");
 $route->get("/list", "Sectors:listAll");
+// Listagem administrativa com indicadores e setores inativos.
+$route->get("/manage", "Sectors:listManagement");
 $route->get("/id/{sector_id}", "Sectors:listById");
 $route->post("/", "Sectors:insert");
 $route->put("/id/{sector_id}", "Sectors:update");
 $route->delete("/id/{sector_id}", "Sectors:delete");
+
+// Reativa um setor desativado.
+// Apenas administradores podem executar esta ação.
+$route->put(
+    "/id/{sector_id}/reactivate",
+    "Sectors:reactivate"
+);
+
 $route->group(null);
 
 
@@ -88,6 +98,8 @@ $route->post(
 
 $route->put("/id/{user_id}", "Users:update");
 $route->delete("/id/{user_id}", "Users:delete");
+$route->put("/id/{user_id}/reactivate", "Users:reactivate");
+
 
 $route->group(null);
 

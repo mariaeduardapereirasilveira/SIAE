@@ -1,0 +1,453 @@
+<!doctype html>
+
+<html data-theme="light" lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Profissional — SIAE</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Sora:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <link href="../assets/_common/styles/global.css" rel="stylesheet" />
+  <link href="../assets/app/styles/app.css" rel="stylesheet" />
+  <link href="../assets/public/styles/siae-identity-2026.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/_common/styles/toast.css">
+
+</head>
+
+<body class="workspace-page admin-page">
+  <section class="app-layout">
+    <header aria-label="Navega├º├úo principal do SIAE" class="sidebar workspace-shell workspace-toolbar" role="banner">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">
+          <img alt="Símbolo SIAE" class="owl-logo" decoding="async" src="../assets/public/images/brand/siae-logo.svg" />
+        </div>
+        <div class="sidebar-logo-text">
+          <h1>SIAE</h1>
+          <p>Conexões entre Setores</p>
+        </div>
+      </div>
+      <nav>
+        <p class="sidebar-section-label">Gestão</p>
+        <ul class="sidebar-nav">
+          <li>
+            <a class="nav-with-icon" href="admin.html">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a class="nav-with-icon" href="students.html">Alunos</a>
+
+          </li>
+          <li>
+            <a class="nav-with-icon is-active" aria-current="page" href="professionals.html">
+              Profissionais
+            </a>
+          </li>
+          <li><a class="nav-with-icon" href="sectors.html">Setores</a></li>
+          <li><a class="nav-with-icon" href="reports.html">Relatórios</a></li>
+
+          <li>
+            <a class="nav-with-icon" href="../app/charts.html">
+              Gráficos
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-with-icon" href="../app/faq.html">
+              FAQ
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-with-icon" href="../app/notifications.html">
+              Notificações
+            </a>
+          </li>
+        </ul>
+        <p class="sidebar-section-label siae-u-margin-top-24px-49fcd85">
+          Conta
+        </p>
+        <ul class="sidebar-nav">
+          <li><a data-logout="" href="../public/login.html">Sair</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="sidebar-user" href="../app/profile.html">
+          <div class="sidebar-avatar" id="userAvatar">AD</div>
+          <div class="sidebar-user-info">
+            <h4 id="userName">Admin</h4>
+            <p id="userRole">Administrador</p>
+          </div>
+        </a>
+      </div>
+    </header>
+    <main class="main-content">
+      <header class="app-header">
+        <button aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <section class="header-breadcrumb">
+          <h1>Profissional</h1>
+          <p>Dados cadastrais e profissionais</p>
+        </section>
+        <nav aria-label="Ações da conta" class="app-header-actions">
+          <button aria-label="Ativar modo escuro" class="theme-toggle header-theme-toggle" data-theme-toggle=""
+            title="Tema" type="button">
+            <svg aria-hidden="true" class="theme-icon theme-icon-sun" fill="none" stroke="currentColor"
+              stroke-width="1.8" viewbox="0 0 24 24">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path
+                d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.3-11.3 1.4-1.4">
+              </path>
+            </svg>
+            <svg aria-hidden="true" class="theme-icon theme-icon-moon" fill="none" stroke="currentColor"
+              stroke-width="1.8" viewbox="0 0 24 24">
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"></path>
+            </svg>
+            <span class="theme-toggle-label">Tema</span></button><a aria-label="Notificações" class="header-icon-btn"
+            href="../app/notifications.html" title="Notificações"><img alt="" aria_hidden="true"
+              class="notification-bell-svg" src="../assets/public/images/brand/interface/sino.svg" /></a>
+          <a class="header-user-chip" href="../app/profile.html"><span class="header-user-avatar">US</span><span
+              class="header-user-name">Meu perfil</span></a>
+        </nav>
+      </header>
+
+      <section class="page-content">
+
+        <!-- Retorno para a gestão de profissionais -->
+        <a class="back-link" href="professionals.html" id="backToProfessionals">
+          ← Voltar para profissionais
+        </a>
+
+        <!-- Cabeçalho do profissional -->
+        <section class="student-hero-card">
+
+          <!-- Fotografia ou iniciais -->
+          <span class="student-large-avatar" id="professionalAvatar">
+            —
+          </span>
+
+          <section class="student-hero-copy">
+
+            <p class="eyebrow">
+              CADASTRO DO PROFISSIONAL
+            </p>
+
+            <h2 id="professionalName">
+              Carregando...
+            </h2>
+
+            <p id="professionalMeta">
+              —
+            </p>
+
+            <span class="status-pill" id="professionalStatus">
+              —
+            </span>
+
+          </section>
+
+          <!-- Será conectado ao formulário de edição -->
+          <button class="button button-coral" id="editProfessionalButton" type="button">
+            Editar profissional
+          </button>
+
+        </section>
+
+        <!-- Navegação entre seções -->
+        <nav class="student-subnav" aria-label="Seções do profissional">
+          <a class="active" aria-current="page">
+            Informações
+          </a>
+        </nav>
+
+        <!-- Cartões de informações -->
+        <section class="student-details-layout">
+
+          <!-- DADOS PESSOAIS -->
+          <article class="detail-panel">
+
+            <header class="panel-heading">
+
+              <span class="panel-icon">◎</span>
+
+              <section>
+                <h2>Dados pessoais</h2>
+                <p>Informações básicas do cadastro</p>
+              </section>
+
+            </header>
+
+            <dl class="student-data-grid">
+
+              <section>
+                <dt>Nome completo</dt>
+                <dd id="professionalFullName">—</dd>
+              </section>
+
+              <section>
+                <dt>Data de nascimento</dt>
+                <dd id="professionalBirth">—</dd>
+              </section>
+
+              <section>
+                <dt>E-mail</dt>
+                <dd id="professionalEmail">—</dd>
+              </section>
+
+              <section>
+                <dt>Telefone</dt>
+                <dd id="professionalPhone">—</dd>
+              </section>
+
+            </dl>
+
+          </article>
+
+          <!-- DADOS PROFISSIONAIS -->
+          <article class="detail-panel">
+
+            <header class="panel-heading">
+
+              <span class="panel-icon">⌂</span>
+
+              <section>
+                <h2>Dados profissionais</h2>
+                <p>Vínculo com a instituição</p>
+              </section>
+
+            </header>
+
+            <dl class="student-data-grid">
+
+              <section>
+                <dt>Função</dt>
+                <dd id="professionalFunction">—</dd>
+              </section>
+
+              <section>
+                <dt>Setor</dt>
+                <dd id="professionalSector">—</dd>
+              </section>
+
+              <section>
+                <dt>Registro profissional</dt>
+                <dd id="professionalRegister">—</dd>
+              </section>
+
+              <section>
+                <dt>Situação cadastral</dt>
+                <dd id="professionalActive">—</dd>
+              </section>
+
+            </dl>
+
+          </article>
+
+        </section>
+
+      </section>
+
+    </main>
+  </section>
+
+
+
+
+
+
+  <!-- ==========================================
+     MODAL DE EDIÇÃO DO PROFISSIONAL
+     ========================================== -->
+  <div class="modal-overlay" id="editProfessionalModal" role="presentation">
+
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editProfessionalTitle">
+
+      <!-- Cabeçalho da modal -->
+      <div class="modal-header">
+        <div>
+          <h2 class="card-title" id="editProfessionalTitle">
+            Editar profissional
+          </h2>
+
+          <p class="card-subtitle">
+            Atualize os dados cadastrais do profissional.
+          </p>
+        </div>
+
+        <button type="button" class="btn btn-ghost btn-icon" id="closeEditProfessionalModal" aria-label="Fechar">
+          ✕
+        </button>
+      </div>
+
+      <!-- Formulário de edição -->
+      <form id="editProfessionalForm">
+
+        <div class="modal-body">
+
+          <!-- DADOS PESSOAIS -->
+          <h3>Dados pessoais</h3>
+
+          <!-- Foto -->
+          <div class="form-group">
+            <label class="form-label" for="editProfessionalPhoto">
+              Foto do profissional
+            </label>
+
+            <div class="photo-picker-row">
+
+              <div class="photo-preview is-empty" id="editProfessionalPhotoPreview">
+
+                <img id="editProfessionalPhotoPreviewImage" alt="Foto do profissional" hidden>
+
+                <span id="editProfessionalPhotoPlaceholder">
+                  Sem foto
+                </span>
+              </div>
+
+              <div class="photo-picker-actions">
+
+                <input id="editProfessionalPhoto" name="photo" type="file" accept="image/jpeg,image/png,image/webp"
+                  hidden>
+
+                <button type="button" class="btn btn-secondary" id="editProfessionalChoosePhoto">
+                  Escolher foto
+                </button>
+
+                <p class="form-hint">
+                  JPG, PNG ou WEBP. Máximo de 5 MB.
+                </p>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Nome -->
+          <div class="form-group">
+            <label class="form-label" for="editProfessionalName">
+              Nome completo
+            </label>
+
+            <input class="form-control" type="text" id="editProfessionalName" name="name" required minlength="2"
+              maxlength="150" autocomplete="name">
+          </div>
+
+          <!-- E-mail -->
+          <div class="form-group">
+            <label class="form-label" for="editProfessionalEmail">
+              E-mail
+            </label>
+
+            <input class="form-control" type="email" id="editProfessionalEmail" name="email" required
+              autocomplete="email">
+          </div>
+
+          <!-- Nascimento e telefone -->
+          <div class="grid-2">
+
+            <div class="form-group">
+              <label class="form-label" for="editProfessionalBirth">
+                Data de nascimento
+              </label>
+
+              <input class="form-control" type="date" id="editProfessionalBirth" name="dateBirth" autocomplete="bday">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="editProfessionalPhone">
+                Telefone
+              </label>
+
+              <input class="form-control" type="tel" id="editProfessionalPhone" name="phone" maxlength="20"
+                autocomplete="tel" required>
+            </div>
+
+          </div>
+
+          <!-- DADOS PROFISSIONAIS -->
+          <h3>Dados profissionais</h3>
+
+          <!-- Função -->
+          <div class="form-group">
+            <label class="form-label" for="editProfessionalFunction">
+              Função
+            </label>
+
+            <select class="form-control" id="editProfessionalFunction" name="function" required>
+
+              <option value="">Selecione uma função</option>
+              <option value="Psicologo(a)">Psicólogo(a)</option>
+              <option value="Pedagogo(a)">Pedagogo(a)</option>
+              <option value="Enfermeiro(a)">Enfermeiro(a)</option>
+              <option value="Assistente Social">Assistente Social</option>
+              <option value="Coordenador(a)">Coordenador(a)</option>
+            </select>
+          </div>
+
+          <!-- Setor -->
+          <div class="form-group">
+            <label class="form-label" for="editProfessionalSector">
+              Setor
+            </label>
+
+            <select class="form-control" id="editProfessionalSector" name="sector" required>
+
+              <option value="">Carregando setores...</option>
+            </select>
+          </div>
+
+          <!-- Registro profissional -->
+          <div class="form-group">
+            <label class="form-label" for="editProfessionalRegister">
+              Registro profissional
+            </label>
+
+            <input class="form-control" type="text" id="editProfessionalRegister" name="register" maxlength="45"
+              placeholder="Ex.: CRP 00/123456">
+
+            <p class="form-hint">
+              Informe o registro do conselho profissional,
+              quando aplicável.
+            </p>
+          </div>
+
+        </div>
+        <!-- Fim da modal-body -->
+
+        <!-- Rodapé fixo dentro da modal -->
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-ghost" id="cancelEditProfessional">
+            Cancelar
+          </button>
+
+          <button type="submit" class="btn btn-primary" id="saveProfessionalChanges">
+            Salvar alterações
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+
+
+
+
+
+  <script defer="" src="../assets/_common/script/theme-toggle.js"></script>
+  <script defer="" src="../assets/_common/script/workspace-navigation.js"></script>
+  <script type="module" src="../assets/admin/script/professional-details.js"></script>
+  <script defer="True" src="../assets/_common/script/siae-ui.js"></script>
+</body>
+
+</html>

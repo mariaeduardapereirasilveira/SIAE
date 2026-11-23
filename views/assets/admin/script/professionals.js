@@ -1,10 +1,14 @@
+import Toast from "../../_common/prototypes/Toast.js";
+import ConfirmModal from "../../_common/components/ConfirmModal.js";
+
 function resolveSiaeApiBase() {
-  const parts = window.location.pathname.split("/").filter(Boolean);
-  const projectPrefix = parts.length ? `/${parts[0]}` : "";
-  return `${window.location.origin}${projectPrefix}/api`;
+    const parts = window.location.pathname.split("/").filter(Boolean);
+    const projectPrefix = parts.length ? `/${parts[0]}` : "";
+    return `${window.location.origin}${projectPrefix}/api`;
 }
 
 import Users from "../../_common/classes/Users.js";
+
 
 const API_BASE = resolveSiaeApiBase();
 const users = new Users();
@@ -61,12 +65,18 @@ function updatePhotoPreview(file) {
 
     if (!file) return;
     if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-        alert("Escolha uma imagem JPG, PNG ou WEBP.");
+        Toast.mostrar(
+            "Escolha uma imagem JPG, PNG ou WEBP.",
+            "warning"
+        );
         resetPhotoPreview();
         return;
     }
     if (file.size > 5 * 1024 * 1024) {
-        alert("A foto deve ter no máximo 5 MB.");
+        Toast.mostrar(
+            "A foto deve ter no máximo 5 MB.",
+            "warning"
+        );
         resetPhotoPreview();
         return;
     }
@@ -120,35 +130,7 @@ function makeCell(text) {
     const cell = document.createElement("td"); cell.textContent = text || "—"; return cell;
 }
 
-function showProfessionalDetails(professional) {
-    const dialog = document.getElementById("userDetailsDialog") || document.createElement("dialog");
-    dialog.id = "userDetailsDialog"; dialog.className = "user-details-dialog"; dialog.replaceChildren();
-    const header = document.createElement("div"); header.className = "user-details-header";
-    const avatar = createAvatar(professional.name, professional.photoUrl || professional.photo); avatar.classList.add("user-details-avatar"); header.appendChild(avatar);
-    const titleWrap = document.createElement("div");
-    const title = document.createElement("h2"); title.textContent = professional.name || "Profissional";
-    const subtitle = document.createElement("p"); subtitle.textContent = "Informações do profissional";
-    titleWrap.append(title, subtitle); header.appendChild(titleWrap);
-    const close = document.createElement("button"); close.type = "button"; close.className = "btn btn-ghost btn-sm"; close.textContent = "Fechar";
-    close.addEventListener("click", () => dialog.close()); header.appendChild(close); dialog.appendChild(header);
 
-    const fields = [
-        ["E-mail", professional.email],
-        ["Setor", professional.sectorName],
-        ["Data de nascimento", professional.dateBirth],
-        ["Status", Number(professional.active) === 1 ? "Ativo" : "Inativo"]
-    ];
-    const list = document.createElement("dl"); list.className = "user-details-fields";
-    fields.forEach(([label, value]) => {
-        const item = document.createElement("div");
-        const term = document.createElement("dt"); term.textContent = label;
-        const description = document.createElement("dd"); description.textContent = value || "—";
-        item.append(term, description); list.appendChild(item);
-    });
-    dialog.appendChild(list);
-    if (!dialog.isConnected) document.body.appendChild(dialog);
-    dialog.showModal();
-}
 
 async function loadProfessionalSectors() {
     const select = document.querySelector("#profSector");
@@ -179,6 +161,82 @@ async function loadProfessionalSectors() {
     }
 }
 
+
+
+
+
+/**
+ * Desativa ou reativa um profissional.
+ *
+ * Reutiliza os métodos e a modal de confirmação
+ * que já utilizamos na gestão dos estudantes.
+ */
+async function changeProfessionalStatus(professional) {
+
+    const isActive = Number(professional.active) === 1;
+
+    // Define as informações de acordo com a situação atual.
+    const action = isActive ? "desativar" : "reativar";
+
+    const confirmed = await ConfirmModal.confirmar({
+        titulo: isActive
+            ? "Desativar profissional?"
+            : "Reativar profissional?",
+
+        mensagem: isActive
+            ? `Deseja desativar ${professional.name}? O cadastro será preservado e poderá ser reativado posteriormente.`
+            : `Deseja reativar ${professional.name}? O cadastro voltará a ficar ativo.`,
+
+        textoConfirmar: isActive
+            ? "Desativar"
+            : "Reativar",
+
+        tipo: isActive ? "danger" : "positive"
+    });
+
+    // O administrador cancelou a operação.
+    if (!confirmed) return;
+
+    try {
+
+        // Reutiliza os métodos existentes da classe Users.
+        const result = isActive
+            ? await users.deactivate(professional.id)
+            : await users.reactivate(professional.id);
+
+        if (Number(result?.code) !== 200) {
+            throw new Error(
+                result?.message ||
+                `Não foi possível ${action} o profissional.`
+            );
+        }
+
+        Toast.mostrar(
+            isActive
+                ? "Profissional desativado com sucesso!"
+                : "Profissional reativado com sucesso!",
+            "success"
+        );
+
+        // Atualiza a listagem e os três indicadores.
+        await loadProfessionals();
+
+    } catch (error) {
+
+        console.error(
+            `Erro ao ${action} profissional:`,
+            error
+        );
+
+        Toast.mostrar(
+            error.message ||
+            `Não foi possível ${action} o profissional.`,
+            "error"
+        );
+    }
+}
+
+
 async function loadProfessionals() {
     const tbody = document.querySelector("#professionalsTable");
     tbody.innerHTML = '<tr><td colspan="5" class="table-message">Carregando profissionais...</td></tr>';
@@ -188,13 +246,80 @@ async function loadProfessionals() {
         });
         const result = await response.json();
         if (!response.ok || result.code !== 200) throw new Error(result.message || "Não foi possível carregar os profissionais.");
+
+
+        // Obtém todos os profissionais retornados pela API.
+        const allProfessionals = (result.data || []).filter(
+            user => user.enrollment === "profissional"
+        );
+
+        // Calcula as quantidades.
+        const total = allProfessionals.length;
+
+        const activeCount = allProfessionals.filter(
+            professional => Number(professional.active) === 1
+        ).length;
+
+        const inactiveCount = total - activeCount;
+
+        // Atualiza os indicadores na interface.
+        document.querySelector("#professionalsTotal").textContent =
+            total;
+
+        document.querySelector("#professionalsActive").textContent =
+            activeCount;
+
+        document.querySelector("#professionalsInactive").textContent =
+            inactiveCount;
+
+
         const professionals = (result.data || []).filter(user => user.enrollment === "profissional");
+
+
+        // ==========================================
+        // FILTRO DE PROFISSIONAIS ATIVOS E INATIVOS
+        // ==========================================
+
+        // Identifica qual página está aberta.
+        const isInactivePage =
+            window.location.pathname.split("/").pop() ===
+            "professionals-inactive.html";
+
+        // Filtra os registros conforme a página atual.
+        const visibleProfessionals = professionals.filter(professional => {
+
+            const isActive = Number(professional.active) === 1;
+
+            // Página de desativados: mostra apenas inativos.
+            if (isInactivePage) {
+                return !isActive;
+            }
+
+            // Página principal: mostra apenas ativos.
+            return isActive;
+        });
+
+
         tbody.replaceChildren();
-        if (!professionals.length) {
-            tbody.innerHTML = '<tr><td colspan="5" class="table-message">Nenhum profissional cadastrado ainda.</td></tr>';
+
+        if (!visibleProfessionals.length) {
+
+            const mensagem = isInactivePage
+                ? "Nenhum profissional desativado."
+                : "Nenhum profissional ativo cadastrado.";
+
+            tbody.innerHTML = `
+        <tr>
+            <td colspan="5" class="table-message">
+                ${mensagem}
+            </td>
+        </tr>
+    `;
+
             return;
         }
-        professionals.forEach(professional => {
+
+        visibleProfessionals.forEach(professional => {
             const row = document.createElement("tr");
             const personCell = document.createElement("td");
             const person = document.createElement("div"); person.className = "table-person-cell";
@@ -209,8 +334,49 @@ async function loadProfessionals() {
             statusCell.appendChild(status); row.appendChild(statusCell);
             const actionCell = document.createElement("td");
             const detailsButton = document.createElement("button"); detailsButton.type = "button"; detailsButton.className = "btn btn-ghost btn-sm"; detailsButton.textContent = "Detalhes";
-            detailsButton.addEventListener("click", () => showProfessionalDetails(professional)); actionCell.appendChild(detailsButton); row.appendChild(actionCell);
-            tbody.appendChild(row);
+
+            detailsButton.addEventListener("click", () => {
+
+                // Abre a página de detalhes passando
+                // o ID do profissional selecionado.
+                window.location.href =
+                    `professional-details.html?id=${encodeURIComponent(professional.id)}`;
+
+            });
+
+// ==========================================
+// BOTÃO DESATIVAR / REATIVAR
+// ==========================================
+
+// Identifica a ação disponível para este profissional.
+const statusButton = document.createElement("button");
+
+statusButton.type = "button";
+statusButton.className = "btn btn-ghost btn-sm";
+
+statusButton.textContent = active
+    ? "Desativar"
+    : "Reativar";
+
+// Ao clicar, abre o ConfirmModal e executa a ação.
+statusButton.addEventListener("click", () => {
+    changeProfessionalStatus(professional);
+});
+
+// Organiza os dois botões lado a lado.
+const actionsWrapper = document.createElement("div");
+
+actionsWrapper.className = "professional-row-actions";
+
+actionsWrapper.appendChild(detailsButton);
+actionsWrapper.appendChild(statusButton);
+
+// Insere as ações na última coluna da tabela.
+actionCell.appendChild(actionsWrapper);
+row.appendChild(actionCell);
+
+tbody.appendChild(row);
+
         });
     } catch (error) {
         console.error("Erro ao listar profissionais:", error);
@@ -233,17 +399,25 @@ form?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
     if (!formData.get("name") || !formData.get("sector") || !formData.get("email") || !formData.get("dateBirth")) {
-        alert("Preencha nome, setor, e-mail e data de nascimento."); return;
+        Toast.mostrar(
+            "Preencha os campos obrigatórios do cadastro.",
+            "warning"
+        ); return;
     }
     formData.set("enrollment", "profissional");
     try {
         const response = await users.register(formData);
         if (![200, 201].includes(Number(response?.code))) throw new Error(response?.message || "Não foi possível cadastrar o profissional.");
-        alert("Profissional cadastrado com sucesso!");
-        form.reset(); resetPhotoPreview(); closeModal(); await loadProfessionals();
+        Toast.mostrar(
+            "Profissional cadastrado com sucesso!",
+            "success"
+        ); form.reset(); resetPhotoPreview(); closeModal(); await loadProfessionals();
     } catch (error) {
         console.error("Erro ao cadastrar profissional:", error);
-        alert(error.message || "Erro ao cadastrar profissional.");
+        Toast.mostrar(
+            error.message || "Erro ao cadastrar profissional.",
+            "error"
+        );
     }
 });
 

@@ -22,8 +22,8 @@
     document.querySelectorAll(selector).forEach(node => {
       node.textContent =
         value === null ||
-        value === undefined ||
-        value === ""
+          value === undefined ||
+          value === ""
           ? "Não informado"
           : String(value);
     });
@@ -88,7 +88,7 @@
     const modules = await Promise.all([
       import("../../_common/classes/Users.js"),
       import("../../_common/prototypes/Toast.js"),
-        import("../../_common/prototypes/FormControllerPrototype.js")
+      import("../../_common/prototypes/FormControllerPrototype.js")
     ]);
 
     Users = modules[0].default;
@@ -201,9 +201,13 @@
   // ==========================================
 
   function updateStudentLinks() {
-    const currentFile = window.location.pathname
-      .split("/")
-      .pop();
+    // descobrir qual página estamos
+    // Expressão	O que faz
+    // window.location	Contém informações sobre o endereço da página atual
+    // .pathname	Retorna o caminho da URL, sem os parâmetros de consulta
+    // .split("/")	Divide o caminho em partes, utilizando / como separador
+    // .pop()	Retira e retorna o último elemento do array
+    const currentFile = window.location.pathname.split("/").pop();
 
     const currentTab =
       currentFile === "student-history.html"
@@ -213,6 +217,7 @@
           : "details";
 
     // Mantém o ID do estudante em todas as abas.
+    // procuro os links que estão com id data-student-tab
     document.querySelectorAll(
       "[data-student-tab]"
     ).forEach(link => {
@@ -269,8 +274,7 @@
     if (student.ra) {
       setText(
         "#studentMeta",
-        `Matrícula ${student.ra} · ${
-          student.className || "Turma não informada"
+        `Matrícula ${student.ra} · ${student.className || "Turma não informada"
         }`
       );
     } else {
@@ -310,201 +314,411 @@
 
 
 
-function configurarEdicao(student) {
+  function configurarEdicao(student) {
 
-  // Elementos da interface
-  const botaoEditar = document.querySelector(
-    "#editStudentButton"
-  );
+    // Elementos da interface
+    const botaoEditar = document.querySelector(
+      "#editStudentButton"
+    );
 
-  const modal = document.querySelector(
-    "#editStudentModal"
-  );
+    const modal = document.querySelector(
+      "#editStudentModal"
+    );
 
-  const formulario = document.querySelector(
-    "#editStudentForm"
-  );
+    const formulario = document.querySelector(
+      "#editStudentForm"
+    );
 
-  // Esta função só atua na página de detalhes.
-  if (!botaoEditar || !modal || !formulario) {
-    return;
-  }
-
-  // Cria um objeto que utiliza nosso prototype Form.
-  const form = Object.create(FormControllerPrototype);
-
-  form.inicializar(formulario);
-
-  // Elementos do campo de fotografia
-  const inputFoto = document.querySelector("#editStudentPhoto");
-  const imagemFoto = document.querySelector("#editStudentPhotoPreviewImage");
-  const placeholderFoto = document.querySelector("#editStudentPhotoPlaceholder");
-  const escolherFoto = document.querySelector("#editStudentChoosePhoto");
-
-  let urlTemporaria = null;
-
-  function limparFotoTemporaria() {
-    if (urlTemporaria) {
-      URL.revokeObjectURL(urlTemporaria);
-      urlTemporaria = null;
-    }
-  }
-
-  function mostrarFoto(url) {
-    if (!imagemFoto || !placeholderFoto) return;
-
-    if (url) {
-      imagemFoto.src = url;
-      imagemFoto.hidden = false;
-      placeholderFoto.hidden = true;
-    } else {
-      imagemFoto.removeAttribute("src");
-      imagemFoto.hidden = true;
-      placeholderFoto.hidden = false;
-    }
-  }
-
-  escolherFoto?.addEventListener("click", () => {
-    inputFoto?.click();
-  });
-
-  inputFoto?.addEventListener("change", () => {
-    const arquivo = inputFoto.files?.[0];
-
-    if (!arquivo) return;
-
-    const tiposPermitidos = [
-      "image/jpeg",
-      "image/png",
-      "image/webp"
-    ];
-
-    if (!tiposPermitidos.includes(arquivo.type) ||
-        arquivo.size > 5 * 1024 * 1024) {
-
-      Toast.mostrar(
-        "Escolha uma imagem JPG, PNG ou WEBP de até 5 MB.",
-        "warning"
-      );
-
-      inputFoto.value = "";
+    // Esta função só atua na página de detalhes.
+    if (!botaoEditar || !modal || !formulario) {
       return;
     }
 
-    limparFotoTemporaria();
+    // Cria um objeto que utiliza nosso prototype Form.
+    const form = Object.create(FormControllerPrototype);
 
-    urlTemporaria = URL.createObjectURL(arquivo);
-    mostrarFoto(urlTemporaria);
-  });
+    form.inicializar(formulario);
 
+    // Elementos do campo de fotografia
+    const inputFoto = document.querySelector("#editStudentPhoto");
+    const imagemFoto = document.querySelector("#editStudentPhotoPreviewImage");
+    const placeholderFoto = document.querySelector("#editStudentPhotoPlaceholder");
+    const escolherFoto = document.querySelector("#editStudentChoosePhoto");
 
-  // Preenche um campo existente.
-  const preencherCampo = (id, valor) => {
-    const campo = document.getElementById(id);
+    let urlTemporaria = null;
 
-    if (campo) {
-      campo.value = valor ?? "";
-    }
-  };
-
-  // Abre a modal com os dados atuais.
-  function abrirModal() {
-
-    if (document.body.dataset.role !== "admin") {
-      Toast.mostrar(
-        "Somente administradores podem editar alunos.",
-        "error"
-      );
-      return;
-    }
-
-    form.limpar();
-    
-limparFotoTemporaria();
-mostrarFoto(student.photoUrl || "");
-
-
-    preencherCampo("editStudentName", student.name);
-    preencherCampo("editStudentEmail", student.email);
-
-    // Converte DD/MM/AAAA para AAAA-MM-DD.
-    let nascimento = "";
-
-    if (student.birth) {
-      const partes = student.birth.split("/");
-
-      if (partes.length === 3) {
-        nascimento =
-          `${partes[2]}-${partes[1]}-${partes[0]}`;
+    function limparFotoTemporaria() {
+      if (urlTemporaria) {
+        URL.revokeObjectURL(urlTemporaria);
+        urlTemporaria = null;
       }
     }
 
-    preencherCampo("editStudentBirth", nascimento);
-    preencherCampo("editStudentPhone", student.phone);
-    preencherCampo("editStudentGuardian", student.guardian);
-    preencherCampo("editStudentCourse", student.course);
-    preencherCampo("editStudentShift", student.shift);
+    function mostrarFoto(url) {
+      if (!imagemFoto || !placeholderFoto) return;
 
-    // Exibe a turma atual no select informativo.
-    const turma = document.querySelector(
-      "#editStudentClass"
-    );
-
-    if (turma) {
-      turma.options[0].textContent =
-        student.className || "Turma não informada";
+      if (url) {
+        imagemFoto.src = url;
+        imagemFoto.hidden = false;
+        placeholderFoto.hidden = true;
+      } else {
+        imagemFoto.removeAttribute("src");
+        imagemFoto.hidden = true;
+        placeholderFoto.hidden = false;
+      }
     }
 
-    modal.classList.add("active");
+    escolherFoto?.addEventListener("click", () => {
+      inputFoto?.click();
+    });
 
-    document.querySelector("#editStudentName")?.focus();
-  }
+    inputFoto?.addEventListener("change", () => {
+      const arquivo = inputFoto.files?.[0];
 
-  // Fecha a modal sem alterar os dados.
-  function fecharModal() {
-    modal.classList.remove("active");
-    form.limpar();
-    limparFotoTemporaria();
-    botaoEditar.focus();
-  }
+      if (!arquivo) return;
 
-  botaoEditar.addEventListener("click", abrirModal);
+      const tiposPermitidos = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ];
 
-  document.querySelector(
-    "#closeEditStudentModal"
-  )?.addEventListener("click", fecharModal);
+      if (!tiposPermitidos.includes(arquivo.type) ||
+        arquivo.size > 5 * 1024 * 1024) {
 
-  document.querySelector(
-    "#cancelEditStudent"
-  )?.addEventListener("click", fecharModal);
+        Toast.mostrar(
+          "Escolha uma imagem JPG, PNG ou WEBP de até 5 MB.",
+          "warning"
+        );
 
-  // Fecha ao clicar fora da janela.
-  modal.addEventListener("click", event => {
-    if (event.target === modal) {
-      fecharModal();
+        inputFoto.value = "";
+        return;
+      }
+
+      limparFotoTemporaria();
+
+      urlTemporaria = URL.createObjectURL(arquivo);
+      mostrarFoto(urlTemporaria);
+    });
+
+
+    // Preenche um campo existente.
+    const preencherCampo = (id, valor) => {
+      const campo = document.getElementById(id);
+
+      if (campo) {
+        campo.value = valor ?? "";
+      }
+    };
+
+
+    /**
+     * Carrega as turmas cadastradas no banco
+     * e seleciona a turma atual do estudante.
+     */
+    async function carregarTurmas() {
+      const select = document.querySelector("#editStudentClass");
+
+      if (!select) return;
+
+      // Bloqueia a seleção durante o carregamento.
+      select.disabled = true;
+      select.replaceChildren(
+        new Option("Carregando turmas...", "")
+      );
+
+      try {
+        const usersApi = new Users();
+        usersApi.setAuthToken(token);
+
+        // Consulta as turmas cadastradas.
+        const response = await usersApi.get("/classes/list");
+
+        if (
+          Number(response?.code) !== 200 ||
+          !Array.isArray(response?.data)
+        ) {
+          throw new Error("Não foi possível carregar as turmas.");
+        }
+
+        // Remove as opções anteriores.
+        select.replaceChildren(
+          new Option("Selecione uma turma", "")
+        );
+
+        // Cria uma opção para cada turma cadastrada.
+        response.data.forEach(turma => {
+          const option = new Option(turma.name, turma.id);
+          select.add(option);
+        });
+
+        // Seleciona a turma atual do estudante.
+        select.value = String(student.classId ?? "");
+
+        // Libera o campo para edição.
+        select.disabled = false;
+
+      } catch (error) {
+        console.error("Erro ao carregar turmas:", error);
+
+        select.replaceChildren(
+          new Option("Não foi possível carregar as turmas", "")
+        );
+
+        Toast.mostrar(
+          "Não foi possível carregar as turmas.",
+          "error"
+        );
+      }
     }
-  });
 
-  // Fecha utilizando a tecla Escape.
-  document.addEventListener("keydown", event => {
-    if (
-      event.key === "Escape" &&
-      modal.classList.contains("active")
-    ) {
-      fecharModal();
+    // Abre a modal com os dados atuais.
+    async function abrirModal() {
+
+      if (document.body.dataset.role !== "admin") {
+        Toast.mostrar(
+          "Somente administradores podem editar alunos.",
+          "error"
+        );
+        return;
+      }
+
+      form.limpar();
+
+      limparFotoTemporaria();
+      mostrarFoto(student.photoUrl || "");
+
+
+      preencherCampo("editStudentName", student.name);
+      preencherCampo("editStudentEmail", student.email);
+
+      // Converte DD/MM/AAAA para AAAA-MM-DD.
+      let nascimento = "";
+
+      if (student.birth) {
+        const partes = student.birth.split("/");
+
+        if (partes.length === 3) {
+          nascimento =
+            `${partes[2]}-${partes[1]}-${partes[0]}`;
+        }
+      }
+
+      preencherCampo("editStudentBirth", student.dateBirth);
+      preencherCampo("editStudentPhone", student.phone);
+      preencherCampo("editStudentGuardian", student.guardian);
+      preencherCampo("editStudentCourse", student.course);
+      preencherCampo("editStudentShift", student.shift);
+
+      preencherCampo("editStudentRegistration", student.ra);
+
+
+
+      // Busca as turmas disponíveis e seleciona a atual.
+
+      modal.classList.add("active");
+
+      document.querySelector("#editStudentName")?.focus();
+      await carregarTurmas();
     }
-  });
 
-  // Impede o envio antes da integração com a API.
-  formulario.addEventListener("submit", event => {
+    // Fecha a modal sem alterar os dados.
+    function fecharModal() {
+      modal.classList.remove("active");
+      form.limpar();
+      limparFotoTemporaria();
+      botaoEditar.focus();
+    }
+
+    botaoEditar.addEventListener("click", abrirModal);
+
+    document.querySelector(
+      "#closeEditStudentModal"
+    )?.addEventListener("click", fecharModal);
+
+    document.querySelector(
+      "#cancelEditStudent"
+    )?.addEventListener("click", fecharModal);
+
+    // Fecha ao clicar fora da janela.
+    modal.addEventListener("click", event => {
+      if (event.target === modal) {
+        fecharModal();
+      }
+    });
+
+    // Fecha utilizando a tecla Escape.
+    document.addEventListener("keydown", event => {
+      if (
+        event.key === "Escape" &&
+        modal.classList.contains("active")
+      ) {
+        fecharModal();
+      }
+    });
+
+    // Impede o envio antes da integração com a API.
+
+formulario.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    Toast.mostrar(
-      "O salvamento será conectado na próxima etapa.",
-      "warning"
+    // 1. Valida os campos obrigatórios do HTML.
+    if (!formulario.reportValidity()) {
+        Toast.mostrar(
+            "Verifique os campos obrigatórios.",
+            "warning"
+        );
+        return;
+    }
+
+    // 2. Obtém os dados usando nosso prototype Form.
+    const dados = form.obterDados();
+
+    // Monta apenas os campos permitidos pela API.
+    const payload = {
+        name: String(dados.name || "").trim(),
+        email: String(dados.email || "").trim(),
+        registration_number: String(
+            dados.registration_number || ""
+        ).trim(),
+        phone: String(dados.phone || "").trim(),
+        guardian: String(dados.guardian || "").trim(),
+        class_id: dados.class_id,
+        course: String(dados.course || "").trim(),
+        shift: String(dados.shift || "").trim()
+    };
+
+    // A data é enviada quando preenchida.
+    if (dados.dateBirth) {
+        payload.dateBirth = dados.dateBirth;
+    }
+
+    // 3. Obtém a nova fotografia, se houver.
+    const photoFile = inputFoto?.files?.[0] ?? null;
+
+    // 4. Prepara a comunicação com a API.
+    const usersApi = new Users();
+    usersApi.setAuthToken(token);
+
+    const saveButton = formulario.querySelector(
+        '[type="submit"]'
     );
-  });
-}
+
+    const originalText = saveButton?.textContent;
+
+    if (saveButton) {
+        saveButton.disabled = true;
+        saveButton.textContent = "Salvando...";
+    }
+
+    let dadosSalvos = false;
+
+    try {
+        // 5. Salva os dados pessoais e acadêmicos.
+        const response = await usersApi.update(
+            student.id,
+            payload
+        );
+
+        if (Number(response?.code) !== 200) {
+            throw new Error(
+                response?.message ||
+                "Não foi possível atualizar o estudante."
+            );
+        }
+
+        dadosSalvos = true;
+
+        // 6. Atualiza as informações exibidas.
+        student.name = payload.name;
+        student.email = payload.email;
+        student.ra = payload.registration_number;
+        student.phone = payload.phone;
+        student.guardian = payload.guardian;
+        student.course = payload.course;
+        student.shift = payload.shift;
+        student.classId = payload.class_id;
+
+        if (payload.dateBirth) {
+            student.birth = formatBirthDate(
+                payload.dateBirth
+            );
+        }
+
+        const turmaSelect = document.querySelector(
+            "#editStudentClass"
+        );
+
+        student.className =
+            turmaSelect?.selectedOptions?.[0]?.textContent ||
+            student.className;
+
+        // 7. Envia a fotografia apenas quando alterada.
+        if (photoFile) {
+            const photoData = new FormData();
+            photoData.append("photo", photoFile);
+
+            const photoResponse =
+                await usersApi.uploadStudentPhoto(
+                    student.id,
+                    photoData
+                );
+
+            if (Number(photoResponse?.code) !== 200) {
+                throw new Error(
+                    photoResponse?.message ||
+                    "Não foi possível atualizar a fotografia."
+                );
+            }
+
+            if (photoResponse?.data?.photoUrl) {
+                student.photoUrl =
+                    photoResponse.data.photoUrl;
+            }
+        }
+
+        // 8. Atualiza a página sem recarregá-la.
+        renderStudent(student);
+
+        // Fecha a modal.
+        fecharModal();
+
+        Toast.mostrar(
+            "Estudante atualizado com sucesso!",
+            "success"
+        );
+
+    } catch (error) {
+        console.error("Erro ao salvar estudante:", error);
+
+        // Se os dados foram salvos, mas a foto falhou,
+        // preserva as alterações na interface.
+        if (dadosSalvos) {
+            renderStudent(student);
+
+            Toast.mostrar(
+                "Os dados cadastrais foram salvos, mas houve um erro na fotografia.",
+                "warning"
+            );
+        } else {
+            Toast.mostrar(
+                error.message ||
+                "Não foi possível salvar o estudante.",
+                "error"
+            );
+        }
+
+    } finally {
+        // Libera o botão mesmo quando ocorre um erro.
+        if (saveButton) {
+            saveButton.disabled = false;
+            saveButton.textContent = originalText;
+        }
+    }
+});
+
+
+  }
 
 
 
@@ -557,45 +771,49 @@ mostrarFoto(student.photoUrl || "");
     // 11. ORGANIZAÇÃO DO REGISTRO
     // ========================================
 
+
     const student = {
       id: record.id,
-
       name: record.name || "Estudante",
 
-      ra:
-        record.enrollmentNumber ||
-        record.ra ||
-        "",
+      // Matrícula institucional.
+      ra: record.registrationNumber
+        ?? record.registration_number
+        ?? record.enrollmentNumber
+        ?? record.ra
+        ?? "",
 
+      // Turma.
+      classId: record.classId ?? record.class_id ?? null,
       className: record.className || "",
 
-      course: record.courseName || "",
-
+      // Dados acadêmicos.
+      course: record.course ?? record.courseName ?? "",
       shift: record.shift || "",
 
-      status:
-        Number(record.active) === 1
-          ? "Ativo"
-          : "Inativo",
+      // Situação cadastral.
+      status: Number(record.active) === 1
+        ? "Ativo"
+        : "Inativo",
 
+      // Dados pessoais.
       birth: formatBirthDate(
-        record.dateBirth
+        record.dateBirth ?? record.date_birth
       ),
-
       email: record.email || "",
-
       phone: record.phone || "",
-
       guardian: record.guardian || "",
 
+      // Fotografia.
       photoUrl: record.photoUrl || ""
     };
 
-// Renderiza os dados do estudante na página.
-renderStudent(student);
 
-// Configura o formulário de edição.
-configurarEdicao(student);
+    // Renderiza os dados do estudante na página.
+    renderStudent(student);
+
+    // Configura o formulário de edição.
+    configurarEdicao(student);
 
   } catch (error) {
 
