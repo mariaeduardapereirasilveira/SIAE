@@ -49,7 +49,18 @@
     name.textContent = student.name;
     const meta = document.createElement("span");
     meta.className = "student-details";
-    [`${student.className || "Turma não informada"}`, `Código ${student.id}`, student.sectorName || "Estudante"].forEach(value => {
+
+    [
+      student.className || "Turma não informada",
+
+      student.ra
+        ? `Matrícula ${student.ra}`
+        : "Matrícula não informada",
+
+      student.course || "Curso não informado"
+
+    ].forEach(value => {
+
       const item = document.createElement("span");
       item.className = "student-detail-item";
       item.textContent = value;
@@ -63,7 +74,7 @@
     action.textContent = "→";
     button.append(avatar, info, action);
     button.addEventListener("click", () => {
-      try { sessionStorage.setItem("siae_selected_student", JSON.stringify(student)); } catch (_) {}
+      try { sessionStorage.setItem("siae_selected_student", JSON.stringify(student)); } catch (_) { }
       window.location.href = `student-details.html?id=${encodeURIComponent(student.id)}`;
     });
     return button;
@@ -73,11 +84,13 @@
     if (!results) return;
     const query = (input?.value || "").trim().toLocaleLowerCase("pt-BR");
     const filtered = students.filter(student => {
+
       const values = {
-        name: student.name,
-        class: student.className,
-        ra: String(student.id)
+        name: student.name || "",
+        class: student.className || "",
+        ra: student.ra || ""
       };
+
       const source = activeFilter === "all"
         ? `${values.name} ${values.class} ${values.ra}`
         : values[activeFilter];
@@ -117,25 +130,35 @@
         throw new Error(payload?.message || "Não foi possível carregar os estudantes.");
       }
 
+
+      // Mantém somente estudantes com cadastro ativo.
       students = payload.data
-        .filter(user => user.enrollment === "estudante")
+        .filter(user =>
+          user.enrollment === "estudante" &&
+          Number(user.active) === 1
+        )
         .map(user => ({
           id: user.id,
-          name: user.name,
-          ra: String(user.id),
+          name: user.name || "Nome não informado",
+
+          // Dados acadêmicos reais.
+          ra: String(user.registrationNumber || ""),
           className: user.className || "",
-          course: "Técnico em Informática",
-          shift: "",
-          status: Number(user.active) === 1 ? "Ativo" : "Inativo",
+          classId: user.classId,
+          course: user.course || "",
+          shift: user.shift || "",
+
+          // Dados pessoais reais.
           email: user.email || "",
-          phone: "",
-          guardian: "",
+          phone: user.phone || "",
+          guardian: user.guardian || "",
           birth: user.dateBirth || "",
-          sectorName: user.sectorName || "",
-          photoUrl: user.photoUrl || "",
-          history: [],
-          documents: []
+
+          // Situação e fotografia.
+          status: "Ativo",
+          photoUrl: user.photoUrl || ""
         }));
+
       renderStudents();
     } catch (error) {
       console.error("Erro ao carregar estudantes:", error);

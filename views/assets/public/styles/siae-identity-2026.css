@@ -5525,11 +5525,27 @@ html[data-theme="dark"] {
   margin: 0
 }
 
-.sector-management-card footer {
-  display: flex;
-  gap: 7px;
-  margin-top: 13px
+
+.sector-management-card > footer {
+    /* Ocupa as duas colunas do cartão */
+    grid-column: 1 / -1;
+
+    /* Organiza os botões horizontalmente */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    /* Permite quebrar a linha em telas menores */
+    flex-wrap: wrap;
+
+    gap: 8px;
+    margin-top: 8px;
 }
+
+.sector-management-card > footer .btn {
+    white-space: nowrap;
+}
+
 
 .sector-dialog {
   width: min(92vw, 520px);

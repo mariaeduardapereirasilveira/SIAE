@@ -94,7 +94,51 @@ class Services extends Api
             return;
         }
         // O vínculo do serviço sempre registra o usuário autenticado.
-        $data["user_id"] = $this->userAuthId;
+       
+/*
+ * Recupera os campos quando a requisição
+ * utiliza JSON em vez de FormData.
+ */
+$contentType = $_SERVER["CONTENT_TYPE"] ?? "";
+
+if (stripos($contentType, "application/json") !== false) {
+    $json = json_decode(
+        file_get_contents("php://input"),
+        true
+    );
+
+    if (is_array($json)) {
+        $data = array_merge($json, $data);
+    }
+}
+
+/*
+ * Valida o ID do estudante antes de tentar
+ * registrar o serviço no banco.
+ */
+$studentId = filter_var(
+    $data["student_id"] ?? null,
+    FILTER_VALIDATE_INT
+);
+
+if (!$studentId || $studentId <= 0) {
+    $this->call(
+        400,
+        "bad_request",
+        "Selecione um estudante válido para registrar o serviço.",
+        "error"
+    )->back();
+
+    return;
+}
+
+/*
+ * O responsável pelo registro sempre será
+ * o usuário autenticado pelo token.
+ */
+$data["student_id"] = $studentId;
+$data["user_id"] = $this->userAuthId;
+
 
        
 

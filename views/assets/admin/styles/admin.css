@@ -458,3 +458,69 @@ body.modal-open {
         font-size: 11px;
     }
 }
+
+
+
+/* ==========================================
+   SIAE — CORES DOS INDICADORES DE SETORES
+   ========================================== */
+
+/* 1. Total de setores — Ameixa */
+.sectors-metric-card.sectors-metric-total {
+    background: #48183f;
+    border-color: #48183f;
+}
+
+.sectors-metric-total .sectors-metric-label {
+    color: #f4c8d5;
+}
+
+.sectors-metric-total strong {
+    color: #ffffff;
+}
+
+.sectors-metric-total p {
+    color: #f1dbe5;
+}
+
+/* 2. Setores ativos — Coral suave */
+.sectors-metric-card.sectors-metric-active {
+    background: #f8d4ca;
+    border-color: #efb5a8;
+}
+
+.sectors-metric-active strong {
+    color: #af4b58;
+}
+
+/* 3. Setores desativados — Rosa */
+.sectors-metric-card.sectors-metric-inactive {
+    background: #efd4e0;
+    border-color: #e3bdce;
+}
+
+.sectors-metric-inactive strong {
+    color: #914e7c;
+}
+
+/* 4. Profissionais vinculados — Lilás */
+.sectors-metric-card.sectors-metric-professionals {
+    background: #e6d8eb;
+    border-color: #d7c2de;
+}
+
+.sectors-metric-professionals strong {
+    color: #663d78;
+}
+
+/* Transição suave ao passar o mouse */
+.sectors-metric-card {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.sectors-metric-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(58, 16, 56, 0.08);
+}

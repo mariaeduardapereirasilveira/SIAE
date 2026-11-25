@@ -51,20 +51,22 @@ class Occurrence extends Model
 
         $this->table = 'occurrences';
         $this->primaryKey = 'id';
-        $this->fillable = [
-            'servicesId',
-            'sectorsId',
-            'userId',
-            'studentId',
-            'title',
-            'description',
-            'status',
-            'secrecyLevel',
-            'createdAt',
-            'updatedAt',
-            'active',
-            'class'
-        ];
+       
+$this->fillable = [
+    'serviceId',
+    'sectorId',
+    'userId',
+    'studentId',
+    'title',
+    'description',
+    'status',
+    'secrecyLevel',
+    'createdAt',
+    'updatedAt',
+    'active',
+    'class'
+];
+
     }
 
     public function getId(): ?int
@@ -96,6 +98,45 @@ class Occurrence extends Model
     {
         $this->sectorsId = $sectorsId;
     }
+
+
+
+/**
+ * Retorna o ID do serviço vinculado.
+ *
+ * Mantém compatibilidade com os métodos
+ * utilizados anteriormente no projeto.
+ */
+public function getServiceId(): ?int
+{
+    return $this->getServicesId();
+}
+
+/**
+ * Define o serviço vinculado à ocorrência.
+ */
+public function setServiceId(int $serviceId): void
+{
+    $this->setServicesId($serviceId);
+}
+
+/**
+ * Retorna o ID do setor responsável.
+ */
+public function getSectorId(): ?int
+{
+    return $this->getSectorsId();
+}
+
+/**
+ * Define o setor responsável pela ocorrência.
+ */
+public function setSectorId(int $sectorId): void
+{
+    $this->setSectorsId($sectorId);
+}
+
+
 
     public function getUserId(): ?int
     {

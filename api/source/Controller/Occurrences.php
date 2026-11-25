@@ -49,16 +49,30 @@ class Occurrences extends Api
                 ]);
             }
 
-            $occurrences = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            if (empty($occurrences)) {
-                $this->call(404, "not_found", "Nenhuma ocorrência disponível.", "error")->back([]);
-                return;
-            }
+            
+/*
+ * Recupera as ocorrências que o usuário
+ * autenticado está autorizado a consultar.
+ *
+ * Uma lista vazia é um resultado válido,
+ * não um erro de requisição.
+ */
+$occurrences = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-            $this->call(200, "success", "Ocorrências encontradas.", "success")->back($occurrences);
+// Retorna os registros encontrados ou um array vazio.
+$this->call(
+    200,
+    "success",
+    empty($occurrences)
+        ? "Nenhuma ocorrência disponível."
+        : "Ocorrências encontradas.",
+    "success"
+)->back($occurrences);
+
         } catch (\Throwable $exception) {
             error_log("Erro ao listar ocorrências: " . $exception->getMessage());
-            $this->call(500, "internal_server_error", "Não foi possível carregar as ocorrências.", "error")->back([]);
+            $this->call(500, "internal_server_error", "Não foi possível carregar as ocorrências.", "error"
+            )->back([]);
         }
     }
 

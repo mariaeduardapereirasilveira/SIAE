@@ -111,3 +111,182 @@
             opacity: 0.5;
         }
 
+
+/* ==========================================
+   SIAE — FORMULÁRIO DE NOVA OCORRÊNCIA
+   ========================================== */
+
+/* Janela de cadastro */
+#newOccurrenceDialog {
+    width: min(92vw, 760px) !important;
+    max-width: 760px !important;
+    border-radius: 24px !important;
+}
+
+/* Cabeçalho */
+#newOccurrenceDialog .siae-dialog-header {
+    padding: 28px 32px 22px !important;
+}
+
+#newOccurrenceDialog .siae-dialog-header h2 {
+    font-size: 24px !important;
+    margin: 8px 0 !important;
+}
+
+#newOccurrenceDialog .siae-dialog-header p:not(.eyebrow) {
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+}
+
+/* Área dos campos */
+#newOccurrenceDialog .siae-dialog-body {
+    padding: 26px 32px !important;
+}
+
+/* Formulário em duas colunas */
+#newOccurrenceDialog .form-grid-two {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    margin-bottom: 20px !important;
+}
+
+/* Rótulos dos campos */
+#newOccurrenceDialog .siae-dialog-body > label,
+#newOccurrenceDialog .form-grid-two > label {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+
+    margin: 0 !important;
+    min-width: 0 !important;
+
+    color: #3a1038 !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+}
+
+/* Campos que ocupam a largura inteira */
+#newOccurrenceDialog .siae-dialog-body > label {
+    margin-bottom: 20px !important;
+}
+
+/* Inputs, selects e textarea */
+#newOccurrenceDialog input:not([type="checkbox"]),
+#newOccurrenceDialog select,
+#newOccurrenceDialog textarea {
+    display: block !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    height: 46px !important;
+    min-height: 46px !important;
+
+    margin-top: 0 !important;
+    padding: 0 14px !important;
+
+    box-sizing: border-box !important;
+    border: 1px solid #dcc5c3 !important;
+    border-radius: 12px !important;
+
+    background: #fff8f3 !important;
+    color: #3a1038 !important;
+
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+
+    outline: none !important;
+    box-shadow: none !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Campo de descrição */
+#newOccurrenceDialog textarea {
+    height: 120px !important;
+    min-height: 120px !important;
+    padding: 14px !important;
+
+    resize: vertical !important;
+    line-height: 1.6 !important;
+}
+
+/* Texto dos placeholders */
+#newOccurrenceDialog input::placeholder,
+#newOccurrenceDialog textarea::placeholder {
+    color: #a58b99 !important;
+    opacity: 1;
+}
+
+/* Campo selecionado */
+#newOccurrenceDialog input:focus,
+#newOccurrenceDialog select:focus,
+#newOccurrenceDialog textarea:focus {
+    border-color: #9d658e !important;
+    box-shadow: 0 0 0 3px rgba(157, 101, 142, 0.12) !important;
+}
+
+/* Campo de turma, preenchido automaticamente */
+#newOccurrenceDialog input[readonly] {
+    background: #efe1db !important;
+    color: #7a5d73 !important;
+    cursor: default;
+}
+
+/* Texto explicativo do nível de sigilo */
+#newOccurrenceDialog .form-helper {
+    display: block !important;
+    margin: 0 !important;
+
+    font-size: 11px !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: #856c7c !important;
+}
+
+/* Rodapé e botões */
+#newOccurrenceDialog .siae-dialog-footer {
+    padding: 18px 32px !important;
+    gap: 12px !important;
+}
+
+#newOccurrenceDialog .siae-dialog-footer .btn {
+    min-height: 43px !important;
+    padding: 11px 20px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
+}
+
+/* ==========================================
+   RESPONSIVIDADE
+   ========================================== */
+
+@media (max-width: 640px) {
+
+    #newOccurrenceDialog {
+        width: calc(100vw - 24px) !important;
+    }
+
+    #newOccurrenceDialog .siae-dialog-header {
+        padding: 22px 52px 18px 20px !important;
+    }
+
+    #newOccurrenceDialog .siae-dialog-body {
+        padding: 20px !important;
+    }
+
+    #newOccurrenceDialog .form-grid-two {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    #newOccurrenceDialog .siae-dialog-footer {
+        padding: 16px 20px !important;
+    }
+}

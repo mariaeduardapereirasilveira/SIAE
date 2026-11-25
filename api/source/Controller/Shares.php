@@ -46,10 +46,19 @@ class Shares extends Api
                 ]);
             }
             $shares = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            if (empty($shares)) {
-                $this->call(404, "not_found", "Nenhum compartilhamento encontrado.", "error")->back([]);
-                return;
-            }
+           
+if (empty($shares)) {
+    // Não ter compartilhamentos é um resultado válido.
+    $this->call(
+        200,
+        "success",
+        "Nenhum compartilhamento encontrado.",
+        "success"
+    )->back([]);
+
+    return;
+}
+
             $this->call(200, "success", "Compartilhamentos encontrados.", "success")->back($shares);
         } catch (\Throwable $exception) {
             error_log("Erro ao listar compartilhamentos: " . $exception->getMessage());

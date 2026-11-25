@@ -41,7 +41,7 @@ import ShareService from "../../_common/classes/ShareService.js";
   const initialRecipients = document.querySelector("#occurrenceInitialShareRecipients");
   const shareRecipients = document.querySelector("#shareRecipients");
 
-  let currentUserId = Number(localStorage.getItem("userId")) || null;
+  let currentUserId = null;
   let currentTab = "created";
   let activeShareOccurrence = null;
   let occurrences = [];
@@ -85,6 +85,46 @@ import ShareService from "../../_common/classes/ShareService.js";
     return [];
   }
 
+
+
+  /**
+   * Valida o resultado de uma consulta de listagem.
+   *
+   * - 200: devolve os registros encontrados.
+   * - 404: aceita lista vazia para compatibilidade.
+   * - Outros erros: informa a falha real da API.
+   */
+  function validateListResult(result, resourceName) {
+
+    // Erro de rede ou falha ao executar a requisição.
+    if (result.status === "rejected") {
+      throw new Error(
+        `Não foi possível carregar ${resourceName}: ` +
+        result.reason.message
+      );
+    }
+
+    const response = result.value;
+    const code = Number(response?.code);
+
+    // Algumas rotas antigas ainda retornam 404
+    // quando não encontram registros.
+    if (code === 404) {
+      return [];
+    }
+
+    // Impede que erros sejam interpretados como lista vazia.
+    if (code >= 400) {
+      throw new Error(
+        response.message ||
+        `Não foi possível carregar ${resourceName}.`
+      );
+    }
+
+    return normalizeResponse(response);
+  }
+
+
   async function apiGet(endpoint) {
     const response = await fetch(`${apiBase}${endpoint}`, {
       headers: { Accept: "application/json", Authorization: `Bearer ${token}` }
@@ -99,18 +139,46 @@ import ShareService from "../../_common/classes/ShareService.js";
     return normalizeResponse(payload);
   }
 
+
+  /**
+   * Identifica o usuário autenticado pela API.
+   *
+   * O token determina qual usuário está conectado.
+   * Não confiamos apenas no ID salvo anteriormente.
+   */
   async function loadCurrentUser() {
-    if (currentUserId) return;
+
     const response = await fetch(`${apiBase}/users/me`, {
-      headers: { Accept: "application/json", Authorization: `Bearer ${token}` }
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`
+      }
     });
+
     const payload = await response.json();
-    if (!response.ok || payload?.code !== 200 || !payload?.data?.id) {
-      throw new Error(payload?.message || "Não foi possível identificar o usuário autenticado.");
+
+    // Verifica se a autenticação está válida.
+    if (
+      !response.ok ||
+      Number(payload?.code) !== 200 ||
+      !payload?.data?.id
+    ) {
+      throw new Error(
+        payload?.message ||
+        "Não foi possível identificar o usuário autenticado."
+      );
     }
+
+    // Recupera o ID verdadeiro da sessão.
     currentUserId = Number(payload.data.id);
-    localStorage.setItem("userId", String(currentUserId));
+
+    // Mantém compatibilidade com outras páginas do SIAE.
+    localStorage.setItem(
+      "userId",
+      String(currentUserId)
+    );
   }
+
 
   async function loadReferenceData() {
     await loadCurrentUser();
@@ -134,12 +202,19 @@ import ShareService from "../../_common/classes/ShareService.js";
     professionals = professionalsResult.status === "fulfilled"
       ? professionalsResult.value
       : [];
-    occurrences = occurrencesResult.status === "fulfilled"
-      ? normalizeResponse(occurrencesResult.value)
-      : [];
-    shares = sharesResult.status === "fulfilled"
-      ? normalizeResponse(sharesResult.value)
-      : [];
+
+    // Carrega as ocorrências, verificando erros da API.
+    occurrences = validateListResult(
+      occurrencesResult,
+      "as ocorrências"
+    );
+
+    // Carrega os compartilhamentos, verificando erros da API.
+    shares = validateListResult(
+      sharesResult,
+      "os compartilhamentos"
+    );
+
 
     if (usersResult.status === "rejected") console.warn("Não foi possível carregar estudantes:", usersResult.reason);
     if (sectorsResult.status === "rejected") console.warn("Não foi possível carregar setores:", sectorsResult.reason);
@@ -313,7 +388,7 @@ import ShareService from "../../_common/classes/ShareService.js";
 
     records
       .slice()
-      .sort((a,b) => String(value(b,"created_at","createdAt")).localeCompare(String(value(a,"created_at","createdAt"))))
+      .sort((a, b) => String(value(b, "created_at", "createdAt")).localeCompare(String(value(a, "created_at", "createdAt"))))
       .forEach(item => list.appendChild(createOccurrenceCard(item)));
   }
 
@@ -325,32 +400,32 @@ import ShareService from "../../_common/classes/ShareService.js";
     const title = document.createElement("h3");
     title.textContent = value(item, "title") || "Ocorrência";
     const status = document.createElement("span");
-    status.className = `occurrence-status ${String(value(item,"status")).toLocaleLowerCase("pt-BR") === "encerrado" ? "is-closed" : ""}`;
+    status.className = `occurrence-status ${String(value(item, "status")).toLocaleLowerCase("pt-BR") === "encerrado" ? "is-closed" : ""}`;
     status.textContent = value(item, "status") || "Ativo";
-    header.append(title,status);
+    header.append(title, status);
 
     const student = studentFor(item);
     const sector = sectorFor(item);
     const meta = document.createElement("div");
     meta.className = "occurrence-card-meta";
     const studentName = document.createElement("span");
-    studentName.textContent = value(student,"name") || `Estudante #${studentIdOf(item) || "—"}`;
+    studentName.textContent = value(student, "name") || `Estudante #${studentIdOf(item) || "—"}`;
     const sectorName = document.createElement("span");
-    sectorName.textContent = value(sector,"name") || "Setor não informado";
+    sectorName.textContent = value(sector, "name") || "Setor não informado";
     const date = document.createElement("span");
-    date.textContent = dateLabel(value(item,"created_at","createdAt"));
-    meta.append(studentName,sectorName,date);
+    date.textContent = dateLabel(value(item, "created_at", "createdAt"));
+    meta.append(studentName, sectorName, date);
 
     const excerpt = document.createElement("p");
     excerpt.className = "occurrence-card-excerpt";
-    const description = String(value(item,"description") || "");
-    excerpt.textContent = description.length > 180 ? `${description.slice(0,177)}…` : description;
+    const description = String(value(item, "description") || "");
+    excerpt.textContent = description.length > 180 ? `${description.slice(0, 177)}…` : description;
 
     const footer = document.createElement("footer");
     footer.className = "occurrence-card-footer";
     const visibility = document.createElement("span");
     visibility.className = "occurrence-card-privacy";
-    visibility.textContent = value(item,"secrecy_level","secrecyLevel") || "Sigilo não informado";
+    visibility.textContent = value(item, "secrecy_level", "secrecyLevel") || "Sigilo não informado";
     const actions = document.createElement("div");
     actions.className = "occurrence-card-actions";
     const detailButton = document.createElement("button");
@@ -371,8 +446,8 @@ import ShareService from "../../_common/classes/ShareService.js";
       actions.appendChild(shareButton);
     }
 
-    footer.append(visibility,actions);
-    article.append(header,meta,excerpt,footer);
+    footer.append(visibility, actions);
+    article.append(header, meta, excerpt, footer);
     return article;
   }
 
@@ -381,14 +456,14 @@ import ShareService from "../../_common/classes/ShareService.js";
     if (!item || !detailsDialog) return;
     const student = studentFor(item);
     const sector = sectorFor(item);
-    const sharedWith = sharesFor(id).map(share => userById.get(userIdOf(share))).filter(Boolean).map(person=>value(person,"name")).join(", ");
-    document.querySelector("#detailsOccurrenceTitle").textContent = value(item,"title") || "Ocorrência";
-    document.querySelector("#detailsOccurrenceMeta").textContent = `Criada em ${dateLabel(value(item,"created_at","createdAt"))}`;
-    document.querySelector("#detailsStudent").textContent = value(student,"name") || `Estudante #${studentIdOf(item) || "—"}`;
-    document.querySelector("#detailsSector").textContent = value(sector,"name") || "Não informado";
-    document.querySelector("#detailsStatus").textContent = value(item,"status") || "Não informado";
-    document.querySelector("#detailsSecrecy").textContent = value(item,"secrecy_level","secrecyLevel") || "Não informado";
-    document.querySelector("#detailsDescription").textContent = value(item,"description") || "Nenhuma descrição cadastrada.";
+    const sharedWith = sharesFor(id).map(share => userById.get(userIdOf(share))).filter(Boolean).map(person => value(person, "name")).join(", ");
+    document.querySelector("#detailsOccurrenceTitle").textContent = value(item, "title") || "Ocorrência";
+    document.querySelector("#detailsOccurrenceMeta").textContent = `Criada em ${dateLabel(value(item, "created_at", "createdAt"))}`;
+    document.querySelector("#detailsStudent").textContent = value(student, "name") || `Estudante #${studentIdOf(item) || "—"}`;
+    document.querySelector("#detailsSector").textContent = value(sector, "name") || "Não informado";
+    document.querySelector("#detailsStatus").textContent = value(item, "status") || "Não informado";
+    document.querySelector("#detailsSecrecy").textContent = value(item, "secrecy_level", "secrecyLevel") || "Não informado";
+    document.querySelector("#detailsDescription").textContent = value(item, "description") || "Nenhuma descrição cadastrada.";
     const secrecyLevel = value(item, "secrecy_level", "secrecyLevel");
     const visibility = secrecyLevel === "Todas as entidades"
       ? "Disponível para todas as entidades."
@@ -403,7 +478,7 @@ import ShareService from "../../_common/classes/ShareService.js";
     const item = occurrenceById.get(Number(id));
     if (!item || !shareDialog) return;
     activeShareOccurrence = item;
-    document.querySelector("#shareOccurrenceTitle").textContent = value(item,"title") || "Selecione os profissionais que poderão consultar este registro.";
+    document.querySelector("#shareOccurrenceTitle").textContent = value(item, "title") || "Selecione os profissionais que poderão consultar este registro.";
     shareRecipients.replaceChildren();
     const alreadyShared = new Set(sharesFor(id).map(userIdOf));
     const available = professionals.filter(person => idOf(person) !== currentUserId && !alreadyShared.has(idOf(person)));
@@ -413,38 +488,38 @@ import ShareService from "../../_common/classes/ShareService.js";
       empty.textContent = "Não há outros profissionais disponíveis para compartilhar este registro.";
       shareRecipients.appendChild(empty);
     } else {
-      available.forEach(person => shareRecipients.appendChild(createRecipientOption(person,"shareRecipient")));
+      available.forEach(person => shareRecipients.appendChild(createRecipientOption(person, "shareRecipient")));
     }
     shareDialog.showModal();
   }
 
   tabs.forEach(button => button.addEventListener("click", () => setTab(button.dataset.occurrenceTab)));
-  search?.addEventListener("input",renderCurrentTab);
+  search?.addEventListener("input", renderCurrentTab);
 
   document.querySelectorAll(".occurrence-tab-panel").forEach(panel => {
-    panel.addEventListener("click",event=>{
-      const button=event.target.closest("button[data-action]");
-      if(!button) return;
-      if(button.dataset.action==="details") openDetails(button.dataset.id);
-      if(button.dataset.action==="share") openShare(button.dataset.id);
+    panel.addEventListener("click", event => {
+      const button = event.target.closest("button[data-action]");
+      if (!button) return;
+      if (button.dataset.action === "details") openDetails(button.dataset.id);
+      if (button.dataset.action === "share") openShare(button.dataset.id);
     });
   });
 
-  document.querySelector("#btnNewOccurrence")?.addEventListener("click",()=>{
+  document.querySelector("#btnNewOccurrence")?.addEventListener("click", () => {
     form?.reset();
     if (formDialog?.showModal) formDialog.showModal();
-    else showFeedback("Seu navegador não oferece suporte ao formulário de diálogo.","error");
+    else showFeedback("Seu navegador não oferece suporte ao formulário de diálogo.", "error");
   });
 
-  document.querySelectorAll("[data-dialog-close]").forEach(button=>{
-    button.addEventListener("click",()=>{
+  document.querySelectorAll("[data-dialog-close]").forEach(button => {
+    button.addEventListener("click", () => {
       document.getElementById(button.dataset.dialogClose)?.close();
     });
   });
 
-  studentSelect?.addEventListener("change",()=>{
-    const selected=students.find(student=>idOf(student)===Number(studentSelect.value));
-    if(classInput) classInput.value=value(selected,"className","class_name")||"";
+  studentSelect?.addEventListener("change", () => {
+    const selected = students.find(student => idOf(student) === Number(studentSelect.value));
+    if (classInput) classInput.value = value(selected, "className", "class_name") || "";
   });
 
   function updateInitialSharingVisibility() {
@@ -457,104 +532,104 @@ import ShareService from "../../_common/classes/ShareService.js";
   secrecySelect?.addEventListener("change", updateInitialSharingVisibility);
   updateInitialSharingVisibility();
 
-  form?.addEventListener("submit",async event=>{
+  form?.addEventListener("submit", async event => {
     event.preventDefault();
-    const saveButton=document.querySelector("#saveOccurrenceButton");
-    const formData=new FormData(form);
-    const studentId=Number(formData.get("student_id"));
-    const sectorId=Number(formData.get("sectors_id"));
-    const title=String(formData.get("title")||"").trim();
-    const description=String(formData.get("description")||"").trim();
-    const type=String(formData.get("type")||"").trim();
-    const status=String(formData.get("status")||"Ativo");
-    const secrecy=String(formData.get("secrecy_level")||"Restrito");
-    const selectedStudent=students.find(student=>idOf(student)===studentId);
+    const saveButton = document.querySelector("#saveOccurrenceButton");
+    const formData = new FormData(form);
+    const studentId = Number(formData.get("student_id"));
+    const sectorId = Number(formData.get("sectors_id"));
+    const title = String(formData.get("title") || "").trim();
+    const description = String(formData.get("description") || "").trim();
+    const type = String(formData.get("type") || "").trim();
+    const status = String(formData.get("status") || "Ativo");
+    const secrecy = String(formData.get("secrecy_level") || "Restrito");
+    const selectedStudent = students.find(student => idOf(student) === studentId);
 
-    if(!currentUserId) {
-      showFeedback("Não foi possível identificar o usuário autenticado. Entre novamente no sistema.","error");
+    if (!currentUserId) {
+      showFeedback("Não foi possível identificar o usuário autenticado. Entre novamente no sistema.", "error");
       return;
     }
-    if(!studentId||!sectorId||!title||!description||!type||!selectedStudent) {
-      showFeedback("Preencha os campos obrigatórios antes de salvar.","error");
+    if (!studentId || !sectorId || !title || !description || !type || !selectedStudent) {
+      showFeedback("Preencha os campos obrigatórios antes de salvar.", "error");
       return;
     }
 
-    if(saveButton){saveButton.disabled=true;saveButton.textContent="Salvando...";}
+    if (saveButton) { saveButton.disabled = true; saveButton.textContent = "Salvando..."; }
     showFeedback("");
-    let createdServiceId=null;
+    let createdServiceId = null;
     try {
-      const serviceResponse=await serviceService.create({
-        user_id:currentUserId,
-        student_id:studentId,
-        observations:`${type}: ${title}`
+      const serviceResponse = await serviceService.create({
+        user_id: currentUserId,
+        student_id: studentId,
+        observations: `${type}: ${title}`
       });
-      if(![200,201].includes(Number(serviceResponse?.code)) || !serviceResponse?.data?.id) {
-        throw new Error(serviceResponse?.message||"Não foi possível registrar o vínculo do atendimento.");
+      if (![200, 201].includes(Number(serviceResponse?.code)) || !serviceResponse?.data?.id) {
+        throw new Error(serviceResponse?.message || "Não foi possível registrar o vínculo do atendimento.");
       }
-      createdServiceId=Number(serviceResponse.data.id);
+      createdServiceId = Number(serviceResponse.data.id);
 
-      const occurrence=new Occurrence({
-        services_id:createdServiceId,
-        sectors_id:sectorId,
-        user_id:currentUserId,
-        student_id:studentId,
+      const occurrence = new Occurrence({
+        services_id: createdServiceId,
+        sectors_id: sectorId,
+        user_id: currentUserId,
+        student_id: studentId,
         title,
         description,
         status,
-        secrecy_level:secrecy,
-        class:value(selectedStudent,"className","class_name")
+        secrecy_level: secrecy,
+        class: value(selectedStudent, "className", "class_name")
       });
-      const response=await occurrenceService.create(occurrence.toJSON());
-      if(![200,201].includes(Number(response?.code))) {
-        await serviceService.remove(createdServiceId).catch(()=>{});
-        throw new Error(response?.message||"Não foi possível salvar a ocorrência.");
+      const response = await occurrenceService.create(occurrence.toJSON());
+      if (![200, 201].includes(Number(response?.code))) {
+        await serviceService.remove(createdServiceId).catch(() => { });
+        throw new Error(response?.message || "Não foi possível salvar a ocorrência.");
       }
 
       const recipientIds = secrecy === "Entidades especificas"
         ? [...document.querySelectorAll('input[name="initialShare"]:checked')].map(input => Number(input.value))
         : [];
-      let shareErrors=0;
-      for(const recipientId of recipientIds) {
-        const shareResponse=await shareService.create({occurrence_id:response?.data?.id||0,user_id:recipientId});
-        if(![200,201].includes(Number(shareResponse?.code))) shareErrors++;
+      let shareErrors = 0;
+      for (const recipientId of recipientIds) {
+        const shareResponse = await shareService.create({ occurrence_id: response?.data?.id || 0, user_id: recipientId });
+        if (![200, 201].includes(Number(shareResponse?.code))) shareErrors++;
       }
 
       formDialog.close();
       form.reset();
-      if(shareErrors) showFeedback("Ocorrência salva, mas um ou mais compartilhamentos não foram concluídos.","warning");
-      else showFeedback("Ocorrência salva com sucesso.","success");
+      if (shareErrors) showFeedback("Ocorrência salva, mas um ou mais compartilhamentos não foram concluídos.", "warning");
+      else showFeedback("Ocorrência salva com sucesso.", "success");
       await loadReferenceData();
-      setTab(recipientIds.length?"shared":"created");
-    } catch(error) {
-      console.error("Erro ao salvar ocorrência:",error);
-      showFeedback(error.message||"Não foi possível salvar a ocorrência.","error");
+      setTab(recipientIds.length ? "shared" : "created");
+    } catch (error) {
+      console.error("Erro ao salvar ocorrência:", error);
+      showFeedback(error.message || "Não foi possível salvar a ocorrência.", "error");
     } finally {
-      if(saveButton){saveButton.disabled=false;saveButton.textContent="Salvar ocorrência";}
+      if (saveButton) { saveButton.disabled = false; saveButton.textContent = "Salvar ocorrência"; }
     }
   });
 
-  shareDialog?.querySelector("#shareOccurrenceForm")?.addEventListener("submit",async event=>{
+  shareDialog?.querySelector("#shareOccurrenceForm")?.addEventListener("submit", async event => {
     event.preventDefault();
-    if(!activeShareOccurrence)return;
-    const ids=[...shareRecipients.querySelectorAll('input[name="shareRecipient"]:checked')].map(input=>Number(input.value));
-    if(!ids.length){showFeedback("Selecione ao menos um profissional para compartilhar.","warning");return;}
-    const submit=shareDialog.querySelector('button[type="submit"]');
-    if(submit){submit.disabled=true;submit.textContent="Compartilhando...";}
-    let failed=0;
+    if (!activeShareOccurrence) return;
+    const ids = [...shareRecipients.querySelectorAll('input[name="shareRecipient"]:checked')].map(input => Number(input.value));
+    if (!ids.length) { showFeedback("Selecione ao menos um profissional para compartilhar.", "warning"); return; }
+    const submit = shareDialog.querySelector('button[type="submit"]');
+    if (submit) { submit.disabled = true; submit.textContent = "Compartilhando..."; }
+    let failed = 0;
     try {
-      for(const userId of ids) {
-        const response=await shareService.create({occurrence_id:idOf(activeShareOccurrence),user_id:userId});
-        if(![200,201].includes(Number(response?.code))) failed++;
+      for (const userId of ids) {
+        const response = await shareService.create({ occurrence_id: idOf(activeShareOccurrence), user_id: userId });
+        if (![200, 201].includes(Number(response?.code))) failed++;
       }
       shareDialog.close();
-      showFeedback(failed? "Alguns compartilhamentos não foram concluídos.":"Ocorrência compartilhada com sucesso.",failed?"warning":"success");
+      showFeedback(failed ? "Alguns compartilhamentos não foram concluídos." : "Ocorrência compartilhada com sucesso.", failed ? "warning" : "success");
       await loadReferenceData();
       setTab("shared");
-    } catch(error) {
-      showFeedback(error.message||"Não foi possível compartilhar a ocorrência.","error");
+    } catch (error) {
+      showFeedback(error.message || "Não foi possível compartilhar a ocorrência.", "error");
     } finally {
-      if(submit){submit.disabled=false;submit.textContent="Confirmar compartilhamento";}
-      activeShareOccurrence=null;
+      if (submit) { submit.disabled = false; submit.textContent = "Confirmar compartilhamento"; }
+      activeShareOccurrence = null;
     }
   });
 
@@ -563,9 +638,12 @@ import ShareService from "../../_common/classes/ShareService.js";
     try {
       await loadReferenceData();
       showFeedback("");
-    } catch(error) {
-      console.error("Erro ao inicializar ocorrências:",error);
-      showFeedback("Não foi possível carregar as informações. Confira a conexão com a API e tente novamente.","error");
+    } catch (error) {
+      console.error("Erro ao inicializar ocorrências:", error);
+      showFeedback(
+        error.message || "Não foi possível carregar as ocorrências.",
+        "error"
+      );
     }
   }
 

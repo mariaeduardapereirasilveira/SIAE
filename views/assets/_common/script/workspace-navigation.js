@@ -240,7 +240,23 @@ function resolveSiaeApiBase() {
 
         "/admin/students-inactive.html": "/admin/students.html",
         "/admin/sector-details.html": "/admin/sectors.html",
-"/admin/sectors-inactive.html": "/admin/sectors.html",
+        "/admin/sectors-inactive.html": "/admin/sectors.html",
+
+        "/app/student-details.html":
+          roleType === "admin"
+            ? "/admin/students.html"
+            : "/app/search.html",
+
+        "/app/student-history.html":
+          roleType === "admin"
+            ? "/admin/students.html"
+            : "/app/search.html",
+
+        "/app/student-documents.html":
+          roleType === "admin"
+            ? "/admin/students.html"
+            : "/app/search.html",
+
       };
 
       // Identifica qual item do menu deve ficar selecionado.

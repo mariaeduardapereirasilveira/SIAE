@@ -97,7 +97,7 @@ if (isActive) {
 }
 
   
-article.append(image, content);
+article.append(image, content, actions);
 
 // ==========================================
 // BOTÃO DETALHES DO SETOR
