@@ -4,6 +4,7 @@ import ServiceService from "../../_common/classes/ServiceService.js";
 import SectorService from "../../_common/classes/SectorService.js";
 import ShareService from "../../_common/classes/ShareService.js";
 import Toast from "../../_common/prototypes/Toast.js";
+import ConfirmModal from "../../_common/components/ConfirmModal.js";
 
 (() => {
   "use strict";
@@ -805,8 +806,46 @@ if (!sharesLoaded) {
     }
 }
 
-// 8. Abre a modal de detalhes.
+
+/*
+ * 8. Configura o gerenciamento da situação.
+ *
+ * Nesta etapa, o formulário será exibido
+ * ao profissional que criou a ocorrência.
+ */
+const statusEditor = document.querySelector(
+    "#occurrenceStatusEditor"
+);
+
+const statusSelect = document.querySelector(
+    "#detailsStatusSelect"
+);
+
+// Compara o ID do autor com o usuário autenticado.
+const isOwner = userIdOf(item) === currentUserId;
+
+if (statusEditor && statusSelect) {
+
+    // Mostra somente para o responsável.
+    statusEditor.hidden = !isOwner;
+
+    // Seleciona a situação atual da ocorrência.
+    statusSelect.value = value(item, "status") || "Ativo";
+}
+
+console.log("Permissão para alterar situação:", {
+    usuarioLogado: currentUserId,
+    autor: userIdOf(item),
+    isOwner,
+    formularioOculto: statusEditor?.hidden
+});
+
+
+// Guarda o ID da ocorrência exibida na modal.
+detailsDialog.dataset.occurrenceId = String(occurrenceId);
+// 9. Abre a modal de detalhes.
 detailsDialog.showModal();
+
 
     } catch (error) {
 
@@ -819,6 +858,143 @@ detailsDialog.showModal();
         );
     }
 }
+
+
+
+
+/**
+ * Altera a situação da ocorrência aberta.
+ *
+ * 1. Verifica a situação escolhida.
+ * 2. Solicita confirmação.
+ * 3. Atualiza a API.
+ * 4. Atualiza a interface e mostra o Toast.
+ */
+document.querySelector("#saveOccurrenceStatusButton")
+    ?.addEventListener("click", async () => {
+
+        const editor = document.querySelector(
+            "#occurrenceStatusEditor"
+        );
+
+        const select = document.querySelector(
+            "#detailsStatusSelect"
+        );
+
+        const button = document.querySelector(
+            "#saveOccurrenceStatusButton"
+        );
+
+        const statusLabel = document.querySelector(
+            "#detailsStatus"
+        );
+
+        const occurrenceId = Number(
+            detailsDialog?.dataset.occurrenceId
+        );
+
+        // Impede alterações sem uma ocorrência válida.
+        if (
+            !detailsDialog?.open ||
+            !editor ||
+            editor.hidden ||
+            !select ||
+            !button ||
+            !statusLabel ||
+            !Number.isSafeInteger(occurrenceId) ||
+            occurrenceId <= 0
+        ) {
+            showFeedback(
+                "Não foi possível identificar a ocorrência.",
+                "error"
+            );
+            return;
+        }
+
+        const currentStatus = statusLabel.textContent.trim();
+        const newStatus = select.value;
+
+        // Evita requisições desnecessárias.
+        if (newStatus === currentStatus) {
+            showFeedback(
+                "A ocorrência já está nessa situação.",
+                "warning"
+            );
+            return;
+        }
+
+        // Confirma antes de modificar o registro.
+        const confirmed = await ConfirmModal.confirmar({
+            titulo: "Alterar situação da ocorrência?",
+            mensagem:
+                `Deseja alterar a situação de "${currentStatus}" ` +
+                `para "${newStatus}"?`,
+            textoConfirmar: "Confirmar alteração",
+            textoCancelar: "Cancelar",
+            tipo: newStatus === "Encerrado"
+                ? "danger"
+                : "positive"
+        });
+
+        if (!confirmed) return;
+
+        button.disabled = true;
+        button.textContent = "Salvando...";
+
+        try {
+            // Utiliza o serviço existente do SIAE.
+            const response = await occurrenceService.update(
+                occurrenceId,
+                { status: newStatus }
+            );
+
+            if (Number(response?.code) !== 200) {
+                throw new Error(
+                    response?.message ||
+                    "Não foi possível atualizar a situação."
+                );
+            }
+
+            // Atualiza a situação na modal.
+            statusLabel.textContent = newStatus;
+
+            // Atualiza o registro carregado na página.
+            const cachedOccurrence =
+                occurrenceById.get(occurrenceId);
+
+            if (cachedOccurrence) {
+                cachedOccurrence.status = newStatus;
+            }
+
+            // Atualiza os cartões sem recarregar a página.
+            renderCurrentTab();
+
+            // Toast de sucesso.
+            showFeedback(
+                response.message ||
+                "Situação atualizada com sucesso!",
+                "success"
+            );
+
+        } catch (error) {
+            console.error(
+                "Erro ao alterar situação:",
+                error
+            );
+
+            showFeedback(
+                error.message ||
+                "Não foi possível salvar a alteração.",
+                "error"
+            );
+
+        } finally {
+            button.disabled = false;
+            button.textContent = "Salvar alteração";
+        }
+    });
+
+
 
   function openShare(id) {
     const item = occurrenceById.get(Number(id));

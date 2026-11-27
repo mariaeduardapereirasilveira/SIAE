@@ -7223,6 +7223,30 @@ dialog form {
   margin: 0 !important
 }
 
+
+
+/* =========================================
+   FAQ — Ferramentas administrativas
+========================================= */
+
+.faq-admin-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    max-width: 880px;
+    margin: 0 auto 30px;
+}
+
+.faq-admin-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
 .faq-category-grid {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;

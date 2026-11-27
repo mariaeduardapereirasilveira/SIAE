@@ -88,7 +88,6 @@ function resolveSiaeApiBase() {
     '/admin/professionals.html': ['admin'],
     '/admin/reports.html': ['admin'],
     '/admin/sectors.html': ['admin'],
-    '/admin/services.html': ['professional'],
     '/admin/students.html': ['admin'],
 
     '/app/appointments.html': ['professional'],
@@ -155,7 +154,7 @@ function resolveSiaeApiBase() {
         items: [
           { label: 'Atendimentos', page: '/app/appointments.html' },
           { label: 'Ocorrências', page: '/app/occurrences.html' },
-          { label: 'Serviços', page: '/admin/services.html' }
+          
         ]
       },
       {

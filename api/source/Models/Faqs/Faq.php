@@ -7,23 +7,23 @@ use Source\Core\Model;
 class Faq extends Model
 {
     private ?int $id;
-    private ?int $faqsCategoryId;
+private ?int $faqCategoryId;
     private ?string $question;
     private ?string $answer;
     private ?int $active;
 
-public function __construct(?int $id = null, ?int $faqsCategoryId = null,
+public function __construct(?int $id = null, ?int $faqCategoryId = null,
  ?string $question = null, ?string $answer = null, ?int $active = 1)
     {
         $this->id = $id;
-        $this->faqsCategoryId = $faqsCategoryId;
+       $this->faqCategoryId = $faqCategoryId;
         $this->question = $question;
         $this->answer = $answer;
         $this->active = $active;
 
         $this->table = 'faqs';
         $this->primaryKey = 'id';
-        $this->fillable = ['faqsCategoryId', 'question', 'answer', 'active'];
+        $this->fillable = ['faqCategoryId', 'question', 'answer', 'active'];
     }
 
   public function getId(): ?int
@@ -35,14 +35,14 @@ public function __construct(?int $id = null, ?int $faqsCategoryId = null,
     {
         $this->id = $id;
     }
-  public function getFaqsCategoryId(): ?int
+  public function getFaqCategoryId(): ?int
     {
-        return $this->faqsCategoryId;
+        return $this->faqCategoryId;
     }
 
-    public function setFaqsCategoryId(int $faqsCategoryId): void
+    public function setFaqCategoryId(int $faqCategoryId): void
     {
-        $this->faqsCategoryId = $faqsCategoryId;
+        $this->faqCategoryId = $faqCategoryId;
     }
   public function getQuestion(): ?string
     {

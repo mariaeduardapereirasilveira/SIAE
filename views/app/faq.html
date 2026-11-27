@@ -16,6 +16,12 @@
       href="../assets/public/styles/siae-identity-2026.css"
       rel="stylesheet"
     />
+      <link rel="stylesheet" href="../assets/_common/styles/confirm-modal.css">
+    <!-- Estilos das notificações Toast -->
+<link
+  href="../assets/_common/styles/toast.css"
+  rel="stylesheet"
+/>
   </head>
   <body class="workspace-page">
     <div class="app-layout">
@@ -66,10 +72,6 @@
           <a class="sidebar-item admin-only" href="../admin/sectors.html">
             Setores
           </a>
-
-          <a class="sidebar-item admin-only" href="../admin/services.html">
-            Serviços
-          </a>
         </nav>
         <div class="sidebar-footer">
           <a class="sidebar-user" href="profile.html">
@@ -109,7 +111,7 @@
               <line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg
             ><input
               aria-label="Buscar perguntas frequentes"
-              id="faqSearch"
+              id="faqHeaderSearch"
               placeholder="Buscar uma dúvida..."
               type="search"
             />
@@ -172,6 +174,15 @@
               SIAE.
             </p>
           </section>
+          <!-- Ferramentas de gerenciamento: apenas administradores -->
+          <div class="faq-admin-actions admin-only">
+          
+
+            <button type="button" class="btn btn-primary" id="createFaqButton">
+              + Nova pergunta
+            </button>
+          </div>
+
           <section
             aria-label="Assuntos de ajuda"
             class="faq-category-view"
@@ -267,6 +278,96 @@
         </section>
       </main>
     </div>
+
+    <!-- Modal de cadastro e edição de perguntas -->
+    <div
+      class="modal-overlay"
+      id="faqModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="faqModalTitle"
+      hidden
+    >
+      <div class="modal">
+        <div class="modal-header">
+          <div>
+            <h2 class="card-title" id="faqModalTitle">Nova pergunta</h2>
+            <p class="card-subtitle">
+              Preencha os dados da pergunta frequente.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-ghost btn-sm"
+            id="closeFaqModal"
+            aria-label="Fechar formulário"
+          >
+            ✕
+          </button>
+        </div>
+
+        <form id="faqForm">
+          <div class="modal-body">
+            <!-- Categoria da pergunta -->
+            <div class="form-group">
+              <label class="form-label" for="faqCategoryInput">
+                Categoria
+              </label>
+
+              <select
+                class="form-control"
+                id="faqCategoryInput"
+               name="faqs_category_id"
+                required
+              >
+                <option value="">Selecione uma categoria</option>
+              </select>
+            </div>
+
+            <!-- Pergunta -->
+            <div class="form-group">
+              <label class="form-label" for="faqQuestionInput">
+                Pergunta
+              </label>
+
+              <input
+                class="form-control"
+                type="text"
+                id="faqQuestionInput"
+                name="question"
+                placeholder="Digite a pergunta..."
+                required
+              />
+            </div>
+
+            <!-- Resposta -->
+            <div class="form-group">
+              <label class="form-label" for="faqAnswerInput"> Resposta </label>
+
+              <textarea
+                class="form-control"
+                id="faqAnswerInput"
+                name="answer"
+                rows="5"
+                placeholder="Digite a resposta detalhada..."
+                required
+              ></textarea>
+            </div>
+          </div>
+          <!-- Rodapé do formulário -->
+          <div class="modal-footer">
+            <button type="button"  class="btn btn-outline" id="cancelFaqModal">
+              Cancelar
+            </button>
+
+            <button type="submit" class="btn btn-primary" id="saveFaqButton">
+              Salvar pergunta
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
     <!-- FAQ Modal -->
     <!-- <div class="modal-overlay" id="faqModal">
         <div class="modal">
@@ -297,7 +398,7 @@
             </div>
         </div>
     </div> -->
-    <script defer="" src="../assets/app/script/faq.js"></script>
+    <script type="module" src="../assets/app/script/faq.js"></script>
     <script
       defer="True"
       src="../assets/_common/script/theme-toggle.js"

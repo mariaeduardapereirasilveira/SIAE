@@ -39,7 +39,7 @@ class Faqs extends Api
 
         $response = [
             "id" => $faq->getId(),
-            "faqsCategoryId" => $faq->getFaqsCategoryId(),
+            "faqsCategoryId" => $faq->getFaqCategoryId(),
             "question" => $faq->getQuestion(),
             "answer" => $faq->getAnswer(),
             "active" => $faq->getActive()
@@ -83,7 +83,7 @@ class Faqs extends Api
         }
         $response = [
             "faq_id" => $faq->getId(),
-            "faqs_category_id" => $faq->getFaqsCategoryId(),
+            "faqs_category_id" => $faq->getFaqCategoryId(),
             "question" => $faq->getQuestion(),
             "answer" => $faq->getAnswer(),
             "active" => $faq->getActive()
@@ -142,7 +142,7 @@ if(!$this->authToken('administrador')) {
         }
         $response = [
             "id" => $faq->getId(),
-            "faqsCategoryId" => $faq->getFaqsCategoryId(),
+            "faqsCategoryId" => $faq->getFaqCategoryId(),
             "question" => $faq->getQuestion(),
             "answer" => $faq->getAnswer(),
             "active" => $faq->getActive()

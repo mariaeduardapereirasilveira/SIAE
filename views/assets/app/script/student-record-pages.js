@@ -72,6 +72,113 @@
     historyList.replaceChildren(item);
   }
 
+
+  // Renderiza as ocorrências na linha do tempo do estudante
+function renderizarHistorico(ocorrencias) {
+    if (!historyList) return;
+
+    // Remove os elementos anteriores
+    historyList.replaceChildren();
+
+    // Verifica se existem ocorrências
+    if (ocorrencias.length === 0) {
+        showHistoryMessage(
+            "Nenhuma ocorrência encontrada para este estudante."
+        );
+        return;
+    }
+
+    // Cria um item para cada ocorrência
+    ocorrencias.forEach(ocorrencia => {
+        const item = document.createElement("li");
+
+        // Data do registro
+        const data = document.createElement("time");
+        const dataRegistro =
+            ocorrencia.created_at ?? ocorrencia.createdAt;
+
+        const dataConvertida = dataRegistro
+            ? new Date(dataRegistro)
+            : null;
+
+        data.textContent =
+            dataConvertida && !Number.isNaN(dataConvertida.getTime())
+                ? dataConvertida.toLocaleDateString("pt-BR")
+                : "Data não informada";
+
+        // Conteúdo do registro
+        const section = document.createElement("section");
+
+        const titulo = document.createElement("strong");
+        titulo.textContent = "Ocorrência registrada";
+
+        const situacao = document.createElement("small");
+        situacao.textContent =
+            `Situação: ${ocorrencia.status ?? "Não informada"}`;
+
+        // Agrupa os elementos
+        section.append(titulo, situacao);
+        item.append(data, section);
+
+        // Adiciona o registro à linha do tempo
+        historyList.appendChild(item);
+    });
+}
+  // Busca as ocorrências relacionadas ao estudante
+async function carregarHistorico(studentId) {
+    if (!historyList) return;
+
+    try {
+        showHistoryMessage("Carregando histórico...");
+
+        // 1. Inicializa o serviço de ocorrências
+        const occurrenceApi = new OccurrenceService();
+        occurrenceApi.setAuthToken(token);
+
+        // 2. Consulta as ocorrências disponíveis ao usuário
+        const response = await occurrenceApi.list();
+
+        // 3. Verifica se a consulta foi bem-sucedida
+        if (
+            Number(response?.code) !== 200 ||
+            !Array.isArray(response?.data)
+        ) {
+            throw new Error(
+                response?.message ||
+                "Não foi possível consultar o histórico."
+            );
+        }
+
+        // 4. Seleciona as ocorrências do estudante
+        const ocorrencias = response.data.filter(occurrence =>
+            String(occurrence.student_id) === String(studentId)
+        );
+
+        // 5. Organiza os registros da mais recente para a mais antiga
+        ocorrencias.sort((a, b) => {
+            const dataA = new Date(a.created_at ?? a.createdAt ?? 0);
+            const dataB = new Date(b.created_at ?? b.createdAt ?? 0);
+
+            return dataB - dataA;
+        });
+
+        // 6. Renderiza os registros na linha do tempo
+        renderizarHistorico(ocorrencias);
+
+    } catch (error) {
+        console.error("Erro ao carregar histórico:", error);
+
+        showHistoryMessage(
+            "Não foi possível carregar o histórico do estudante."
+        );
+
+        Toast.mostrar(
+            "Erro ao consultar as ocorrências.",
+            "error"
+        );
+    }
+}
+
   showHistoryMessage(
     "Carregando informações do estudante..."
   );
@@ -83,17 +190,20 @@
   let Users;
   let Toast;
   let FormControllerPrototype;
+  let OccurrenceService;
 
   try {
     const modules = await Promise.all([
       import("../../_common/classes/Users.js"),
       import("../../_common/prototypes/Toast.js"),
-      import("../../_common/prototypes/FormControllerPrototype.js")
+      import("../../_common/prototypes/FormControllerPrototype.js"),
+      import("../../_common/classes/OccurrenceService.js")
     ]);
 
     Users = modules[0].default;
     Toast = modules[1].default;
     FormControllerPrototype = modules[2].default;
+    OccurrenceService = modules[3].default;
 
   } catch (error) {
     console.error(
@@ -301,11 +411,7 @@
     // Foto de perfil.
     showStudentAvatar(student);
 
-    // Ainda não integramos a API de histórico.
-    // Não exibimos registros demonstrativos.
-    showHistoryMessage(
-      "O histórico de atendimentos ainda não foi integrado nesta página."
-    );
+    
 
     // Os documentos são carregados pelo arquivo
     // student-documents.js, que já possui sua
@@ -811,6 +917,10 @@ formulario.addEventListener("submit", async (event) => {
 
     // Renderiza os dados do estudante na página.
     renderStudent(student);
+    // Carrega o histórico somente na página correspondente
+if (historyList) {
+    await carregarHistorico(student.id);
+}
 
     // Configura o formulário de edição.
     configurarEdicao(student);
