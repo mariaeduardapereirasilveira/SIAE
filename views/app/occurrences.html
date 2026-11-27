@@ -17,6 +17,7 @@
       href="../assets/public/styles/siae-identity-2026.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="../assets/_common/styles/toast.css" />
   </head>
   <body class="workspace-page">
     <div class="app-layout">
@@ -418,6 +419,7 @@
           <div class="share-recipient-list" id="shareRecipients">
             <p>Carregando profissionais...</p>
           </div>
+          
         </div>
         <footer class="siae-dialog-footer">
           <button
@@ -470,11 +472,61 @@
           <small>Descrição</small>
           <p id="detailsDescription"></p>
         </section>
+
+        <!-- Profissional que criou a ocorrência -->
         <section class="occurrence-detail-description">
-          <small>Profissionais com acesso</small>
-          <p id="detailsSharedWith">Nenhum compartilhamento listado.</p>
+          <small>Responsável pelo registro</small>
+
+          <div class="occurrence-access-list" id="detailsOwner"></div>
         </section>
-      </div>
+
+        <!-- Compartilhamentos autorizados para esta conta -->
+        <section class="occurrence-detail-description">
+          <small>Profissionais com compartilhamento visível</small>
+
+          <div class="occurrence-access-list" id="detailsSharedWith"></div>
+        </section>
+      
+
+<!-- Gerenciamento da situação da ocorrência -->
+<section
+    class="occurrence-detail-description"
+    id="occurrenceStatusEditor"
+    hidden
+>
+    <label for="detailsStatusSelect">
+        Alterar situação da ocorrência
+    </label>
+
+    <div class="occurrence-status-actions">
+
+        <select
+            id="detailsStatusSelect"
+            name="status"
+        >
+            <option value="Ativo">Ativo</option>
+
+            <option value="Interrompido">
+                Interrompido
+            </option>
+
+            <option value="Encerrado">
+                Encerrado
+            </option>
+        </select>
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            id="saveOccurrenceStatusButton"
+        >
+            Salvar alteração
+        </button>
+
+    </div>
+</section>
+</div> 
+
       <footer class="siae-dialog-footer">
         <button
           class="btn btn-ghost"

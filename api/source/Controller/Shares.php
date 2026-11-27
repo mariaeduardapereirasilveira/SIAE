@@ -279,41 +279,140 @@ if (empty($shares)) {
 }
 
     //SELECTBYOCCURRENCE - get
-    public function listByOccurrence(array $data): void
+   
+/**
+ * Lista os compartilhamentos de uma ocorrência.
+ *
+ * Administrador: pode consultar os compartilhamentos.
+ * Autor: pode consultar os destinatários da ocorrência.
+ * Destinatário: pode consultar somente seu vínculo.
+ * Demais usuários: acesso negado.
+ */
+public function listByOccurrence(array $data): void
 {
-    if (
-        !isset($data["occurrence_id"]) ||
-        empty($data["occurrence_id"]) ||
-        !filter_var($data["occurrence_id"], FILTER_VALIDATE_INT)
-    ) {
+    $isAdministrator = $this->authToken("administrador");
+    $isProfessional = $this->authToken("profissional");
+
+    if (!$isAdministrator && !$isProfessional) {
         $this->call(
-            400,
-            "bad_request",
-            "ID da ocorrência é obrigatório e deve ser um número inteiro.",
+            401,
+            "unauthorized",
+            "Sessão inválida ou sem permissão.",
             "error"
         )->back();
         return;
     }
 
-    $share = new Share();
+    $occurrenceId = filter_var(
+        $data["occurrence_id"] ?? null,
+        FILTER_VALIDATE_INT
+    );
 
-    $shares = $share->selectByOccurrence($data["occurrence_id"]);
-
-    if (empty($shares)) {
+    if (!$occurrenceId || $occurrenceId <= 0) {
         $this->call(
-            404,
-            "not_found",
-            "Nenhum compartilhamento encontrado para esta ocorrência.",
+            400,
+            "bad_request",
+            "ID da ocorrência inválido.",
             "error"
-        )->back([]);
+        )->back();
         return;
     }
 
-    $this->call(
-        200,
-        "success",
-        "Compartilhamentos encontrados.",
-        "success"
-    )->back($shares);
+    try {
+        $pdo = \Source\Core\Connect::getInstance();
+
+        // Confirma se a ocorrência existe e está ativa.
+        $stmt = $pdo->prepare(
+            "SELECT user_id
+             FROM occurrences
+             WHERE id = :id
+               AND active = 1
+             LIMIT 1"
+        );
+
+        $stmt->execute(["id" => $occurrenceId]);
+        $ownerId = $stmt->fetchColumn();
+
+        if ($ownerId === false) {
+            $this->call(
+                404,
+                "not_found",
+                "Ocorrência não encontrada.",
+                "error"
+            )->back();
+            return;
+        }
+
+        // Administradores e autores podem consultar
+        // todos os compartilhamentos ativos.
+        $canSeeAll = $isAdministrator ||
+            (int) $ownerId === (int) $this->userAuthId;
+
+        if ($canSeeAll) {
+            $stmt = $pdo->prepare(
+                "SELECT *
+                 FROM shares
+                 WHERE occurrence_id = :occurrence_id
+                   AND active = 1
+                 ORDER BY created_at DESC, id DESC"
+            );
+
+            $stmt->execute([
+                "occurrence_id" => $occurrenceId
+            ]);
+
+        } else {
+            // Outros profissionais só podem consultar
+            // seu próprio compartilhamento ativo.
+            $stmt = $pdo->prepare(
+                "SELECT *
+                 FROM shares
+                 WHERE occurrence_id = :occurrence_id
+                   AND user_id = :user_id
+                   AND active = 1
+                 ORDER BY created_at DESC, id DESC"
+            );
+
+            $stmt->execute([
+                "occurrence_id" => $occurrenceId,
+                "user_id" => $this->userAuthId
+            ]);
+        }
+
+        $shares = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        // Não revela a existência de uma ocorrência
+        // a profissionais sem vínculo autorizado.
+        if (!$canSeeAll && empty($shares)) {
+            $this->call(
+                404,
+                "not_found",
+                "Compartilhamento não encontrado ou indisponível.",
+                "error"
+            )->back();
+            return;
+        }
+
+        // Lista vazia é válida para o autor.
+        $this->call(
+            200,
+            "success",
+            "Compartilhamentos consultados com sucesso.",
+            "success"
+        )->back($shares);
+
+    } catch (\Throwable $exception) {
+        error_log(
+            "[SIAE - Shares::listByOccurrence] "
+            . $exception->getMessage()
+        );
+
+        $this->call(
+            500,
+            "internal_server_error",
+            "Não foi possível consultar os compartilhamentos.",
+            "error"
+        )->back();
+    }
 }
 }

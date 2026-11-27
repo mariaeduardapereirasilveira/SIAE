@@ -290,3 +290,132 @@
         padding: 16px 20px !important;
     }
 }
+
+
+
+/* ==========================================
+   SIAE — PROFISSIONAIS DA OCORRÊNCIA
+   ========================================== */
+
+#occurrenceDetailsDialog .occurrence-access-list {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 220px), 1fr)
+    );
+    gap: 10px;
+    margin-top: 12px;
+}
+
+#occurrenceDetailsDialog .occurrence-access-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-width: 0;
+    padding: 13px;
+
+    background: #fff8f3;
+    border: 1px solid #e7cfc9;
+    border-radius: 14px;
+}
+
+#occurrenceDetailsDialog .occurrence-access-avatar {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+
+    overflow: hidden;
+    border-radius: 50%;
+
+    background: #efd4e0;
+    color: #48183f;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+#occurrenceDetailsDialog .occurrence-access-avatar img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#occurrenceDetailsDialog .occurrence-access-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+#occurrenceDetailsDialog .occurrence-access-info strong {
+    color: #3a1038;
+    font-size: 12px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+#occurrenceDetailsDialog .occurrence-access-info small {
+    color: #856c7c !important;
+    font-size: 10px !important;
+    font-weight: 400 !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+}
+
+#occurrenceDetailsDialog .occurrence-access-hint {
+    color: #856c7c;
+    font-size: 11px !important;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   SIAE — ROLAGEM DOS DETALHES DA OCORRÊNCIA
+   ========================================== */
+
+/* Organiza a modal em cabeçalho, conteúdo e rodapé */
+#occurrenceDetailsDialog[open] {
+    display: flex !important;
+    flex-direction: column !important;
+
+    /* Limita a altura ao espaço da tela */
+    height: auto !important;
+    max-height: min(90vh, 720px) !important;
+
+    /* Mantém as bordas arredondadas */
+    overflow: hidden !important;
+}
+
+/* Cabeçalho permanece visível */
+#occurrenceDetailsDialog > .siae-dialog-header {
+    flex: 0 0 auto !important;
+}
+
+/* Somente a área central terá rolagem */
+#occurrenceDetailsDialog > .siae-dialog-body {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    /* Rolagem suave e barra discreta */
+    scrollbar-width: thin;
+    scrollbar-color: #d5b4bf transparent;
+
+    overscroll-behavior: contain;
+}
+
+/* Rodapé permanece visível */
+#occurrenceDetailsDialog > .siae-dialog-footer {
+    flex: 0 0 auto !important;
+}

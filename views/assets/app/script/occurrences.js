@@ -3,6 +3,7 @@ import OccurrenceService from "../../_common/classes/OccurrenceService.js";
 import ServiceService from "../../_common/classes/ServiceService.js";
 import SectorService from "../../_common/classes/SectorService.js";
 import ShareService from "../../_common/classes/ShareService.js";
+import Toast from "../../_common/prototypes/Toast.js";
 
 (() => {
   "use strict";
@@ -72,12 +73,40 @@ import ShareService from "../../_common/classes/ShareService.js";
     return Number.isNaN(date.getTime()) ? String(raw) : date.toLocaleDateString("pt-BR");
   };
 
-  function showFeedback(message, type = "info") {
-    if (!feedback) return;
-    feedback.textContent = message;
-    feedback.dataset.type = type;
-    feedback.hidden = !message;
-  }
+  
+/**
+ * Exibe mensagens do sistema.
+ *
+ * Sucesso, aviso e erro utilizam o Toast.
+ * Mensagens informativas de carregamento
+ * continuam aparecendo na própria página.
+ */
+function showFeedback(message, type = "info") {
+
+    // Limpa mensagens anteriores.
+    if (feedback) {
+        feedback.textContent = "";
+        feedback.hidden = true;
+    }
+
+    // Não exibe nada quando a mensagem está vazia.
+    if (!message) return;
+
+    // Utiliza o Toast para feedback das operações.
+    if (["success", "warning", "error"].includes(type)) {
+
+        Toast.mostrar(message, type);
+
+        return;
+    }
+
+    // Mantém mensagens de carregamento na página.
+    if (feedback) {
+        feedback.textContent = message;
+        feedback.dataset.type = type;
+        feedback.hidden = false;
+    }
+}
 
   function normalizeResponse(payload) {
     if (Array.isArray(payload)) return payload;
@@ -436,43 +465,360 @@ import ShareService from "../../_common/classes/ShareService.js";
     detailButton.textContent = "Ver detalhes";
     actions.appendChild(detailButton);
 
-    if (currentTab !== "received" && userIdOf(item) === currentUserId) {
-      const shareButton = document.createElement("button");
-      shareButton.type = "button";
-      shareButton.className = "btn btn-outline btn-sm";
-      shareButton.dataset.action = "share";
-      shareButton.dataset.id = String(idOf(item));
-      shareButton.textContent = "Compartilhar";
-      actions.appendChild(shareButton);
-    }
+    
+// Identifica o nível de sigilo da ocorrência.
+const secrecyLevel = value(
+    item,
+    "secrecy_level",
+    "secrecyLevel"
+);
+
+// Compartilhamento individual somente quando:
+// 1. A ocorrência pertence ao profissional;
+// 2. Não estamos na aba de recebidas;
+// 3. O sigilo permite destinatários específicos.
+const canShare =
+    currentTab !== "received" &&
+    userIdOf(item) === currentUserId &&
+    secrecyLevel === "Entidades especificas";
+
+if (canShare) {
+    const shareButton = document.createElement("button");
+
+    shareButton.type = "button";
+    shareButton.className = "btn btn-outline btn-sm";
+    shareButton.dataset.action = "share";
+    shareButton.dataset.id = String(idOf(item));
+    shareButton.textContent = "Compartilhar";
+
+    actions.appendChild(shareButton);
+}
+
 
     footer.append(visibility, actions);
     article.append(header, meta, excerpt, footer);
     return article;
   }
 
-  function openDetails(id) {
-    const item = occurrenceById.get(Number(id));
-    if (!item || !detailsDialog) return;
-    const student = studentFor(item);
-    const sector = sectorFor(item);
-    const sharedWith = sharesFor(id).map(share => userById.get(userIdOf(share))).filter(Boolean).map(person => value(person, "name")).join(", ");
-    document.querySelector("#detailsOccurrenceTitle").textContent = value(item, "title") || "Ocorrência";
-    document.querySelector("#detailsOccurrenceMeta").textContent = `Criada em ${dateLabel(value(item, "created_at", "createdAt"))}`;
-    document.querySelector("#detailsStudent").textContent = value(student, "name") || `Estudante #${studentIdOf(item) || "—"}`;
-    document.querySelector("#detailsSector").textContent = value(sector, "name") || "Não informado";
-    document.querySelector("#detailsStatus").textContent = value(item, "status") || "Não informado";
-    document.querySelector("#detailsSecrecy").textContent = value(item, "secrecy_level", "secrecyLevel") || "Não informado";
-    document.querySelector("#detailsDescription").textContent = value(item, "description") || "Nenhuma descrição cadastrada.";
-    const secrecyLevel = value(item, "secrecy_level", "secrecyLevel");
-    const visibility = secrecyLevel === "Todas as entidades"
-      ? "Disponível para todas as entidades."
-      : secrecyLevel === "Apenas esta entidade"
-        ? "Visível somente à entidade responsável."
-        : (sharedWith || "Nenhum profissional selecionado para compartilhamento.");
-    document.querySelector("#detailsSharedWith").textContent = visibility;
-    detailsDialog.showModal();
-  }
+  
+
+
+/**
+ * Cria um cartão visual de profissional.
+ */
+function createAccessPersonCard(person, fallbackName, fallbackRole) {
+    const card = document.createElement("article");
+    card.className = "occurrence-access-card";
+
+    const name = String(
+        value(person, "name") || fallbackName
+    );
+
+    // Avatar com iniciais.
+    const avatar = document.createElement("span");
+    avatar.className = "occurrence-access-avatar";
+
+    avatar.textContent = name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(part => part.charAt(0))
+        .join("")
+        .toUpperCase();
+
+    // Utiliza a fotografia cadastrada, se disponível.
+    const photoUrl = String(value(person, "photoUrl") || "");
+
+    if (photoUrl) {
+        try {
+            const url = new URL(photoUrl, window.location.href);
+
+            if (
+                url.origin === window.location.origin &&
+                /\/uploads\/users\/[a-f0-9]{32}\.(?:jpg|png|webp)$/i
+                    .test(url.pathname)
+            ) {
+                const image = document.createElement("img");
+                image.src = url.href;
+                image.alt = "";
+
+                image.addEventListener(
+                    "error",
+                    () => image.remove(),
+                    { once: true }
+                );
+
+                avatar.appendChild(image);
+            }
+        } catch (error) {
+            console.warn("Foto de profissional inválida:", error);
+        }
+    }
+
+    // Nome e setor.
+    const info = document.createElement("div");
+    info.className = "occurrence-access-info";
+
+    const nameElement = document.createElement("strong");
+    nameElement.textContent = name;
+
+    const sectorElement = document.createElement("small");
+    sectorElement.textContent =
+        value(person, "sectorName", "sector_name") ||
+        fallbackRole;
+
+    info.append(nameElement, sectorElement);
+    card.append(avatar, info);
+
+    return card;
+}
+
+/**
+ * Renderiza o responsável e os compartilhamentos
+ * disponíveis para o usuário autenticado.
+ */
+function renderAccessList(item, shareRows = []) {
+    const ownerContainer =
+        document.querySelector("#detailsOwner");
+
+    const recipientsContainer =
+        document.querySelector("#detailsSharedWith");
+
+    if (!ownerContainer || !recipientsContainer) return;
+
+    ownerContainer.replaceChildren();
+    recipientsContainer.replaceChildren();
+
+    // 1. Identifica quem criou a ocorrência.
+    const ownerId = userIdOf(item);
+    const owner = userById.get(ownerId);
+
+    ownerContainer.appendChild(
+        createAccessPersonCard(
+            owner,
+            `Profissional #${ownerId}`,
+            "Responsável pelo registro"
+        )
+    );
+
+    // 2. Verifica o nível de sigilo.
+    const secrecyLevel = value(
+        item,
+        "secrecy_level",
+        "secrecyLevel"
+    );
+
+    // Exibe mensagens quando não há compartilhamento individual.
+    if (secrecyLevel !== "Entidades especificas") {
+        const message = document.createElement("p");
+        message.className = "occurrence-access-hint";
+
+        message.textContent =
+            secrecyLevel === "Todas as entidades"
+                ? "Registro com visibilidade geral autorizada."
+                : "Registro restrito à entidade responsável.";
+
+        recipientsContainer.appendChild(message);
+        return;
+    }
+
+ 
+/*
+ * Utiliza os compartilhamentos consultados
+ * diretamente na API da ocorrência.
+ *
+ * O backend já verifica quais destinatários
+ * o usuário autenticado pode visualizar.
+ */
+const recipientIds = [
+    ...new Set(
+        shareRows
+            .filter(share => Number(share.active) === 1)
+            .map(userIdOf)
+            .filter(id => Number.isSafeInteger(id) && id > 0)
+    )
+];
+
+
+    if (!recipientIds.length) {
+        const message = document.createElement("p");
+        message.className = "occurrence-access-hint";
+        message.textContent =
+            "Nenhum compartilhamento disponível para esta conta.";
+
+        recipientsContainer.appendChild(message);
+        return;
+    }
+
+    // 4. Cria um cartão para cada destinatário.
+    recipientIds.forEach(id => {
+        const person = userById.get(id);
+
+        recipientsContainer.appendChild(
+            createAccessPersonCard(
+                person,
+                `Profissional #${id}`,
+                "Compartilhamento ativo"
+            )
+        );
+    });
+}
+
+
+
+/**
+ * Consulta e apresenta os detalhes de uma ocorrência.
+ *
+ * O backend verifica se o usuário possui permissão
+ * para consultar o registro solicitado.
+ */
+async function openDetails(id) {
+
+    const occurrenceId = Number(id);
+
+    if (!detailsDialog) return;
+
+    if (!Number.isSafeInteger(occurrenceId) || occurrenceId <= 0) {
+        showFeedback("Ocorrência inválida.", "warning");
+        return;
+    }
+
+    try {
+
+        // 1. Consulta os detalhes pela API protegida.
+        const response = await occurrenceService.find(occurrenceId);
+
+        // 2. Verifica se a API autorizou a consulta.
+        if (
+            Number(response?.code) !== 200 ||
+            !response?.data ||
+            Array.isArray(response.data)
+        ) {
+            throw new Error(
+                response?.message ||
+                "Você não possui permissão para consultar esta ocorrência."
+            );
+        }
+
+        const item = response.data;
+
+        // 3. Localiza as informações relacionadas.
+        const student = studentFor(item);
+        const sector = sectorFor(item);
+
+        // 4. Preenche o cabeçalho.
+        document.querySelector("#detailsOccurrenceTitle").textContent =
+            value(item, "title") || "Ocorrência";
+
+        document.querySelector("#detailsOccurrenceMeta").textContent =
+            `Criada em ${dateLabel(value(item, "created_at", "createdAt"))}`;
+
+        // 5. Preenche as informações principais.
+        document.querySelector("#detailsStudent").textContent =
+            value(student, "name") ||
+            `Estudante #${studentIdOf(item) || "—"}`;
+
+        document.querySelector("#detailsSector").textContent =
+            value(sector, "name") || "Não informado";
+
+        document.querySelector("#detailsStatus").textContent =
+            value(item, "status") || "Não informado";
+
+        document.querySelector("#detailsSecrecy").textContent =
+            value(item, "secrecy_level", "secrecyLevel") ||
+            "Não informado";
+
+        document.querySelector("#detailsDescription").textContent =
+            value(item, "description") ||
+            "Nenhuma descrição cadastrada.";
+
+       
+
+/*
+ * 6. Consulta os compartilhamentos da ocorrência.
+ *
+ * A API determina quais destinatários podem
+ * ser visualizados pelo usuário autenticado.
+ */
+let shareRows = [];
+let sharesLoaded = false;
+
+try {
+    const shareResponse =
+        await shareService.listByOccurrence(occurrenceId);
+
+    // Temporário: permite verificar a resposta real da API.
+    console.log(
+        "Resposta da consulta de compartilhamentos:",
+        shareResponse
+    );
+
+    if (Number(shareResponse?.code) !== 200) {
+        throw new Error(
+            shareResponse?.message ||
+            `Falha na consulta. Código: ${shareResponse?.code ?? "desconhecido"}`
+        );
+    }
+
+    if (!Array.isArray(shareResponse.data)) {
+        throw new Error(
+            "A API não retornou uma lista válida de compartilhamentos."
+        );
+    }
+
+    shareRows = shareResponse.data;
+    sharesLoaded = true;
+
+} catch (error) {
+    console.error(
+        "Erro ao consultar os destinatários:",
+        error
+    );
+
+    // Utiliza o Toast já existente no SIAE.
+    showFeedback(
+        error.message ||
+        "Não foi possível consultar os compartilhamentos.",
+        "warning"
+    );
+}
+
+/*
+ * 7. Renderiza o responsável e os destinatários.
+ *
+ * O responsável aparece mesmo se a consulta
+ * dos compartilhamentos apresentar falha.
+ */
+renderAccessList(item, shareRows);
+
+/*
+ * Se a consulta falhar, não mostra uma mensagem
+ * incorreta dizendo que não existem destinatários.
+ */
+if (!sharesLoaded) {
+    const recipientsContainer =
+        document.querySelector("#detailsSharedWith");
+
+    if (recipientsContainer) {
+        recipientsContainer.textContent =
+            "Não foi possível consultar os profissionais compartilhados.";
+    }
+}
+
+// 8. Abre a modal de detalhes.
+detailsDialog.showModal();
+
+    } catch (error) {
+
+        console.error("Erro ao consultar ocorrência:", error);
+
+        // Nossa função showFeedback já utiliza o Toast.
+        showFeedback(
+            error.message || "Não foi possível abrir a ocorrência.",
+            "error"
+        );
+    }
+}
 
   function openShare(id) {
     const item = occurrenceById.get(Number(id));

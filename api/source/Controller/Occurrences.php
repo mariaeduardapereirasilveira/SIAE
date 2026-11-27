@@ -77,57 +77,147 @@ $this->call(
     }
 
     // LIST BY ID - GET
-    public function listById(array $data): void
-    {
-        if (
-            !isset($data["occurrence_id"]) ||
-            empty($data["occurrence_id"]) ||
-            !filter_var($data["occurrence_id"], FILTER_VALIDATE_INT)
-        ) {
-            $this->call(
-                400,
-                "bad_request",
-                "ID da ocorrência é obrigatório e deve ser um número inteiro",
-                "error"
-            )->back(null);
-            return;
+    
+/**
+ * Consulta uma ocorrência pelo ID.
+ *
+ * Administradores podem consultar os registros.
+ *
+ * Profissionais podem consultar ocorrências:
+ * - Criadas por eles;
+ * - Compartilhadas diretamente com eles;
+ * - Classificadas para todas as entidades.
+ */
+public function listById(array $data): void
+{
+    // 1. Verifica a autenticação.
+    $isAdministrator = $this->authToken("administrador");
+    $isProfessional = $this->authToken("profissional");
+
+    if (!$isAdministrator && !$isProfessional) {
+        $this->call(
+            401,
+            "unauthorized",
+            "Sessão inválida ou sem permissão.",
+            "error"
+        )->back();
+
+        return;
+    }
+
+    // 2. Valida o ID solicitado.
+    $occurrenceId = filter_var(
+        $data["occurrence_id"] ?? null,
+        FILTER_VALIDATE_INT
+    );
+
+    if (!$occurrenceId || $occurrenceId <= 0) {
+        $this->call(
+            400,
+            "bad_request",
+            "ID da ocorrência inválido.",
+            "error"
+        )->back();
+
+        return;
+    }
+
+    try {
+        $pdo = \Source\Core\Connect::getInstance();
+
+        // 3. Consulta somente ocorrências ativas.
+        $sql = "
+            SELECT o.*
+            FROM occurrences o
+            WHERE o.id = :occurrence_id
+              AND o.active = 1
+        ";
+
+        $params = [
+            "occurrence_id" => $occurrenceId
+        ];
+
+        // 4. Aplica as regras de acesso dos profissionais.
+        if (!$isAdministrator) {
+
+            $sql .= "
+                AND (
+                    o.user_id = :owner_id
+
+                    OR o.secrecy_level = 'Todas as entidades'
+
+                    OR EXISTS (
+                        SELECT 1
+                        FROM shares sh
+                        WHERE sh.occurrence_id = o.id
+                          AND sh.user_id = :recipient_id
+                          AND sh.active = 1
+                    )
+                )
+            ";
+
+            $params["owner_id"] = $this->userAuthId;
+            $params["recipient_id"] = $this->userAuthId;
         }
 
-        $occurrence = new Occurrence();
+        $sql .= " LIMIT 1";
 
-        if (!$occurrence->selectById((int)$data["occurrence_id"])) {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+
+        $occurrence = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        // Não revela se um registro restrito existe.
+        if (!$occurrence) {
             $this->call(
                 404,
                 "not_found",
-                "Ocorrência não encontrada",
+                "Ocorrência não encontrada ou indisponível.",
                 "error"
-            )->back(null);
+            )->back();
+
             return;
         }
 
+        // 5. Retorna os dados autorizados.
         $response = [
-            "id" => $occurrence->getId(),
-            "servicesId" => $occurrence->getServicesId(),
-            "sectorsId" => $occurrence->getSectorsId(),
-            "userId" => $occurrence->getUserId(),
-            "studentsId" => $occurrence->getStudentId(),
-            "title" => $occurrence->getTitle(),
-            "description" => $occurrence->getDescription(),
-            "status" => $occurrence->getStatus(),
-            "secrecyLevel" => $occurrence->getSecrecyLevel(),
-            "createdAt" => $occurrence->getCreatedAt(),
-            "updatedAt" => $occurrence->getUpdatedAt(),
-            "active" => $occurrence->getActive(),
-            "class" => $occurrence->getClass()
+            "id" => (int) $occurrence["id"],
+            "servicesId" => (int) $occurrence["service_id"],
+            "sectorsId" => (int) $occurrence["sector_id"],
+            "userId" => (int) $occurrence["user_id"],
+            "studentsId" => (int) $occurrence["student_id"],
+            "title" => $occurrence["title"],
+            "description" => $occurrence["description"],
+            "status" => $occurrence["status"],
+            "secrecyLevel" => $occurrence["secrecy_level"],
+            "createdAt" => $occurrence["created_at"],
+            "updatedAt" => $occurrence["updated_at"],
+            "active" => (int) $occurrence["active"],
+            "class" => $occurrence["class"]
         ];
 
         $this->call(
             200,
             "success",
-            "Ocorrência encontrada",
+            "Ocorrência encontrada.",
             "success"
         )->back($response);
+
+    } catch (\Throwable $exception) {
+
+        error_log(
+            "[SIAE - Occurrences::listById] "
+            . $exception->getMessage()
+        );
+
+        $this->call(
+            500,
+            "internal_server_error",
+            "Não foi possível consultar a ocorrência.",
+            "error"
+        )->back();
     }
+}
 
     // INSERT - POST
     public function insert(array $data): void
@@ -178,101 +268,196 @@ $this->call(
     }
 
     // UPDATE - PUT
-    public function update(array $data): void
-    {
-      
-        if (
-            !isset($data["occurrence_id"]) ||
-            empty($data["occurrence_id"]) ||
-            !filter_var($data["occurrence_id"], FILTER_VALIDATE_INT)
-        ) {
+    
+/**
+ * Altera a situação de uma ocorrência.
+ *
+ * Nesta etapa:
+ * - Administradores ativos podem alterar.
+ * - O profissional autor pode alterar.
+ * - Destinatários não recebem essa permissão
+ *   automaticamente pelo compartilhamento.
+ *
+ * A edição dos demais campos será tratada
+ * separadamente, com permissões específicas.
+ */
+public function update(array $data): void
+{
+    // 1. Verifica a autenticação.
+    $isAdministrator = $this->authToken("administrador");
+    $isProfessional = $this->authToken("profissional");
+
+    if (!$isAdministrator && !$isProfessional) {
+        $this->call(
+            401,
+            "unauthorized",
+            "Sessão inválida ou sem permissão.",
+            "error"
+        )->back();
+        return;
+    }
+
+    // 2. Valida o ID da ocorrência.
+    $occurrenceId = filter_var(
+        $data["occurrence_id"] ?? null,
+        FILTER_VALIDATE_INT
+    );
+
+    if (!$occurrenceId || $occurrenceId <= 0) {
+        $this->call(
+            400,
+            "bad_request",
+            "ID da ocorrência inválido.",
+            "error"
+        )->back();
+        return;
+    }
+
+    // 3. Recupera os dados de uma requisição PUT.
+    $contentType = $_SERVER["CONTENT_TYPE"] ?? "";
+
+    if (stripos($contentType, "application/x-www-form-urlencoded") !== false) {
+        parse_str(file_get_contents("php://input"), $body);
+        $data = array_merge($body, $data);
+    } elseif (stripos($contentType, "application/json") !== false) {
+        $body = json_decode(file_get_contents("php://input"), true);
+
+        if (is_array($body)) {
+            $data = array_merge($body, $data);
+        }
+    }
+
+    // 4. Aceita somente situações definidas no banco.
+    $status = trim((string) ($data["status"] ?? ""));
+
+    $allowedStatuses = [
+        "Ativo",
+        "Interrompido",
+        "Encerrado"
+    ];
+
+    if (!in_array($status, $allowedStatuses, true)) {
+        $this->call(
+            400,
+            "bad_request",
+            "Situação inválida para a ocorrência.",
+            "error"
+        )->back();
+        return;
+    }
+
+    try {
+        $pdo = \Source\Core\Connect::getInstance();
+
+        // 5. Confirma que a conta autenticada está ativa.
+        $stmt = $pdo->prepare(
+            "SELECT id
+             FROM users
+             WHERE id = :id
+               AND active = 1
+             LIMIT 1"
+        );
+
+        $stmt->execute([
+            "id" => $this->userAuthId
+        ]);
+
+        if (!$stmt->fetchColumn()) {
             $this->call(
-                400,
-                "bad_request",
-                "ID da ocorrência é obrigatório e deve ser um número inteiro",
+                403,
+                "forbidden",
+                "Sua conta não possui permissão ativa.",
                 "error"
-            )->back(null);
+            )->back();
             return;
         }
 
-        $occurrence = new Occurrence();
+        // 6. Localiza a ocorrência.
+        $stmt = $pdo->prepare(
+            "SELECT user_id, status
+             FROM occurrences
+             WHERE id = :id
+               AND active = 1
+             LIMIT 1"
+        );
 
-        if (isset($data["servicesId"])) {
-            $occurrence->setServicesId((int)$data["servicesId"]);
-        }
+        $stmt->execute([
+            "id" => $occurrenceId
+        ]);
 
-        if (isset($data["sectorsId"])) {
-            $occurrence->setSectorsId((int)$data["sectorsId"]);
-        }
+        $occurrence = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        if (isset($data["userId"])) {
-            $occurrence->setUserId((int)$data["userId"]);
-        }
-
-        if (isset($data["studentsId"])) {
-            $occurrence->setStudentsId((int)$data["studentsId"]);
-        }
-
-        if (isset($data["title"])) {
-            $occurrence->setTitle($data["title"]);
-        }
-
-        if (isset($data["description"])) {
-            $occurrence->setDescription($data["description"]);
-        }
-
-        if (isset($data["status"])) {
-            $occurrence->setStatus($data["status"]);
-        }
-
-        if (isset($data["secrecyLevel"])) {
-            $occurrence->setSecrecyLevel($data["secrecyLevel"]);
-        }
-
-        if (isset($data["class"])) {
-            $occurrence->setClass($data["class"]);
-        }
-
-        $hasFieldsToUpdate =
-            isset($data["servicesId"]) ||
-            isset($data["sectorsId"]) ||
-            isset($data["userId"]) ||
-            isset($data["studentsId"]) ||
-            isset($data["title"]) ||
-            isset($data["description"]) ||
-            isset($data["status"]) ||
-            isset($data["secrecyLevel"]) ||
-            isset($data["class"]);
-
-        if (!$hasFieldsToUpdate) {
+        if (!$occurrence) {
             $this->call(
-                400,
-                "bad_request",
-                "Nenhum campo para atualização foi informado.",
+                404,
+                "not_found",
+                "Ocorrência não encontrada.",
                 "error"
-            )->back(null);
+            )->back();
             return;
         }
 
-        $occurrence->setUpdatedAt(date("Y-m-d H:i:s"));
+        // 7. Somente o autor ou administrador pode alterar.
+        $isOwner = (int) $occurrence["user_id"]
+            === (int) $this->userAuthId;
 
-        if (!$occurrence->updateById((int)$data["occurrence_id"])) {
+        if (!$isAdministrator && !$isOwner) {
             $this->call(
-                500,
-                "internal_server_error",
-                $occurrence->getErrorMessage(),
+                403,
+                "forbidden",
+                "Você não possui permissão para alterar esta ocorrência.",
                 "error"
-            )->back(null);
+            )->back();
             return;
         }
 
+        // 8. Evita alterações desnecessárias.
+        if ($occurrence["status"] === $status) {
+            $this->call(
+                200,
+                "success",
+                "A ocorrência já possui esta situação.",
+                "success"
+            )->back();
+            return;
+        }
+
+        // 9. Atualiza somente a situação.
+        $stmt = $pdo->prepare(
+            "UPDATE occurrences
+             SET status = :status,
+                 updated_at = NOW()
+             WHERE id = :id
+               AND active = 1"
+        );
+
+        $stmt->execute([
+            "status" => $status,
+            "id" => $occurrenceId
+        ]);
+
+        // 10. Confirma a alteração.
         $this->call(
             200,
             "success",
-            "Ocorrência atualizada com sucesso!",
+            "Situação da ocorrência atualizada com sucesso!",
             "success"
         )->back();
+
+    } catch (\Throwable $exception) {
+        error_log(
+            "[SIAE - Occurrences::update] "
+            . $exception->getMessage()
+        );
+
+        $this->call(
+            500,
+            "internal_server_error",
+            "Não foi possível atualizar a ocorrência.",
+            "error"
+        )->back();
     }
+}
 
     // DELETE - DELETE
     public function delete(array $data): void

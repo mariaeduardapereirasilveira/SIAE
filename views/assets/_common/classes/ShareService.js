@@ -21,7 +21,7 @@ export default class ShareService extends HttpClientBase {
 
     // Cria um compartilhamento de ocorrência.
     async create(data) {
-        return this.postForm("/services/", data);
+        return this.postForm("/shares/", data);
     }
 
     // Desativa um compartilhamento.
